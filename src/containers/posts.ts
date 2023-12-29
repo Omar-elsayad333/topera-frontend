@@ -1,12 +1,10 @@
 'use server'
 
-export const getPosts = async (path: string) => {
+export const getPosts = async () => {
   try {
-    const res = await fetch(`https://jsonplaceholder.typicode.com/${path}`)
+    const res = await fetch(`https://jsonplaceholder.typicode.com/posts`)
 
     const jsonRes = await res.json()
-
-    console.log(jsonRes)
 
     return jsonRes
   } catch (error) {

@@ -1,6 +1,5 @@
 'use client'
 
-import '@/assets/globals.css'
 import { useEffect } from 'react'
 
 export default function TestTemplate({ children }: { children: React.ReactNode }) {
