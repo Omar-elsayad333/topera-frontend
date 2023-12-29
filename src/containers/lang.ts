@@ -5,4 +5,4 @@ const dictionaries: any = {
   ar: () => import('@/locales/ar.json').then((module) => module.default),
 }
 
-export const getDictionary = async (locale: string) => dictionaries[locale]()
+export const getDictionary = (locale: string) => dictionaries[locale]()

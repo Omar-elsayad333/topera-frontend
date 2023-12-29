@@ -1,11 +1,9 @@
-import Link from 'next/link'
 import Image from 'next/image'
 import styles from './page.module.css'
 
 export default function Home() {
   return (
     <main className={styles.main}>
-      <Link href="/test">to test</Link>
       <div className={styles.description}>
         <p>
           Get started by editing&nbsp;

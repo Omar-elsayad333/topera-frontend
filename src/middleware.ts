@@ -18,7 +18,7 @@ export function middleware(request: NextRequest) {
 
   if (locales.includes(pathLocale)) {
     // Set a lang cookie
-    response.cookies.set('locale', pathLocale)
+    response.cookies.set(process.env.LOCALE || '', pathLocale)
   }
 
   if (pathnameHasLocale) return response
