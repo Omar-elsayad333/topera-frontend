@@ -14,10 +14,7 @@ const LoginComponent: React.FC = () => {
   const { data, states, actions } = useLogin()
 
   return (
-    <form
-      style={{ background: '#fff', padding: '30px' }}
-      onSubmit={actions.handleSubmit(actions.onSubmit)}
-    >
+    <form onSubmit={actions.handleSubmit(actions.onSubmit)}>
       <TextFieldComponent
         name="email"
         control={states.control}

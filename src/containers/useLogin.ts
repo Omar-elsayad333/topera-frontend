@@ -2,8 +2,8 @@
 
 // Validation Controllers
 import { object, string } from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 interface IFormInput {
   email: string

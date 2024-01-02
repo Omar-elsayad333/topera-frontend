@@ -4,6 +4,9 @@ import type { Metadata } from 'next'
 import NavbarComponent from '@/components/layout/NavbarComponent'
 import FooterComponent from '@/components/layout/FooterComponent'
 
+// MUI
+import Container from '@mui/material/Container'
+
 interface IProps {
   params: any
   children: React.ReactNode
@@ -23,7 +26,9 @@ export default function RootLayout({ children, params }: IProps) {
     <html lang={params.locale} dir={params.locale === 'ar' ? 'rtl' : 'ltr'}>
       <body>
         <NavbarComponent />
-        {children}
+        <main>
+          <Container sx={{ mt: '70px' }}>{children}</Container>
+        </main>
         <FooterComponent />
       </body>
     </html>

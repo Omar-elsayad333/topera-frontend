@@ -11,7 +11,7 @@ type IProps = {
 }
 
 // them component
-const ThemeApp: React.FC<IProps> = ({ children }) => {
+const MuiTheme: React.FC<IProps> = ({ children }) => {
   const { darkMode } = useTheme()
 
   // Light Theme
@@ -211,4 +211,4 @@ const ThemeApp: React.FC<IProps> = ({ children }) => {
   return <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>{children}</ThemeProvider>
 }
 
-export default ThemeApp
+export default MuiTheme

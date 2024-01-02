@@ -1,4 +1,4 @@
-import { Metadata, NextPage } from 'next'
+import { NextPage } from 'next'
 
 // Components
 import TestComponent from '@/components/LoginComponent'
@@ -9,10 +9,6 @@ interface IProps {
   params: {
     locale: string
   }
-}
-
-export const metadata: Metadata = {
-  title: 'Login',
 }
 
 const Test: NextPage<IProps> = async ({ params: { locale } }) => {

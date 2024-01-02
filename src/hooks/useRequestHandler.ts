@@ -13,7 +13,7 @@ const useRequestHandler = (path: string) => {
   const getData = async () => {
     try {
       setLoading(true)
-      const res = await getPosts(path)
+      const res = await getPosts()
       console.log(res)
       setData(res)
     } catch (error: any) {
