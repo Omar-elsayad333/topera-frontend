@@ -1,5 +1,23 @@
 import type { Metadata } from 'next'
 
+// Styles
+import '@/assets/globals.css'
+import '@fontsource/roboto/300.css'
+import '@fontsource/roboto/400.css'
+import '@fontsource/roboto/500.css'
+import '@fontsource/roboto/700.css'
+
+// Types
+
+// Contexts
+import MuiTheme from '@/assets/themes'
+import { AlertProvider } from '@/contexts/AlertContext'
+import { ThemeProvider } from '@/contexts/ThemeContext'
+import { DictionaryProvider } from '@/contexts/DictionaryContext'
+
+// Containers
+import { getDictionary } from '@/containers/lang'
+
 // Components
 import NavbarComponent from '@/components/layout/NavbarComponent'
 import FooterComponent from '@/components/layout/FooterComponent'
@@ -21,15 +39,25 @@ export const metadata: Metadata = {
     'The coming era of Artificial Intelligence will not be the era of war, but be the era of deep compassion, non-violence, and love.',
 }
 
-export default function RootLayout({ children, params }: IProps) {
+export default async function RootLayout({ children, params }: IProps) {
+  const dict = await getDictionary(params.locale)
+
   return (
     <html lang={params.locale} dir={params.locale === 'ar' ? 'rtl' : 'ltr'}>
       <body>
-        <NavbarComponent />
-        <main>
-          <Container sx={{ mt: '70px' }}>{children}</Container>
-        </main>
-        <FooterComponent />
+        <DictionaryProvider dictionary={dict}>
+          <ThemeProvider>
+            <MuiTheme>
+              <AlertProvider>
+                <NavbarComponent />
+                <main>
+                  <Container sx={{ mt: '70px' }}>{children}</Container>
+                </main>
+                <FooterComponent />
+              </AlertProvider>
+            </MuiTheme>
+          </ThemeProvider>
+        </DictionaryProvider>
       </body>
     </html>
   )

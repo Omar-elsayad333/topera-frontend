@@ -1,7 +1,9 @@
 'use client'
 
-import { AlertColor } from '@mui/material'
 import { useState, useContext, createContext } from 'react'
+
+// Types
+import { AlertColor } from '@mui/material'
 
 type ContextState = {
   msg: string
@@ -26,10 +28,10 @@ const AlertContext = createContext<ContextState>({
 })
 
 type Props = {
-  children: React.ReactElement<any, any> & React.ReactNode
+  children: React.ReactElement<any, any> | React.ReactNode | React.ReactElement[]
 }
 
-const AlertProvider: React.FC<Props> = ({ children }) => {
+export const AlertProvider: React.FC<Props> = ({ children }) => {
   const [msg, setMsg] = useState<string>('')
   const [state, setState] = useState<boolean>(false)
   const [msgType, setMsgType] = useState<AlertColor>('info')
@@ -76,12 +78,5 @@ const AlertProvider: React.FC<Props> = ({ children }) => {
   return <AlertContext.Provider value={contextValue}>{children}</AlertContext.Provider>
 }
 
-function useAlert(): ContextState {
-  const context = useContext(AlertContext)
-  if (context === undefined) {
-    throw new Error('useAuth must be used within a AuthProvider')
-  }
-  return context
-}
-
-export { AlertProvider, useAlert }
+// Custom hook that shorthands the context!
+export const useAlert = () => useContext<ContextState>(AlertContext)

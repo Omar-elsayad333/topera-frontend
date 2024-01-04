@@ -1,6 +1,10 @@
 'use client'
 
+import Link from 'next/link'
 import { useState } from 'react'
+import routes from '@/routes/routes'
+import { useParams } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 // MUI
 import Box from '@mui/material/Box'
@@ -17,10 +21,20 @@ import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 
-const pages = ['Products', 'Pricing', 'Blog']
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
+const pages = [
+  { text: 'Home', value: routes.home },
+  { text: 'Login', value: routes.login },
+  { text: 'Signup', value: routes.signup },
+]
+
+const settings = [
+  { text: 'arabic', value: 'ar' },
+  { text: 'english', value: 'en' },
+]
 
 const NavbarComponent = () => {
+  const params = useParams()
+  const pathname = usePathname()
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
 
@@ -91,9 +105,11 @@ const NavbarComponent = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              {pages.map((page: any, index: number) => (
+                <MenuItem key={index} onClick={handleCloseNavMenu}>
+                  <Link href={`/${params.locale}/${page.value}`}>
+                    <Typography textAlign="center">{page.text}</Typography>
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
@@ -118,14 +134,16 @@ const NavbarComponent = () => {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
+            {pages.map((page: any, index: number) => (
+              <Link href={`/${params.locale}/${page.value}`}>
+                <Button
+                  key={index}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  {page.text}
+                </Button>
+              </Link>
             ))}
           </Box>
 
@@ -151,10 +169,12 @@ const NavbarComponent = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
+              {settings.map((setting: any, index: number) => (
+                <Link href={`/${setting.value}${pathname.split(`/${params.locale}`)[1]}`}>
+                  <MenuItem key={index} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting.text}</Typography>
+                  </MenuItem>
+                </Link>
               ))}
             </Menu>
           </Box>
@@ -165,18 +185,3 @@ const NavbarComponent = () => {
 }
 
 export default NavbarComponent
-
-// <Container maxWidth="xl" component={'header'}>
-//   <Typography component={'p'} variant="body1">
-//     This Is My Layout
-//   </Typography>
-//   <Box>
-//     <Link href={routes.login}>Login</Link>
-//   </Box>
-//   <Button variant="contained">
-//     <Link href="/ar/login">Arabic</Link>
-//   </Button>
-//   <Button variant="contained">
-//     <Link href="/en/login">English</Link>
-//   </Button>
-// </Container>

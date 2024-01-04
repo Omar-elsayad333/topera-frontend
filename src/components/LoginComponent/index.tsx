@@ -1,5 +1,8 @@
 'use client'
 
+// Contexts
+import { useAlert } from '@/contexts/AlertContext'
+
 // Containers
 import useLogin from '@/containers/useLogin'
 
@@ -9,9 +12,16 @@ import PasswordInputComponent from '@/components/FormInputs/PasswordInputCompone
 
 // MUI
 import Button from '@mui/material/Button'
+import useErrorHandler from '@/hooks/useErrorHandler'
+import AlertNotify from '@/components/shared/AlertComponent/AlertNotify'
 
-const LoginComponent: React.FC = () => {
+interface IProps {
+  dict: any
+}
+
+const LoginComponent: React.FC<IProps> = ({ dict }) => {
   const { data, states, actions } = useLogin()
+  const { errorHandler } = useErrorHandler('omar', dict)
 
   return (
     <form onSubmit={actions.handleSubmit(actions.onSubmit)}>
@@ -33,6 +43,10 @@ const LoginComponent: React.FC = () => {
       <Button variant="contained" onClick={() => actions.reset()}>
         reset
       </Button>
+      <Button variant="contained" onClick={() => errorHandler()}>
+        error
+      </Button>
+      <AlertNotify />
     </form>
   )
 }

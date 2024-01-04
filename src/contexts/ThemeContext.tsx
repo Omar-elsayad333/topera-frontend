@@ -9,7 +9,7 @@ type ContextState = {
 }
 
 type Props = {
-  children: React.ReactElement<any, any> | React.ReactNode
+  children: React.ReactElement<any, any> | React.ReactNode | React.ReactElement[]
 }
 
 const initialValues = {
@@ -85,4 +85,4 @@ export const ThemeProvider: React.FC<Props> = ({ children }) => {
 }
 
 // Custom hook that shorthands the context!
-export const useTheme = () => useContext(ThemeContext)
+export const useTheme = () => useContext<ContextState>(ThemeContext)

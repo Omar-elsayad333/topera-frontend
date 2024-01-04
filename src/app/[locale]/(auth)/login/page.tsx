@@ -17,7 +17,7 @@ const Test: NextPage<IProps> = async ({ params: { locale } }) => {
   return (
     <section>
       <h1>{dict.login.title}</h1>
-      <TestComponent />
+      <TestComponent dict={dict} />
     </section>
   )
 }

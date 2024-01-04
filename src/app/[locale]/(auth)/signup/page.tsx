@@ -7,7 +7,7 @@ import { getPosts } from '@/containers/posts'
 // Components
 
 // MUI
-import { Container } from '@mui/material'
+import Container from '@mui/material/Container'
 
 interface IProps {
   params: {
@@ -18,6 +18,7 @@ interface IProps {
 const Signup: NextPage<IProps> = async ({ params: { locale } }) => {
   //   const dict = await getDictionary(locale)
   const data: any = await getPosts()
+
   return (
     <section>
       <Container maxWidth="xl">
