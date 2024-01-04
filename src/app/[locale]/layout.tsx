@@ -15,8 +15,8 @@ import { AlertProvider } from '@/contexts/AlertContext'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 import { DictionaryProvider } from '@/contexts/DictionaryContext'
 
-// Containers
-import { getDictionary } from '@/containers/lang'
+// Config
+import { getDictionary } from '@/config/localeConfig'
 
 // Components
 import NavbarComponent from '@/components/layout/NavbarComponent'
@@ -38,6 +38,40 @@ export const metadata: Metadata = {
   },
   description:
     'The coming era of Artificial Intelligence will not be the era of war, but be the era of deep compassion, non-violence, and love.',
+  themeColor: '#fff',
+  colorScheme: 'light dark',
+  // twitter: {
+  //   site: '',
+  //   siteId: '',
+  //   creator: '',
+  //   creatorId: '',
+  //   description: '',
+  //   title: '',
+  //   images: '',
+  // },
+  // openGraph: {
+  //   determiner: '',
+  //   title: '',
+  //   description: '',
+  //   emails: '',
+  //   phoneNumbers: '',
+  //   faxNumbers: '',
+  //   siteName: '',
+  //   locale: '',
+  //   alternateLocale: '',
+  //   images: '',
+  //   audio: '',
+  //   videos: '',
+  //   url: '',
+  //   countryName: '',
+  //   ttl: 1,
+  // },
+  // appleWebApp: {
+  //   capable: true,
+  //   title: '',
+  //   startupImage: '',
+  //   statusBarStyle: 'default',
+  // },
 }
 
 export default async function RootLayout({ children, params }: IProps) {

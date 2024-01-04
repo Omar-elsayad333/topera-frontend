@@ -149,10 +149,11 @@ const NavbarComponent = () => {
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Image
-                  src={MeAvatar}
-                  alt="omar elsayad"
+                  priority
                   width={40}
                   height={40}
+                  src={MeAvatar}
+                  alt="omar elsayad"
                   style={{ objectFit: 'cover', borderRadius: '50%' }}
                 />
               </IconButton>

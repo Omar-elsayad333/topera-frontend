@@ -3,7 +3,7 @@ import { NextPage } from 'next'
 // Components
 import TestComponent from '@/components/LoginComponent'
 
-import { getDictionary } from '@/containers/lang'
+import { getDictionary } from '@/config/localeConfig'
 
 interface IProps {
   params: {
