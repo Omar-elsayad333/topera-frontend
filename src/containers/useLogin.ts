@@ -5,6 +5,13 @@ import { object, string } from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
+// Hooks
+import useErrorHandler from '@/hooks/useErrorHandler'
+
+// Contexts
+import { useAlert } from '@/contexts/AlertContext'
+import { useDictionary } from '@/contexts/DictionaryContext'
+
 interface IFormInput {
   email: string
   password: string
@@ -18,6 +25,10 @@ const validationSchema = object({
 })
 
 const useLogin = () => {
+  const { dict } = useDictionary()
+  const { setSuccessMessage } = useAlert()
+  const { errorHandler } = useErrorHandler()
+
   const {
     reset,
     control,
@@ -31,7 +42,10 @@ const useLogin = () => {
     },
   })
 
-  const onSubmit = (data: any) => console.log(data)
+  const onSubmit = (data: any) => {
+    setSuccessMessage(dict.alert.success)
+    console.log(data)
+  }
 
   return {
     data: {},
@@ -43,6 +57,7 @@ const useLogin = () => {
       reset,
       onSubmit,
       handleSubmit,
+      errorHandler,
     },
   }
 }

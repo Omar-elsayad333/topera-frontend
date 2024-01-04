@@ -24,6 +24,7 @@ import FooterComponent from '@/components/layout/FooterComponent'
 
 // MUI
 import Container from '@mui/material/Container'
+import AlertNotify from '@/components/shared/AlertComponent/AlertNotify'
 
 interface IProps {
   params: any
@@ -52,6 +53,7 @@ export default async function RootLayout({ children, params }: IProps) {
                 <NavbarComponent />
                 <main>
                   <Container sx={{ mt: '70px' }}>{children}</Container>
+                  <AlertNotify />
                 </main>
                 <FooterComponent />
               </AlertProvider>

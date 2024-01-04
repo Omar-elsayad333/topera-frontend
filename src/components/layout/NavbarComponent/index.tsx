@@ -1,16 +1,19 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 import routes from '@/routes/routes'
 import { useParams } from 'next/navigation'
 import { usePathname } from 'next/navigation'
 
+// Assets
+import MeAvatar from '@/assets/images/me.jpg'
+
 // MUI
 import Box from '@mui/material/Box'
 import Menu from '@mui/material/Menu'
 import AppBar from '@mui/material/AppBar'
-import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import Toolbar from '@mui/material/Toolbar'
 import Tooltip from '@mui/material/Tooltip'
@@ -61,8 +64,6 @@ const NavbarComponent = () => {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -107,7 +108,7 @@ const NavbarComponent = () => {
             >
               {pages.map((page: any, index: number) => (
                 <MenuItem key={index} onClick={handleCloseNavMenu}>
-                  <Link href={`/${params.locale}/${page.value}`}>
+                  <Link href={`/${params.locale}${page.value}`}>
                     <Typography textAlign="center">{page.text}</Typography>
                   </Link>
                 </MenuItem>
@@ -118,8 +119,6 @@ const NavbarComponent = () => {
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -135,9 +134,8 @@ const NavbarComponent = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page: any, index: number) => (
-              <Link href={`/${params.locale}/${page.value}`}>
+              <Link key={index} href={`/${params.locale}${page.value}`}>
                 <Button
-                  key={index}
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
@@ -150,7 +148,13 @@ const NavbarComponent = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Image
+                  src={MeAvatar}
+                  alt="omar elsayad"
+                  width={40}
+                  height={40}
+                  style={{ objectFit: 'cover', borderRadius: '50%' }}
+                />
               </IconButton>
             </Tooltip>
             <Menu
@@ -170,8 +174,11 @@ const NavbarComponent = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting: any, index: number) => (
-                <Link href={`/${setting.value}${pathname.split(`/${params.locale}`)[1]}`}>
-                  <MenuItem key={index} onClick={handleCloseUserMenu}>
+                <Link
+                  key={index}
+                  href={`/${setting.value}${pathname.split(`/${params.locale}`)[1]}`}
+                >
+                  <MenuItem onClick={handleCloseUserMenu}>
                     <Typography textAlign="center">{setting.text}</Typography>
                   </MenuItem>
                 </Link>

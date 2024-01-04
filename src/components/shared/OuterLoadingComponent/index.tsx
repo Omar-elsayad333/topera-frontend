@@ -1,5 +1,5 @@
-const SplashComponent = () => {
+const OuterLoadingComponent = () => {
   return <></>
 }
 
-export default SplashComponent
+export default OuterLoadingComponent

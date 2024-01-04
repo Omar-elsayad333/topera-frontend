@@ -1,7 +1,8 @@
 {
   "welcome": "Welcome",
   "alert": {
-    "test": "error"
+    "test": "error",
+    "success": "success"
   },
   "login": {
     "title": "Login"

@@ -2,10 +2,12 @@
 
 // Contexts
 import { useAlert } from '@/contexts/AlertContext'
+import { useDictionary } from '@/contexts/DictionaryContext'
 
 // Containers
 
-const useErrorHandler = (error: any, dict: any) => {
+const useErrorHandler = () => {
+  const { dict } = useDictionary()
   const { setErrorMessage } = useAlert()
 
   //   if (error.response.data.message && !error.response.data.errors) {
