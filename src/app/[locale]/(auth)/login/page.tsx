@@ -1,9 +1,7 @@
 import { NextPage } from 'next'
 
 // Components
-import TestComponent from '@/components/LoginComponent'
-
-import { getDictionary } from '@/config/localeConfig'
+import LoginComponent from '@/components/LoginComponent'
 
 interface IProps {
   params: {
@@ -11,15 +9,12 @@ interface IProps {
   }
 }
 
-const Test: NextPage<IProps> = async ({ params: { locale } }) => {
-  const dict = await getDictionary(locale)
-
+const Login: NextPage<IProps> = async ({ params: { locale } }) => {
   return (
     <section>
-      <h1>{dict.login.title}</h1>
-      <TestComponent dict={dict} />
+      <LoginComponent />
     </section>
   )
 }
 
-export default Test
+export default Login
