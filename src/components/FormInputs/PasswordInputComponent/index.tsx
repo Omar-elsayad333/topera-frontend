@@ -55,7 +55,9 @@ const PasswordInputComponent: React.FC<IProps> = (props) => {
               </InputAdornment>
             }
           />
-          <FormHelperText error>{props.errors[props.name]?.message}</FormHelperText>
+          <FormHelperText sx={{ textAlign: 'unset' }} error>
+            {props.errors[props.name]?.message}
+          </FormHelperText>
         </FormGroup>
       )}
     />

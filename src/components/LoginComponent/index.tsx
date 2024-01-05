@@ -17,14 +17,14 @@ const LoginComponent: React.FC = () => {
     <form onSubmit={actions.handleSubmit(actions.onSubmit)}>
       <TextFieldComponent
         name="email"
-        control={states.control}
         errors={states.errors}
+        control={states.control}
         placeholder="Enter your email"
       />
       <PasswordInputComponent
         name="password"
-        control={states.control}
         errors={states.errors}
+        control={states.control}
         placeholder="Enter your password"
       />
       <Button variant="contained" type="submit">
@@ -33,7 +33,7 @@ const LoginComponent: React.FC = () => {
       <Button variant="contained" onClick={() => actions.reset()}>
         reset
       </Button>
-      <Button variant="contained" onClick={() => actions.errorHandler()}>
+      <Button variant="contained" onClick={() => actions.errorHandler('omar')}>
         error
       </Button>
     </form>

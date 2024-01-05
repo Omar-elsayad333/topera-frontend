@@ -31,7 +31,9 @@ const TextFieldComponent: React.FC<IProps> = (props) => {
             placeholder={props.placeholder}
             error={!!props.errors[props.name]?.message}
           />
-          <FormHelperText error>{props.errors[props.name]?.message}</FormHelperText>
+          <FormHelperText sx={{ textAlign: 'unset' }} error>
+            {props.errors[props.name]?.message}
+          </FormHelperText>
         </FormGroup>
       )}
     />
