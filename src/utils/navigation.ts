@@ -3,10 +3,10 @@
  * Usage: Call function in useEffect(  ,[]) or directly
  */
 export function disableBackNavigation() {
-  window.history.pushState(null, '', window.location.href);
+  window.history.pushState(null, '', window.location.href)
   window.onpopstate = function () {
-    window.history.go(1);
-  };
+    window.history.go(1)
+  }
 }
 
 /**
@@ -14,8 +14,8 @@ export function disableBackNavigation() {
  */
 export function navigateTo(url: string, replaceInsteadOfPush = false, optionalTitle = '') {
   if (replaceInsteadOfPush) {
-    window.history.replaceState(null, optionalTitle, url);
+    window.history.replaceState(null, optionalTitle, url)
   } else {
-    window.history.pushState(null, optionalTitle, url);
+    window.history.pushState(null, optionalTitle, url)
   }
 }

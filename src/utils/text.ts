@@ -1,7 +1,7 @@
-export const CHARS_NUMERIC = '0123456789';
-export const CHARS_ALPHA_LOWER = 'abcdefghijklmnopqrstuvwxyz';
-export const CHARS_ALPHA_UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-export const CHARS_ALPHA_NUMERIC = CHARS_NUMERIC + CHARS_ALPHA_LOWER + CHARS_ALPHA_UPPER;
+export const CHARS_NUMERIC = '0123456789'
+export const CHARS_ALPHA_LOWER = 'abcdefghijklmnopqrstuvwxyz'
+export const CHARS_ALPHA_UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+export const CHARS_ALPHA_NUMERIC = CHARS_NUMERIC + CHARS_ALPHA_LOWER + CHARS_ALPHA_UPPER
 
 /**
  * Generate a random string of a given length using a given set of characters
@@ -10,14 +10,14 @@ export const CHARS_ALPHA_NUMERIC = CHARS_NUMERIC + CHARS_ALPHA_LOWER + CHARS_ALP
  * @returns {string} - the generated string
  */
 export function randomText(length: number, allowedChars = CHARS_ALPHA_NUMERIC) {
-  let result = '';
-  const charLength = allowedChars.length;
-  let counter = 0;
+  let result = ''
+  const charLength = allowedChars.length
+  let counter = 0
   while (counter < length) {
-    result += allowedChars.charAt(Math.floor(Math.random() * charLength));
-    counter += 1;
+    result += allowedChars.charAt(Math.floor(Math.random() * charLength))
+    counter += 1
   }
-  return result;
+  return result
 }
 /**
  * Compare two strings including null and undefined values
@@ -27,9 +27,9 @@ export function randomText(length: number, allowedChars = CHARS_ALPHA_NUMERIC) {
  */
 export function compareTexts(a: string | null | undefined, b: string | null | undefined) {
   if (a === undefined || a === null || a === '') {
-    return b === undefined || b === null || b === '';
+    return b === undefined || b === null || b === ''
   }
-  return a === b;
+  return a === b
 }
 
 /**
@@ -37,13 +37,13 @@ export function compareTexts(a: string | null | undefined, b: string | null | un
  * @param {string} s - the string to capitalize
  * @returns {string} - the capitalized string
  */
-export const capitalize = (s: string): string => s.charAt(0).toUpperCase() + s.substring(1);
+export const capitalize = (s: string): string => s.charAt(0).toUpperCase() + s.substring(1)
 
 /**
  * Generate a random color as #RRGGBB value
  * @returns {string} - the generated color
  */
 export function randomColor() {
-  const color = Math.floor(Math.random() * 16777215).toString(16);
-  return '#' + color;
+  const color = Math.floor(Math.random() * 16777215).toString(16)
+  return '#' + color
 }

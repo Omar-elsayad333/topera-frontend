@@ -1,11 +1,6 @@
 // Helpers
 
-export const imagesFilter = (
-  data: any,
-  imageName: string,
-  placholderName: string,
-  defaultImage: any,
-) => {
+export const imagesFilter = (data: any, imageName: string, placholderName: string, defaultImage: any) => {
   if (data && Array.isArray(data)) {
     for (let image of data) {
       if (image.name === imageName) {

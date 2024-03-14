@@ -5,7 +5,7 @@ import { forwardRef } from 'react'
 import { IStyle } from '@/types/IStyle'
 
 // Contexts
-import { useAlert } from '@/contexts/AlertContext'
+// import { useAlert } from '@/contexts/AlertContext'
 
 // MUI
 import { useTheme } from '@mui/material'
@@ -24,65 +24,66 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) 
 })
 
 const AlertNotify: React.FC = () => {
-  const theme = useTheme()
-  const { msg, state, msgType, handleState }: IAlertNotify = useAlert()
+  // const theme = useTheme()
+  // const { msg, state, msgType, handleState }: IAlertNotify = useAlert()
 
-  const style: IStyle = {
-    root: {
-      '.MuiPaper-root': {
-        gap: '25px',
-        fontSize: '14px',
-        fontWeight: '700',
-        background: 'rgba(20, 28, 38, 0.50)',
-        borderRadius: '10px',
-        border: '2px solid',
-        borderColor: () => {
-          if (msgType == 'success') {
-            return theme.palette.success.main
-          }
-          if (msgType == 'error') {
-            return theme.palette.error.main
-          }
-          if (msgType == 'warning') {
-            return theme.palette.warning.main
-          }
-          if (msgType == 'info') {
-            return theme.palette.info.main
-          }
-          return null
-        },
-        boxShadow: 'none',
-        color: () => {
-          if (msgType == 'success') {
-            return theme.palette.success.main
-          }
-          if (msgType == 'error') {
-            return theme.palette.error.main
-          }
-          if (msgType == 'warning') {
-            return theme.palette.warning.main
-          }
-          if (msgType == 'info') {
-            return theme.palette.info.main
-          }
-          return null
-        },
-      },
-    },
-  }
+  // const style: IStyle = {
+  //   root: {
+  //     '.MuiPaper-root': {
+  //       gap: '25px',
+  //       fontSize: '14px',
+  //       fontWeight: '700',
+  //       background: 'rgba(20, 28, 38, 0.50)',
+  //       borderRadius: '10px',
+  //       border: '2px solid',
+  //       borderColor: () => {
+  //         if (msgType == 'success') {
+  //           return theme.palette.success.main
+  //         }
+  //         if (msgType == 'error') {
+  //           return theme.palette.error.main
+  //         }
+  //         if (msgType == 'warning') {
+  //           return theme.palette.warning.main
+  //         }
+  //         if (msgType == 'info') {
+  //           return theme.palette.info.main
+  //         }
+  //         return null
+  //       },
+  //       boxShadow: 'none',
+  //       color: () => {
+  //         if (msgType == 'success') {
+  //           return theme.palette.success.main
+  //         }
+  //         if (msgType == 'error') {
+  //           return theme.palette.error.main
+  //         }
+  //         if (msgType == 'warning') {
+  //           return theme.palette.warning.main
+  //         }
+  //         if (msgType == 'info') {
+  //           return theme.palette.info.main
+  //         }
+  //         return null
+  //       },
+  //     },
+  //   },
+  // }
 
   return (
-    <Snackbar
-      open={state}
-      sx={style.root}
-      autoHideDuration={3000}
-      onClose={() => handleState()}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-    >
-      <Alert onClose={() => handleState()} severity={msgType}>
-        {msg}
-      </Alert>
-    </Snackbar>
+    // <Snackbar
+    //   open={state}
+    //   sx={style.root}
+    //   autoHideDuration={3000}
+    //   onClose={() => handleState()}
+    //   anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+    // >
+    //   <Alert onClose={() => handleState()} severity={msgType}>
+    //     {msg}
+    //   </Alert>
+    // </Snackbar>
+    <></>
   )
 }
 

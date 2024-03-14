@@ -3,7 +3,7 @@
  * @param {number} interval - number of milliseconds to wait for
  */
 export async function sleep(interval = 1000) {
-  return new Promise((resolve) => setTimeout(resolve, interval));
+  return new Promise((resolve) => setTimeout(resolve, interval))
 }
 
-export default sleep;
+export default sleep

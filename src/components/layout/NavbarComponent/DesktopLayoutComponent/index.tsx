@@ -3,14 +3,14 @@
 import Link from 'next/link'
 import { Orbitron } from 'next/font/google'
 
+// Next intl
+import { useTranslations } from 'next-intl'
+
 // Hooks
 import { useLocale } from '@/hooks'
 
 // Constants
 import { navigations } from '@/constants'
-
-// Contexts
-import { useDictionary } from '@/contexts/DictionaryContext'
 
 // MUI
 import Box from '@mui/material/Box'
@@ -24,11 +24,17 @@ const orbitron = Orbitron({
 
 const DesktopLayoutComponent: React.FC = () => {
   const theme = useTheme()
-  const { dict } = useDictionary()
+  const t = useTranslations('nav')
   const { comparePathnames, addLocale } = useLocale()
 
   return (
-    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'space-evenly' }}>
+    <Box
+      sx={{
+        flexGrow: 1,
+        display: { xs: 'none', md: 'flex' },
+        justifyContent: 'space-evenly',
+      }}
+    >
       {navigations.map((page: any, index: number) => (
         <Link key={index} href={addLocale(page.value)}>
           <Button
@@ -42,7 +48,7 @@ const DesktopLayoutComponent: React.FC = () => {
             }}
           >
             <p className={`${orbitron.className} ${comparePathnames(page.value) && 'active-nav-link'}`}>
-              {dict?.nav[page.text]}
+              {t(page.text)}
             </p>
           </Button>
         </Link>

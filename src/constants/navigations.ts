@@ -1,13 +1,13 @@
-import { Routes } from "@/routes/routes";
+import { Routes } from '@/routes/routes'
 
 interface IMeta {
-  navName: string;
+  navName: string
 }
 
 interface INavigations {
-  text: string;
-  value: string;
-  meta?: IMeta;
+  text: string
+  value: string
+  meta?: IMeta
 }
 
 /*
@@ -15,38 +15,38 @@ interface INavigations {
  */
 export const navigations: readonly INavigations[] = [
   {
-    text: "home",
+    text: 'home',
     value: Routes.home,
     meta: {
-      navName: "/",
+      navName: '/',
     },
   },
   {
-    text: "roadmaps",
+    text: 'roadmaps',
     value: Routes.roadmaps,
     meta: {
-      navName: "/roadmaps",
+      navName: '/roadmaps',
     },
   },
   {
-    text: "matching",
+    text: 'matching',
     value: Routes.matching,
     meta: {
-      navName: "matching",
+      navName: 'matching',
     },
   },
   {
-    text: "news",
+    text: 'news',
     value: Routes.news,
     meta: {
-      navName: "/news",
+      navName: '/news',
     },
   },
   {
-    text: "contact_us",
+    text: 'contact_us',
     value: Routes.contactUs,
     meta: {
-      navName: "/contact_us",
+      navName: '/contact_us',
     },
   },
-];
+]

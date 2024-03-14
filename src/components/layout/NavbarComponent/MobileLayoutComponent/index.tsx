@@ -2,14 +2,13 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { useParams } from 'next/navigation'
 import { Orbitron } from 'next/font/google'
+
+// Next intl
+import { useTranslations } from 'next-intl'
 
 // Constants
 import { navigations } from '@/constants'
-
-// Contexts
-import { useDictionary } from '@/contexts/DictionaryContext'
 
 // Hooks
 import { useLocale } from '@/hooks'
@@ -29,9 +28,8 @@ const orbitron = Orbitron({
 })
 
 const MobileLayoutComponent: React.FC = () => {
-  const params = useParams()
   const theme = useTheme()
-  const { dict } = useDictionary()
+  const t = useTranslations('nav')
   const { comparePathnames, addLocale } = useLocale()
 
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
@@ -87,7 +85,7 @@ const MobileLayoutComponent: React.FC = () => {
                 }}
               >
                 <p className={`${orbitron.className} ${comparePathnames(page.value) && 'active-nav-link'}`}>
-                  {dict?.nav[page.text]}
+                  {t(page.text)}
                 </p>
               </Button>
             </Link>

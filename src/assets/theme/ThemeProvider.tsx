@@ -22,7 +22,7 @@ const ThemeProvider: FunctionComponent<PropsWithChildren> = ({ children }) => {
 
   const currentTheme = useMemo(
     () => getThemeByDarkMode(state.darkMode, state.locale),
-    [state.darkMode] // Observe AppStore and re-create the theme when .darkMode changes
+    [state.darkMode, state.locale] // Observe AppStore and re-create the theme when .darkMode changes
   )
 
   useEffect(() => setLoading(false), []) // Set .loading to false when the component is mounted

@@ -5,7 +5,6 @@ import { useState } from 'react'
 
 // Assets
 import MeAvatar from '@/assets/images/me.jpg'
-import NotificationIcon from '@/assets/icons/notificationIcon.svg'
 
 // Components
 import ThemeSwitchComponent from '@/components/shared/ThemeSwitchComponent'
@@ -20,7 +19,7 @@ import IconButton from '@mui/material/IconButton'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 
 // Constants
-import { locales } from '@/constants'
+import { localesObject } from '@/constants'
 
 // Hooks
 import { useLocale } from '@/hooks'
@@ -76,7 +75,7 @@ const SettingComponent: React.FC = () => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        {locales.map((locale: any, index: number) => (
+        {localesObject.map((locale: any, index: number) => (
           <MenuItem key={index} onClick={() => changeLocale(locale.value)}>
             <Typography textAlign="center">{locale.text}</Typography>
           </MenuItem>

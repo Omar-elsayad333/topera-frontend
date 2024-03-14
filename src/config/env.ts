@@ -15,10 +15,10 @@ const env = {
   refreshExpiry: process.env.NEXT_PUBLIC_REFRESH_EXPIRY,
 
   // API/Backend basic URL
-  apiUrl: process.env.NEXT_PUBLIC_API_URL,
+  api_url: process.env.NEXT_PUBLIC_API_URL,
 
   // Next Auth
   next_auth_secret: process.env.NEXT_PUBLIC_AUTH_SECRET,
-};
+}
 
-export default env;
+export default env

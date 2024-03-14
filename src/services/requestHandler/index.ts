@@ -10,4 +10,3 @@ export async function getData(url: string) {
 
   return res.json()
 }
- 

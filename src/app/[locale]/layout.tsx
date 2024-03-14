@@ -9,14 +9,13 @@ import '@fontsource/roboto/700.css'
 
 // Contexts
 import { AppStoreProvider } from '@/stores'
-import { AlertProvider } from '@/contexts/AlertContext'
-import { DictionaryProvider } from '@/contexts/DictionaryContext'
+// import { AlertProvider } from "@/stores/AlertContext";
+
+// Next Intl
+import { NextIntlClientProvider, useMessages } from 'next-intl'
 
 // Theme
 import { ThemeProvider } from '@/assets/theme'
-
-// Config
-import { getDictionary } from '@/config/locale'
 
 // Components
 import Layout from '@/components/layout'
@@ -38,24 +37,27 @@ export const metadata: Metadata = {
     'The coming era of Artificial Intelligence will not be the era of war, but be the era of deep compassion, non-violence, and love.',
 }
 
-export default async function RootLayout({ children, params }: IProps) {
-  const dict = await getDictionary(params.locale)
+export default function RootLayout({ children, params }: IProps) {
+  const locale = params.locale
+
+  // Receive messages provided in `i18n.ts`
+  const messages = useMessages()
 
   return (
-    <html lang={params.locale} dir={params.locale === 'ar' ? 'rtl' : 'ltr'}>
+    <html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
       <body>
-        <AppStoreProvider locale={params.locale}>
-          <ThemeProvider>
-            <DictionaryProvider dictionary={dict}>
-              <AlertProvider>
-                <Layout>
-                  <main>{children}</main>
-                  <AlertNotify />
-                </Layout>
-              </AlertProvider>
-            </DictionaryProvider>
-          </ThemeProvider>
-        </AppStoreProvider>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <AppStoreProvider locale={locale}>
+            <ThemeProvider>
+              {/* <AlertProvider> */}
+              <Layout>
+                <main>{children}</main>
+                {/* <AlertNotify /> */}
+              </Layout>
+              {/* </AlertProvider> */}
+            </ThemeProvider>
+          </AppStoreProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   )

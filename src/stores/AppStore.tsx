@@ -1,13 +1,6 @@
 'use client'
 import React from 'react'
-import {
-  createContext,
-  useReducer,
-  useContext,
-  FunctionComponent,
-  Dispatch,
-  ComponentType,
-} from 'react'
+import { createContext, useReducer, useContext, FunctionComponent, Dispatch, ComponentType } from 'react'
 // import useMediaQuery from '@mui/material/useMediaQuery';
 import AppReducer from '@/stores/AppReducer'
 import { IS_SERVER } from '@/utils/environment'
