@@ -1,119 +1,43 @@
-'use client'
-import env from '@/config/env'
-import { signIn } from 'next-auth/react'
-import { ChangeEvent, FormEvent, useState } from 'react'
-
-type LoginInput = {
-  username: string
-  password: string
-}
-
-type PageProps = {
-  searchParams: { error?: string }
-}
-
-enum OAuthProviders {
-  GOOGLE,
-  GITHUB,
-  LINKEDIN,
-}
-
-export default function LoginPage({ searchParams }: PageProps) {
-  const [inputs, setInputs] = useState<LoginInput>({
-    username: '',
-    password: '',
-  })
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const name = event.target.name
-    const value = event.target.value
-    setInputs((values) => ({ ...values, [name]: value }))
-  }
-
-  const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault()
-    await signIn('credentials', {
-      email: inputs.username,
-      password: inputs.password,
-      callbackUrl: '/',
-    })
-  }
-
-  const googleLogin = async () => {
-    try {
-      const res = await fetch(`${env.api_url}/oauth/${OAuthProviders.GOOGLE}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-
-      const jsonRes = await res.json()
-      console.log(jsonRes)
-
-      return jsonRes.data
-    } catch (error) {
-      return null
-    }
-  }
-
+import React from 'react'
+import { Box } from '@mui/material'
+import Image from 'next/image'
+import logo from '@/assets/images/logo.svg'
+const logIn: React.FC = () => {
   return (
-    <>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
-                Username
-              </label>
-              <div className="mt-2">
-                <input
-                  id="username"
-                  name="username"
-                  type="text"
-                  autoComplete="off"
-                  required
-                  value={inputs.username || ''}
-                  onChange={handleChange}
-                  className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                  Password
-                </label>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="off"
-                  required
-                  value={inputs.password || ''}
-                  onChange={handleChange}
-                  className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Sign in
-              </button>
-            </div>
-            {searchParams.error && <p className="text-red-600 text-center capitalize">Login failed.</p>}
-          </form>
-
-          <button onClick={googleLogin}>google</button>
-        </div>
-      </div>
-    </>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: '100vh',
+        backgroundImage: `url(https://s3-alpha-sig.figma.com/img/f19d/933c/6f2efafd34ea15e733cacfcf5b43be87?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=FQcQDLVqwP9POSCs7u2-nYJyqYpFnDjSGWFuN~Hw4KNNkxcuOekUvr~1GhmANQ-wusW3SvjU4pxA2halsTA0qj0wfkr4IwLc0r8c~vouJYY5ZPcsHSr8QeWZwkJFpHUl0La8rnIQSyJZpWTg3OBlzWN4WvW4WgfmDqb-pgAxoae8cGJXroFdZbrFkp~l0viEWJ~XQSzaR5SOvrll6P7xyQHpjPCZdvO8sIayFGjINzwYeIA5seY~NSmQ5F-mlC9W9RB4vvgZSvu0QCgLtliOxVSeVnEdmfNhu7daQVMEU8YR7SmjDRJcKM~IIKvNDIfQuR6S0mkxtWYN0~sG8e9NSw) !important`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <Box
+        sx={{
+          minWidth: '699px',
+          display: 'flex',
+          flexDirection: 'column',
+          backgroundColor: 'white',
+          border: '1px solid transparent',
+          borderRadius: '8px',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Image height={48} width={51} src={logo} alt={'topera logo'} />
+        </Box>
+      </Box>
+    </Box>
   )
 }
+
+export default logIn

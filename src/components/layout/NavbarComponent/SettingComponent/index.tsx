@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 
 // Assets
-import MeAvatar from '@/assets/images/me.jpg'
+import MeAvatar from '@/assets/images/me.jpeg'
 
 // Components
 import ThemeSwitchComponent from '@/components/shared/ThemeSwitchComponent'
