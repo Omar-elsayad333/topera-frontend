@@ -18,6 +18,7 @@ export const Routes = {
   contactUs: '/contact-us',
   matching: '/matching',
   matchingQuestions: '/matching-questions',
+  test: '/test',
 
   // PRIVATE
   profile: '/profile',
@@ -53,6 +54,7 @@ export const getPublicRoutes = () => {
     Routes.confirmEmail,
     Routes.matching,
     Routes.matchingQuestions,
+    Routes.test,
   ]
 }
 
