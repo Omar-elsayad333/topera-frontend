@@ -4,6 +4,7 @@ import { selectSchema } from './validation'
 import { Ioption, IFormInput } from './types'
 
 const options: Ioption[] = [
+  { id: 0, name: 'select' },
   { id: 1, name: 'sss' },
   { id: 2, name: '4s' },
   { id: 4, name: '43s' },
@@ -17,7 +18,7 @@ export const useSelect = () => {
     resolver: yupResolver(selectSchema),
     defaultValues: {
       multi: [],
-      single: { id: 2, name: '4s' },
+      single: { id: 0, name: 'select' },
     },
   })
   const onSubmit = handleSubmit(

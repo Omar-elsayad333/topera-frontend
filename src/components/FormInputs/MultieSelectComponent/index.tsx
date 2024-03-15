@@ -4,6 +4,7 @@ import { Controller } from 'react-hook-form'
 import FormControl from '@mui/material/FormControl'
 import { Autocomplete, TextField, MenuItem } from '@mui/material'
 import Chip from '@mui/material/Chip'
+import FormHelperText from '@mui/material/FormHelperText'
 interface IMultiSelectComponentProps<T extends object> {
   id: string
   label: string
@@ -14,7 +15,7 @@ interface IMultiSelectComponentProps<T extends object> {
   inputValue: keyof T
   menuItemSx?: object
   control: any
-  errors: unknown
+  errors?: any
 }
 
 const MultiSelectComponent = <T extends object>({
@@ -30,14 +31,12 @@ const MultiSelectComponent = <T extends object>({
   control,
 }: IMultiSelectComponentProps<T>) => {
   return (
-    <FormControl error={!!errors}>
+    <FormControl fullWidth error={!!errors}>
       <Controller
         name={name}
         control={control}
         render={({ field }) => (
           <Autocomplete
-            fullWidth
-            {...field}
             multiple
             freeSolo
             id={name}
@@ -49,7 +48,7 @@ const MultiSelectComponent = <T extends object>({
               )
               field.onChange(uniArray)
             }}
-            value={field.value || []}
+            value={field.value}
             renderInput={(params) => <TextField {...params} label={label} />}
             renderTags={(value: readonly T[], getTagProps) =>
               value.map((option: T, index: number) => (
@@ -76,6 +75,7 @@ const MultiSelectComponent = <T extends object>({
           />
         )}
       />
+      {errors?.type !== 'required' && <FormHelperText sx={{ textAlign: 'unset' }}>{errors?.message}</FormHelperText>}
     </FormControl>
   )
 }

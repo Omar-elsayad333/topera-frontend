@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import FormControl from '@mui/material/FormControl'
 import { Autocomplete, MenuItem, TextField } from '@mui/material'
 import { Controller } from 'react-hook-form'
+import FormHelperText from '@mui/material/FormHelperText'
 
 interface ISelectComponentProps<T extends object> {
   label: string
@@ -12,7 +13,7 @@ interface ISelectComponentProps<T extends object> {
   inputValue: keyof T
   name: string
   control: any
-  errors: unknown
+  errors?: any
   menuItemSx?: object
 }
 
@@ -28,13 +29,12 @@ const SelectComponent = <T extends object>({
   menuItemSx,
 }: ISelectComponentProps<T>) => {
   return (
-    <FormControl sx={{ width: '900px' }} error={!!errors}>
+    <FormControl fullWidth error={!!errors}>
       <Controller
         name={name}
         control={control}
         render={({ field }) => (
           <Autocomplete
-            {...field}
             isOptionEqualToValue={(option, value) => option[inputValue] === value[inputValue]}
             id={id}
             options={options}
@@ -50,6 +50,7 @@ const SelectComponent = <T extends object>({
           />
         )}
       />
+      {errors?.type !== 'required' && <FormHelperText sx={{ textAlign: 'unset' }}>{errors?.message}</FormHelperText>}
     </FormControl>
   )
 }
