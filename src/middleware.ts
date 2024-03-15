@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 // Next auth
 import { withAuth } from 'next-auth/middleware'
@@ -13,11 +13,11 @@ import { middlewares } from '@/middlewares'
 import { localesArray } from '@/constants'
 
 // Routes
-import { Routes, getPublicRoutes } from '@/routes/routes'
+import { Routes, getPrivateRoutes, getPublicRoutes } from '@/routes/routes'
 
 const locales = localesArray
-// const publicPages = getPublicRoutes();
 const publicPages = getPublicRoutes()
+const privatePages = getPrivateRoutes()
 
 const intlMiddleware = createIntlMiddleware({
   locales,
@@ -53,12 +53,19 @@ export default async function middleware(request: NextRequest) {
     `^(/(${locales.join('|')}))?(${publicPages.flatMap((p) => (p === '/' ? ['', '/'] : p)).join('|')})/?$`,
     'i'
   )
+  const privatePathnameRegex = RegExp(
+    `^(/(${locales.join('|')}))?(${privatePages.flatMap((p) => (p === '/' ? ['', '/'] : p)).join('|')})/?$`,
+    'i'
+  )
   const isPublicPage = publicPathnameRegex.test(request.nextUrl.pathname)
+  const isPrivatePage = privatePathnameRegex.test(request.nextUrl.pathname)
 
   if (isPublicPage) {
     return intlMiddleware(request)
-  } else {
+  } else if (isPrivatePage) {
     return (authMiddleware as any)(request)
+  } else {
+    return NextResponse.next()
   }
 }
 
