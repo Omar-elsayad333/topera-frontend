@@ -1,37 +1,12 @@
 'use client'
-import MultiSelectComponent from '@/components/FormInputs/MultieSelectComponent'
-import SelectComponent from '@/components/FormInputs/SelectComponent'
-import { useSelect } from './useSelect'
+import { NextPage } from 'next'
 
-const test = () => {
-  const { options, onSubmit, errors, control } = useSelect()
-  return (
-    <form onSubmit={(e) => onSubmit(e)}>
-      <MultiSelectComponent
-        control={control}
-        errors={errors['multi']}
-        label={'taken'}
-        id={'teste'}
-        options={options}
-        chipSx={{ color: 'red' }}
-        menuItemSx={{ color: 'green' }}
-        inputLabel={'name'}
-        name={'multi'}
-        inputValue={'id'}
-      />
-      <SelectComponent
-        errors={errors['single']}
-        control={control}
-        name={'single'}
-        label={'single'}
-        id={'name'}
-        options={options}
-        inputLabel={'name'}
-        inputValue={'id'}
-      />
-      <button type={'submit'}>submit</button>
-    </form>
-  )
+// Container
+import { useTest } from './useTest'
+
+const Test: NextPage = () => {
+  const {} = useTest()
+  return <h1>Test</h1>
 }
 
-export default test
+export default Test

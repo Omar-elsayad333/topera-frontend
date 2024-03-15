@@ -1,4 +1,4 @@
-interface ILocales {
+export interface ILocales {
   text: string
   value: string
 }

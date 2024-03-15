@@ -49,7 +49,7 @@ const MultiSelectComponent = <T extends object>({
               field.onChange(uniArray)
             }}
             value={field.value}
-            renderInput={(params) => <TextField {...params} label={label} />}
+            renderInput={(params) => <TextField error={!!errors} {...params} label={label} />}
             renderTags={(value: readonly T[], getTagProps) =>
               value.map((option: T, index: number) => (
                 <Chip

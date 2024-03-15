@@ -41,7 +41,7 @@ const SelectComponent = <T extends object>({
             value={field.value}
             getOptionLabel={(option: T) => (option[inputLabel] ? String(option[inputLabel]) : '')}
             onChange={(event, newValue) => field.onChange(newValue)}
-            renderInput={(params) => <TextField {...params} label={label} />}
+            renderInput={(params) => <TextField error={!!errors} {...params} label={label} />}
             renderOption={(props, option: T) => (
               <MenuItem sx={menuItemSx} component={'li'} {...props} key={option[inputValue] as React.Key}>
                 {option[inputLabel] as string}
