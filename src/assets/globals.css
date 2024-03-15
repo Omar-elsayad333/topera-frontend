@@ -19,7 +19,7 @@ body {
 main {
   margin-top: 85px;
 }
-main.without-auth {
+main.auth-layout {
   margin-top: unset;
 }
 
