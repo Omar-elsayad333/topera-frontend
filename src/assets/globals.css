@@ -19,6 +19,9 @@ body {
 main {
   margin-top: 85px;
 }
+main.without-auth {
+  margin-top: unset;
+}
 
 a {
   color: inherit;

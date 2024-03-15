@@ -50,10 +50,8 @@ export default function RootLayout({ children, params }: IProps) {
           <AppStoreProvider locale={locale}>
             <ThemeProvider>
               {/* <AlertProvider> */}
-              <Layout>
-                <main>{children}</main>
-                {/* <AlertNotify /> */}
-              </Layout>
+              {children}
+              {/* <AlertNotify /> */}
               {/* </AlertProvider> */}
             </ThemeProvider>
           </AppStoreProvider>
