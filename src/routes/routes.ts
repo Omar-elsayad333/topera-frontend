@@ -1,3 +1,5 @@
+import { Route } from '@mui/icons-material'
+
 export const Routes = {
   // GENERAL
   notFound: '/404',
@@ -13,11 +15,12 @@ export const Routes = {
 
   // PUBLIC
   home: '/',
+  test: '/test',
   news: '/news',
   roadmaps: '/roadmaps',
   contactUs: '/contact-us',
   matching: '/matching',
-  matchingQuestions: '/matching-questions',
+  matchingQuestions: '/matching/questions',
 
   // PRIVATE
   profile: '/profile',
@@ -40,6 +43,7 @@ export const getAuthRoutes = () => {
 // Get public routes
 export const getPublicRoutes = () => {
   return [
+    Routes.notFound,
     Routes.home,
     Routes.news,
     Routes.roadmaps,
@@ -53,6 +57,7 @@ export const getPublicRoutes = () => {
     Routes.confirmEmail,
     Routes.matching,
     Routes.matchingQuestions,
+    Routes.test,
   ]
 }
 
