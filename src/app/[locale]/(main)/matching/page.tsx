@@ -35,10 +35,17 @@ const Matching: NextPage = () => {
         </Typography>
         <Typography variant="h5">{tMatching('how_to_use_body')}</Typography>
       </Box>
-      <Link href={Routes.matchingQuestions}>
+      <Link href={Routes.matchingRoom}>
         <Button
           variant="contained"
-          sx={{ borderRadius: '50px', p: { xs: '18px 120px', md: '18px 190px' }, maxWidth: '100%' }}
+          sx={{
+            color: '#fff',
+            fontSize: '24',
+            maxWidth: '100%',
+            fontWeight: '600',
+            borderRadius: '50px',
+            p: { xs: '18px 120px', md: '18px 190px' },
+          }}
         >
           {tGeneral('start')}
         </Button>

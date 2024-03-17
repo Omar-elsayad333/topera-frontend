@@ -16,13 +16,6 @@ body {
   background-color: #c7c7c7;
 }
 
-main {
-  margin-top: 85px;
-}
-main.auth-layout {
-  margin-top: unset;
-}
-
 a {
   color: inherit;
   text-decoration: none;

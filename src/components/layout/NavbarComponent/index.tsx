@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { useParams, usePathname } from 'next/navigation'
 
 // Images
 import fullLogo from '@/assets/images/fullLogo.svg'
@@ -16,40 +17,23 @@ import DesktopLayoutComponent from './DesktopLayoutComponent'
 
 // MUI
 import Box from '@mui/material/Box'
+import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
-import { styled } from '@mui/material/styles'
 import Container from '@mui/material/Container'
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
-
-const drawerWidth = 240
-
-interface AppBarProps extends MuiAppBarProps {
-  open?: boolean
-}
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme, open }) => ({
-  boxShadow: 'none',
-  zIndex: theme.zIndex.drawer + 1,
-  background: theme.palette.background.default,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}))
+import { useTheme } from '@mui/material/styles'
 
 const AppBarComponent = () => {
+  const theme = useTheme()
+  const params = useParams()
+  const pathname = usePathname()
+
   return (
-    <AppBar component={'header'} color="primary" open={false}>
+    <AppBar
+      color="primary"
+      component={'header'}
+      sx={{ background: theme.palette.background.default }}
+      position={pathname !== params.locale ? 'static' : 'sticky'}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
           <MobileLayoutComponent />

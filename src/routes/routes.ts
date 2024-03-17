@@ -25,6 +25,7 @@ export const Routes = {
   // PRIVATE
   profile: '/profile',
   editProfile: '/edit-profile',
+  matchingRoom: '/matching-room',
 }
 
 // Get auth routes
