@@ -16,6 +16,10 @@ body {
   background-color: #c7c7c7;
 }
 
+.full-screen {
+  height: calc(100dvh - 74px);
+}
+
 a {
   color: inherit;
   text-decoration: none;

@@ -25,7 +25,7 @@ export const Routes = {
   // PRIVATE
   profile: '/profile',
   editProfile: '/edit-profile',
-  matchingRoom: '/matching-room',
+  matchingRoom: '/matching-chat',
 }
 
 // Get auth routes
@@ -57,6 +57,7 @@ export const getPublicRoutes = () => {
     Routes.newPassword,
     Routes.confirmEmail,
     Routes.matching,
+    Routes.matchingRoom,
     Routes.matchingQuestions,
     Routes.test,
   ]

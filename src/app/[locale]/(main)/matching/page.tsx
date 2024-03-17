@@ -24,13 +24,13 @@ const Matching: NextPage = () => {
   return (
     <Container maxWidth="xl" sx={{ py: { xs: '60px', md: '100px' } }}>
       <Box sx={{ mb: '64px' }}>
-        <Typography color={'primary'} variant="h1" sx={{ mb: '32px' }}>
+        <Typography color={'primary'} fontWeight={600} variant="h4" sx={{ mb: '32px' }}>
           {tMatching('what_is_matching_title')}
         </Typography>
         <Typography variant="h5">{tMatching('what_is_matching_body')}</Typography>
       </Box>
       <Box sx={{ mb: '48px' }}>
-        <Typography color={'primary'} variant="h4" sx={{ mb: '32px' }}>
+        <Typography color={'primary'} fontWeight={500} variant="h4" sx={{ mb: '32px' }}>
           {tMatching('how_to_use_title')}
         </Typography>
         <Typography variant="h5">{tMatching('how_to_use_body')}</Typography>
