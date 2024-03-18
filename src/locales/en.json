@@ -23,5 +23,8 @@
   "matching_chat_nav": {
     "learn": "Learn",
     "work": "Work"
+  },
+  "matching_chat": {
+    "landing_title": "How can I help you?"
   }
 }

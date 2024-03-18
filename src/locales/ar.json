@@ -23,5 +23,8 @@
   "matching_chat_nav": {
     "learn": "تعلم",
     "work": "عمل"
+  },
+  "matching_chat": {
+    "landing_title": "كيف يمكنني مساعدتك؟"
   }
 }

@@ -8,10 +8,10 @@ import ChatContentComponent from './ChatContentComponent'
 const MatchingChatComponent = () => {
   return (
     <Grid container spacing={2}>
-      <Grid item xs={0} md={2.5}>
+      <Grid item xs={0} md={3} xl={2}>
         <ChatNav />
       </Grid>
-      <Grid item xs={12} md={9.5}>
+      <Grid item xs={12} md={9} xl={10}>
         <ChatContentComponent />
       </Grid>
     </Grid>

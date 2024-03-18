@@ -2,7 +2,7 @@
 import { useState } from 'react'
 
 // Components
-import ChatContentComponent from './ChatContentComponent'
+import ChatNavContentComponent from './ChatNavContentComponent'
 
 // MUI
 import Box from '@mui/material/Box'
@@ -30,7 +30,7 @@ const ChatNav: React.FC = () => {
           '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '100%' },
         }}
       >
-        {<ChatContentComponent />}
+        {<ChatNavContentComponent />}
       </Drawer>
       <Box
         component="nav"
@@ -41,7 +41,7 @@ const ChatNav: React.FC = () => {
           background: theme.palette.background.paper,
         }}
       >
-        {<ChatContentComponent />}
+        {<ChatNavContentComponent />}
       </Box>
     </Box>
   )

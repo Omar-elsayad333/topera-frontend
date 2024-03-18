@@ -1,4 +1,15 @@
-export const components = {
+export const components: any = {
+  MuiContainer: {
+    styleOverrides: {
+      root: ({ ownerState, theme }: any) => ({
+        ...(ownerState.maxWidth === false && {
+          [theme.breakpoints.up('lg')]: {
+            padding: '0px 100px',
+          },
+        }),
+      }),
+    },
+  },
   MuiButton: {
     styleOverrides: {
       root: ({ ownerState, theme }: any) => ({

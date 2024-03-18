@@ -14,7 +14,6 @@ import { useTranslations } from 'next-intl'
 // MUI
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 
 const Matching: NextPage = () => {
@@ -22,7 +21,7 @@ const Matching: NextPage = () => {
   const tMatching = useTranslations('matching')
 
   return (
-    <Container maxWidth="xl" sx={{ py: { xs: '60px', md: '100px' } }}>
+    <Box sx={{ py: { xs: '40px', sm: '60px', md: '100px' } }}>
       <Box sx={{ mb: '64px' }}>
         <Typography color={'primary'} fontWeight={600} variant="h4" sx={{ mb: '32px' }}>
           {tMatching('what_is_matching_title')}
@@ -61,7 +60,7 @@ const Matching: NextPage = () => {
       >
         <Image quality={50} loading="lazy" alt="Topera Matching" src={MatchingHandLayout} />
       </Box>
-    </Container>
+    </Box>
   )
 }
 

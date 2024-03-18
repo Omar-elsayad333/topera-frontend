@@ -13,17 +13,15 @@ import Button from '@mui/material/Button'
 import Toolbar from '@mui/material/Toolbar'
 import ListItem from '@mui/material/ListItem'
 import AddIcon from '@mui/icons-material/Add'
-import MailIcon from '@mui/icons-material/Mail'
 import IconButton from '@mui/material/IconButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import InboxIcon from '@mui/icons-material/MoveToInbox'
 import InventoryIcon from '@mui/icons-material/Inventory'
 import ListItemButton from '@mui/material/ListItemButton'
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded'
 import ChatBubbleRoundedIcon from '@mui/icons-material/ChatBubbleRounded'
 
-const ChatContentComponent = () => {
+const ChatNavContentComponent = () => {
   const t = useTranslations('matching_chat_nav')
   const [value, setValue] = useState(0)
 
@@ -109,4 +107,4 @@ const ChatContentComponent = () => {
   )
 }
 
-export default ChatContentComponent
+export default ChatNavContentComponent

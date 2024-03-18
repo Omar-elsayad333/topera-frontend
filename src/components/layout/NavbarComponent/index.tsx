@@ -34,7 +34,7 @@ const AppBarComponent = () => {
       sx={{ background: theme.palette.background.default }}
       position={pathname !== params.locale ? 'static' : 'sticky'}
     >
-      <Container maxWidth="xl">
+      <Container maxWidth={false}>
         <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
           <MobileLayoutComponent />
           <Link href={Routes.home}>
