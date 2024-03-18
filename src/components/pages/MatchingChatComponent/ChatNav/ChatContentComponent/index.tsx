@@ -63,24 +63,10 @@ const ChatContentComponent = () => {
       </Toolbar>
       <Box sx={{ px: 3 }}>
         <Box sx={{ py: 2, display: 'flex', gap: '16px' }}>
-          <Button
-            startIcon={<AddIcon />}
-            sx={{
-              flexGrow: '1',
-              justifyContent: 'flex-start',
-              border: '2px solid #B3B3B3CC',
-              color: '#000',
-              fontWeight: 600,
-              borderRadius: '6px',
-            }}
-            variant="outlined"
-          >
+          <Button startIcon={<AddIcon />} variant="grayButton">
             new chat
           </Button>
-          <IconButton
-            sx={{ border: '2px solid #B3B3B3CC', color: '#000', fontWeight: 600, borderRadius: '6px' }}
-            aria-label="Archive"
-          >
+          <IconButton datatype="grayButton" aria-label="Archive">
             <InventoryIcon />
           </IconButton>
         </Box>

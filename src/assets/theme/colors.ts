@@ -24,9 +24,11 @@ const DARK_COLOR_SECONDARY: SimplePaletteColorOptions = {
  * MUI light colors set to use in theme.palette
  */
 export const LIGHT_PALETTE_COLORS: Partial<PaletteOptions> = {
+  mode: 'light',
   primary: LIGHT_COLOR_PRIMARY,
   secondary: LIGHT_COLOR_SECONDARY,
   background: {
+    paper: '#f5f5f5', // Gray 100 - Background of "Paper" based component
     default: '#F4F4FF',
   },
   // error: COLOR_ERROR,
@@ -39,8 +41,13 @@ export const LIGHT_PALETTE_COLORS: Partial<PaletteOptions> = {
  * MUI dark colors set to use in theme.palette
  */
 export const DARK_PALETTE_COLORS: Partial<PaletteOptions> = {
+  mode: 'dark',
   primary: DARK_COLOR_PRIMARY,
   secondary: DARK_COLOR_SECONDARY,
+  background: {
+    paper: '#424242', // Gray 800 - Background of "Paper" based component
+    default: '#121212',
+  },
   // error: COLOR_ERROR,
   // warning: COLOR_WARNING;
   // info: COLOR_INFO;
