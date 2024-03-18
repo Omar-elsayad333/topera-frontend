@@ -2,12 +2,10 @@
 
 import Link from 'next/link'
 import { Orbitron } from 'next/font/google'
+import { useParams, usePathname } from 'next/navigation'
 
 // Next intl
 import { useTranslations } from 'next-intl'
-
-// Hooks
-import { useLocale } from '@/hooks'
 
 // Constants
 import { navigations } from '@/constants'
@@ -24,8 +22,9 @@ const orbitron = Orbitron({
 
 const DesktopLayoutComponent: React.FC = () => {
   const theme = useTheme()
+  const params = useParams()
+  const pathname = usePathname()
   const t = useTranslations('nav')
-  const { comparePathnames, addLocale } = useLocale()
 
   return (
     <Box
@@ -36,18 +35,27 @@ const DesktopLayoutComponent: React.FC = () => {
       }}
     >
       {navigations.map((page: any, index: number) => (
-        <Link key={index} href={addLocale(page.value)}>
+        <Link key={index} href={page.value}>
           <Button
             sx={{
               my: 2,
               display: 'block',
               fontSize: '16px',
               textTransform: 'capitalize',
-              fontWeight: comparePathnames(page.value) ? 700 : 400,
-              color: comparePathnames(page.value) ? theme.palette.primary.main : theme.palette.secondary.main,
+              fontWeight: (page.name != 'Home' ? pathname.startsWith(page.value, 3) : pathname === `/${params.locale}`)
+                ? 700
+                : 400,
+              color: (page.name != 'Home' ? pathname.startsWith(page.value, 3) : pathname === `/${params.locale}`)
+                ? theme.palette.primary.main
+                : theme.palette.secondary.main,
             }}
           >
-            <p className={`${orbitron.className} ${comparePathnames(page.value) && 'active-nav-link'}`}>
+            <p
+              className={`${orbitron.className} ${
+                (page.name != 'Home' ? pathname.startsWith(page.value, 3) : pathname === `/${params.locale}`) &&
+                'active-nav-link'
+              }`}
+            >
               {t(page.text)}
             </p>
           </Button>

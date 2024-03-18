@@ -3,15 +3,13 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { Orbitron } from 'next/font/google'
+import { useParams, usePathname } from 'next/navigation'
 
 // Next intl
 import { useTranslations } from 'next-intl'
 
 // Constants
 import { navigations } from '@/constants'
-
-// Hooks
-import { useLocale } from '@/hooks'
 
 // MUI
 import Box from '@mui/material/Box'
@@ -29,8 +27,9 @@ const orbitron = Orbitron({
 
 const MobileLayoutComponent: React.FC = () => {
   const theme = useTheme()
+  const params = useParams()
+  const pathname = usePathname()
   const t = useTranslations('nav')
-  const { comparePathnames, addLocale } = useLocale()
 
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
 
@@ -74,17 +73,28 @@ const MobileLayoutComponent: React.FC = () => {
       >
         {navigations.map((page: any, index: number) => (
           <MenuItem key={index} onClick={handleCloseNavMenu}>
-            <Link key={index} href={addLocale(page.value)}>
+            <Link href={page.value}>
               <Button
                 sx={{
                   display: 'block',
                   fontSize: '14px',
                   textTransform: 'capitalize',
-                  fontWeight: comparePathnames(page.value) ? 700 : 400,
-                  color: comparePathnames(page.value) ? theme.palette.primary.main : theme.palette.secondary.main,
+                  fontWeight:
+                    pathname === (page.name !== 'Home' ? `/${params.locale}${page.value}` : `/${params.locale}`)
+                      ? 700
+                      : 400,
+                  color:
+                    pathname === (page.name !== 'Home' ? `/${params.locale}${page.value}` : `/${params.locale}`)
+                      ? theme.palette.primary.main
+                      : theme.palette.secondary.main,
                 }}
               >
-                <p className={`${orbitron.className} ${comparePathnames(page.value) && 'active-nav-link'}`}>
+                <p
+                  className={`${orbitron.className} ${
+                    pathname === (page.name !== 'Home' ? `/${params.locale}${page.value}` : `/${params.locale}`) &&
+                    'active-nav-link'
+                  }`}
+                >
                   {t(page.text)}
                 </p>
               </Button>

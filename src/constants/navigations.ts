@@ -1,10 +1,9 @@
 import { Routes } from '@/routes/routes'
 
-interface IMeta {
-  navName: string
-}
+interface IMeta {}
 
 interface INavigations {
+  name: string
   text: string
   value: string
   meta?: IMeta
@@ -15,38 +14,33 @@ interface INavigations {
  */
 export const navigations: readonly INavigations[] = [
   {
+    name: 'Home',
     text: 'home',
     value: Routes.home,
-    meta: {
-      navName: '/',
-    },
+    meta: {},
   },
   {
+    name: 'Roadmaps',
     text: 'roadmaps',
     value: Routes.roadmaps,
-    meta: {
-      navName: '/roadmaps',
-    },
+    meta: {},
   },
   {
+    name: 'Matching',
     text: 'matching',
     value: Routes.matching,
-    meta: {
-      navName: 'matching',
-    },
+    meta: {},
   },
   {
+    name: 'News',
     text: 'news',
     value: Routes.news,
-    meta: {
-      navName: '/news',
-    },
+    meta: {},
   },
   {
+    name: 'Contact us',
     text: 'contact_us',
     value: Routes.contactUs,
-    meta: {
-      navName: '/contact_us',
-    },
+    meta: {},
   },
 ]
