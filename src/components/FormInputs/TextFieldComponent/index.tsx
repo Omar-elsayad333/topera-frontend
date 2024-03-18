@@ -6,8 +6,8 @@ import { Controller } from 'react-hook-form'
 // MUI
 import InputLabel from '@mui/material/InputLabel'
 import FormControl from '@mui/material/FormControl'
-import OutlinedInput from '@mui/material/OutlinedInput'
 import FormHelperText from '@mui/material/FormHelperText'
+import { TextField } from '@mui/material'
 
 interface IProps {
   id?: string
@@ -25,10 +25,17 @@ const TextFieldComponent: React.FC<IProps> = ({ name, control, id, placeholder, 
         name={name}
         control={control}
         render={({ field }) => (
-          <OutlinedInput id={id} type="text" value={field.value} onChange={field.onChange} placeholder={placeholder} />
+          <TextField
+            id={id}
+            type="text"
+            label={label}
+            value={field.value}
+            onChange={field.onChange}
+            placeholder={placeholder}
+            variant={'standard'}
+          />
         )}
       />
-      <InputLabel id={id}>{label}</InputLabel>
       {error?.type !== 'required' && <FormHelperText sx={{ textAlign: 'unset' }}>{error?.message}</FormHelperText>}
     </FormControl>
   )

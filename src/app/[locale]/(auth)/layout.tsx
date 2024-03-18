@@ -8,6 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       lg={12}
       md={12}
       container
+      item
       sx={{
         display: 'flex',
         justifyContent: 'center',
@@ -20,13 +21,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       }}
     >
       <Grid
+        item
+        container
         xs={11}
         lg={4}
         md={4}
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          backgroundColor: 'white',
+          backgroundColor: '#ffff',
           border: '1px solid transparent',
           borderRadius: '8px',
           padding: '34px 75px',
@@ -41,7 +44,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         >
           <Image height={48} width={51} src={logo} alt={'topera logo'} />
         </Box>
-        <Grid xs={12}>{children}</Grid>
+        <Grid item rowGap={'20px'} container xs={12}>
+          {children}
+        </Grid>
       </Grid>
     </Grid>
   )
