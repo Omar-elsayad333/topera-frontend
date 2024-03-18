@@ -26,6 +26,7 @@ const TextFieldComponent: React.FC<IProps> = ({ name, control, id, placeholder, 
         control={control}
         render={({ field }) => (
           <TextField
+            fullWidth
             id={id}
             type="text"
             label={label}

@@ -6,8 +6,8 @@ export const Routes = {
 
   // AUTH
   login: '/login',
-  signup: '/signup',
-  finishSignup: '/finish-signup',
+  signup: '/forgetpassword',
+  finishSignup: '/finish-forgetpassword',
   forgetPassword: '/forget-password',
   verifyCode: '/verify-code',
   newPassword: '/new-password',

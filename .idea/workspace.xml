@@ -5,10 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c1e45ff-cf47-4748-9fbe-7112f600e089" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/[locale]/(auth)/forgetpassword/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ForgetPasswordComponents/MainComponent/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ForgetPasswordComponents/NewPasswordComponent/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ForgetPasswordComponents/OtpComponent/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hooks/useForgetPassword.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/[locale]/(auth)/login-clone/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/[locale]/(auth)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/[locale]/(auth)/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/[locale]/(auth)/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/[locale]/(auth)/login/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FormInputs/TextFieldComponent/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FormInputs/TextFieldComponent/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hooks/useLogin.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useLogin.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/routes.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

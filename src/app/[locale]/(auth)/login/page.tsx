@@ -22,7 +22,7 @@ const LogIn: React.FC = () => {
           </Typography>
           <Grid item container columns={12}>
             <Typography>New user?</Typography>
-            <Link href={'/signup'}>
+            <Link href={'/forgetpassword'}>
               <Typography sx={{ color: '#1473E6', marginLeft: '5px' }}>Create a new account</Typography>
             </Link>
           </Grid>

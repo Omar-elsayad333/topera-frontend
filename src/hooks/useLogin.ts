@@ -3,7 +3,6 @@ import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useState } from 'react'
-import { date } from 'yup'
 
 const schema = yup.object({
   email: yup.string().email().required(),

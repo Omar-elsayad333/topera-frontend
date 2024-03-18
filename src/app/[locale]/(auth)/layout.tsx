@@ -10,6 +10,7 @@ export default function Layout({ children }: LProps) {
   return (
     <main className={'auth-layout'}>
       <Grid
+        rowGap={'25px'}
         xs={12}
         lg={12}
         md={12}
@@ -27,6 +28,7 @@ export default function Layout({ children }: LProps) {
         }}
       >
         <Grid
+          rowGap={'25px'}
           item
           container
           xs={11}
