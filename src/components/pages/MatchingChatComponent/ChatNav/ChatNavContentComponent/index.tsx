@@ -4,6 +4,9 @@ import { useState } from 'react'
 // Next intl
 import { useTranslations } from 'next-intl'
 
+// Components
+import WorkTabComponent from './WorkTabComponent'
+
 // MUI
 import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
@@ -85,23 +88,7 @@ const ChatNavContentComponent = () => {
             ))}
           </List>
         )}
-        {value === 1 && (
-          <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton sx={{ borderRadius: '6px', alignItems: 'center' }}>
-                  <ListItemIcon sx={{ minWidth: '35px' }}>
-                    <ChatBubbleRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                  <ListItemIcon sx={{ minWidth: 'unset' }}>
-                    <MoreHorizRoundedIcon />
-                  </ListItemIcon>
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        )}
+        {value === 1 && <WorkTabComponent />}
       </Box>
     </Box>
   )

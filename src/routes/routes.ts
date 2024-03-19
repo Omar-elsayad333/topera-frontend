@@ -57,13 +57,11 @@ export const getPublicRoutes = () => {
     Routes.newPassword,
     Routes.confirmEmail,
     Routes.matching,
-    Routes.matchingRoom,
-    Routes.matchingQuestions,
     Routes.test,
   ]
 }
 
 // get private routes
 export const getPrivateRoutes = () => {
-  return [Routes.profile, Routes.editProfile]
+  return [Routes.profile, Routes.editProfile, Routes.matchingRoom, Routes.matchingQuestions]
 }

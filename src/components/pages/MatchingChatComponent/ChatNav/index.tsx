@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // Components
 import ChatNavContentComponent from './ChatNavContentComponent'
@@ -8,10 +8,17 @@ import ChatNavContentComponent from './ChatNavContentComponent'
 import Box from '@mui/material/Box'
 import { useTheme } from '@mui/material'
 import Drawer from '@mui/material/Drawer'
+import { useMatching } from '@/stores/matchingStore'
 
 const ChatNav: React.FC = () => {
   const theme = useTheme()
   const [mobileOpen, setMobileOpen] = useState(false)
+
+  const matchingNavData = useMatching((state) => state.matchingNavData)
+
+  useEffect(() => {
+    console.log(matchingNavData)
+  }, [matchingNavData])
 
   const handleDrawerClose = () => {
     setMobileOpen(!mobileOpen)
