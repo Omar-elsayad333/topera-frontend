@@ -19,5 +19,19 @@
     "how_to_use_title": "How To Use It",
     "how_to_use_body": "Knowing how to write a paragraph is incredibly important. It’s a basic aspect of writing, and it is something that everyone should know how to do. There is a specific structure that you have to follow when you’re writing a paragraph. This structure helps make it easier for the reader to understand what is going on. Through writing good paragraphs, a person can communicate a lot better through their writing."
   },
-  "matching_questions": {}
+  "matching_questions": {},
+  "login": {
+    "head": "Sign in",
+    "create_new_account": "Create new account",
+    "email": "E-mail",
+    "password": "Password",
+    "continue": "Continue",
+    "submit": "Submit",
+    "or_sigin_in_with_email": "Or sign in with E-mail",
+    "sigin_in_with_google": "Sign in with Google",
+    "sigin_in_with_linkdin": "Sign in with Linkedin",
+    "sigin_in_with_github": "Sign in with Github",
+    "forget_password": "Forget Password",
+    "new_user": "New user"
+  }
 }

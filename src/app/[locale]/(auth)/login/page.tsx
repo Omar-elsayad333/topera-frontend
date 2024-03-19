@@ -11,19 +11,23 @@ import PasswordInputComponent from '@/components/FormInputs/PasswordInputCompone
 import GoogleIcon from '@mui/icons-material/Google'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import GitHubIcon from '@mui/icons-material/GitHub'
+import { useTranslations } from 'next-intl'
+
 const LogIn: React.FC = () => {
   const { data, states, actions } = useLogin()
+  const t = useTranslations('login')
+
   return (
     <form onSubmit={actions.handleSubmit(actions.formSubmit)}>
       <Grid rowGap={'20px'} item container columns={12}>
         <Grid rowGap={'5px'} container item columns={12}>
           <Typography sx={{ fontWeight: '500' }} variant={'h3'}>
-            Sign in
+            {t('head')}
           </Typography>
           <Grid item container columns={12}>
-            <Typography>New user?</Typography>
+            <Typography>{t('new_user')}</Typography>
             <Link href={'/forgetpassword'}>
-              <Typography sx={{ color: '#1473E6', marginLeft: '5px' }}>Create a new account</Typography>
+              <Typography sx={{ color: '#1473E6', marginLeft: '5px' }}>{t('create_new_account')}</Typography>
             </Link>
           </Grid>
         </Grid>
@@ -33,33 +37,33 @@ const LogIn: React.FC = () => {
               control={states.control}
               name={'email'}
               error={states.errors['email']}
-              label={'email'}
+              label={t('email')}
             />
           ) : (
             <PasswordInputComponent
               control={states.control}
               name={'password'}
               error={states.errors['password']}
-              label={'password'}
+              label={t('password')}
             />
           )}
 
           <ButtonComponent
             type={states.currentStage === 2 ? 'submit' : 'button'}
             sx={{ color: 'white', borderRadius: '20px', fontSize: '13px', fontWeight: '500' }}
-            text={states.currentStage === 1 ? 'continue' : 'submit'}
+            text={states.currentStage === 1 ? t('continue') : t('submit')}
             size={'small'}
             onClick={actions.submit}
           />
         </Grid>
         <Grid item rowGap={'20px'} container xs={12}>
           <Divider sx={{ width: '100%', color: 'gray' }} color={'gray'} flexItem>
-            or sign in with email
+            {t('or_sigin_in_with_email')}
           </Divider>
           <ButtonComponent
             variant={'outlined'}
             sx={{ width: '100%', height: '52px', borderRadius: '24px', color: 'black' }}
-            text={'google'}
+            text={t('sigin_in_with_google')}
             onClick={() => {
               console.log('google')
             }}
@@ -68,7 +72,7 @@ const LogIn: React.FC = () => {
           <ButtonComponent
             variant={'outlined'}
             sx={{ width: '100%', height: '52px', borderRadius: '24px', color: 'black' }}
-            text={'linkdin'}
+            text={t('sigin_in_with_linkdin')}
             onClick={() => {
               console.log('linkdin')
             }}
@@ -77,7 +81,7 @@ const LogIn: React.FC = () => {
           <ButtonComponent
             variant={'outlined'}
             sx={{ width: '100%', height: '52px', borderRadius: '24px', color: 'black' }}
-            text={'github'}
+            text={t('sigin_in_with_github')}
             onClick={() => {
               console.log('github')
             }}
@@ -86,7 +90,9 @@ const LogIn: React.FC = () => {
         </Grid>
         <Grid justifyItems={'start'} item container xs={12} sx={{ marginTop: '20px' }}>
           <Link href={'/forgetpassword'}>
-            <Typography sx={{ color: '#1473E6', marginLeft: '5px', fontSize: '14px' }}>Forget password</Typography>
+            <Typography sx={{ color: '#1473E6', marginLeft: '5px', fontSize: '14px' }}>
+              {t('forget_password')}
+            </Typography>
           </Link>
         </Grid>
       </Grid>

@@ -28,8 +28,8 @@ const TextFieldComponent: React.FC<IProps> = ({ name, control, id, placeholder, 
           <TextField
             fullWidth
             id={id}
-            type="text"
             label={label}
+            type="text"
             value={field.value}
             onChange={field.onChange}
             placeholder={placeholder}
