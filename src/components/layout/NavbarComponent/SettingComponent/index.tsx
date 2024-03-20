@@ -41,7 +41,7 @@ const SettingComponent: React.FC = () => {
       <Box sx={{ display: { xs: 'none', md: 'inline' } }}>
         <ThemeSwitchComponent />
       </Box>
-      <Button color="inherit" sx={{ width: '40px', minWidth: 'unset' }}>
+      <Button aria-label="Notification" color="inherit" sx={{ width: '40px', minWidth: 'unset' }}>
         <NotificationsIcon />
       </Button>
       <Tooltip title="Open settings">

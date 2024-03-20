@@ -1,6 +1,7 @@
 'use client'
 import env from '@/config/env'
 import { signIn } from 'next-auth/react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { ChangeEvent, FormEvent, useState } from 'react'
 
 type LoginInput = {
@@ -9,7 +10,7 @@ type LoginInput = {
 }
 
 type PageProps = {
-  searchParams: { error?: string }
+  searchParams: any
 }
 
 enum OAuthProviders {
@@ -24,6 +25,8 @@ export default function LoginPage({ searchParams }: PageProps) {
     password: '',
   })
 
+  // const searchParams = useSearchParams()
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const name = event.target.name
     const value = event.target.value
@@ -32,10 +35,11 @@ export default function LoginPage({ searchParams }: PageProps) {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
+
     await signIn('credentials', {
       email: inputs.username,
       password: inputs.password,
-      callbackUrl: '/',
+      callbackUrl: searchParams.callbackUrl,
     })
   }
 

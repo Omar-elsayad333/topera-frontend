@@ -5,5 +5,5 @@ interface LProps {
 }
 
 export default function RootLayout({ children }: LProps) {
-  return <main className={'auth-layout'}>{children}</main>
+  return <main>{children}</main>
 }
