@@ -1,5 +1,5 @@
 // Components
-import LandingStageComponent from '@/components/pages/MatchingChat/LandingStageComponent/page'
+import LandingStageComponent from '@/components/pages/MatchingChat/LandingStageComponent'
 
 // MUI
 import Container from '@mui/material/Container'
