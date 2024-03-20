@@ -3,6 +3,7 @@ import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useState } from 'react'
+import { signIn } from 'next-auth/react'
 
 const schema = yup.object({
   email: yup.string().email().required(),
@@ -29,16 +30,16 @@ const useLogin = () => {
     },
   })
 
-  const buttonHandlebar = () => {
+  const buttonHandlebar = (e: any) => {
+    e.preventDefault()
     if (currentStage === 1) {
       setCurrentStage(2)
     }
   }
 
-  const formSubmit = async (data: TLoginForm) => {
-    // try {
-    //   const res = await
-    // }
+  const formSubmit = async (data: any) => {
+    console.log(data)
+    await signIn('credentials', data)
   }
 
   return {

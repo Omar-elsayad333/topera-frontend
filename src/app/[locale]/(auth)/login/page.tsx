@@ -47,14 +47,22 @@ const LogIn: React.FC = () => {
               label={t('password')}
             />
           )}
-
-          <ButtonComponent
-            type={states.currentStage === 2 ? 'submit' : 'button'}
-            sx={{ color: 'white', borderRadius: '20px', fontSize: '13px', fontWeight: '500' }}
-            text={states.currentStage === 1 ? t('continue') : t('submit')}
-            size={'small'}
-            onClick={actions.submit}
-          />
+          {states.currentStage === 1 ? (
+            <ButtonComponent
+              type={'button'}
+              sx={{ color: 'white', borderRadius: '20px', fontSize: '13px', fontWeight: '500' }}
+              text={t('continue')}
+              size={'small'}
+              onClick={(e) => actions.submit(e)}
+            />
+          ) : (
+            <ButtonComponent
+              type={'submit'}
+              sx={{ color: 'white', borderRadius: '20px', fontSize: '13px', fontWeight: '500' }}
+              text={t('submit')}
+              size={'small'}
+            />
+          )}
         </Grid>
         <Grid item rowGap={'20px'} container xs={12}>
           <Divider sx={{ width: '100%', color: 'gray' }} color={'gray'} flexItem>

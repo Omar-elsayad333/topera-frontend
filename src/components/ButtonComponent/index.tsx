@@ -8,7 +8,7 @@ interface IButtonComponentProps {
   sx?: object
   disabled?: boolean
   type?: 'button' | 'submit'
-  onClick: () => void
+  onClick?: (e: any) => void | undefined
   startIcon?: any
 }
 const ButtonComponent: React.FC<IButtonComponentProps> = ({
@@ -30,7 +30,7 @@ const ButtonComponent: React.FC<IButtonComponentProps> = ({
       variant={variant}
       disabled={disabled}
       size={size}
-      onClick={() => onClick()}
+      onClick={onClick}
     >
       {text}
     </Button>
