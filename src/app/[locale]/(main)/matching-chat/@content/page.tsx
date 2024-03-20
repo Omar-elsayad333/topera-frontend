@@ -1,17 +1,17 @@
-//  MUI
-import { Container } from '@mui/material'
-
 // Components
-import LandingStageComponent from './LandingStageComponent/page'
+import LandingStageComponent from '@/components/pages/MatchingChat/LandingStageComponent/page'
 
-const ChatContentComponent = () => {
+// MUI
+import Container from '@mui/material/Container'
+
+const MatchingChatContent = () => {
   return (
     <Container
       sx={{
+        gap: '30px',
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        gap: '30px',
         alignItems: 'center',
       }}
     >
@@ -21,4 +21,4 @@ const ChatContentComponent = () => {
   )
 }
 
-export default ChatContentComponent
+export default MatchingChatContent

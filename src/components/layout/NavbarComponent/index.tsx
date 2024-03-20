@@ -31,7 +31,11 @@ const AppBarComponent = () => {
     <AppBar
       color="primary"
       component={'header'}
-      sx={{ background: theme.palette.background.default }}
+      sx={{
+        boxShadow: 'none',
+        borderBottom: '1px solid #00000080',
+        background: theme.palette.background.paper,
+      }}
       position={pathname !== params.locale ? 'static' : 'sticky'}
     >
       <Container maxWidth={false}>

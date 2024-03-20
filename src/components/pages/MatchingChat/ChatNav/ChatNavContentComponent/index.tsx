@@ -23,6 +23,7 @@ import InventoryIcon from '@mui/icons-material/Inventory'
 import ListItemButton from '@mui/material/ListItemButton'
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded'
 import ChatBubbleRoundedIcon from '@mui/icons-material/ChatBubbleRounded'
+import LearnTabComponent from './LearnTabComponent'
 
 const ChatNavContentComponent = () => {
   const t = useTranslations('matching_chat_nav')
@@ -71,23 +72,7 @@ const ChatNavContentComponent = () => {
             <InventoryIcon />
           </IconButton>
         </Box>
-        {value === 0 && (
-          <List>
-            {['omar', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton sx={{ borderRadius: '6px', alignItems: 'center' }}>
-                  <ListItemIcon sx={{ minWidth: '35px' }}>
-                    <ChatBubbleRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                  <ListItemIcon sx={{ minWidth: 'unset' }}>
-                    <MoreHorizRoundedIcon />
-                  </ListItemIcon>
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        )}
+        {value === 0 && <LearnTabComponent />}
         {value === 1 && <WorkTabComponent />}
       </Box>
     </Box>

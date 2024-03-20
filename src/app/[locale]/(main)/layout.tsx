@@ -5,11 +5,11 @@ import Layout from '@/components/layout'
 
 // MUI
 import { Container } from '@mui/material'
-interface LProps {
+interface IProps {
   children: React.ReactNode
 }
 
-export default function RootLayout({ children }: LProps) {
+export default function RootLayout({ children }: IProps) {
   return (
     <Layout>
       <main>

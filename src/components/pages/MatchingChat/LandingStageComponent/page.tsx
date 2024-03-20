@@ -1,7 +1,11 @@
-import { Box, Typography } from '@mui/material'
 import Image from 'next/image'
-import LogoIcon from '@/assets/icons/logoIcon.svg'
+
+// Next intl
 import { useTranslations } from 'next-intl'
+
+import LogoIcon from '@/assets/icons/logoIcon.svg'
+
+import { Box, Typography } from '@mui/material'
 
 const LandingStageComponent = () => {
   const t = useTranslations('matching_chat')

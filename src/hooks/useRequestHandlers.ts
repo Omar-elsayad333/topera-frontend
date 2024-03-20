@@ -1,19 +1,31 @@
 'use client'
 
 import { useState } from 'react'
-import { getData, postData } from '@/services/requestHandler'
 
-type IParams = {
+// Types
+import { RequestMethods } from '@/services/types'
+
+// Services
+import { serverAction } from '@/services/actions'
+
+export type IParams = {
   [key: string]: string
+}
+
+export type IProps = {
+  endpoint: string
+  body?: any
+  params?: IParams
+  noLoading?: boolean
 }
 
 const useRequestsHandlers = () => {
   const [loading, setLoading] = useState<boolean>(false)
 
-  const getHandler = async (endpoint: string, params?: IParams, noLoading?: boolean) => {
+  const getHandler = async ({ endpoint, params, noLoading }: IProps) => {
     try {
       !noLoading && setLoading(true)
-      const response = await getData(endpoint, params)
+      const response = await serverAction(endpoint, RequestMethods.GET, params)
       return response
     } catch (error: any) {
       throw new Error(error)
@@ -22,10 +34,10 @@ const useRequestsHandlers = () => {
     }
   }
 
-  const postHandler = async (endpoint: string, body?: any, params?: IParams, noLoading?: boolean) => {
+  const postHandler = async ({ endpoint, body, params, noLoading }: IProps) => {
     try {
       !noLoading && setLoading(true)
-      const response = await postData(endpoint, body, params)
+      const response = await serverAction(endpoint, RequestMethods.POST, body, params)
       return response.data
     } catch (error: any) {
       throw new Error(error)
@@ -34,11 +46,10 @@ const useRequestsHandlers = () => {
     }
   }
 
-  const postHandlerById = async (id: any, token: string, path: string, data?: any, noLoading?: boolean) => {
-    const axiosInstanceWithToken = createAxiosInstance(token)
+  const putHandler = async ({ endpoint, body, params, noLoading }: IProps) => {
     try {
       !noLoading && setLoading(true)
-      const response = await axiosInstanceWithToken.post(`${path}/${id}`, data)
+      const response = await serverAction(endpoint, RequestMethods.PUT, body, params)
       return response.data
     } catch (error: any) {
       throw Error(error)
@@ -47,62 +58,10 @@ const useRequestsHandlers = () => {
     }
   }
 
-  const getHandlerById = async (id: any, token: string, path: string, noLoading?: boolean) => {
-    const axiosInstanceWithToken = createAxiosInstance(token)
+  const deleteHandler = async ({ endpoint, params, noLoading }: IProps) => {
     try {
       !noLoading && setLoading(true)
-      const response = await axiosInstanceWithToken.get(`${path}/${id}`)
-      return response.data
-    } catch (error: any) {
-      throw error
-    } finally {
-      !noLoading && setLoading(false)
-    }
-  }
-
-  const publicGetHandler = async (path: string, noLoading?: boolean) => {
-    try {
-      !noLoading && setLoading(true)
-      const response = await axiosInstance.get(path)
-      return response.data
-    } catch (error: any) {
-      throw Error(error)
-    } finally {
-      !noLoading && setLoading(false)
-    }
-  }
-
-  const putHandler = async (token: string, path: string, data?: any, noLoading?: boolean) => {
-    const axiosInstanceWithToken = createAxiosInstance(token)
-    try {
-      !noLoading && setLoading(true)
-      const response = await axiosInstanceWithToken.put(`${path}`, data)
-      return response.data
-    } catch (error: any) {
-      throw Error(error)
-    } finally {
-      !noLoading && setLoading(false)
-    }
-  }
-
-  const putHandlerById = async (id: any, token: string, path: string, data?: any, noLoading?: boolean) => {
-    const axiosInstanceWithToken = createAxiosInstance(token)
-    try {
-      !noLoading && setLoading(true)
-      const response = await axiosInstanceWithToken.put(`${path}/${id}`, data)
-      return response.data
-    } catch (error: any) {
-      throw Error(error)
-    } finally {
-      !noLoading && setLoading(false)
-    }
-  }
-
-  const deleteHandler = async (id: any, token: string, path: string, noLoading?: boolean) => {
-    const axiosInstanceWithToken = createAxiosInstance(token)
-    try {
-      !noLoading && setLoading(true)
-      const response = await axiosInstanceWithToken.delete(`${path}/${id}`)
+      const response = await serverAction(endpoint, RequestMethods.DELETE, params)
       return response.data
     } catch (error: any) {
       throw Error(error)
@@ -114,12 +73,8 @@ const useRequestsHandlers = () => {
   return {
     loading,
     postHandler,
-    publicGetHandler,
-    postHandlerById,
     getHandler,
-    getHandlerById,
     putHandler,
-    putHandlerById,
     deleteHandler,
   }
 }
