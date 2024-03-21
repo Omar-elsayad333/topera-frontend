@@ -30,7 +30,7 @@ export const components: Components<Theme> = {
           fontWeight: 600,
           fontSize: '14px',
           padding: '10px 20px',
-          borderRadius: '50vh',
+          borderRadius: '60px',
           color: '#ffff',
           backgroundColor: '#1473E6',
         }),
@@ -42,7 +42,7 @@ export const components: Components<Theme> = {
           fontWeight: 500,
           fontSize: '24px',
           padding: '18px 40px',
-          borderRadius: '50vh',
+          borderRadius: '50px',
           color: '#ffff',
           backgroundColor: '#1473E6',
           '&:hover': {
