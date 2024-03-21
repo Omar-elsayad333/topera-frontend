@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react'
 
 // Types
-import { MatchingEnum } from '@/types/matching'
+import { MatchingEnum } from '@/types/enums'
 
 // Hooks
-import useRequestsHandlers from '@/hooks/useRequestHandlers'
+import useRequestHandlers from '@/hooks/useRequestHandlers'
 
 // Components
 import InnerLoadingComponent from '@/components/shared/InnerLoadingComponent'
@@ -22,7 +22,7 @@ import ChatBubbleRoundedIcon from '@mui/icons-material/ChatBubbleRounded'
 
 const ArchiveTabComponent = () => {
   const [learnMatchingData, setlearnMatchingData] = useState<any>(null)
-  const { loading, getHandler } = useRequestsHandlers()
+  const { loading, getHandler } = useRequestHandlers()
 
   useEffect(() => {
     getPageData()

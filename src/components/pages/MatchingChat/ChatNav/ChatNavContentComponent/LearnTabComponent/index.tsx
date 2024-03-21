@@ -3,11 +3,10 @@
 import { useEffect, useState } from 'react'
 
 // Types
-import { EChatStatus } from '@/types/enums'
-import { MatchingEnum } from '@/types/matching'
+import { EChatStatus, MatchingEnum } from '@/types/enums'
 
 // Hooks
-import useRequestsHandlers from '@/hooks/useRequestHandlers'
+import useRequestHandlers from '@/hooks/useRequestHandlers'
 
 // Components
 import InnerLoadingComponent from '@/components/shared/InnerLoadingComponent'
@@ -26,7 +25,7 @@ import ChatBubbleRoundedIcon from '@mui/icons-material/ChatBubbleRounded'
 
 const LearnTabComponent = () => {
   const theme = useTheme()
-  const { loading, getHandler } = useRequestsHandlers()
+  const { loading, getHandler } = useRequestHandlers()
   const [learnMatchingData, setlearnMatchingData] = useState<any>(null)
 
   useEffect(() => {

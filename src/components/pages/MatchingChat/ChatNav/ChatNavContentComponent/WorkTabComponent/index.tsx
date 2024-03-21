@@ -3,17 +3,15 @@
 import { useEffect, useState } from 'react'
 
 // Types
-import { EChatStatus } from '@/types/enums'
-import { MatchingEnum } from '@/types/matching'
+import { EChatStatus, MatchingEnum } from '@/types/enums'
 
 // Hooks
-import useRequestsHandlers from '@/hooks/useRequestHandlers'
+import useRequestHandlers from '@/hooks/useRequestHandlers'
 
 // Components
 import InnerLoadingComponent from '@/components/shared/InnerLoadingComponent'
 
 // MUI
-import Box from '@mui/material/Box'
 import List from '@mui/material/List'
 import { useTheme } from '@mui/material'
 import ListItem from '@mui/material/ListItem'
@@ -26,7 +24,7 @@ import ChatBubbleRoundedIcon from '@mui/icons-material/ChatBubbleRounded'
 
 const WorkTabComponent = () => {
   const theme = useTheme()
-  const { loading, getHandler } = useRequestsHandlers()
+  const { loading, getHandler } = useRequestHandlers()
   const [weekMatchingData, setWeekMatchingData] = useState<any>(null)
 
   useEffect(() => {
@@ -36,97 +34,56 @@ const WorkTabComponent = () => {
   const getPageData = async () => {
     try {
       const res = await getHandler({ endpoint: `/matching/${MatchingEnum.WORK}` })
-      setWeekMatchingData(res.data)
+      setWeekMatchingData([
+        { name: 'Today', data: res.data.today },
+        { name: 'Last 7 days', data: res.data.lastWeek },
+        { name: 'Last months', data: res.data.lastMonths },
+      ])
     } catch (error) {
       console.log(error)
     }
   }
 
-  if (loading) {
-    return <InnerLoadingComponent />
-  }
-
   return (
-    <List>
-      {weekMatchingData?.today.length > 0 && (
-        <Box>
-          <Typography sx={{ my: '16px' }} variant="subtitle1" fontWeight={500} color={'gray'}>
-            Today
-          </Typography>
-          {weekMatchingData.today.map((chat: any) => (
-            <ListItem key={chat.id} disablePadding>
-              <ListItemButton sx={{ borderRadius: '6px', alignItems: 'center' }}>
-                <ListItemIcon sx={{ minWidth: '35px' }}>
-                  <ChatBubbleRoundedIcon
-                    sx={{
-                      fontSize: '18px',
-                      color:
-                        chat.requestStatus === EChatStatus.Open ? theme.palette.error.main : theme.palette.success.main,
-                    }}
-                  />
-                </ListItemIcon>
-                <ListItemText primary={chat.name} />
-                <ListItemIcon sx={{ minWidth: 'unset' }}>
-                  <MoreHorizRoundedIcon />
-                </ListItemIcon>
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </Box>
+    <>
+      {loading ? (
+        <InnerLoadingComponent />
+      ) : (
+        <List>
+          {weekMatchingData?.length > 0 &&
+            weekMatchingData.map((section: any) => {
+              section.data?.length > 0 && (
+                <>
+                  <Typography sx={{ my: '16px' }} variant="subtitle1" fontWeight={500} color={'gray'}>
+                    {section.name}
+                  </Typography>
+                  {section.data.map((chat: any) => (
+                    <ListItem key={chat.id} disablePadding>
+                      <ListItemButton sx={{ borderRadius: '6px', alignItems: 'center' }}>
+                        <ListItemIcon sx={{ minWidth: '35px' }}>
+                          <ChatBubbleRoundedIcon
+                            sx={{
+                              fontSize: '18px',
+                              color:
+                                chat.requestStatus === EChatStatus.Open
+                                  ? theme.palette.error.main
+                                  : theme.palette.success.main,
+                            }}
+                          />
+                        </ListItemIcon>
+                        <ListItemText primary={chat.name} />
+                        <ListItemIcon sx={{ minWidth: 'unset' }}>
+                          <MoreHorizRoundedIcon />
+                        </ListItemIcon>
+                      </ListItemButton>
+                    </ListItem>
+                  ))}
+                </>
+              )
+            })}
+        </List>
       )}
-      {weekMatchingData?.lastWeek.length > 0 && (
-        <Box>
-          <Typography sx={{ my: '16px' }} variant="subtitle1" fontWeight={500} color={'gray'}>
-            Last 7 days
-          </Typography>
-          {weekMatchingData.lastWeek.map((chat: any) => (
-            <ListItem key={chat.id} disablePadding>
-              <ListItemButton sx={{ borderRadius: '6px', alignItems: 'center' }}>
-                <ListItemIcon sx={{ minWidth: '35px' }}>
-                  <ChatBubbleRoundedIcon
-                    sx={{
-                      fontSize: '18px',
-                      color:
-                        chat.requestStatus === EChatStatus.Open ? theme.palette.error.main : theme.palette.success.main,
-                    }}
-                  />
-                </ListItemIcon>
-                <ListItemText primary={chat.name} />
-                <ListItemIcon sx={{ minWidth: 'unset' }}>
-                  <MoreHorizRoundedIcon />
-                </ListItemIcon>
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </Box>
-      )}
-      {weekMatchingData?.lastMonths.length > 0 && (
-        <Box>
-          <Typography sx={{ my: '16px' }} variant="subtitle1" fontWeight={500} color={'gray'}>
-            Last months
-          </Typography>
-          {weekMatchingData.lastMonths.map((chat: any) => (
-            <ListItem key={chat.id} disablePadding>
-              <ListItemButton sx={{ borderRadius: '6px', alignItems: 'center' }}>
-                <ListItemIcon sx={{ minWidth: '35px' }}>
-                  <ChatBubbleRoundedIcon
-                    sx={{
-                      fontSize: '18px',
-                      color:
-                        chat.requestStatus === EChatStatus.Open ? theme.palette.error.main : theme.palette.success.main,
-                    }}
-                  />
-                </ListItemIcon>
-                <ListItemText primary={chat.name} />
-                <ListItemIcon sx={{ minWidth: 'unset' }}>
-                  <MoreHorizRoundedIcon />
-                </ListItemIcon>
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </Box>
-      )}
-    </List>
+    </>
   )
 }
 

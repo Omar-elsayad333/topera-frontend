@@ -3,29 +3,19 @@
 import { useState } from 'react'
 
 // Types
-import { RequestMethods } from '@/services/types'
+import { IProps } from './types'
+import { ERequestMethods } from '@/services/types'
 
 // Services
 import { serverAction } from '@/services/actions'
 
-export type IParams = {
-  [key: string]: string
-}
-
-export type IProps = {
-  endpoint: string
-  body?: any
-  params?: IParams
-  noLoading?: boolean
-}
-
-const useRequestsHandlers = () => {
+const useRequestHandlers = () => {
   const [loading, setLoading] = useState<boolean>(false)
 
   const getHandler = async ({ endpoint, params, noLoading }: IProps) => {
     try {
       !noLoading && setLoading(true)
-      const response = await serverAction(endpoint, RequestMethods.GET, params)
+      const response = await serverAction({ endpoint, method: ERequestMethods.GET, params })
       return response
     } catch (error: any) {
       throw new Error(error)
@@ -37,7 +27,7 @@ const useRequestsHandlers = () => {
   const postHandler = async ({ endpoint, body, params, noLoading }: IProps) => {
     try {
       !noLoading && setLoading(true)
-      const response = await serverAction(endpoint, RequestMethods.POST, body, params)
+      const response = await serverAction({ endpoint, method: ERequestMethods.POST, body, params })
       return response.data
     } catch (error: any) {
       throw new Error(error)
@@ -49,7 +39,7 @@ const useRequestsHandlers = () => {
   const putHandler = async ({ endpoint, body, params, noLoading }: IProps) => {
     try {
       !noLoading && setLoading(true)
-      const response = await serverAction(endpoint, RequestMethods.PUT, body, params)
+      const response = await serverAction({ endpoint, method: ERequestMethods.PUT, body, params })
       return response.data
     } catch (error: any) {
       throw Error(error)
@@ -61,7 +51,7 @@ const useRequestsHandlers = () => {
   const deleteHandler = async ({ endpoint, params, noLoading }: IProps) => {
     try {
       !noLoading && setLoading(true)
-      const response = await serverAction(endpoint, RequestMethods.DELETE, params)
+      const response = await serverAction({ endpoint, method: ERequestMethods.DELETE, params })
       return response.data
     } catch (error: any) {
       throw Error(error)
@@ -72,11 +62,11 @@ const useRequestsHandlers = () => {
 
   return {
     loading,
-    postHandler,
     getHandler,
+    postHandler,
     putHandler,
     deleteHandler,
   }
 }
 
-export default useRequestsHandlers
+export default useRequestHandlers

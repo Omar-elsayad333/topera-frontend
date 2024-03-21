@@ -1,5 +1,3 @@
-import { Route } from '@mui/icons-material'
-
 export const Routes = {
   // GENERAL
   notFound: '/404',

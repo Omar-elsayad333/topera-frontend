@@ -1,14 +1,22 @@
 import { create } from 'zustand'
 
 interface Actions {
-  setMatchingNavData: (data: any) => void
+  updateWorkNavData: (data: any) => void
+  updateLearnNavData: (data: any) => void
+  updateArchiveNavData: (data: any) => void
 }
 
 interface State {
-  matchingNavData: any
+  workNavData: any
+  learnNavData: any
+  archiveNavData: any
 }
 
 export const useMatching = create<State & Actions>((set) => ({
-  matchingNavData: [],
-  setMatchingNavData: (data) => set({ matchingNavData: data }),
+  workNavData: [],
+  learnNavData: [],
+  archiveNavData: [],
+  updateWorkNavData: (data) => set({ workNavData: data }),
+  updateLearnNavData: (data) => set({ learnNavData: data }),
+  updateArchiveNavData: (data) => set({ archiveNavData: data }),
 }))

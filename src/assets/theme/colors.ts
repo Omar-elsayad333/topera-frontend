@@ -20,7 +20,7 @@ export const LIGHT_PALETTE_COLORS: Partial<PaletteOptions> = {
     main: '#20C30D',
   },
   background: {
-    paper: '#f5f5f5',
+    paper: '#fff',
     default: '#F4F4FF',
   },
 }
@@ -45,7 +45,7 @@ export const DARK_PALETTE_COLORS: Partial<PaletteOptions> = {
     main: '#20C30D',
   },
   background: {
-    paper: '#424242', // Gray 800 - Background of "Paper" based component
+    // paper: 'red', // Gray 800 - Background of "Paper" based component
     default: '#121212',
   },
 }

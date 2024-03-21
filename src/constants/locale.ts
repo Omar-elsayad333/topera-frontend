@@ -1,7 +1,5 @@
-export interface ILocales {
-  text: string
-  value: string
-}
+// Types
+import { ILocales } from './types'
 
 /*
  * Index 0 will be the default locale of the site

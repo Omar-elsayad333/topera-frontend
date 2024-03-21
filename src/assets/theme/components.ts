@@ -1,7 +1,9 @@
-export const components: any = {
+import { Components, Theme } from '@mui/material/styles'
+
+export const components: Components<Theme> = {
   MuiContainer: {
     styleOverrides: {
-      root: ({ ownerState, theme }: any) => ({
+      root: ({ ownerState, theme }) => ({
         ...(ownerState.maxWidth === false && {
           [theme.breakpoints.up('lg')]: {
             padding: '0px 100px',
@@ -12,15 +14,15 @@ export const components: any = {
   },
   MuiButton: {
     styleOverrides: {
-      root: ({ ownerState, theme }: any) => ({
+      root: ({ ownerState, theme }) => ({
         ...(ownerState.variant === 'grayButton' && {
           flexGrow: '1',
-          color: '#000',
           fontWeight: 600,
           fontSize: '14px',
           borderRadius: '6px',
           textTransform: 'capitalize',
           justifyContent: 'flex-start',
+          color: theme.palette.text.primary,
           border: `2px solid ${theme.palette.grey[400]}`,
         }),
       }),
@@ -28,11 +30,11 @@ export const components: any = {
   },
   MuiIconButton: {
     styleOverrides: {
-      root: ({ ownerState, theme }: any) => ({
+      root: ({ ownerState, theme }) => ({
         ...(ownerState.datatype === 'grayButton' && {
-          color: '#000',
           borderRadius: '6px',
           justifyContent: 'flex-center',
+          color: theme.palette.text.primary,
           border: `2px solid ${theme.palette.grey[400]}`,
         }),
       }),
