@@ -1,3 +1,11 @@
+// Form Controlling
+import {useForm} from 'react-hook-form';
 export const useTest = () => {
-  return {}
+
+  const {handleSubmit,control} = useForm()
+
+  return {
+    control
+
+  }
 }
