@@ -1,9 +1,6 @@
 'use client'
 import { useState } from 'react'
 
-// Store
-import { useAppStore } from '@/stores'
-
 // Components
 import ChatNavContentComponent from './ChatNavContentComponent'
 
@@ -14,7 +11,6 @@ import Drawer from '@mui/material/Drawer'
 
 const ChatNav: React.FC = () => {
   const theme = useTheme()
-  const [state] = useAppStore()
   const [mobileOpen, setMobileOpen] = useState(false)
 
   const handleDrawerClose = () => {
@@ -27,7 +23,6 @@ const ChatNav: React.FC = () => {
       sx={{
         width: '100%',
         flexShrink: { sm: 0 },
-        // borderInline: state.darkMode ? `1px solid ${theme.palette.text.primary}` : 'none',
         borderInline: `1px solid ${theme.palette.text.primary}`,
       }}
       aria-label="mailbox folders"
