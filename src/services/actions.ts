@@ -3,11 +3,13 @@
 // Config
 import env from '@/config/env'
 
+// Types
+import { IServerActionProps } from './types'
+
 // Next Auth
 import { getServerAuthSession } from './auth'
-import { IParams } from './types'
 
-export async function serverAction(endpoint: string, method: string, params?: IParams, body?: any) {
+export async function serverAction({ endpoint, method, params, body }: IServerActionProps) {
   const user: any = await getServerAuthSession()
 
   if (user?.user?.token) {
@@ -23,8 +25,8 @@ export async function serverAction(endpoint: string, method: string, params?: IP
       })
 
       return await res.json()
-    } catch (error) {
-      console.log(error)
+    } catch (error: any) {
+      throw new Error(error)
     }
   } else {
     console.log('not user')

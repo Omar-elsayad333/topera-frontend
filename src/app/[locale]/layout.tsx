@@ -15,7 +15,7 @@ import { AppStoreProvider } from '@/stores'
 import { NextIntlClientProvider, useMessages } from 'next-intl'
 
 // Theme
-import { ThemeProvider } from '@/assets/theme'
+import ThemeProvider from '@/assets/theme/ThemeProvider'
 
 // Components
 import Layout from '@/components/layout'

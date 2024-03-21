@@ -7,6 +7,7 @@ export enum Fonts {
   SEMI_BOLD = 600,
   BOLD = 700,
 }
+
 export const typography: TypographyOptions = {
   fontFamily: 'Poppins',
   h1: {

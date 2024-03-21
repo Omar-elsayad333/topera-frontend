@@ -1,13 +1,8 @@
+// Types
+import { INavigations } from './types'
+
+// Routes
 import { Routes } from '@/routes/routes'
-
-interface IMeta {}
-
-interface INavigations {
-  name: string
-  text: string
-  value: string
-  meta?: IMeta
-}
 
 /*
  * This is header navigation data

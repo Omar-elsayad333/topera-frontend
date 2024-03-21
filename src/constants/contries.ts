@@ -1,9 +1,5 @@
-interface CountryType {
-  code: string
-  label: string
-  phone: string
-  suggested?: boolean
-}
+// Types
+import { CountryType } from './types'
 
 export const countries: readonly CountryType[] = [
   { code: 'AD', label: 'Andorra', phone: '376' },

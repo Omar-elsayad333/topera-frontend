@@ -6,24 +6,17 @@ import { useTranslations } from 'next-intl'
 
 // Components
 import WorkTabComponent from './WorkTabComponent'
+import LearnTabComponent from './LearnTabComponent'
 
 // MUI
 import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
-import List from '@mui/material/List'
 import Tabs from '@mui/material/Tabs'
 import Button from '@mui/material/Button'
 import Toolbar from '@mui/material/Toolbar'
-import ListItem from '@mui/material/ListItem'
 import AddIcon from '@mui/icons-material/Add'
 import IconButton from '@mui/material/IconButton'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
 import InventoryIcon from '@mui/icons-material/Inventory'
-import ListItemButton from '@mui/material/ListItemButton'
-import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded'
-import ChatBubbleRoundedIcon from '@mui/icons-material/ChatBubbleRounded'
-import LearnTabComponent from './LearnTabComponent'
 
 const ChatNavContentComponent = () => {
   const t = useTranslations('matching_chat_nav')

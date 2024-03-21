@@ -1,22 +1,13 @@
 // Components
-import LandingStageComponent from '@/components/pages/MatchingChat/LandingStageComponent/page'
+import LandingStageComponent from '@/components/pages/MatchingChat/LandingStageComponent'
 
 // MUI
 import Container from '@mui/material/Container'
 
 const MatchingChatContent = () => {
   return (
-    <Container
-      sx={{
-        gap: '30px',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
-    >
+    <Container sx={{ height: '100%', display: 'flex' }}>
       <LandingStageComponent />
-      <p>omar</p>
     </Container>
   )
 }

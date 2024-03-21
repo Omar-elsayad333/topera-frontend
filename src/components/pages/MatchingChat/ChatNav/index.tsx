@@ -1,8 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
-
-// Stores
-import { useMatching } from '@/stores/matchingStore'
+import { useState } from 'react'
 
 // Components
 import ChatNavContentComponent from './ChatNavContentComponent'

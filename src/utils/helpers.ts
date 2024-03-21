@@ -1,6 +1,7 @@
 // Helpers
 
-export const imagesFilter = (data: any, imageName: string, placholderName: string, defaultImage: any) => {
+// #TODO fix the logic issue in this fn
+export const imagesFilter = (data: any[], imageName: string, placholderName?: string, defaultImage?: any) => {
   if (data && Array.isArray(data)) {
     for (let image of data) {
       if (image.name === imageName) {
@@ -8,7 +9,7 @@ export const imagesFilter = (data: any, imageName: string, placholderName: strin
       }
     }
   } else {
-    return defaultImage ? defaultImage : uiAvatar(placholderName)
+    return defaultImage ? defaultImage : uiAvatar(placholderName || '')
   }
 }
 
