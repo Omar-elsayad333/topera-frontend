@@ -12,18 +12,22 @@ import LearnTabComponent from './LearnTabComponent'
 import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
+import { useTheme } from '@mui/material'
 import Button from '@mui/material/Button'
 import Toolbar from '@mui/material/Toolbar'
 import AddIcon from '@mui/icons-material/Add'
-import IconButton from '@mui/material/IconButton'
+import ToggleButton from '@mui/material/ToggleButton'
 import InventoryIcon from '@mui/icons-material/Inventory'
 
 const ChatNavContentComponent = () => {
   const t = useTranslations('matching_chat_nav')
+  const theme = useTheme()
   const [value, setValue] = useState(0)
+  const [archive, setArchive] = useState(false)
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
+    setArchive(false)
   }
 
   return (
@@ -61,12 +65,20 @@ const ChatNavContentComponent = () => {
           <Button startIcon={<AddIcon />} variant="grayButton">
             new chat
           </Button>
-          <IconButton datatype="grayButton" aria-label="Archive">
+          <ToggleButton
+            color="primary"
+            value="check"
+            selected={archive}
+            sx={{ borderColor: archive ? theme.palette.primary.main : '' }}
+            onChange={() => {
+              setArchive(!archive)
+            }}
+          >
             <InventoryIcon />
-          </IconButton>
+          </ToggleButton>
         </Box>
-        {value === 0 && <LearnTabComponent />}
-        {value === 1 && <WorkTabComponent />}
+        {value === 0 && <LearnTabComponent {...{ archive }} />}
+        {value === 1 && <WorkTabComponent {...{ archive }} />}
       </Box>
     </Box>
   )

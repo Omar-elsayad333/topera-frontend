@@ -40,4 +40,13 @@ export const components: Components<Theme> = {
       }),
     },
   },
+  MuiToggleButton: {
+    styleOverrides: {
+      root: ({ ownerState, theme }) => ({
+        borderRadius: '6px',
+        justifyContent: 'flex-center',
+        border: `2px solid ${theme.palette.grey[400]}`,
+      }),
+    },
+  },
 }

@@ -14,6 +14,7 @@ const ChatInputComponent = () => {
     overflow: 'hidden',
     borderRadius: '18px',
     background: theme.palette.background.paper,
+    '& .MuiOutlinedInput-notchedOutline': { borderWidth: '2px' },
     '& .MuiInputBase-root': { borderRadius: '18px', overflow: 'hidden' },
   }
 

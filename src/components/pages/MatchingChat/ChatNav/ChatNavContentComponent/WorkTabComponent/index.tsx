@@ -22,7 +22,7 @@ import ListItemButton from '@mui/material/ListItemButton'
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded'
 import ChatBubbleRoundedIcon from '@mui/icons-material/ChatBubbleRounded'
 
-const WorkTabComponent = () => {
+const WorkTabComponent = ({ archive }: { archive: boolean }) => {
   const theme = useTheme()
   const { loading, getHandler } = useRequestHandlers()
   const [weekMatchingData, setWeekMatchingData] = useState<any>(null)
@@ -33,7 +33,8 @@ const WorkTabComponent = () => {
 
   const getPageData = async () => {
     try {
-      const res = await getHandler({ endpoint: `/matching/${MatchingEnum.WORK}` })
+      const endpoint = archive ? `/matching/archived/${MatchingEnum.WORK}` : `/matching/${MatchingEnum.WORK}`
+      const res = await getHandler({ endpoint })
       setWeekMatchingData([
         { name: 'Today', data: res.data.today },
         { name: 'Last 7 days', data: res.data.lastWeek },
