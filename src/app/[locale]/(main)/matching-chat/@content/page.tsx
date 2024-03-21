@@ -6,7 +6,7 @@ import Container from '@mui/material/Container'
 
 const MatchingChatContent = () => {
   return (
-    <Container sx={{ height: '100%', display: 'flex' }}>
+    <Container className="full-screen" sx={{ display: 'flex' }}>
       <LandingStageComponent />
     </Container>
   )
