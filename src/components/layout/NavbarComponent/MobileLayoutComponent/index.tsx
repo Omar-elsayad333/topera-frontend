@@ -79,19 +79,19 @@ const MobileLayoutComponent: React.FC = () => {
                   display: 'block',
                   fontSize: '14px',
                   textTransform: 'capitalize',
-                  fontWeight:
-                    pathname === (page.name !== 'Home' ? `/${params.locale}${page.value}` : `/${params.locale}`)
-                      ? 700
-                      : 400,
-                  color:
-                    pathname === (page.name !== 'Home' ? `/${params.locale}${page.value}` : `/${params.locale}`)
-                      ? theme.palette.primary.main
-                      : theme.palette.secondary.main,
+                  fontWeight: (
+                    page.name != 'Home' ? pathname.startsWith(page.value, 3) : pathname === `/${params.locale}`
+                  )
+                    ? 700
+                    : 400,
+                  color: (page.name != 'Home' ? pathname.startsWith(page.value, 3) : pathname === `/${params.locale}`)
+                    ? theme.palette.primary.main
+                    : theme.palette.secondary.main,
                 }}
               >
                 <p
                   className={`${orbitron.className} ${
-                    pathname === (page.name !== 'Home' ? `/${params.locale}${page.value}` : `/${params.locale}`) &&
+                    (page.name != 'Home' ? pathname.startsWith(page.value, 3) : pathname === `/${params.locale}`) &&
                     'active-nav-link'
                   }`}
                 >

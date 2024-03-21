@@ -11,8 +11,10 @@ const ChatInputComponent = () => {
 
   const style: SxProps = {
     width: '80%',
+    overflow: 'hidden',
+    borderRadius: '18px',
     background: theme.palette.background.paper,
-    '& .MuiInputBase-root': { borderRadius: '18px' },
+    '& .MuiInputBase-root': { borderRadius: '18px', overflow: 'hidden' },
   }
 
   return (
