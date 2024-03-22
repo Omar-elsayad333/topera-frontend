@@ -1,8 +1,12 @@
 'use client'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 // Next intl
 import { useTranslations } from 'next-intl'
+
+// Routes
+import { Routes } from '@/routes/routes'
 
 // Components
 import WorkTabComponent from './WorkTabComponent'
@@ -22,12 +26,18 @@ import InventoryIcon from '@mui/icons-material/Inventory'
 const ChatNavContentComponent = () => {
   const t = useTranslations('matching_chat_nav')
   const theme = useTheme()
+  const router = useRouter()
   const [value, setValue] = useState(0)
   const [archive, setArchive] = useState(false)
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
     setArchive(false)
+  }
+
+  const startNewChat = () => {
+    setArchive(false)
+    router.replace(Routes.matchingChat)
   }
 
   return (
@@ -62,7 +72,7 @@ const ChatNavContentComponent = () => {
       </Toolbar>
       <Box sx={{ px: 3 }}>
         <Box sx={{ py: 2, display: 'flex', gap: '16px' }}>
-          <Button startIcon={<AddIcon />} variant="grayButton">
+          <Button onClick={startNewChat} startIcon={<AddIcon />} variant="grayButton">
             new chat
           </Button>
           <ToggleButton

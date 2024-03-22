@@ -34,7 +34,7 @@ const Matching: NextPage = () => {
         </Typography>
         <Typography variant="h5">{tMatching('how_to_use_body')}</Typography>
       </Box>
-      <Link href={Routes.matchingRoom}>
+      <Link href={Routes.matchingChat}>
         <Button
           variant="contained"
           sx={{

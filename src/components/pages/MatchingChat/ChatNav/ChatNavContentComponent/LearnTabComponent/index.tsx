@@ -16,10 +16,10 @@ import InnerLoadingComponent from '@/components/shared/InnerLoadingComponent'
 import Box from '@mui/material/Box'
 import List from '@mui/material/List'
 import { useTheme } from '@mui/material'
+import Tooltip from '@mui/material/Tooltip'
 import ListItem from '@mui/material/ListItem'
 import Typography from '@mui/material/Typography'
 import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
 import ListItemButton from '@mui/material/ListItemButton'
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded'
 import ChatBubbleRoundedIcon from '@mui/icons-material/ChatBubbleRounded'
@@ -50,10 +50,11 @@ const LearnTabComponent = ({ archive }: { archive: boolean }) => {
                       onClick={() => router.replace(`matching-chat?chatId=${chat.id}`)}
                       sx={{ height: '38px', borderRadius: '6px', alignItems: 'center' }}
                     >
-                      <ListItemIcon sx={{ minWidth: '35px' }}>
+                      <ListItemIcon sx={{ minWidth: '30px' }}>
                         <ChatBubbleRoundedIcon
                           sx={{
-                            fontSize: '18px',
+                            fontSize: '16px',
+                            minWidth: '25px',
                             color:
                               chat.requestStatus === EChatStatus.Open
                                 ? theme.palette.error.main
@@ -61,7 +62,11 @@ const LearnTabComponent = ({ archive }: { archive: boolean }) => {
                           }}
                         />
                       </ListItemIcon>
-                      <ListItemText primary={chat.name} />
+                      <Tooltip title={chat.name}>
+                        <Typography variant="h6" sx={{ pr: 2, flexGrow: 1 }} noWrap>
+                          {chat.name}
+                        </Typography>
+                      </Tooltip>
                       <ListItemIcon
                         sx={{ color: 'inherit', minWidth: 'unset' }}
                         onClick={menu.handleClick}

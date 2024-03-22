@@ -16,10 +16,10 @@ const useChatNav = (ChatType: any, archive: boolean) => {
     getPageData()
   }, [archive])
 
-  const getPageData = async () => {
+  const getPageData = async (noLoading: boolean = false) => {
     try {
       const endpoint = archive ? `/matching/archived/${ChatType}` : `/matching/${ChatType}`
-      const res = await getHandler({ endpoint })
+      const res = await getHandler({ endpoint, noLoading })
       setMatchingData([
         { id: 1, name: 'Today', data: res.data.today },
         { id: 2, name: 'Last 7 days', data: res.data.lastWeek },
@@ -50,6 +50,7 @@ const useChatNav = (ChatType: any, archive: boolean) => {
   const deleteChat = async (selectedChatId: string) => {
     try {
       await deleteHandler({ endpoint: `/matching/${selectedChatId}` })
+      getPageData(true)
     } catch (error) {
       console.log(error)
     }
@@ -58,6 +59,7 @@ const useChatNav = (ChatType: any, archive: boolean) => {
   const archiveChat = async (selectedChatId: string) => {
     try {
       await putHandler({ endpoint: `/matching/archived/${selectedChatId}` })
+      getPageData(true)
     } catch (error) {
       console.log(error)
     }
@@ -78,6 +80,7 @@ const useChatNav = (ChatType: any, archive: boolean) => {
       const body = { id: selectedChatId, name: newValue }
       const endpoint = `/matching/chatname/${selectedChatId}`
       await postHandler({ endpoint, body, noLoading: true })
+      getPageData(true)
       handleCloseEditDialog()
     } catch (error) {
       console.log(error)

@@ -78,7 +78,7 @@ const EditChatComponent: React.FC<IProps> = ({
             Cancel
           </Button>
           <Button variant="contained" type="submit" disabled={loading}>
-            {!loading ? <OuterLoadingComponent variant="secondary" size={15} /> : 'Edit'}
+            {loading ? <OuterLoadingComponent variant="secondary" size={15} /> : 'Edit'}
           </Button>
         </DialogActions>
       </form>

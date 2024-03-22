@@ -13,12 +13,13 @@ import InnerLoadingComponent from '@/components/shared/InnerLoadingComponent'
 import useChatNav from '../useChatNav'
 
 // MUI
+import Box from '@mui/material/Box'
 import List from '@mui/material/List'
-import { Box, useTheme } from '@mui/material'
+import { useTheme } from '@mui/material'
+import Tooltip from '@mui/material/Tooltip'
 import ListItem from '@mui/material/ListItem'
 import Typography from '@mui/material/Typography'
 import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
 import ListItemButton from '@mui/material/ListItemButton'
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded'
 import ChatBubbleRoundedIcon from '@mui/icons-material/ChatBubbleRounded'
@@ -53,7 +54,7 @@ const WorkTabComponent = ({ archive }: { archive: boolean }) => {
                         alignItems: 'center',
                       }}
                     >
-                      <ListItemIcon sx={{ minWidth: '35px' }}>
+                      <ListItemIcon sx={{ minWidth: '30px' }}>
                         <ChatBubbleRoundedIcon
                           sx={{
                             fontSize: '16px',
@@ -65,7 +66,11 @@ const WorkTabComponent = ({ archive }: { archive: boolean }) => {
                           }}
                         />
                       </ListItemIcon>
-                      <ListItemText primary={chat.name} sx={{ fontSize: '14px' }} />
+                      <Tooltip title={chat.name}>
+                        <Typography variant="h6" sx={{ pr: 2, flexGrow: 1 }} noWrap>
+                          {chat.name}
+                        </Typography>
+                      </Tooltip>
                       <ListItemIcon
                         sx={{ color: 'inherit', minWidth: 'unset' }}
                         onClick={menu.handleClick}

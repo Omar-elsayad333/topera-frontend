@@ -1,13 +1,21 @@
+import { NextPage } from 'next'
+
 // Components
 import LandingStageComponent from '@/components/pages/MatchingChat/LandingStageComponent'
 
 // MUI
 import Container from '@mui/material/Container'
 
-const MatchingChatContent = () => {
+interface IProps {
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
+const MatchingChatContent: NextPage<IProps> = ({ searchParams }) => {
+  const chatId = searchParams.chatId
+
   return (
     <Container className="full-screen" sx={{ display: 'flex' }}>
-      <LandingStageComponent />
+      {chatId ? 'omar' : <LandingStageComponent />}
     </Container>
   )
 }
