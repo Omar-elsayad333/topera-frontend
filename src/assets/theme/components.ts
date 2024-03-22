@@ -42,10 +42,20 @@ export const components: Components<Theme> = {
   },
   MuiToggleButton: {
     styleOverrides: {
-      root: ({ ownerState, theme }) => ({
+      root: ({ theme }) => ({
         borderRadius: '6px',
         justifyContent: 'flex-center',
         border: `2px solid ${theme.palette.grey[400]}`,
+      }),
+    },
+  },
+  MuiListItemButton: {
+    styleOverrides: {
+      root: ({ ownerState, theme }) => ({
+        ...(ownerState.selected && {
+          color: theme.palette.common.white,
+          backgroundColor: `${theme.palette.grey[400]} !important`,
+        }),
       }),
     },
   },
