@@ -13,6 +13,7 @@ const ButtonComponent: React.FC<IButtonComponentProps> = ({
 }) => {
   return (
     <Button
+        fullWidth
       style={{ textTransform: 'none' }}
       startIcon={startIcon}
       type={type}

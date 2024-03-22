@@ -19,7 +19,7 @@ const Test: NextPage = () => {
             <TextFieldComponent control={control} name={'email'} error={errors['email']} label={'email'}/>
             <ButtonComponent type={'submit'} variant={'contained'} text={'hallo'}/>
             </form>
-            <ButtonComponent text={'Sign in with Google'} variant={'socialButton'} startIcon={<AccessAlarmIcon/>}/>
+            <ButtonComponent  text={'Sign in with Google'} variant={'socialButton'} startIcon={<AccessAlarmIcon/>}/>
         </>
     )
 }
