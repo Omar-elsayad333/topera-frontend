@@ -15,6 +15,7 @@ export const components: Components<Theme> = {
   MuiButton: {
     styleOverrides: {
       root: ({ ownerState, theme }) => ({
+        textTransform: 'unset',
         ...(ownerState.variant === 'grayButton' && {
           flexGrow: '1',
           fontWeight: 600,
@@ -35,19 +36,20 @@ export const components: Components<Theme> = {
         }),
         ...(ownerState.variant === 'socialButton' && {
           display: 'flex',
-          gap:'10px',
-          flexGrow: '1',
+          width: '100%',
+          gap: '15px',
           justifyContent: 'center',
           alignItems: 'center',
           fontWeight: 500,
           fontSize: '24px',
-          padding: '18px 0',
+          padding: '15px 10px',
           borderRadius: '50px',
           color: '#000000',
-          border:'1px solid gray',
+          border: `2px solid ${theme.palette.grey[500]}`,
           backgroundColor: 'transparent',
           '&:hover': {
             backgroundColor: 'transparent',
+            borderColor: theme.palette.primary.main,
           },
         }),
       }),
