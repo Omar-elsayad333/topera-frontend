@@ -3,22 +3,21 @@
 import {useState} from 'react'
 
 // Validation Controllers
-import {Controller} from 'react-hook-form'
+import {Controller, FieldErrorsImpl, Merge} from 'react-hook-form'
 
 // MUI
 import IconButton from '@mui/material/IconButton'
-import InputLabel from '@mui/material/InputLabel'
 import FormControl from '@mui/material/FormControl'
-import Input from '@mui/material/Input'
 import Visibility from '@mui/icons-material/Visibility'
 import FormHelperText from '@mui/material/FormHelperText'
 import InputAdornment from '@mui/material/InputAdornment'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
-import {TextField} from '@mui/material'
+import TextField from '@mui/material/TextField'
+import {FieldError} from '@/types/validation'
 
 interface IProps {
     id?: string
-    error?: any
+    error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>
     control: any
     name: string
     label?: string
@@ -65,7 +64,8 @@ const PasswordInputComponent: React.FC<IProps> = ({name, control, id, placeholde
                     />
                 )}
             />
-            {error?.type !== 'required' && <FormHelperText sx={{textAlign: 'unset'}}>{error?.message}</FormHelperText>}
+            {error?.type !== 'required' &&
+                <FormHelperText sx={{textAlign: 'unset'}}>{error?.message as string}</FormHelperText>}
         </FormControl>
     )
 }

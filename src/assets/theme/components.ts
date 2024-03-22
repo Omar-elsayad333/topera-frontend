@@ -26,7 +26,6 @@ export const components: Components<Theme> = {
           border: `2px solid ${theme.palette.grey[400]}`,
         }),
         ...(ownerState.variant === 'contained' && {
-          flexGrow: '1',
           fontWeight: 600,
           fontSize: '14px',
           padding: '10px 20px',
@@ -36,6 +35,7 @@ export const components: Components<Theme> = {
         }),
         ...(ownerState.variant === 'socialButton' && {
           display: 'flex',
+          gap:'10px',
           flexGrow: '1',
           justifyContent: 'center',
           alignItems: 'center',
