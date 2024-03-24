@@ -13,6 +13,8 @@ interface Actions {
 
   updateWorkArchiveState: () => void
   updateLearnArchiveState: () => void
+
+  updateUserMessage: (data: string) => void
 }
 
 interface State {
@@ -28,9 +30,12 @@ interface State {
 
   workArchiveData: any
   learnArchiveData: any
+
+  userMessage: string
 }
 
 export const useMatching = create<State & Actions>((set) => ({
+  // matching nav states
   type: 1,
 
   mobileNav: false,
@@ -44,6 +49,7 @@ export const useMatching = create<State & Actions>((set) => ({
   workArchiveData: [],
   learnArchiveData: [],
 
+  // matching nav methods
   updateTypeNav: () => set((state) => ({ type: state.type ? 0 : 1 })),
 
   updateMobileNav: () => set((state) => ({ mobileNav: !state.mobileNav })),
@@ -56,4 +62,10 @@ export const useMatching = create<State & Actions>((set) => ({
 
   updateWorkArchiveState: () => set((state) => ({ workArchiveState: !state.workArchiveState })),
   updateLearnArchiveState: () => set((state) => ({ learnArchiveState: !state.learnArchiveState })),
+
+  // matching content states
+  userMessage: '',
+
+  // matching content methods
+  updateUserMessage: (data) => set({ userMessage: data }),
 }))

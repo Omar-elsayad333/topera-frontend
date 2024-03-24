@@ -5,6 +5,9 @@ import { object, string } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
+// Components
+import OuterLoadingComponent from '@/components/shared/OuterLoadingComponent'
+
 // MUI
 import { useTheme } from '@mui/material'
 import Button from '@mui/material/Button'
@@ -13,7 +16,6 @@ import TextField from '@mui/material/TextField'
 import DialogTitle from '@mui/material/DialogTitle'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
-import OuterLoadingComponent from '@/components/shared/OuterLoadingComponent'
 
 interface IProps {
   loading: boolean
