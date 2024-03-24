@@ -3,8 +3,22 @@ import { useEffect, useState } from 'react'
 // Hooks
 import useRequestHandlers from '@/hooks/useRequestHandlers'
 
-const useChatNav = (ChatType: any, archive: boolean) => {
-  const [matchingData, setMatchingData] = useState<any>([])
+// Stores
+import { useMatching } from '@/stores'
+
+const useChatNav = (ChatType: any) => {
+  const learnData = useMatching((state) => state.learnNavData)
+  const workData = useMatching((state) => state.workNavData)
+
+  const updateWorkData = useMatching((state) => state.updateWorkNavData)
+  const updateLearnData = useMatching((state) => state.updateLearnNavData)
+
+  const workArchiveState = useMatching((state) => state.workArchiveState)
+  const learnArchiveState = useMatching((state) => state.learnArchiveState)
+
+  const updateWorkArchiveData = useMatching((state) => state.updateWorkArchiveData)
+  const updateLearnArchiveData = useMatching((state) => state.updateLearnArchiveData)
+
   const [dialogLoading, setDialogLoading] = useState(false)
   const [editChatDialog, setEditChatDialog] = useState(false)
   const [dialogId, setDialogId] = useState<null | string>(null)
@@ -14,17 +28,30 @@ const useChatNav = (ChatType: any, archive: boolean) => {
 
   useEffect(() => {
     getPageData()
-  }, [archive])
+  }, [])
 
   const getPageData = async (noLoading: boolean = false) => {
     try {
-      const endpoint = archive ? `/matching/archived/${ChatType}` : `/matching/${ChatType}`
+      let endpoint = ''
+      if (ChatType === 'work') {
+        endpoint = workArchiveState ? `/matching/archived/${ChatType}` : `/matching/${ChatType}`
+      } else {
+        endpoint = learnArchiveState ? `/matching/archived/${ChatType}` : `/matching/${ChatType}`
+      }
+
       const res = await getHandler({ endpoint, noLoading })
-      setMatchingData([
+
+      const body = [
         { id: 1, name: 'Today', data: res.data.today },
         { id: 2, name: 'Last 7 days', data: res.data.lastWeek },
         { id: 3, name: 'Last months', data: res.data.lastMonths },
-      ])
+      ]
+
+      if (ChatType === 'work') {
+        workArchiveState ? updateWorkArchiveData(body) : updateWorkData(body)
+      } else {
+        learnArchiveState ? updateLearnArchiveData(body) : updateLearnData(body)
+      }
     } catch (error) {
       console.log(error)
     }
@@ -91,7 +118,6 @@ const useChatNav = (ChatType: any, archive: boolean) => {
 
   return {
     loading,
-    matchingData,
     editDialog: {
       dialogId,
       dialogLoading,

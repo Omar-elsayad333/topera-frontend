@@ -22,21 +22,20 @@ import Toolbar from '@mui/material/Toolbar'
 import AddIcon from '@mui/icons-material/Add'
 import ToggleButton from '@mui/material/ToggleButton'
 import InventoryIcon from '@mui/icons-material/Inventory'
+import { useMatching } from '@/stores'
 
 const ChatNavContentComponent = () => {
   const t = useTranslations('matching_chat_nav')
-  const theme = useTheme()
   const router = useRouter()
-  const [value, setValue] = useState(0)
-  const [archive, setArchive] = useState(false)
+
+  const type = useMatching((state) => state.type)
+  const updateTypeNav = useMatching((state) => state.updateTypeNav)
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue)
-    setArchive(false)
+    updateTypeNav()
   }
 
   const startNewChat = () => {
-    setArchive(false)
     router.replace(Routes.matchingChat)
   }
 
@@ -44,7 +43,7 @@ const ChatNavContentComponent = () => {
     <Box>
       <Toolbar sx={{ p: '0px !important' }}>
         <Tabs
-          value={value}
+          value={type}
           variant="fullWidth"
           sx={{ width: '100%' }}
           onChange={handleChange}
@@ -55,8 +54,8 @@ const ChatNavContentComponent = () => {
             value={0}
             sx={{
               textTransform: 'capitalize',
-              fontWeight: value === 0 ? 600 : 400,
-              fontSize: value === 0 ? '14px' : '12px',
+              fontWeight: type === 0 ? 600 : 400,
+              fontSize: type === 0 ? '14px' : '12px',
             }}
           />
           <Tab
@@ -64,32 +63,13 @@ const ChatNavContentComponent = () => {
             value={1}
             sx={{
               textTransform: 'capitalize',
-              fontWeight: value === 1 ? 600 : 400,
-              fontSize: value === 1 ? '14px' : '12px',
+              fontWeight: type === 1 ? 600 : 400,
+              fontSize: type === 1 ? '14px' : '12px',
             }}
           />
         </Tabs>
       </Toolbar>
-      <Box sx={{ px: 3 }}>
-        <Box sx={{ py: 2, display: 'flex', gap: '16px' }}>
-          <Button onClick={startNewChat} startIcon={<AddIcon />} variant="grayButton">
-            new chat
-          </Button>
-          <ToggleButton
-            color="primary"
-            value="check"
-            selected={archive}
-            sx={{ borderColor: archive ? theme.palette.primary.main : '' }}
-            onChange={() => {
-              setArchive(!archive)
-            }}
-          >
-            <InventoryIcon />
-          </ToggleButton>
-        </Box>
-        {value === 0 && <LearnTabComponent {...{ archive }} />}
-        {value === 1 && <WorkTabComponent {...{ archive }} />}
-      </Box>
+      {type === 0 ? <LearnTabComponent /> : <WorkTabComponent />}
     </Box>
   )
 }

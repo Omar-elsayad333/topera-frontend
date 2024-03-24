@@ -5,6 +5,9 @@ import { useRouter, useSearchParams } from 'next/navigation'
 // Types
 import { EChatStatus, MatchingEnum } from '@/types/enums'
 
+// Store
+import { useMatching } from '@/stores'
+
 // Components
 import ChatMenuComponent from '../ChatMenuComponent'
 import InnerLoadingComponent from '@/components/shared/InnerLoadingComponent'
@@ -15,6 +18,7 @@ import useChatNav from '../useChatNav'
 // MUI
 import Box from '@mui/material/Box'
 import List from '@mui/material/List'
+import Button from '@mui/material/Button'
 import { useTheme } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 import ListItem from '@mui/material/ListItem'
@@ -23,16 +27,41 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemButton from '@mui/material/ListItemButton'
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded'
 import ChatBubbleRoundedIcon from '@mui/icons-material/ChatBubbleRounded'
+import ToggleButton from '@mui/material/ToggleButton'
+import AddIcon from '@mui/icons-material/Add'
+import InventoryIcon from '@mui/icons-material/Inventory'
 
-const WorkTabComponent = ({ archive }: { archive: boolean }) => {
+const WorkTabComponent = () => {
   const theme = useTheme()
   const router = useRouter()
   const searchParams = useSearchParams()
   const chatId = searchParams.get('chatId')
-  const { matchingData, loading, menu } = useChatNav(MatchingEnum.WORK, archive)
+  const { loading, menu } = useChatNav(MatchingEnum.WORK)
+
+  const workData = useMatching((state) => state.workNavData)
+  const workArchiveData = useMatching((state) => state.workArchiveData)
+
+  const workArchiveState = useMatching((state) => state.workArchiveState)
+  const updateWorkArchiveState = useMatching((state) => state.updateWorkArchiveState)
 
   return (
-    <>
+    <Box sx={{ px: 3 }}>
+      <Box sx={{ py: 2, display: 'flex', gap: '16px' }}>
+        <Button onClick={() => {}} startIcon={<AddIcon />} variant="grayButton">
+          new chat
+        </Button>
+        <ToggleButton
+          color="primary"
+          value="check"
+          selected={workArchiveState}
+          sx={{ borderColor: workArchiveState ? theme.palette.primary.main : '' }}
+          onChange={() => {
+            updateWorkArchiveState()
+          }}
+        >
+          <InventoryIcon />
+        </ToggleButton>
+      </Box>
       {loading ? (
         <InnerLoadingComponent />
       ) : (
@@ -94,7 +123,7 @@ const WorkTabComponent = ({ archive }: { archive: boolean }) => {
             ))}
         </List>
       )}
-    </>
+    </Box>
   )
 }
 

@@ -10,6 +10,7 @@ import LogoIcon from '@/assets/icons/logoIcon.svg'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import ChatInputComponent from './ChatInputComponent'
+import MessageComponent from './MessageComponent'
 
 const LandingStageComponent = () => {
   const t = useTranslations('matching_chat')
@@ -38,6 +39,9 @@ const LandingStageComponent = () => {
         <Image src={LogoIcon} alt="Topera" loading="lazy" />
         <Typography variant="h4">{t('landing_title')}</Typography>
       </Box>
+      {/* <MessageCompon/ent title='' body='' > */}
+
+      {/* </MessageComponent> */}
       <ChatInputComponent />
     </Box>
   )

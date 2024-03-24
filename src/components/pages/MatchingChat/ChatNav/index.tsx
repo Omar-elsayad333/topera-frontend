@@ -1,6 +1,9 @@
 'use client'
 import { useState } from 'react'
 
+// Store
+import { useMatching } from '@/stores'
+
 // Components
 import ChatNavContentComponent from './ChatNavContentComponent'
 
@@ -11,10 +14,11 @@ import Drawer from '@mui/material/Drawer'
 
 const ChatNav: React.FC = () => {
   const theme = useTheme()
-  const [mobileOpen, setMobileOpen] = useState(false)
+  const mobileNav = useMatching((state) => state.mobileNav)
+  const updateMobileNav = useMatching((state) => state.updateMobileNav)
 
   const handleDrawerClose = () => {
-    setMobileOpen(!mobileOpen)
+    updateMobileNav()
   }
 
   return (
@@ -29,7 +33,7 @@ const ChatNav: React.FC = () => {
     >
       <Drawer
         variant="temporary"
-        open={mobileOpen}
+        open={mobileNav}
         ModalProps={{
           keepMounted: true, // Better open performance on mobile.
         }}

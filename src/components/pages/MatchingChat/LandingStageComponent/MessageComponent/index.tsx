@@ -1,10 +1,12 @@
 import Image from 'next/image'
 import { PropsWithChildren } from 'react'
 
+// Components
+import TypeAnimationComponet from '@/components/shared/TypeAnimationComponent'
+
 // MUI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import TypeAnimationComponet from '@/components/shared/TypeAnimationComponent'
 
 interface IProps {
   avatar: string
