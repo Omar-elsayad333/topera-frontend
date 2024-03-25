@@ -16,6 +16,7 @@ interface IProps {
 
 const MatchingChatContent: NextPage<IProps> = async ({ searchParams }) => {
   const chatId = searchParams.chatId
+
   const data = await serverAction({ endpoint: `/matching/${chatId}`, method: 'GET' })
 
   return (

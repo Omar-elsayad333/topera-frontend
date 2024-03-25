@@ -1,3 +1,5 @@
+'use client'
+
 import { TypeAnimation } from 'react-type-animation'
 
 const TypeAnimationComponet = ({ text }: { text: string }) => {

@@ -12,16 +12,20 @@ import AvatarLogo from '@/assets/images/avatar_logo.svg'
 
 // Components
 import MessageComponent from './MessageComponent'
+import DelayedComponent from '@/components/shared/AnimationComponents/DelayedComponent'
 
 // MUI
 import Box from '@mui/material/Box'
 import Chip from '@mui/material/Chip'
 import Stack from '@mui/material/Stack'
+import { useTheme } from '@mui/material'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 
 const ChatContent = ({ data }: any) => {
+  const theme = useTheme()
   const t = useTranslations('matching_chat')
+  const [pageData, setPageData] = useState<any>(null)
   const [userData, setUserData] = useState<any>(null)
 
   useEffect(() => {
@@ -29,7 +33,7 @@ const ChatContent = ({ data }: any) => {
   }, [])
 
   useEffect(() => {
-    console.log(data)
+    data && setPageData(data)
   }, [data])
 
   const getUserData = async () => {
@@ -43,7 +47,7 @@ const ChatContent = ({ data }: any) => {
 
   return (
     <>
-      {userData && (
+      {userData && pageData && (
         <Box
           sx={{
             py: 3,
@@ -54,18 +58,26 @@ const ChatContent = ({ data }: any) => {
           }}
         >
           <MessageComponent
-            body={data.data}
+            body={pageData.data}
             avatar={userData.image}
             title={`${userData.firstName} ${userData.lastName}`}
           />
-          <MessageComponent title={'Topera'} avatar={AvatarLogo} body={'We recommend working with...'}>
-            <Stack direction="row" spacing={2}>
-              <Chip datatype="trackChip" label="Deletable" onDelete={handleDelete} />
-              <Button variant="primary">confirm</Button>
-            </Stack>
-            <Typography>If you are happy with this list please click on confirm button to start matching</Typography>
-            <Button variant="primary">confirm</Button>
-          </MessageComponent>
+          <DelayedComponent delay={3000}>
+            <MessageComponent title={'Topera'} avatar={AvatarLogo} body={'We recommend working with...'}>
+              <Stack alignItems={'start'} spacing={2}>
+                <Stack direction="row" alignItems={'center'} spacing={2}>
+                  <Chip datatype="trackChip" label={pageData.data} onDelete={handleDelete} />
+                  <Button variant="contained">edit</Button>
+                </Stack>
+                <Typography>
+                  If you are happy with this list please click on confirm button to start matching
+                </Typography>
+                <Button variant="contained" sx={{ background: theme.palette.success.main }}>
+                  confirm
+                </Button>
+              </Stack>
+            </MessageComponent>
+          </DelayedComponent>
         </Box>
       )}
     </>

@@ -32,6 +32,7 @@ export const components: Components<Theme> = {
           padding: '10px 20px',
           borderRadius: '60px',
           color: '#ffff',
+          boxShadow: 'none',
           backgroundColor: '#1473E6',
         }),
         ...(ownerState.variant === 'socialButton' && {
@@ -93,7 +94,7 @@ export const components: Components<Theme> = {
           borderRadius: '10px',
           fontSize: '16px',
           width: 'fit-content',
-          padding: '10px',
+          padding: '20px',
         }),
       }),
     },
