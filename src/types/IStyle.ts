@@ -8,5 +8,6 @@ declare module '@mui/material/Button' {
   interface ButtonPropsVariantOverrides {
     grayButton: true
     primary: true
+    socialButton: true
   }
 }
