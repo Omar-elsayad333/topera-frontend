@@ -33,7 +33,7 @@ const AppBarComponent = () => {
       component={'header'}
       sx={{
         boxShadow: 'none',
-        borderBottom: '1px solid #00000080',
+        borderBottom: `1px solid ${theme.palette.text.primary}`,
         background: theme.palette.background.paper,
       }}
       position={pathname !== params.locale ? 'static' : 'sticky'}

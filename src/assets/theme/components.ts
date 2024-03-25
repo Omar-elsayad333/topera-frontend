@@ -32,6 +32,7 @@ export const components: Components<Theme> = {
           padding: '10px 20px',
           borderRadius: '60px',
           color: '#ffff',
+          boxShadow: 'none',
           backgroundColor: '#1473E6',
         }),
         ...(ownerState.variant === 'socialButton' && {
@@ -63,6 +64,37 @@ export const components: Components<Theme> = {
           justifyContent: 'flex-center',
           color: theme.palette.text.primary,
           border: `2px solid ${theme.palette.grey[400]}`,
+        }),
+      }),
+    },
+  },
+  MuiToggleButton: {
+    styleOverrides: {
+      root: ({ theme }) => ({
+        borderRadius: '6px',
+        justifyContent: 'flex-center',
+        border: `2px solid ${theme.palette.grey[400]}`,
+      }),
+    },
+  },
+  MuiListItemButton: {
+    styleOverrides: {
+      root: ({ ownerState, theme }) => ({
+        ...(ownerState.selected && {
+          color: theme.palette.common.white,
+          backgroundColor: `${theme.palette.grey[400]} !important`,
+        }),
+      }),
+    },
+  },
+  MuiChip: {
+    styleOverrides: {
+      root: ({ ownerState, theme }) => ({
+        ...(ownerState.datatype === 'trackChip' && {
+          borderRadius: '10px',
+          fontSize: '16px',
+          width: 'fit-content',
+          padding: '20px',
         }),
       }),
     },

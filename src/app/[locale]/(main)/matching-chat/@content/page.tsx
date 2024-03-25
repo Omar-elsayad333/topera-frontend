@@ -1,14 +1,34 @@
+import { NextPage } from 'next'
+
+// Services
+import { serverAction } from '@/services/actions'
+
 // Components
-import LandingStageComponent from '@/components/pages/MatchingChat/LandingStageComponent'
+import ChatContent from '@/components/pages/MatchingChat/ChatContent'
+import LandingComponent from '@/components/pages/MatchingChat/ChatContent/LandingComponent'
 
 // MUI
 import Container from '@mui/material/Container'
 
-const MatchingChatContent = () => {
+interface IProps {
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
+const MatchingChatContent: NextPage<IProps> = async ({ searchParams }) => {
+  const chatId = searchParams.chatId
+
+  const data = await serverAction({ endpoint: `/matching/${chatId}`, method: 'GET' })
+
   return (
-    <Container className="full-screen" sx={{ display: 'flex' }}>
-      <LandingStageComponent />
-    </Container>
+    <>
+      {!chatId ? (
+        <LandingComponent />
+      ) : (
+        <Container maxWidth="md">
+          <ChatContent data={data.data} />
+        </Container>
+      )}
+    </>
   )
 }
 
