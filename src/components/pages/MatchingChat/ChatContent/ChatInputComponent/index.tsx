@@ -52,10 +52,9 @@ const ChatInputComponent = () => {
         ...data,
         type,
       }
-      router.replace(`matching-chat?chatId=${data.data}`)
       const res = await postHandler({ endpoint: '/matching', body })
-      router.replace(`matching-chat?chatId=${res.id}`)
       console.log('create res', res)
+      router.replace(`matching-chat?chatId=${res.id}`)
     } catch (error) {
       console.log(error)
     }

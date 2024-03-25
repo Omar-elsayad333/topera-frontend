@@ -59,4 +59,16 @@ export const components: Components<Theme> = {
       }),
     },
   },
+  MuiChip: {
+    styleOverrides: {
+      root: ({ ownerState, theme }) => ({
+        ...(ownerState.datatype === 'trackChip' && {
+          borderRadius: '10px',
+          fontSize: '16px',
+          width: 'fit-content',
+          padding: '10px',
+        }),
+      }),
+    },
+  },
 }
