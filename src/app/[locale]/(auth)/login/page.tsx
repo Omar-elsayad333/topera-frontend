@@ -7,11 +7,13 @@ import Divider from '@mui/material/Divider'
 import TextFieldComponent from '@/components/FormInputs/TextFieldComponent'
 import useLogin from '@/hooks/useLogin'
 import PasswordInputComponent from '@/components/FormInputs/PasswordInputComponent'
-import GoogleIcon from '@/assets/icons/google'
+import GoogleIcon from '@/assets/icons/google.svg'
 import LinkedinIcon from '@/assets/icons/linkedin'
 import GithubIcon from '@/assets/icons/github'
 import { useTranslations } from 'next-intl'
 import Button from '@mui/material/Button'
+import Image from 'next/image'
+import { Routes } from '@/routes/routes'
 const LogIn: React.FC = () => {
   const { data, states, actions } = useLogin()
   const t = useTranslations('login')
@@ -24,7 +26,7 @@ const LogIn: React.FC = () => {
           </Typography>
           <Grid item container columns={12}>
             <Typography>{t('new_user')}</Typography>
-            <Link href={'/forgetpassword'}>
+            <Link href={Routes.forgetPassword}>
               <Typography sx={{ color: '#1473E6', marginLeft: '5px' }}>{t('create_new_account')}</Typography>
             </Link>
           </Grid>
@@ -73,19 +75,15 @@ const LogIn: React.FC = () => {
           <Button
             variant={'socialButton'}
             sx={{ width: '100%', height: '52px', borderRadius: '24px', color: 'black' }}
-            onClick={() => {
-              console.log('google')
-            }}
-            startIcon={<GoogleIcon />}
+            onClick={() => actions.handelLoginWithProvider(0)}
+            startIcon={<Image src={GoogleIcon} alt={'googleIcon'} />}
           >
-            {t('sigin_in_with_google')}
+            <Typography variant={'h5'}>{t('sigin_in_with_google')}</Typography>
           </Button>
           <Button
             variant={'socialButton'}
             sx={{ width: '100%', height: '52px', borderRadius: '24px', color: 'black', flexGrow: '1' }}
-            onClick={() => {
-              console.log('linkdin')
-            }}
+            onClick={() => actions.handelLoginWithProvider(2)}
             startIcon={<LinkedinIcon />}
           >
             {t('sigin_in_with_linkdin')}
@@ -93,9 +91,7 @@ const LogIn: React.FC = () => {
           <Button
             variant={'socialButton'}
             sx={{ width: '100%', height: '52px', borderRadius: '24px', color: 'black' }}
-            onClick={() => {
-              console.log('github')
-            }}
+            onClick={() => actions.handelLoginWithProvider(1)}
             startIcon={<GithubIcon />}
           >
             {t('sigin_in_with_github')}

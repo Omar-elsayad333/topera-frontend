@@ -31,9 +31,9 @@ export default function Layout({ children }: LProps) {
           rowGap={'25px'}
           item
           container
-          xs={11}
+          xs={10}
           lg={4}
-          md={6}
+          md={7}
           sx={{
             maxWidth: '700px',
             display: 'flex',
@@ -43,7 +43,7 @@ export default function Layout({ children }: LProps) {
             borderRadius: '8px',
             padding: {
               lg: '34px 75px',
-              md: '34px 55px',
+              md: '34px 75px',
               xs: '34px 55px',
             },
           }}
