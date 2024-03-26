@@ -6,8 +6,8 @@ import { Autocomplete, TextField, MenuItem } from '@mui/material'
 import Chip from '@mui/material/Chip'
 import FormHelperText from '@mui/material/FormHelperText'
 interface IMultiSelectComponentProps<T extends object> {
-  id: string
-  label: string
+  id?: string
+  label?: string
   options: T[]
   name: string
   chipSx?: object

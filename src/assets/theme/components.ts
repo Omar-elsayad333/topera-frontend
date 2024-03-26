@@ -15,13 +15,12 @@ export const components: Components<Theme> = {
   MuiButton: {
     styleOverrides: {
       root: ({ ownerState, theme }) => ({
-        textTransform: 'unset',
+        textTransform: 'capitalize',
         ...(ownerState.variant === 'grayButton' && {
           flexGrow: '1',
           fontWeight: 600,
           fontSize: '14px',
           borderRadius: '6px',
-          textTransform: 'capitalize',
           justifyContent: 'flex-start',
           color: theme.palette.text.primary,
           border: `2px solid ${theme.palette.grey[400]}`,
