@@ -1,21 +1,27 @@
 'use client'
 import React from 'react'
 // MUI
+
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
 import Link from 'next/link'
 import Divider from '@mui/material/Divider'
 import Button from '@mui/material/Button'
+
 // Components
 import TextFieldComponent from '@/components/FormInputs/TextFieldComponent'
 import PasswordInputComponent from '@/components/FormInputs/PasswordInputComponent'
+import OuterLoadingComponent from '@/components/shared/OuterLoadingComponent'
 import Image from 'next/image'
+
 // Hooks
 import useLogin from '@/hooks/useLogin'
 import { useTranslations } from 'next-intl'
+
 // Routes
 import { Routes } from '@/routes/routes'
+
 const LogIn: React.FC = () => {
   const { data, states, actions } = useLogin()
   const t = useTranslations('login')
@@ -51,12 +57,21 @@ const LogIn: React.FC = () => {
           )}
 
           <Button
+            disabled={states.loading}
             variant={'contained'}
             type={'submit'}
             sx={{ color: 'white', borderRadius: '20px', fontSize: '13px', fontWeight: '500' }}
             size={'small'}
           >
-            {states.currentStage === 1 ? t('continue') : t('submit')}
+            {!states.loading ? (
+              states.currentStage === 1 ? (
+                t('continue')
+              ) : (
+                t('submit')
+              )
+            ) : (
+              <OuterLoadingComponent size={25} />
+            )}
           </Button>
         </Grid>
         <Grid item rowGap={'20px'} container xs={12}>
