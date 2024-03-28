@@ -1,16 +1,19 @@
 'use client'
-import { useState, FormEvent } from 'react'
+import { useState, FormEvent, useEffect } from 'react'
 import { object, string } from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import env from '@/config/env'
 import { ESocialLogin } from '@/types/enums'
 import GoogleIcon from '@/assets/icons/google.svg'
 import LinkedinIcon from '@/assets/icons/linkedin.svg'
 import GithubIcon from '@/assets/icons/github.svg'
 import { Routes } from '@/routes/routes'
+import { useEventSwitchDarkMode } from './event'
+import { useTheme } from '@mui/material'
+import { useAppStore } from '@/stores'
 const schema = object({
   email: string().email().required(),
   password: string().required(),
@@ -32,9 +35,16 @@ const OAuthProviders: IOAuthProvider[] = [
   { id: 2, label: 'sigin_in_with_github', icon: GithubIcon, providerId: 2 },
 ]
 const useLogin = () => {
+  const [state] = useAppStore()
+  const searchParams = useSearchParams()
+  const switchTheme = useEventSwitchDarkMode()
   const [currentStage, setCurrentStage] = useState<number>(1)
   const [loading, setLoading] = useState<boolean>(false)
-  const router = useRouter()
+
+  useEffect(() => {
+    state.darkMode && switchTheme()
+  }, [])
+
   const {
     formState: { errors },
     control,
@@ -50,10 +60,8 @@ const useLogin = () => {
   const formSubmit = async (data: any) => {
     try {
       setLoading(true)
-      const res = await signIn('credentials', data)
-      if (res) {
-        router.push(Routes.home)
-      }
+      const callbackUrl = searchParams.get('callbackUrl') || Routes.home
+      await signIn('credentials', data, callbackUrl)
     } catch (err) {
       console.log(err)
     } finally {

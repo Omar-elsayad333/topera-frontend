@@ -20,14 +20,9 @@ export default function Layout({ children }: IPropsWithChildren) {
         backgroundPosition: 'center',
       }}
     >
-      <Grid
-        rowGap={'25px'}
-        item
-        container
-        xs={10}
-        lg={4}
-        md={7}
+      <Box
         sx={{
+          margin: '20px',
           maxWidth: '700px',
           display: 'flex',
           flexDirection: 'column',
@@ -53,7 +48,7 @@ export default function Layout({ children }: IPropsWithChildren) {
         <Grid item rowGap={'20px'} container xs={12}>
           {children}
         </Grid>
-      </Grid>
+      </Box>
     </main>
   )
 }
