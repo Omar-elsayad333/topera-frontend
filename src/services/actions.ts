@@ -14,15 +14,19 @@ export async function serverAction({ endpoint, method, params, body }: IServerAc
 
   if (user?.user?.token) {
     try {
-      const headers: any = {}
-      headers['Authorization'] = `Bearer ${user.user.token}`
-      headers['method'] = method
-      params && (headers['params'] = params)
-      body && (headers['body'] = body)
+      const options: any = {
+        headers: {},
+      }
+      options.headers['Authorization'] = `Bearer ${user.user.token}`
+      options.headers['Content-Type'] = 'application/json'
+      params && (options['params'] = params)
+      options['method'] = method
 
-      const res = await fetch(`${env.api_url}${endpoint}`, {
-        headers,
-      })
+      if (body) {
+        options.body = JSON.stringify(body)
+      }
+
+      const res = await fetch(`${env.api_url}${endpoint}`, options)
 
       return await res.json()
     } catch (error: any) {

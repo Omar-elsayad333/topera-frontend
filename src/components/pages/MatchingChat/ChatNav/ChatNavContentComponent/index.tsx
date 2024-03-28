@@ -1,8 +1,14 @@
 'use client'
-import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 // Next intl
 import { useTranslations } from 'next-intl'
+
+// Routes
+import { Routes } from '@/routes/routes'
+
+// Stores
+import { useMatching } from '@/stores'
 
 // Components
 import WorkTabComponent from './WorkTabComponent'
@@ -12,25 +18,28 @@ import LearnTabComponent from './LearnTabComponent'
 import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
-import Button from '@mui/material/Button'
 import Toolbar from '@mui/material/Toolbar'
-import AddIcon from '@mui/icons-material/Add'
-import IconButton from '@mui/material/IconButton'
-import InventoryIcon from '@mui/icons-material/Inventory'
 
 const ChatNavContentComponent = () => {
+  const router = useRouter()
   const t = useTranslations('matching_chat_nav')
-  const [value, setValue] = useState(0)
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue)
+  const type = useMatching((state) => state.type)
+  const updateTypeNav = useMatching((state) => state.updateTypeNav)
+
+  const handleChange = () => {
+    updateTypeNav()
+  }
+
+  const startNewChat = () => {
+    router.replace(Routes.matchingChat)
   }
 
   return (
     <Box>
       <Toolbar sx={{ p: '0px !important' }}>
         <Tabs
-          value={value}
+          value={type}
           variant="fullWidth"
           sx={{ width: '100%' }}
           onChange={handleChange}
@@ -38,36 +47,25 @@ const ChatNavContentComponent = () => {
         >
           <Tab
             label={t('learn')}
-            value={0}
+            value={1}
             sx={{
               textTransform: 'capitalize',
-              fontWeight: value === 0 ? 600 : 400,
-              fontSize: value === 0 ? '14px' : '12px',
+              fontWeight: type === 0 ? 600 : 400,
+              fontSize: type === 0 ? '14px' : '12px',
             }}
           />
           <Tab
             label={t('work')}
-            value={1}
+            value={0}
             sx={{
               textTransform: 'capitalize',
-              fontWeight: value === 1 ? 600 : 400,
-              fontSize: value === 1 ? '14px' : '12px',
+              fontWeight: type === 1 ? 600 : 400,
+              fontSize: type === 1 ? '14px' : '12px',
             }}
           />
         </Tabs>
       </Toolbar>
-      <Box sx={{ px: 3 }}>
-        <Box sx={{ py: 2, display: 'flex', gap: '16px' }}>
-          <Button startIcon={<AddIcon />} variant="grayButton">
-            new chat
-          </Button>
-          <IconButton datatype="grayButton" aria-label="Archive">
-            <InventoryIcon />
-          </IconButton>
-        </Box>
-        {value === 0 && <LearnTabComponent />}
-        {value === 1 && <WorkTabComponent />}
-      </Box>
+      {type === 1 ? <LearnTabComponent /> : <WorkTabComponent />}
     </Box>
   )
 }

@@ -1,131 +1,74 @@
 'use client'
-
 import { useEffect, useState } from 'react'
 
 // Types
-import { EChatStatus, MatchingEnum } from '@/types/enums'
+import { MatchingEnum } from '@/types/enums'
 
-// Hooks
-import useRequestHandlers from '@/hooks/useRequestHandlers'
+// Stores
+import { useMatching } from '@/stores'
+
+// Containers
+import useChatNav from '../useChatNav'
 
 // Components
+import EditChatComponent from '../EditChatComponent'
+import ChatContentComponent from '../ChatContentComponent'
 import InnerLoadingComponent from '@/components/shared/InnerLoadingComponent'
 
 // MUI
 import Box from '@mui/material/Box'
-import List from '@mui/material/List'
 import { useTheme } from '@mui/material'
-import ListItem from '@mui/material/ListItem'
-import Typography from '@mui/material/Typography'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
-import ListItemButton from '@mui/material/ListItemButton'
-import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded'
-import ChatBubbleRoundedIcon from '@mui/icons-material/ChatBubbleRounded'
+import Button from '@mui/material/Button'
+import AddIcon from '@mui/icons-material/Add'
+import ToggleButton from '@mui/material/ToggleButton'
+import InventoryIcon from '@mui/icons-material/Inventory'
 
 const LearnTabComponent = () => {
+  const { loading, menu, editDialog, startNewChat } = useChatNav(MatchingEnum.LEARN)
+
   const theme = useTheme()
-  const { loading, getHandler } = useRequestHandlers()
-  const [learnMatchingData, setlearnMatchingData] = useState<any>(null)
+
+  const [data, setData] = useState([])
+
+  const learnData = useMatching((state) => state.learnNavData)
+  const learnArchiveData = useMatching((state) => state.learnArchiveData)
+
+  const learnArchiveState = useMatching((state) => state.learnArchiveState)
+  const updateLearnArchiveState = useMatching((state) => state.updateLearnArchiveState)
 
   useEffect(() => {
-    getPageData()
-  }, [])
-
-  const getPageData = async () => {
-    try {
-      const res = await getHandler({ endpoint: `/matching/${MatchingEnum.LEARN}` })
-      setlearnMatchingData(res.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  if (loading) {
-    return <InnerLoadingComponent />
-  }
+    learnArchiveState ? setData(learnArchiveData) : setData(learnData)
+  }, [learnData, learnArchiveData])
 
   return (
-    <List>
-      {learnMatchingData?.today.length > 0 && (
-        <Box>
-          <Typography sx={{ my: '16px' }} variant="subtitle1" fontWeight={500} color={'gray'}>
-            Today
-          </Typography>
-          {learnMatchingData.today.map((chat: any) => (
-            <ListItem key={chat.id} disablePadding>
-              <ListItemButton sx={{ borderRadius: '6px', alignItems: 'center' }}>
-                <ListItemIcon sx={{ minWidth: '35px' }}>
-                  <ChatBubbleRoundedIcon
-                    sx={{
-                      fontSize: '18px',
-                      color:
-                        chat.requestStatus === EChatStatus.Open ? theme.palette.error.main : theme.palette.success.main,
-                    }}
-                  />
-                </ListItemIcon>
-                <ListItemText primary={chat.name} />
-                <ListItemIcon sx={{ minWidth: 'unset' }}>
-                  <MoreHorizRoundedIcon />
-                </ListItemIcon>
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </Box>
-      )}
-      {learnMatchingData?.lastWeek.length > 0 && (
-        <Box>
-          <Typography sx={{ my: '16px' }} variant="subtitle1" fontWeight={500} color={'gray'}>
-            Last 7 days
-          </Typography>
-          {learnMatchingData.lastWeek.map((chat: any) => (
-            <ListItem key={chat.id} disablePadding>
-              <ListItemButton sx={{ borderRadius: '6px', alignItems: 'center' }}>
-                <ListItemIcon sx={{ minWidth: '35px' }}>
-                  <ChatBubbleRoundedIcon
-                    sx={{
-                      fontSize: '18px',
-                      color:
-                        chat.requestStatus === EChatStatus.Open ? theme.palette.error.main : theme.palette.success.main,
-                    }}
-                  />
-                </ListItemIcon>
-                <ListItemText primary={chat.name} />
-                <ListItemIcon sx={{ minWidth: 'unset' }}>
-                  <MoreHorizRoundedIcon />
-                </ListItemIcon>
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </Box>
-      )}
-      {learnMatchingData?.lastMonths.length > 0 && (
-        <Box>
-          <Typography sx={{ my: '16px' }} variant="subtitle1" fontWeight={500} color={'gray'}>
-            Last months
-          </Typography>
-          {learnMatchingData.lastMonths.map((chat: any) => (
-            <ListItem key={chat.id} disablePadding>
-              <ListItemButton sx={{ borderRadius: '6px', alignItems: 'center' }}>
-                <ListItemIcon sx={{ minWidth: '35px' }}>
-                  <ChatBubbleRoundedIcon
-                    sx={{
-                      fontSize: '18px',
-                      color:
-                        chat.requestStatus === EChatStatus.Open ? theme.palette.error.main : theme.palette.success.main,
-                    }}
-                  />
-                </ListItemIcon>
-                <ListItemText primary={chat.name} />
-                <ListItemIcon sx={{ minWidth: 'unset' }}>
-                  <MoreHorizRoundedIcon />
-                </ListItemIcon>
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </Box>
-      )}
-    </List>
+    <Box sx={{ px: 3 }}>
+      <Box sx={{ py: 2, display: 'flex', gap: '16px' }}>
+        <Button onClick={() => startNewChat()} startIcon={<AddIcon />} variant="grayButton">
+          new chat
+        </Button>
+        <ToggleButton
+          color="primary"
+          value="check"
+          selected={learnArchiveState}
+          sx={{ borderColor: learnArchiveState ? theme.palette.primary.main : '' }}
+          onChange={() => {
+            updateLearnArchiveState()
+          }}
+        >
+          <InventoryIcon />
+        </ToggleButton>
+      </Box>
+      <Box>
+        {loading ? <InnerLoadingComponent /> : <ChatContentComponent {...{ data, menu }} />}
+        <EditChatComponent
+          dialogId={editDialog.dialogId}
+          loading={editDialog.dialogLoading}
+          editChatDialog={editDialog.editChatDialog}
+          submitEditDialog={editDialog.submitEditDialog}
+          handleCloseEditDialog={editDialog.handleCloseEditDialog}
+        />
+      </Box>
+    </Box>
   )
 }
 
