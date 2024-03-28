@@ -1,123 +1,105 @@
 'use client'
-import env from '@/config/env'
-import { signIn } from 'next-auth/react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import React from 'react'
+// MUI
 
-type LoginInput = {
-  username: string
-  password: string
-}
+import Typography from '@mui/material/Typography'
+import Grid from '@mui/material/Grid'
+import Stack from '@mui/material/Stack'
+import Link from 'next/link'
+import Divider from '@mui/material/Divider'
+import Button from '@mui/material/Button'
 
-type PageProps = {
-  searchParams: any
-}
+// Components
+import TextFieldComponent from '@/components/FormInputs/TextFieldComponent'
+import PasswordInputComponent from '@/components/FormInputs/PasswordInputComponent'
+import OuterLoadingComponent from '@/components/shared/OuterLoadingComponent'
+import Image from 'next/image'
 
-enum OAuthProviders {
-  GOOGLE,
-  GITHUB,
-  LINKEDIN,
-}
+// Hooks
+import useLogin from '@/hooks/useLogin'
+import { useTranslations } from 'next-intl'
 
-export default function LoginPage({ searchParams }: PageProps) {
-  const [inputs, setInputs] = useState<LoginInput>({
-    username: '',
-    password: '',
-  })
+// Routes
+import { Routes } from '@/routes/routes'
 
-  // const searchParams = useSearchParams()
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const name = event.target.name
-    const value = event.target.value
-    setInputs((values) => ({ ...values, [name]: value }))
-  }
-
-  const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault()
-
-    await signIn('credentials', {
-      email: inputs.username,
-      password: inputs.password,
-      callbackUrl: searchParams.callbackUrl,
-    })
-  }
-
-  const googleLogin = async () => {
-    try {
-      const res = await fetch(`${env.api_url}/oauth/${OAuthProviders.GOOGLE}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-
-      const jsonRes = await res.json()
-      console.log(jsonRes)
-
-      return jsonRes.data
-    } catch (error) {
-      return null
-    }
-  }
-
+const LogIn: React.FC = () => {
+  const { data, states, actions } = useLogin()
+  const t = useTranslations('login')
   return (
-    <>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
-                Username
-              </label>
-              <div className="mt-2">
-                <input
-                  id="username"
-                  name="username"
-                  type="text"
-                  autoComplete="off"
-                  required
-                  value={inputs.username || ''}
-                  onChange={handleChange}
-                  className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
+    <form onSubmit={actions.stagesHandler}>
+      <Grid rowGap={'20px'} item container columns={12}>
+        <Grid rowGap={'5px'} container item columns={12}>
+          <Typography sx={{ fontWeight: '500' }} variant={'h3'}>
+            {t('head')}
+          </Typography>
+          <Grid item container columns={12}>
+            <Typography>{t('new_user')}</Typography>
+            <Link href={Routes.forgetPassword}>
+              <Typography sx={{ color: '#1473E6', marginLeft: '5px' }}>{t('create_new_account')}</Typography>
+            </Link>
+          </Grid>
+        </Grid>
+        <Grid item rowGap={'10px'} container justifyContent={'end'}>
+          {states.currentStage === 1 ? (
+            <TextFieldComponent
+              control={states.control}
+              name={'email'}
+              error={states.errors['email']}
+              label={t('email')}
+            />
+          ) : (
+            <PasswordInputComponent
+              control={states.control}
+              name={'password'}
+              error={states.errors['password']}
+              label={t('password')}
+            />
+          )}
 
-            <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                  Password
-                </label>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="off"
-                  required
-                  value={inputs.password || ''}
-                  onChange={handleChange}
-                  className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Sign in
-              </button>
-            </div>
-            {searchParams.error && <p className="text-red-600 text-center capitalize">Login failed.</p>}
-          </form>
-
-          <button onClick={googleLogin}>google</button>
-        </div>
-      </div>
-    </>
+          <Button
+            disabled={states.loading}
+            variant={'contained'}
+            type={'submit'}
+            sx={{ color: 'white', borderRadius: '20px', fontSize: '13px', fontWeight: '500' }}
+            size={'small'}
+          >
+            {!states.loading ? (
+              states.currentStage === 1 ? (
+                t('continue')
+              ) : (
+                t('submit')
+              )
+            ) : (
+              <OuterLoadingComponent size={25} />
+            )}
+          </Button>
+        </Grid>
+        <Grid item rowGap={'20px'} container xs={12}>
+          <Divider sx={{ width: '100%', color: 'gray' }} color={'gray'} flexItem>
+            {t('or_sigin_in_with_email')}
+          </Divider>
+          {data.OAuthProviders.map((provider) => (
+            <Button
+              key={provider.id}
+              variant={'socialButton'}
+              sx={{ width: '100%', height: '52px', borderRadius: '24px', color: 'black' }}
+              onClick={() => actions.handelLoginWithProvider(provider.providerId)}
+              startIcon={<Image src={provider.icon} alt={provider.label} />}
+            >
+              <Typography variant={'h5'}>{t(provider.label)}</Typography>
+            </Button>
+          ))}
+        </Grid>
+        <Stack sx={{ marginTop: '46px' }}>
+          <Link href={'/forgetpassword'}>
+            <Typography sx={{ color: '#1473E6', marginLeft: '5px', fontSize: '14px' }}>
+              {t('forget_password')}
+            </Typography>
+          </Link>
+        </Stack>
+      </Grid>
+    </form>
   )
 }
+
+export default LogIn
