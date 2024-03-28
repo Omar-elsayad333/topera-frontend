@@ -9,7 +9,7 @@ import '@fontsource/roboto/700.css'
 
 // Contexts
 import { AppStoreProvider } from '@/stores'
-// import { AlertProvider } from "@/stores/AlertContext";
+import { AlertProvider } from '@/stores/AlertContext'
 
 // Next Intl
 import { NextIntlClientProvider, useMessages } from 'next-intl'
@@ -18,7 +18,6 @@ import { NextIntlClientProvider, useMessages } from 'next-intl'
 import ThemeProvider from '@/assets/theme/ThemeProvider'
 
 // Components
-import Layout from '@/components/layout'
 import AlertNotify from '@/components/shared/AlertComponent/AlertNotify'
 
 interface IProps {
@@ -49,10 +48,10 @@ export default function RootLayout({ children, params }: IProps) {
         <NextIntlClientProvider locale={locale} messages={messages}>
           <AppStoreProvider locale={locale}>
             <ThemeProvider>
-              {/* <AlertProvider> */}
-              {children}
-              {/* <AlertNotify /> */}
-              {/* </AlertProvider> */}
+              <AlertProvider>
+                {children}
+                <AlertNotify />
+              </AlertProvider>
             </ThemeProvider>
           </AppStoreProvider>
         </NextIntlClientProvider>
