@@ -61,7 +61,7 @@ const useLogin = () => {
     try {
       setLoading(true)
       const callbackUrl = searchParams.get('callbackUrl') || Routes.home
-      await signIn('credentials', data, callbackUrl)
+      await signIn('credentials', { ...data, callbackUrl })
     } catch (err) {
       console.log(err)
     } finally {
