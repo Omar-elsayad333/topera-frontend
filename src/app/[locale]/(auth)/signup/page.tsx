@@ -25,7 +25,7 @@ const SignUp: FC = () => {
         </Stack>
       </Stack>
       {states.inForm ? (
-        <FormComponent />
+        <FormComponent formControl={states.control} formData={data.FormInputs} formErrors={states.errors} />
       ) : (
         <MainComponent
           providers={data.OAuthProviders}
