@@ -40,5 +40,8 @@
     "sigin_in_with_github": "تسجيل الدخول بجيتهب",
     "forget_password": "لقد نسيت كلمه السر",
     "new_user": " حساب جديد"
+  },
+  "signUp": {
+    "head": "اهلا "
   }
 }
