@@ -24,7 +24,7 @@ const MatchingChatContent: NextPage<IProps> = async ({ searchParams }) => {
       {!chatId ? (
         <LandingComponent />
       ) : (
-        <Container maxWidth="md">
+        <Container maxWidth="md" className="noScrollbar full-screen" sx={{ overflow: 'auto' }}>
           <ChatContent data={data.data} />
         </Container>
       )}

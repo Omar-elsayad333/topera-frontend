@@ -28,7 +28,7 @@ const MessageComponent = ({ children, avatar, title, body }: PropsWithChildren<I
       ) : (
         <Avatar src={uiAvatar(title)} alt={title} sx={{ width: 40, height: 40 }} />
       )}
-      <Stack spacing={2} sx={{ pt: 1 }}>
+      <Stack spacing={2} sx={{ pt: 1, flexGrow: 1 }}>
         {<Typography fontWeight={600}>{title}</Typography>}
         <Stack spacing={1}>
           {body && <TypeAnimationComponet text={body} />}

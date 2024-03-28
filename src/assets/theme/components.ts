@@ -32,7 +32,7 @@ export const components: Components<Theme> = {
           borderRadius: '60px',
           color: '#ffff',
           boxShadow: 'none',
-          backgroundColor: '#1473E6',
+          ...(ownerState.color === 'primary' && { backgroundColor: '#1473E6' }),
         }),
         ...(ownerState.variant === 'socialButton' && {
           display: 'flex',

@@ -47,9 +47,9 @@ const useChatNav = (ChatType: any) => {
       const res = await getHandler({ endpoint, noLoading })
 
       const body = [
-        { id: 1, name: 'Today', data: res.data.today },
-        { id: 2, name: 'Last 7 days', data: res.data.lastWeek },
-        { id: 3, name: 'Last months', data: res.data.lastMonths },
+        { id: 1, name: 'Today', data: res.today },
+        { id: 2, name: 'Last 7 days', data: res.lastWeek },
+        { id: 3, name: 'Last months', data: res.lastMonths },
       ]
 
       if (ChatType === 0) {

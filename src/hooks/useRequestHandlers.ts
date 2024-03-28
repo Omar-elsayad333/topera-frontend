@@ -16,7 +16,7 @@ const useRequestHandlers = () => {
     try {
       !noLoading && setLoading(true)
       const response = await serverAction({ endpoint, method: ERequestMethods.GET, params })
-      return response
+      return response.data
     } catch (error: any) {
       throw new Error(error)
     } finally {
@@ -28,8 +28,6 @@ const useRequestHandlers = () => {
     try {
       !noLoading && setLoading(true)
       const response = await serverAction({ endpoint, method: ERequestMethods.POST, body, params })
-      console.log(response)
-
       return response.data
     } catch (error: any) {
       throw new Error(error)
