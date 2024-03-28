@@ -1,32 +1,45 @@
 'use client'
-import * as yup from 'yup'
+import { useState, FormEvent } from 'react'
+import { object, string } from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import useRequestHandlers from '@/hooks/useRequestHandlers'
 import env from '@/config/env'
 import { ESocialLogin } from '@/types/enums'
-const schema = yup.object({
-  email: yup.string().email().required(),
-  password: yup.string().required(),
+import GoogleIcon from '@/assets/icons/google.svg'
+import LinkedinIcon from '@/assets/icons/linkedin.svg'
+import GithubIcon from '@/assets/icons/github.svg'
+import { Routes } from '@/routes/routes'
+const schema = object({
+  email: string().email().required(),
+  password: string().required(),
 })
 
-interface TLoginForm {
+interface ILoginForm {
   email: string
   password: string
 }
-
+interface IOAuthProvider {
+  id: number
+  label: string
+  icon: any
+  providerId: ESocialLogin
+}
+const OAuthProviders: IOAuthProvider[] = [
+  { id: 0, label: 'sigin_in_with_google', icon: GoogleIcon, providerId: 0 },
+  { id: 1, label: 'sigin_in_with_linkdin', icon: LinkedinIcon, providerId: 1 },
+  { id: 2, label: 'sigin_in_with_github', icon: GithubIcon, providerId: 2 },
+]
 const useLogin = () => {
   const [currentStage, setCurrentStage] = useState<number>(1)
+  const [loading, setLoading] = useState<boolean>(false)
   const router = useRouter()
-  const { getHandler } = useRequestHandlers()
   const {
     formState: { errors },
     control,
     handleSubmit,
-  } = useForm<TLoginForm>({
+  } = useForm<ILoginForm>({
     resolver: yupResolver(schema),
     defaultValues: {
       email: 'mohammedsherif@gmail.com',
@@ -34,29 +47,36 @@ const useLogin = () => {
     },
   })
 
-  const buttonHandlebar = (e: any) => {
+  const formSubmit = async (data: any) => {
+    try {
+      setLoading(true)
+      const res = await signIn('credentials', data)
+      if (res) {
+        router.push(Routes.home)
+      }
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setLoading(false)
+    }
+  }
+  const stagesHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (currentStage === 1) {
       setCurrentStage(2)
+    } else {
+      handleSubmit(formSubmit)()
     }
   }
-
-  const formSubmit = async (data: any) => {
-    const res = await signIn('credentials', data)
-    if (res) {
-      router.push('/')
-    }
-  }
-
   const handelLoginWithProvider = async (provider: ESocialLogin) => {
     window.location.href = `${env.api_url}/oauth/${provider}`
   }
 
   return {
-    data: {},
-    states: { control, errors, currentStage },
+    data: { OAuthProviders },
+    states: { control, errors, currentStage, loading },
     actions: {
-      submit: buttonHandlebar,
+      stagesHandler,
       handleSubmit,
       formSubmit,
       handelLoginWithProvider,

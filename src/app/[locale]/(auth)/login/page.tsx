@@ -1,24 +1,26 @@
 'use client'
 import React from 'react'
+// MUI
 import Typography from '@mui/material/Typography'
-import { Grid } from '@mui/material'
+import Grid from '@mui/material/Grid'
+import Stack from '@mui/material/Stack'
 import Link from 'next/link'
 import Divider from '@mui/material/Divider'
-import TextFieldComponent from '@/components/FormInputs/TextFieldComponent'
-import useLogin from '@/hooks/useLogin'
-import PasswordInputComponent from '@/components/FormInputs/PasswordInputComponent'
-import GoogleIcon from '@/assets/icons/google.svg'
-import LinkedinIcon from '@/assets/icons/linkedin'
-import GithubIcon from '@/assets/icons/github'
-import { useTranslations } from 'next-intl'
 import Button from '@mui/material/Button'
+// Components
+import TextFieldComponent from '@/components/FormInputs/TextFieldComponent'
+import PasswordInputComponent from '@/components/FormInputs/PasswordInputComponent'
 import Image from 'next/image'
+// Hooks
+import useLogin from '@/hooks/useLogin'
+import { useTranslations } from 'next-intl'
+// Routes
 import { Routes } from '@/routes/routes'
 const LogIn: React.FC = () => {
   const { data, states, actions } = useLogin()
   const t = useTranslations('login')
   return (
-    <form onSubmit={actions.handleSubmit(actions.formSubmit)}>
+    <form onSubmit={actions.stagesHandler}>
       <Grid rowGap={'20px'} item container columns={12}>
         <Grid rowGap={'5px'} container item columns={12}>
           <Typography sx={{ fontWeight: '500' }} variant={'h3'}>
@@ -47,63 +49,39 @@ const LogIn: React.FC = () => {
               label={t('password')}
             />
           )}
-          {states.currentStage === 1 ? (
-            <Button
-              variant={'contained'}
-              type={'button'}
-              sx={{ color: 'white', borderRadius: '20px', fontSize: '13px', fontWeight: '500' }}
-              size={'small'}
-              onClick={(e) => actions.submit(e)}
-            >
-              {t('continue')}
-            </Button>
-          ) : (
-            <Button
-              variant={'contained'}
-              type={'submit'}
-              sx={{ color: 'white', borderRadius: '20px', fontSize: '13px', fontWeight: '500' }}
-              size={'small'}
-            >
-              {t('submit')}
-            </Button>
-          )}
+
+          <Button
+            variant={'contained'}
+            type={'submit'}
+            sx={{ color: 'white', borderRadius: '20px', fontSize: '13px', fontWeight: '500' }}
+            size={'small'}
+          >
+            {states.currentStage === 1 ? t('continue') : t('submit')}
+          </Button>
         </Grid>
         <Grid item rowGap={'20px'} container xs={12}>
           <Divider sx={{ width: '100%', color: 'gray' }} color={'gray'} flexItem>
             {t('or_sigin_in_with_email')}
           </Divider>
-          <Button
-            variant={'socialButton'}
-            sx={{ width: '100%', height: '52px', borderRadius: '24px', color: 'black' }}
-            onClick={() => actions.handelLoginWithProvider(0)}
-            startIcon={<Image src={GoogleIcon} alt={'googleIcon'} />}
-          >
-            <Typography variant={'h5'}>{t('sigin_in_with_google')}</Typography>
-          </Button>
-          <Button
-            variant={'socialButton'}
-            sx={{ width: '100%', height: '52px', borderRadius: '24px', color: 'black', flexGrow: '1' }}
-            onClick={() => actions.handelLoginWithProvider(2)}
-            startIcon={<LinkedinIcon />}
-          >
-            {t('sigin_in_with_linkdin')}
-          </Button>
-          <Button
-            variant={'socialButton'}
-            sx={{ width: '100%', height: '52px', borderRadius: '24px', color: 'black' }}
-            onClick={() => actions.handelLoginWithProvider(1)}
-            startIcon={<GithubIcon />}
-          >
-            {t('sigin_in_with_github')}
-          </Button>
+          {data.OAuthProviders.map((provider) => (
+            <Button
+              key={provider.id}
+              variant={'socialButton'}
+              sx={{ width: '100%', height: '52px', borderRadius: '24px', color: 'black' }}
+              onClick={() => actions.handelLoginWithProvider(provider.providerId)}
+              startIcon={<Image src={provider.icon} alt={provider.label} />}
+            >
+              <Typography variant={'h5'}>{t(provider.label)}</Typography>
+            </Button>
+          ))}
         </Grid>
-        <Grid justifyItems={'start'} item container xs={12} sx={{ marginTop: '46px' }}>
+        <Stack sx={{ marginTop: '46px' }}>
           <Link href={'/forgetpassword'}>
             <Typography sx={{ color: '#1473E6', marginLeft: '5px', fontSize: '14px' }}>
               {t('forget_password')}
             </Typography>
           </Link>
-        </Grid>
+        </Stack>
       </Grid>
     </form>
   )

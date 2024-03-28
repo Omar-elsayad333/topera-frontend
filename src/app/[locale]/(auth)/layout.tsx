@@ -2,13 +2,13 @@ import { Box, Grid } from '@mui/material'
 import Image from 'next/image'
 import authBg from '@/assets/images/AuthBackground.svg'
 import logo from '@/assets/images/logo.svg'
-interface LProps {
+interface IPropsWithChildren {
   children: React.ReactNode
 }
 
-export default function Layout({ children }: LProps) {
+export default function Layout({ children }: IPropsWithChildren) {
   return (
-    <main className={'auth-layout'}>
+    <main>
       <Grid
         rowGap={'25px'}
         xs={12}
@@ -21,7 +21,7 @@ export default function Layout({ children }: LProps) {
           justifyContent: 'center',
           alignItems: 'center',
           width: '100%',
-          height: '100vh',
+          height: '100dvh',
           backgroundImage: `url('${authBg.src}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
