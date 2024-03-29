@@ -22,7 +22,7 @@ const FormComponent = ({
 }: IFormComponentProps) => {
   const t = useTranslations('signUp')
   return (
-    <form style={{ marginBottom: '100px' }} onSubmit={(e) => submitForm(e)}>
+    <form onSubmit={(e) => submitForm(e)}>
       <Grid columnSpacing={'24px'} rowGap={'40px'} container>
         {formData.map((formInput) => {
           if (formInput.type === 'text') {

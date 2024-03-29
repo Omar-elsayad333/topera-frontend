@@ -1,10 +1,10 @@
 import Image from 'next/image'
-import React from 'react'
 
 // MUI
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
 import Divider from '@mui/material/Divider'
+
 // Types
 import { IMainComponentProps } from '@/types/pages/signup'
 
@@ -15,20 +15,7 @@ const MainComponent = ({ providers, handelSignUp, switchToForm }: IMainComponent
   const t = useTranslations('signUp')
   return (
     <Stack useFlexGap spacing={'40px'} sx={{ margin: '10px 0 100px' }}>
-      <Button
-        sx={{
-          backgroundColor: 'transparent',
-          fontSize: '18px',
-          border: (theme) => `2px solid ${theme.palette.grey[400]}`,
-          color: 'black',
-          '&:hover': {
-            backgroundColor: 'transparent',
-            boxShadow: 'unset',
-          },
-        }}
-        onClick={() => switchToForm(true)}
-        variant={'contained'}
-      >
+      <Button sx={{ fontSize: '16px', fontWeight: '600' }} onClick={() => switchToForm(true)} variant={'socialButton'}>
         {t('signUpWithEmail')}
       </Button>
       <Stack spacing={'32px'} useFlexGap>

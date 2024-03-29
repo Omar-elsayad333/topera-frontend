@@ -1,5 +1,5 @@
 'use client'
-import { FC } from 'react'
+import { NextPage } from 'next'
 // Routes
 import { Routes } from '@/routes/routes'
 
@@ -15,12 +15,12 @@ import FormComponent from '@/components/pages/SignUp/FormComponent'
 // HOOKS
 import useSignUp from '@/hooks/useSignUp'
 import { useTranslations } from 'next-intl'
-const SignUp: FC = () => {
+const SignUp: NextPage = () => {
   const t = useTranslations('signUp')
   const { data, states, actions } = useSignUp()
   return (
     <Stack sx={{ width: '100%', marginBottom: '100px' }} gap={'40px'}>
-      <Stack sx={{ alignItems: 'start' }} gap={'20px'}>
+      <Stack alignItems={'start'} gap={'20px'}>
         <Typography sx={{ fontWeight: '500' }} variant={'h3'}>
           {t('head')}
         </Typography>
