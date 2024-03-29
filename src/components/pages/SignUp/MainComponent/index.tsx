@@ -1,21 +1,16 @@
+import Image from 'next/image'
+import React from 'react'
+
+// MUI
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
-import { useTranslations } from 'next-intl'
-import { ESocialLogin } from '@/types/enums'
-import Image from 'next/image'
 import Divider from '@mui/material/Divider'
-import React from 'react'
-interface IOAuthProvider {
-  id: number
-  label: string
-  icon: any
-  providerId: ESocialLogin
-}
-interface IMainComponentProps {
-  providers: IOAuthProvider[]
-  handelSignUp: (providerId: ESocialLogin) => void
-  switchToForm: (state: boolean) => void
-}
+// Types
+import { IMainComponentProps } from '@/types/pages/signup'
+
+// Hooks
+import { useTranslations } from 'next-intl'
+
 const MainComponent = ({ providers, handelSignUp, switchToForm }: IMainComponentProps) => {
   const t = useTranslations('signUp')
   return (

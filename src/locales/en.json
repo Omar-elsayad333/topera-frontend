@@ -54,6 +54,8 @@
     "password": "Password",
     "email": "E-mail",
     "firstname": "First Name",
-    "lastname": "Last Name "
+    "lastname": "Last Name",
+    "back": "Back",
+    "submit": "Submit"
   }
 }

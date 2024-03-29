@@ -1,37 +1,22 @@
 'use client'
-import { ESocialLogin } from '@/types/enums'
+import { FormEvent, useState } from 'react'
+import env from '@/config/env'
+// Icons
 import GoogleIcon from '@/assets/icons/google.svg'
 import LinkedinIcon from '@/assets/icons/linkedin.svg'
 import GithubIcon from '@/assets/icons/github.svg'
-import env from '@/config/env'
-import { useState } from 'react'
 
 // Validation
 import { object, string, ref } from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-interface IOAuthProvider {
-  id: number
-  label: string
-  icon: SVGElement
-  providerId: ESocialLogin
-}
+// Types
+import { IOAuthProvider, IFormInput, ISignUpForm } from '@/types/pages/signup'
+import { ESocialLogin } from '@/types/enums'
 
-interface IFormInput {
-  type: 'text' | 'password'
-  id: number
-  name: keyof ISignUpForm
-  xs: 6 | 12
-}
-
-interface ISignUpForm {
-  firstname: string
-  lastname: string
-  email: string
-  password: string
-  confirmPassword: string
-}
+// HTTP handler
+import useRequestHandlers from '@/hooks/useRequestHandlers'
 
 const OAuthProviders: IOAuthProvider[] = [
   { id: 0, label: 'signup_with_google', icon: GoogleIcon, providerId: 0 },
@@ -66,7 +51,8 @@ const defaultValues = {
 }
 const useSignUp = () => {
   const [inForm, setInForm] = useState<boolean>(false)
-
+  const [loading, setLoading] = useState<boolean>(false)
+  const { postHandler } = useRequestHandlers()
   const {
     formState: { errors },
     control,
@@ -75,13 +61,29 @@ const useSignUp = () => {
     resolver: yupResolver(schema),
     defaultValues,
   })
-  const handelSignUpWithProvider = async (provider: ESocialLogin) => {
+  const handelSignUpWithProvider = (provider: ESocialLogin) => {
     window.location.href = `${env.api_url}/oauth/${provider}`
+  }
+
+  const callServerFunction = async (body: ISignUpForm) => {
+    setLoading(true)
+    try {
+      const res = await postHandler({ endpoint: '/account', body })
+      console.log(res)
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setLoading(false)
+    }
+  }
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    await handleSubmit(callServerFunction)()
   }
   return {
     data: { OAuthProviders, FormInputs },
-    states: { inForm, control, errors },
-    actions: { handelSignUpWithProvider, setInForm },
+    states: { inForm, control, errors, loading },
+    actions: { handelSignUpWithProvider, setInForm, submit },
   }
 }
 
