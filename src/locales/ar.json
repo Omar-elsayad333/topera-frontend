@@ -40,5 +40,22 @@
     "sigin_in_with_github": "تسجيل الدخول بجيتهب",
     "forget_password": "لقد نسيت كلمه السر",
     "new_user": " حساب جديد"
+  },
+  "signUp": {
+    "head": "اهلا ",
+    "alreadyUser": "لديك حساب ؟",
+    "login": "تسجيل الدخول",
+    "signUpWithEmail": "انشاء حساب جديد",
+    "or_sigin_in_with_email": "or Use Social Login ",
+    "signup_with_google": "التسجيل بواسطه جوجل",
+    "signup_with_linkdin": "التسجيل بواسطه لينكد ان",
+    "signup_with_github": "التسجيل بواسطه جيت هب",
+    "confirmPassword": "تاكيد كلمه المرور",
+    "password": "كلمه المرور",
+    "email": "البريد الالكتروني",
+    "firstname": "الاسم الاول",
+    "lastname": "الاسم الاخير",
+    "back": "الرجوع",
+    "submit": "التسجيل"
   }
 }

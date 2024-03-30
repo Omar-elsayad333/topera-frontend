@@ -24,6 +24,7 @@ export default function Layout({ children }: IPropsWithChildren) {
         sx={{
           margin: '20px',
           maxWidth: '700px',
+          width: '700px',
           display: 'flex',
           flexDirection: 'column',
           backgroundColor: '#F4F4FF',
