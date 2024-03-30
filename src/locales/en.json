@@ -43,7 +43,11 @@
   },
   "forgetPassword": {
     "head": "Forgot password",
-    "content": "To reset your password, please enter your email address you may have used with Topera. "},
+    "content": "To reset your password, please enter your email address you may have used with Topera. ",
+    "email": "E-mail",
+    "continue": "Continue",
+    "signIn": "Sign In"
+  },
   "signUp": {
     "head": "Sign up",
     "alreadyUser": "Already a user?",

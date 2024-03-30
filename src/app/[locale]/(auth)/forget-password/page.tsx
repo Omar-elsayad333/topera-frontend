@@ -12,7 +12,7 @@ const ForgetPassword: FC = () => {
   const { data, states, actions } = useForgetPassword()
   switch (states.currentStage) {
     case 1:
-      return <EmailComponent />
+      return <EmailComponent changeStage={actions.setCurrentStage} />
     case 2:
       return <OtpComponent />
     case 3:
