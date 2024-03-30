@@ -35,7 +35,7 @@ const FormInputs: IFormInput[] = [
 const schema = object({
   firstname: string().required(),
   lastname: string().required(),
-  email: string().email().required(),
+  email: string(),
   password: string().required(),
   confirmPassword: string()
     .required()
@@ -49,6 +49,7 @@ const defaultValues = {
   password: '',
   confirmPassword: '',
 }
+
 const useSignUp = () => {
   const [inForm, setInForm] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
@@ -70,7 +71,7 @@ const useSignUp = () => {
     try {
       const res = await postHandler({ endpoint: '/account', body })
       console.log(res)
-    } catch (err) {
+    } catch (err: any) {
       console.log(err)
     } finally {
       setLoading(false)

@@ -25,8 +25,13 @@ export async function serverAction({ endpoint, method, params, body }: IServerAc
       options.body = JSON.stringify(body)
     }
 
-    const res = await fetch(`${env.api_url}${endpoint}`, options)
-    return await res.json()
+    const res: any = await fetch(`${env.api_url}${endpoint}`, options)
+    const jsonData = await res.json()
+
+    if (!res.ok) {
+      throw new Error(jsonData.message)
+    }
+    return await jsonData
   } catch (error: any) {
     throw new Error(error)
   }

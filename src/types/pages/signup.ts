@@ -13,7 +13,7 @@ export interface IOAuthProvider {
 export interface ISignUpForm {
   firstname: string
   lastname: string
-  email: string
+  email?: string
   password: string
   confirmPassword: string
 }
