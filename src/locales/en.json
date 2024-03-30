@@ -40,5 +40,9 @@
     "sigin_in_with_github": "Sign in with Github",
     "forget_password": "Forget Password",
     "new_user": "New user"
+  },
+  "forgetPassword": {
+    "head": "Forgot password",
+    "content": "To reset your password, please enter your email address you may have used with Topera. "
   }
 }
