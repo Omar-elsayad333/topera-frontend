@@ -10,7 +10,7 @@ const schema = object({
 import { IForgetPasswordEmail, IUseEmailComponentProps } from '@/types/pages/forgetpassword'
 import { FormEvent, useState } from 'react'
 import useRequestHandlers from '@/hooks/useRequestHandlers'
-const useEmailComponent = ({ changeStage }: IUseEmailComponentProps) => {
+const useEmailComponent = ({ changeStage, setEmail }: IUseEmailComponentProps) => {
   const { postHandler } = useRequestHandlers()
   const [loading, setLoading] = useState<boolean>(false)
   const {
@@ -26,10 +26,11 @@ const useEmailComponent = ({ changeStage }: IUseEmailComponentProps) => {
   const handelRequest = async (body: IForgetPasswordEmail) => {
     try {
       setLoading(true)
-      const request = await postHandler({ endpoint: '/account/forgot-password', body })
-      if (request.status === 200) {
-        changeStage(2)
-      }
+      await postHandler({ endpoint: '/account/forgot-password', body })
+      changeStage(2)
+      setEmail(body.email)
+      // if (request.status === 200) {
+      // }
     } catch (err) {
       console.log(err)
     } finally {

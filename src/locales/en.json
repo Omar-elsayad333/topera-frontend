@@ -46,7 +46,10 @@
     "content": "To reset your password, please enter your email address you may have used with Topera. ",
     "email": "E-mail",
     "continue": "Continue",
-    "signIn": "Sign In"
+    "signIn": "Sign In",
+    "otpHead": "Verify your identity",
+    "otpContent": "Enter the code we just sent to",
+    "back": "Back"
   },
   "signUp": {
     "head": "Sign up",
