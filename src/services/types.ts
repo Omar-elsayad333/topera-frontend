@@ -6,7 +6,6 @@ export type IParams = {
 
 export interface IServerActionProps {
   endpoint: string
-  method: string
   params?: IParams
   body?: any
 }

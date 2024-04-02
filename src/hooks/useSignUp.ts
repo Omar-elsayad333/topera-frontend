@@ -17,6 +17,7 @@ import { ESocialLogin } from '@/types/enums'
 
 // HTTP handler
 import useRequestHandlers from '@/hooks/useRequestHandlers'
+import useHandleError from './useHandleError'
 
 const OAuthProviders: IOAuthProvider[] = [
   { id: 0, label: 'signup_with_google', icon: GoogleIcon, providerId: 0 },
@@ -35,7 +36,7 @@ const FormInputs: IFormInput[] = [
 const schema = object({
   firstname: string().required(),
   lastname: string().required(),
-  email: string(),
+  email: string().required(),
   password: string().required(),
   confirmPassword: string()
     .required()
@@ -51,9 +52,9 @@ const defaultValues = {
 }
 
 const useSignUp = () => {
+  const handleError = useHandleError()
   const [inForm, setInForm] = useState<boolean>(false)
-  const [loading, setLoading] = useState<boolean>(false)
-  const { postHandler } = useRequestHandlers()
+  const { postHandler, loading } = useRequestHandlers()
   const {
     formState: { errors },
     control,
@@ -67,15 +68,8 @@ const useSignUp = () => {
   }
 
   const callServerFunction = async (body: ISignUpForm) => {
-    setLoading(true)
-    try {
-      const res = await postHandler({ endpoint: '/account', body })
-      console.log(res)
-    } catch (err: any) {
-      console.log(err)
-    } finally {
-      setLoading(false)
-    }
+    const { error } = await postHandler({ endpoint: '/account', body })
+    error && handleError(error)
   }
   const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
