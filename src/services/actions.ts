@@ -3,13 +3,10 @@
 // Config
 import env from '@/config/env'
 
-// Types
-import { IServerActionProps } from './types'
-
 // Next Auth
 import { getServerAuthSession } from './auth'
 
-export async function serverAction({ endpoint, params, body }: IServerActionProps) {
+export async function serverAction({ endpoint }: { endpoint: string }) {
   const user: any = await getServerAuthSession()
 
   const options: any = {
@@ -17,11 +14,6 @@ export async function serverAction({ endpoint, params, body }: IServerActionProp
   }
   if (user?.user?.token) options.headers['Authorization'] = `Bearer ${user.user.token}`
   options.headers['Content-Type'] = 'application/json'
-  params && (options['params'] = params)
-
-  if (body) {
-    options.body = JSON.stringify(body)
-  }
 
   const res: any = await fetch(`${env.api_url}${endpoint}`, options)
   const jsonData = await res.json()
