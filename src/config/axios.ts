@@ -1,53 +1,34 @@
-// const instance = axios.create({
-//     baseURL: "https://nirvanamice.tailfdaf6.ts.net",
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
+// Config
+import env from './env'
 
-//   axios.interceptors.request.use(
-//     (config) => {
-//       const token = localStorage.getItem("");
-//       if (token) {
-//         config.headers["Authorization"] = `Bearer ${token}`;
-//       }
-//       return config;
-//     },
-//     (error) => {
-//       Promise.reject(error);
-//     }
-//   );
+// Axios
+import axios from 'axios'
 
-//   axios.interceptors.response.use(
-//     (response) => {
-//       return response;
-//     },
-//     function (error) {
-//       const originalRequest = error.config;
+// Next auth
+import { signOut } from 'next-auth/react'
+import { redirect } from 'next/navigation'
 
-//       if (
-//         error.response.status === 401 &&
-//         originalRequest.url === "http://127.0.0.1:3000/v1/auth/token"
-//       ) {
-//         router.push("/login");
-//         return Promise.reject(error);
-//       }
+export const axiosInstance = axios.create({ baseURL: env.api_url })
 
-//       if (error.response.status === 401 && !originalRequest._retry) {
-//         originalRequest._retry = true;
-//         const refreshToken = localStorageService.getRefreshToken();
-//         return axios
-//           .post("/auth/token", {
-//             refresh_token: refreshToken,
-//           })
-//           .then((res) => {
-//             if (res.status === 201) {
-//               localStorageService.setToken(res.data);
-//               axios.defaults.headers.common["Authorization"] =
-//                 "Bearer " + localStorageService.getAccessToken();
-//               return axios(originalRequest);
-//             }
-//           });
-//       }
-//       return Promise.reject(error);
-//     }
+axiosInstance.interceptors.request.use(
+  async (config) => {
+    return config
+  },
+  function (error) {
+    return Promise.reject(error)
+  }
+)
+
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const status = error.response ? error.response.status : null
+
+    if (status === 401) {
+      signOut()
+      redirect('/login')
+    }
+
+    return Promise.reject(error)
+  }
+)

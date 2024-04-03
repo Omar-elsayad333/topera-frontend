@@ -1,10 +1,11 @@
 'use client'
-import React from 'react'
+import React, { useSyncExternalStore } from 'react'
 import { createContext, useReducer, useContext, FunctionComponent, Dispatch, ComponentType } from 'react'
 // import useMediaQuery from '@mui/material/useMediaQuery';
 import AppReducer from '@/stores/AppReducer'
 import { IS_SERVER } from '@/utils/environment'
 import { localStorageGet } from '@/utils/localStorage'
+import { SessionProvider, useSession } from 'next-auth/react'
 
 /**
  * AppState data structure and initial values
@@ -18,7 +19,7 @@ export interface AppStoreState {
   darkMode: boolean
   isAuthenticated: boolean
   locale: string
-  currentUser?: object | undefined
+  currentUser?: any
   themeSetting: IThemeSettings
 }
 
@@ -50,20 +51,24 @@ const AppContext = createContext<AppContextReturningType>([INITIAL_APP_STATE, ()
  */
 interface AppStoreProps {
   locale: string
+  session: any
   children: React.ReactElement<any, any> | React.ReactNode | React.ReactElement[]
 }
 const AppStoreProvider: FunctionComponent<AppStoreProps> = ({ children, locale }) => {
   // const prefersDarkMode = IS_SERVER ? false : useMediaQuery('(prefers-color-scheme: dark)'); // Note: Conditional hook is bad idea :(
+  const { data: session }: any = useSession()
   const prefersDarkMode = IS_SERVER ? false : window.matchMedia('(prefers-color-scheme: dark)').matches
   const previousDarkMode = IS_SERVER ? false : Boolean(localStorageGet('darkMode', false))
-  // const tokenExists = Boolean(loadToken());
+  const tokenExists = !!session?.user?.token
 
   const initialState: AppStoreState = {
     ...INITIAL_APP_STATE,
     locale: locale,
+    currentUser: session?.user,
     darkMode: previousDarkMode ?? prefersDarkMode,
-    // isAuthenticated: tokenExists,
+    isAuthenticated: tokenExists,
   }
+
   const value: AppContextReturningType = useReducer(AppReducer, initialState)
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>
@@ -102,4 +107,12 @@ const withAppStore = (Component: ComponentType<WithAppStoreProps>): FunctionComp
     return <Component {...props} appStore={useAppStore()} />
   }
 
-export { AppStoreProvider, useAppStore, withAppStore }
+const AppStoreProviderWrapper = ({ children, locale, session }: any) => {
+  return (
+    <SessionProvider session={session}>
+      <AppStoreProvider {...locale}>{children}</AppStoreProvider>
+    </SessionProvider>
+  )
+}
+
+export { AppStoreProvider, useAppStore, withAppStore, AppStoreProviderWrapper }

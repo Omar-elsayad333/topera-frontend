@@ -26,5 +26,36 @@
   },
   "matching_chat": {
     "landing_title": "How can I help you?"
+  },
+  "login": {
+    "head": "Sign in",
+    "create_new_account": "Create new account",
+    "email": "E-mail",
+    "password": "Password",
+    "continue": "Continue",
+    "submit": "Submit",
+    "or_sigin_in_with_email": "Or sign in with E-mail",
+    "sigin_in_with_google": "Sign in with Google",
+    "sigin_in_with_linkdin": "Sign in with Linkedin",
+    "sigin_in_with_github": "Sign in with Github",
+    "forget_password": "Forget Password",
+    "new_user": "New user"
+  },
+  "signUp": {
+    "head": "Sign up",
+    "alreadyUser": "Already a user?",
+    "login": "Sign in",
+    "signUpWithEmail": "Sign up with Email",
+    "or_sigin_in_with_email": "or Use Social Login ",
+    "signup_with_google": "Sign up with Google",
+    "signup_with_linkdin": "Sign up with Linkedin",
+    "signup_with_github": "Sign up with Github",
+    "confirmPassword": "Confirm password",
+    "password": "Password",
+    "email": "E-mail",
+    "firstname": "First Name",
+    "lastname": "Last Name",
+    "back": "Back",
+    "submit": "Submit"
   }
 }
