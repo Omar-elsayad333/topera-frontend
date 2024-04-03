@@ -18,13 +18,14 @@ const useRequestHandlers = () => {
 
   const getHandler = async ({ endpoint, params, noLoading }: IProps) => {
     let data, error
+
     try {
       !noLoading && setLoading(true)
       const response: AxiosResponse = await axiosInstance.get(endpoint, {
         params,
         headers: { ...(state?.currentUser?.token && { Authorization: `Bearer ${state?.currentUser?.token}` }) },
       })
-      data = response.data
+      data = response.data.data
     } catch (err: any) {
       error = err.response.data
     } finally {
@@ -41,7 +42,7 @@ const useRequestHandlers = () => {
         params,
         headers: { ...(state?.currentUser?.token && { Authorization: `Bearer ${state?.currentUser?.token}` }) },
       })
-      data = response.data
+      data = response.data.data
     } catch (err: any) {
       error = err.response.data
     } finally {
@@ -60,7 +61,7 @@ const useRequestHandlers = () => {
       })
       data = response.data
     } catch (err: any) {
-      error = err.response.data
+      error = err.response.data.data
     } finally {
       !noLoading && setLoading(false)
     }
@@ -77,7 +78,7 @@ const useRequestHandlers = () => {
       })
       data = response.data
     } catch (err: any) {
-      error = err.response.data
+      error = err.response.data.data
     } finally {
       !noLoading && setLoading(false)
     }

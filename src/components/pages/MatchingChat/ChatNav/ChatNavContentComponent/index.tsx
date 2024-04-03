@@ -1,11 +1,7 @@
 'use client'
-import { useRouter } from 'next/navigation'
 
 // Next intl
 import { useTranslations } from 'next-intl'
-
-// Routes
-import { Routes } from '@/routes/routes'
 
 // Stores
 import { useMatching } from '@/stores'
@@ -21,7 +17,6 @@ import Tabs from '@mui/material/Tabs'
 import Toolbar from '@mui/material/Toolbar'
 
 const ChatNavContentComponent = () => {
-  const router = useRouter()
   const t = useTranslations('matching_chat_nav')
 
   const type = useMatching((state) => state.type)
@@ -29,10 +24,6 @@ const ChatNavContentComponent = () => {
 
   const handleChange = () => {
     updateTypeNav()
-  }
-
-  const startNewChat = () => {
-    router.replace(Routes.matchingChat)
   }
 
   return (

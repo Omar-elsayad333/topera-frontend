@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 // Hooks
+import useHandleError from '@/hooks/useHandleError'
 import useRequestHandlers from '@/hooks/useRequestHandlers'
 
 // Stores
@@ -10,6 +11,7 @@ import { Routes } from '@/routes/routes'
 
 const useChatNav = (ChatType: any) => {
   const router = useRouter()
+  const { handleError } = useHandleError()
   const type = useMatching((state) => state.type)
 
   const updateWorkData = useMatching((state) => state.updateWorkNavData)
@@ -36,29 +38,26 @@ const useChatNav = (ChatType: any) => {
   }, [type, workArchiveState, learnArchiveState])
 
   const getPageData = async (noLoading: boolean = false) => {
-    try {
-      let endpoint = ''
-      if (ChatType === 0) {
-        endpoint = workArchiveState ? `/matching/archived/${ChatType}` : `/matching/${ChatType}`
-      } else {
-        endpoint = learnArchiveState ? `/matching/archived/${ChatType}` : `/matching/${ChatType}`
-      }
+    let endpoint = ''
+    if (ChatType === 0) {
+      endpoint = workArchiveState ? `/matching/archived/${ChatType}` : `/matching/${ChatType}`
+    } else {
+      endpoint = learnArchiveState ? `/matching/archived/${ChatType}` : `/matching/${ChatType}`
+    }
 
-      const res = await getHandler({ endpoint, noLoading })
+    const { data, error } = await getHandler({ endpoint, noLoading })
+    if (error) return handleError(error)
 
-      const body = [
-        { id: 1, name: 'Today', data: res.today },
-        { id: 2, name: 'Last 7 days', data: res.lastWeek },
-        { id: 3, name: 'Last months', data: res.lastMonths },
-      ]
+    const body = [
+      { id: 1, name: 'Today', data: data.today },
+      { id: 2, name: 'Last 7 days', data: data.lastWeek },
+      { id: 3, name: 'Last months', data: data.lastMonths },
+    ]
 
-      if (ChatType === 0) {
-        workArchiveState ? updateWorkArchiveData(body) : updateWorkData(body)
-      } else {
-        learnArchiveState ? updateLearnArchiveData(body) : updateLearnData(body)
-      }
-    } catch (error) {
-      console.log(error)
+    if (ChatType === 0) {
+      workArchiveState ? updateWorkArchiveData(body) : updateWorkData(body)
+    } else {
+      learnArchiveState ? updateLearnArchiveData(body) : updateLearnData(body)
     }
   }
 
@@ -89,21 +88,15 @@ const useChatNav = (ChatType: any) => {
   }
 
   const deleteChat = async (selectedChatId: string) => {
-    try {
-      await deleteHandler({ endpoint: `/matching/${selectedChatId}` })
-      getPageData(true)
-    } catch (error) {
-      console.log(error)
-    }
+    const { error } = await deleteHandler({ endpoint: `/matching/${selectedChatId}` })
+    if (error) return handleError(error)
+    getPageData(true)
   }
 
   const archiveChat = async (selectedChatId: string) => {
-    try {
-      await putHandler({ endpoint: `/matching/archived/${selectedChatId}` })
-      getPageData(true)
-    } catch (error) {
-      console.log(error)
-    }
+    const { error } = await putHandler({ endpoint: `/matching/archived/${selectedChatId}` })
+    if (error) return handleError(error)
+    getPageData(true)
   }
 
   const handleOpenEditDialog = (selectedChatId: string) => {
@@ -116,18 +109,14 @@ const useChatNav = (ChatType: any) => {
   }
 
   const submitEditDialog = async (selectedChatId: string, newValue: string) => {
-    try {
-      setDialogLoading(true)
-      const body = { id: selectedChatId, name: newValue }
-      const endpoint = `/matching/chatname/${selectedChatId}`
-      await postHandler({ endpoint, body, noLoading: true })
-      getPageData(true)
-      handleCloseEditDialog()
-    } catch (error) {
-      console.log(error)
-    } finally {
-      setDialogLoading(false)
-    }
+    setDialogLoading(true)
+    const body = { id: selectedChatId, name: newValue }
+    const endpoint = `/matching/chatname/${selectedChatId}`
+    const { error } = await postHandler({ endpoint, body, noLoading: true })
+    setDialogLoading(false)
+    if (error) return handleError(error)
+    getPageData(true)
+    handleCloseEditDialog()
   }
 
   return {

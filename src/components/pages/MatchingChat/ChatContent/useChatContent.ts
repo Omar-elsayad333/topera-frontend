@@ -6,13 +6,17 @@ import { useSearchParams } from 'next/navigation'
 import { getSession } from 'next-auth/react'
 
 // Hooks
+import useHandleError from '@/hooks/useHandleError'
 import useRequestHandlers from '@/hooks/useRequestHandlers'
 
 // Types
 import { ITrack, IRecomondations } from './types'
+import { useAppStore } from '@/stores'
 
 const useChatContent = (data: any) => {
   const searchParams = useSearchParams()
+  const { handleError } = useHandleError()
+  const [state] = useAppStore()
   const { loading, postHandler } = useRequestHandlers()
   const [userData, setUserData] = useState<any>(null)
   const [selectedTracks, setSelectedTracks] = useState<ITrack[]>([])
@@ -20,14 +24,16 @@ const useChatContent = (data: any) => {
   const [editTrackDialog, setEditTrackDialog] = useState<boolean>(false)
 
   useEffect(() => {
-    getUserData()
     setSelectedTracks(data.recommendationTracks)
     setRecommendations(data.recommendations)
   }, [])
 
+  useEffect(() => {
+    getUserData()
+  }, [state.currentUser])
+
   const getUserData = async () => {
-    const user: any = await getSession()
-    setUserData(user.user)
+    setUserData(state.currentUser)
   }
 
   const handleCloseEditDialog = () => {
@@ -70,14 +76,14 @@ const useChatContent = (data: any) => {
   }
 
   const confirmTracks = async () => {
-    try {
-      const body = collectConfirmTracks()
-      const res = await postHandler({ endpoint: `/matching/recommendation/${searchParams.get('chatId')}`, body })
-      console.log(res)
-      setRecommendations(res)
-    } catch (error) {
-      console.log(error)
-    }
+    const body = collectConfirmTracks()
+    const { data, error } = await postHandler({
+      endpoint: `/matching/recommendation/${searchParams.get('chatId')}`,
+      body,
+    })
+
+    if (error) return handleError(error)
+    setRecommendations(data)
   }
 
   return {

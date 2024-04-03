@@ -1,8 +1,5 @@
 'use client'
 
-// Next intl
-// import { useTranslations } from 'next-intl'
-
 // Assests
 import AvatarLogo from '@/assets/images/avatar_logo.svg'
 
@@ -30,7 +27,6 @@ interface ITrack {
 
 const ChatContent = ({ data }: any) => {
   const theme = useTheme()
-  // const t = useTranslations('matching_chat')
   const { userData, selectedTracks, handleDelete, confirmTracks, loading, recommendations, dialog } =
     useChatContent(data)
 
@@ -48,7 +44,12 @@ const ChatContent = ({ data }: any) => {
           />
           {selectedTracks?.length > 0 && (
             <DelayedComponent key={data.id} delay={3000}>
-              <MessageComponent title={'Topera'} avatar={AvatarLogo} body={'We recommend working with...'}>
+              <MessageComponent
+                key={data.id}
+                title={'Topera'}
+                avatar={AvatarLogo}
+                body={'We recommend working with...'}
+              >
                 <Stack alignItems={'start'} spacing={1}>
                   <Stack direction="row" alignItems={'center'} spacing={1}>
                     {selectedTracks.length > 0 &&
@@ -82,7 +83,7 @@ const ChatContent = ({ data }: any) => {
           )}
           {recommendations?.length > 0 && (
             <DelayedComponent key={data.id} delay={3000}>
-              <MessageComponent title={'Topera'} avatar={AvatarLogo} body={'Starting macthing...'}>
+              <MessageComponent key={data.id} title={'Topera'} avatar={AvatarLogo} body={'Starting macthing...'}>
                 <Stack alignItems={'start'} gap={3}>
                   {recommendations.map((item) => (
                     <TrackSection key={item.id} data={item} />
