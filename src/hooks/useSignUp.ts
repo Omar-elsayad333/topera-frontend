@@ -52,7 +52,7 @@ const defaultValues = {
 }
 
 const useSignUp = () => {
-  const handleError = useHandleError()
+  const { handleError } = useHandleError()
   const [inForm, setInForm] = useState<boolean>(false)
   const { postHandler, loading } = useRequestHandlers()
   const {

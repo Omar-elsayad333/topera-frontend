@@ -18,6 +18,7 @@ import TextField from '@mui/material/TextField'
 import { SxProps, useTheme } from '@mui/material'
 import FormControl from '@mui/material/FormControl'
 import InputAdornment from '@mui/material/InputAdornment'
+import useHandleError from '@/hooks/useHandleError'
 
 interface IFormInput {
   data: string
@@ -30,6 +31,7 @@ const validationSchema = object({
 const ChatInputComponent = () => {
   const theme = useTheme()
   const router = useRouter()
+  const { handleError } = useHandleError()
   const { loading, postHandler } = useRequestHandlers()
 
   const type = useMatching((state) => state.type)
@@ -46,17 +48,14 @@ const ChatInputComponent = () => {
     },
   })
 
-  const sendMessage = async (data: IFormInput) => {
-    try {
-      const body = {
-        ...data,
-        type,
-      }
-      const res = await postHandler({ endpoint: '/matching', body })
-      router.replace(`matching-chat?chatId=${res.id}`)
-    } catch (error) {
-      console.log(error)
+  const sendMessage = async (inputData: IFormInput) => {
+    const body = {
+      ...inputData,
+      type,
     }
+    const { data, error } = await postHandler({ endpoint: '/matching', body })
+    if (error) return handleError(error)
+    router.replace(`matching-chat?chatId=${data.id}`)
   }
 
   const style: SxProps = {
