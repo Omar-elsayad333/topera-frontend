@@ -6,7 +6,7 @@ import env from '@/config/env'
 // Next Auth
 import { getServerAuthSession } from './auth'
 
-export async function serverAction({ endpoint }: { endpoint: string }) {
+export async function serverAction(endpoint: string) {
   const user: any = await getServerAuthSession()
 
   const options: any = {

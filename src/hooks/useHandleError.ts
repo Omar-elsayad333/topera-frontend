@@ -23,7 +23,7 @@ const useHandleError = () => {
     }
   }
 
-  return handleError
+  return { handleError }
 }
 
 export default useHandleError

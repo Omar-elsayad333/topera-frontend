@@ -1,11 +1,9 @@
 'use client'
-import React, { useSyncExternalStore } from 'react'
 import { createContext, useReducer, useContext, FunctionComponent, Dispatch, ComponentType } from 'react'
 // import useMediaQuery from '@mui/material/useMediaQuery';
 import AppReducer from '@/stores/AppReducer'
 import { IS_SERVER } from '@/utils/environment'
 import { localStorageGet } from '@/utils/localStorage'
-import { SessionProvider, useSession } from 'next-auth/react'
 
 /**
  * AppState data structure and initial values
@@ -54,9 +52,8 @@ interface AppStoreProps {
   session: any
   children: React.ReactElement<any, any> | React.ReactNode | React.ReactElement[]
 }
-const AppStoreProvider: FunctionComponent<AppStoreProps> = ({ children, locale }) => {
-  // const prefersDarkMode = IS_SERVER ? false : useMediaQuery('(prefers-color-scheme: dark)'); // Note: Conditional hook is bad idea :(
-  const { data: session }: any = useSession()
+
+const AppStoreProvider: FunctionComponent<AppStoreProps> = ({ children, locale, session }) => {
   const prefersDarkMode = IS_SERVER ? false : window.matchMedia('(prefers-color-scheme: dark)').matches
   const previousDarkMode = IS_SERVER ? false : Boolean(localStorageGet('darkMode', false))
   const tokenExists = !!session?.user?.token
@@ -107,12 +104,4 @@ const withAppStore = (Component: ComponentType<WithAppStoreProps>): FunctionComp
     return <Component {...props} appStore={useAppStore()} />
   }
 
-const AppStoreProviderWrapper = ({ children, locale, session }: any) => {
-  return (
-    <SessionProvider session={session}>
-      <AppStoreProvider {...locale}>{children}</AppStoreProvider>
-    </SessionProvider>
-  )
-}
-
-export { AppStoreProvider, useAppStore, withAppStore, AppStoreProviderWrapper }
+export { AppStoreProvider, useAppStore, withAppStore }

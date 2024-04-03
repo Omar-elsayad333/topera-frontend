@@ -1,4 +1,4 @@
-import React, { useState, useEffect, PropsWithChildren } from 'react'
+import { useState, useEffect, PropsWithChildren } from 'react'
 
 // Framer motion
 import { motion } from 'framer-motion'
