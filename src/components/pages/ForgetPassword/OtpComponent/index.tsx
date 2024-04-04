@@ -1,17 +1,20 @@
+'use client'
 import Grid from '@mui/material/Grid'
 import { FC } from 'react'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { useTranslations } from 'next-intl'
 import { IOtpComponentProps } from '@/types/pages/forgetpassword'
-import OtpInputComponent from '@/components/pages/ForgetPassword/OtpInputComponent'
 import useOtpComponent from '@/hooks/useOtpComponent'
+import OtpInputComponent from '@/components/pages/ForgetPassword/OtpInputComponent'
+import Button from '@mui/material/Button'
+import OuterLoadingComponent from '@/components/shared/OuterLoadingComponent'
 
-const OtpComponent: FC<IOtpComponentProps> = ({ email }) => {
+const OtpComponent: FC<IOtpComponentProps> = ({ back }) => {
   const t = useTranslations('forgetPassword')
-  const { data, states, actions } = useOtpComponent()
+  const { data, states, actions } = useOtpComponent({ changeStage: back })
   return (
-    <form>
+    <form onSubmit={actions.submit}>
       <Grid alignItems={'space-between'} container item columns={12} sx={{ height: '700px', padding: '40px 0px 40px' }}>
         <Stack width={'100%'} spacing={'40px'}>
           <Stack spacing={'8px'}>
@@ -19,15 +22,37 @@ const OtpComponent: FC<IOtpComponentProps> = ({ email }) => {
               {t('otpHead')}
             </Typography>
             <Typography paragraph>{t('otpContent')}</Typography>
-            <Typography sx={{ fontWeight: '600' }}>{email}</Typography>
+            <Typography sx={{ fontWeight: '600' }}>{data.email}</Typography>
           </Stack>
-          <Stack gap={'15px'} justifyContent={'space-between'} flexDirection={'row'}>
-            {Array.from({ length: 6 }, (_, i) => i + 1).map((e) => (
-              <OtpInputComponent key={e} control={states.control} name={`input-${e}`} />
-            ))}
+          <Stack gap={'15px'} alignItems={'end'} flexDirection={'column'}>
+            <OtpInputComponent control={states.control} name={'code'} error={states.errors['code']} />
+            <Button
+              disabled={states.loading}
+              type={'submit'}
+              sx={{ padding: '10px 20px' }}
+              variant={'contained'}
+              size={'small'}
+            >
+              {states.loading ? <OuterLoadingComponent size={24} /> : t('continue')}
+            </Button>
           </Stack>
         </Stack>
-        {/*<Button variant={'outlined'}>{t('back')}</Button>*/}
+        <Button
+          onClick={actions.back}
+          sx={{
+            height: '30px',
+            alignSelf: 'end',
+            backgroundColor: 'transparent',
+            color: '#1473E6',
+            '&:hover': {
+              backgroundColor: 'transparent',
+              boxShadow: 'unset',
+            },
+          }}
+          variant={'contained'}
+        >
+          {t('back')}
+        </Button>
       </Grid>
     </form>
   )

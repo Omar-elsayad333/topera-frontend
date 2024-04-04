@@ -5,9 +5,10 @@ import { Controller, Merge, FieldErrorsImpl } from 'react-hook-form'
 // MUI
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
-import TextField from '@mui/material/TextField'
+import { MuiOtpInput } from 'mui-one-time-password-input'
+
 // Types
-import { FieldError, FieldsControl } from '@/types/validation'
+import { FieldError } from '@/types/validation'
 
 interface IProps {
   id?: string
@@ -19,43 +20,41 @@ interface IProps {
 }
 
 const OtpInputComponent = ({ name, control, id, placeholder, error, label, ...args }: IProps) => {
+  const validateChar = (character: string, index: number) => {
+    return !isNaN(parseInt(character, 10))
+  }
   return (
     <FormControl fullWidth error={!!error}>
       <Controller
         name={name}
         control={control}
+        rules={{ validate: (value) => value.length === 6 }}
         render={({ field }) => (
-          <TextField
-            {...args}
-            fullWidth
-            id={id}
-            label={label}
-            type="number"
-            value={field.value}
-            variant={'outlined'}
-            sx={{
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
+          <MuiOtpInput
+            sx={{ justifyItems: 'space-between', gap: '24px' }}
+            TextFieldsProps={{
+              sx: {
+                '& .MuiOutlinedInput-root': {
                   height: '70px',
-                  width: '70px',
-                  display: 'flex',
-                  borderRadius: '150px',
-                },
-                '&:hover fieldset ,&.Mui-focused fieldset': {
-                  borderColor: (theme) => theme.palette.primary.light,
-                },
-              },
-            }}
-            InputProps={{
-              inputProps: {
-                min: 0,
-                style: {
-                  textAlign: 'center',
+                  maxWidth: '70px',
+                  borderRadius: '50px',
+
+                  '& input': {
+                    height: '70px',
+                    maxWidth: '70px',
+                    borderRadius: '50px',
+                  },
+                  '& fieldset': {
+                    height: '100%',
+                  },
                 },
               },
             }}
+            autoFocus
+            {...field}
+            length={6}
             onChange={field.onChange}
-            placeholder={placeholder}
+            validateChar={validateChar}
           />
         )}
       />

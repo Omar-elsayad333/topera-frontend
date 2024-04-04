@@ -1,15 +1,25 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { TForgetPasswordStages } from '@/types/pages/forgetpassword'
+import { EForgetPasswordStages } from '@/types/pages/forgetpassword'
+import { localStorageGet } from '@/utils'
 
 const useForgetPassword = () => {
-  const [currentStage, setCurrentStage] = useState<TForgetPasswordStages>(1)
-  const [email, setEmail] = useState<string>('')
-
+  const [currentStage, setCurrentStage] = useState<EForgetPasswordStages>(0)
+  const storedEmail = localStorageGet('userEmailToResetPassword')
+  const storedToken = localStorageGet('userTokenToResetPassword')
+  useEffect(() => {
+    if (storedEmail && storedToken) {
+      setCurrentStage(EForgetPasswordStages.NewPasswordStage)
+    } else if (storedEmail) {
+      setCurrentStage(EForgetPasswordStages.OtpStage)
+    } else {
+      setCurrentStage(EForgetPasswordStages.EmailStage)
+    }
+  }, [])
   return {
-    data: { email },
+    data: {},
     states: { currentStage },
-    actions: { setCurrentStage, setEmail },
+    actions: { setCurrentStage },
   }
 }
 

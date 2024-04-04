@@ -2,17 +2,20 @@
 import { object, string } from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+// Types
+import { EForgetPasswordStages, IForgetPasswordEmail, IUseEmailComponentProps } from '@/types/pages/forgetpassword'
+import { FormEvent } from 'react'
+import useRequestHandlers from '@/hooks/useRequestHandlers'
+
+// LocalStorage Utils
+import { localStorageSet } from '@/utils/localStorage'
+
 const schema = object({
   email: string().required().email(),
 })
 
-// Types
-import { IForgetPasswordEmail, IUseEmailComponentProps } from '@/types/pages/forgetpassword'
-import { FormEvent, useState } from 'react'
-import useRequestHandlers from '@/hooks/useRequestHandlers'
-const useEmailComponent = ({ changeStage, setEmail }: IUseEmailComponentProps) => {
-  const { postHandler } = useRequestHandlers()
-  const [loading, setLoading] = useState<boolean>(false)
+const useEmailComponent = ({ changeStage }: IUseEmailComponentProps) => {
+  const { postHandler, loading } = useRequestHandlers()
   const {
     formState: { errors },
     control,
@@ -20,21 +23,16 @@ const useEmailComponent = ({ changeStage, setEmail }: IUseEmailComponentProps) =
   } = useForm<IForgetPasswordEmail>({
     resolver: yupResolver(schema),
     defaultValues: {
-      email: 'mohammedsherif@gmail.com',
+      email: 'modyahmed221@gmail.com',
     },
   })
   const handelRequest = async (body: IForgetPasswordEmail) => {
     try {
-      setLoading(true)
       await postHandler({ endpoint: '/account/forgot-password', body })
-      changeStage(2)
-      setEmail(body.email)
-      // if (request.status === 200) {
-      // }
+      changeStage(EForgetPasswordStages.OtpStage)
+      localStorageSet('userEmailToResetPassword', body.email)
     } catch (err) {
       console.log(err)
-    } finally {
-      setLoading(false)
     }
   }
   const submit = (e: FormEvent<HTMLFormElement>) => {

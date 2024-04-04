@@ -10,9 +10,9 @@ import Button from '@mui/material/Button'
 import OuterLoadingComponent from '@/components/shared/OuterLoadingComponent'
 import { IEmailComponentProps } from '@/types/pages/forgetpassword'
 
-const EmailComponent = ({ changeStage, setEmail }: IEmailComponentProps) => {
+const EmailComponent = ({ changeStage }: IEmailComponentProps) => {
   const t = useTranslations('forgetPassword')
-  const { states, actions } = useEmailComponent({ changeStage, setEmail })
+  const { states, actions } = useEmailComponent({ changeStage })
   return (
     <form onSubmit={actions.submit}>
       <Grid

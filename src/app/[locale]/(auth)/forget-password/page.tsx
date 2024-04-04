@@ -11,11 +11,11 @@ import useForgetPassword from '@/hooks/useForgetPassword'
 const ForgetPassword: FC = () => {
   const { data, states, actions } = useForgetPassword()
   switch (states.currentStage) {
+    case 0:
+      return <EmailComponent changeStage={actions.setCurrentStage} />
     case 1:
-      return <EmailComponent changeStage={actions.setCurrentStage} setEmail={actions.setEmail} />
+      return <OtpComponent back={actions.setCurrentStage} />
     case 2:
-      return <OtpComponent email={data.email} />
-    case 3:
       return <NewPasswordComponent />
   }
 }

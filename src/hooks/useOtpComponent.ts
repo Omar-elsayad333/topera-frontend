@@ -1,41 +1,61 @@
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { object, string } from 'yup'
+import { EForgetPasswordStages, IUseOtpComponentProps } from '@/types/pages/forgetpassword'
+import { useState } from 'react'
+import useRequestHandlers from '@/hooks/useRequestHandlers'
+
+// LocalStorage Utils
+import { localStorageDelete, localStorageGet, localStorageSet } from '@/utils'
 
 const schema = object({
-  'input-1': string().required().max(9),
-  'input-2': string().required().max(9),
-  'input-3': string().required().max(9),
-  'input-4': string().required().max(9),
-  'input-5': string().required().max(9),
-  'input-6': string().required().max(9),
+  code: string().min(6).required(),
 })
 interface IOtpForm {
-  'input-1': string
-  'input-2': string
-  'input-3': string
-  'input-4': string
-  'input-5': string
-  'input-6': string
+  code: string
 }
 const defaultValues = {
-  'input-1': '',
-  'input-2': '',
-  'input-3': '',
-  'input-4': '',
-  'input-5': '',
-  'input-6': '',
+  code: '',
 }
-const useOtpComponent = () => {
+const useOtpComponent = ({ changeStage }: IUseOtpComponentProps) => {
+  const [loading, setLoading] = useState<boolean>(false)
+  const { postHandler } = useRequestHandlers()
   const {
     formState: { errors },
     control,
     handleSubmit,
   } = useForm<IOtpForm>({ resolver: yupResolver(schema), defaultValues })
+  const email = localStorageGet('userEmailToResetPassword')
+
+  const handelSubmitRequest = async (body: { email: string; code: string }) => {
+    try {
+      setLoading(true)
+      const res = await postHandler({ endpoint: '/account/verify-otp', body })
+      localStorageSet('userTokenToResetPassword', res.token)
+      changeStage(EForgetPasswordStages.NewPasswordStage)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
+  }
+  const submitHandlebar = async (data: IOtpForm) => {
+    const email = localStorageGet('userEmailToResetPassword')
+    const body = {
+      ...data,
+      email,
+    }
+    await handelSubmitRequest(body)
+  }
+  const back = () => {
+    localStorageDelete('userEmailToResetPassword')
+    changeStage(EForgetPasswordStages.EmailStage)
+  }
+
   return {
-    data: {},
-    states: { errors, control },
-    actions: {},
+    data: { email },
+    states: { errors, control, loading },
+    actions: { submit: handleSubmit(submitHandlebar), back },
   }
 }
 export default useOtpComponent

@@ -2,19 +2,29 @@ export interface IForgetPasswordEmail {
   email: string
 }
 
-export type TForgetPasswordStages = 1 | 2 | 3
+export enum EForgetPasswordStages {
+  EmailStage,
+  OtpStage,
+  NewPasswordStage,
+}
 
 export interface IUseEmailComponentProps {
-  changeStage: (to: TForgetPasswordStages) => void
-  setEmail: (email: string) => void
+  changeStage: (to: EForgetPasswordStages) => void
 }
 
 export interface IEmailComponentProps {
-  changeStage: (to: TForgetPasswordStages) => void
-  setEmail: (email: string) => void
+  changeStage: (to: EForgetPasswordStages) => void
 }
 
 export interface IOtpComponentProps {
-  email: string
-  back: () => void
+  back: (to: EForgetPasswordStages) => void
+}
+
+export interface IUseOtpComponentProps {
+  changeStage: (to: EForgetPasswordStages) => void
+}
+
+export interface INewPasswordForm {
+  password: string
+  password_confirmation: string
 }

@@ -30,6 +30,7 @@ const useRequestHandlers = () => {
       const response = await serverAction({ endpoint, method: ERequestMethods.POST, body, params })
       return response.data
     } catch (error: any) {
+      console.log(error)
       throw new Error(error)
     } finally {
       !noLoading && setLoading(false)
