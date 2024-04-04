@@ -14,7 +14,8 @@ export interface IRecomondationUsers {
   name: string
   imageUrl: string
   matchedUserId: string
-  recommendationStatus: IUserSkills[]
+  recommendationStatus: number
+  skills: IUserSkills[]
 }
 
 export interface IUserSkills {

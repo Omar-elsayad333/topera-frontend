@@ -2,9 +2,6 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 
-// Next auth
-import { getSession } from 'next-auth/react'
-
 // Hooks
 import useHandleError from '@/hooks/useHandleError'
 import useRequestHandlers from '@/hooks/useRequestHandlers'
@@ -26,7 +23,7 @@ const useChatContent = (data: any) => {
   useEffect(() => {
     setSelectedTracks(data.recommendationTracks)
     setRecommendations(data.recommendations)
-  }, [])
+  }, [data])
 
   useEffect(() => {
     getUserData()
