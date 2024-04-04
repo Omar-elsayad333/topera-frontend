@@ -35,7 +35,7 @@ const useNewPasswordComponents = () => {
     },
   })
   const submitHandlebar = async (body: { password: string; token: string; email: string }) => {
-    const { data, error } = await postHandler({ endpoint: 'reset-password', body })
+    const { data, error } = await postHandler({ endpoint: '/account/reset-password', body })
     if (error) return handleError(error)
     if (data) {
       localStorageDelete('userTokenToResetPassword')

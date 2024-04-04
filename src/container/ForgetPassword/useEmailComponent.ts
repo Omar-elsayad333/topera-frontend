@@ -31,7 +31,6 @@ const useEmailComponent = ({ changeStage }: IUseEmailComponentProps) => {
   const handelRequest = async (body: IForgetPasswordEmail) => {
     const { data, error } = await postHandler({ endpoint: '/account/forgot-password', body })
     if (error) return handleError(error)
-    // TODO: should we save {email} from BE To Make Sure Request Is Success
     changeStage(EForgetPasswordStages.OtpStage)
     localStorageSet('userEmailToResetPassword', data.email)
   }
