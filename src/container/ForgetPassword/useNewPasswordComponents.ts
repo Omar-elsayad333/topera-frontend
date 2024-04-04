@@ -1,14 +1,14 @@
 // VValidation
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { date, object, ref, string } from 'yup'
-
+import { object, ref, string } from 'yup'
 // Types
 import { INewPasswordForm } from '@/types/pages/forgetpassword'
 
 // HTTP
 import useRequestHandlers from '@/hooks/useRequestHandlers'
 import { localStorageDelete, localStorageGet } from '@/utils'
+import useHandleError from '@/hooks/useHandleError'
 const schema = object({
   password: string().required(),
   password_confirmation: string()
@@ -22,6 +22,7 @@ const form: { name: keyof INewPasswordForm; label: string }[] = [
 ]
 const useNewPasswordComponents = () => {
   const { loading, postHandler } = useRequestHandlers()
+  const { handleError } = useHandleError()
   const {
     formState: { errors },
     control,
@@ -34,14 +35,11 @@ const useNewPasswordComponents = () => {
     },
   })
   const submitHandlebar = async (body: { password: string; token: string; email: string }) => {
-    try {
-      const res = await postHandler({ endpoint: 'reset-password', body })
-      if (res) {
-        localStorageDelete('userTokenToResetPassword')
-        localStorageDelete('userEmailToResetPassword')
-      }
-    } catch (err) {
-      console.log(err)
+    const { data, error } = await postHandler({ endpoint: 'reset-password', body })
+    if (error) return handleError(error)
+    if (data) {
+      localStorageDelete('userTokenToResetPassword')
+      localStorageDelete('userEmailToResetPassword')
     }
   }
   return {

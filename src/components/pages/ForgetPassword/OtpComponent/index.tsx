@@ -1,13 +1,21 @@
 'use client'
-import Grid from '@mui/material/Grid'
 import { FC } from 'react'
+
+// MUI
+import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
-import { useTranslations } from 'next-intl'
-import { IOtpComponentProps } from '@/types/pages/forgetpassword'
-import useOtpComponent from '@/hooks/useOtpComponent'
-import OtpInputComponent from '@/components/pages/ForgetPassword/OtpInputComponent'
 import Button from '@mui/material/Button'
+
+// Hooks
+import { useTranslations } from 'next-intl'
+import useOtpComponent from '@/container/ForgetPassword/useOtpComponent'
+
+// Types
+import { IOtpComponentProps } from '@/types/pages/forgetpassword'
+
+// Component
+import OtpInputComponent from '@/components/pages/ForgetPassword/OtpInputComponent'
 import OuterLoadingComponent from '@/components/shared/OuterLoadingComponent'
 
 const OtpComponent: FC<IOtpComponentProps> = ({ back }) => {
@@ -25,7 +33,12 @@ const OtpComponent: FC<IOtpComponentProps> = ({ back }) => {
             <Typography sx={{ fontWeight: '600' }}>{data.email}</Typography>
           </Stack>
           <Stack gap={'15px'} alignItems={'end'} flexDirection={'column'}>
-            <OtpInputComponent control={states.control} name={'code'} error={states.errors['code']} />
+            <OtpInputComponent
+              onComplete={actions.submit}
+              control={states.control}
+              name={'code'}
+              error={states.errors['code']}
+            />
             <Button
               disabled={states.loading}
               type={'submit'}

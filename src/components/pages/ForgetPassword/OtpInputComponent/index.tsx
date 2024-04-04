@@ -17,9 +17,10 @@ interface IProps {
   name: string
   label?: string
   placeholder?: string
+  onComplete: () => void
 }
 
-const OtpInputComponent = ({ name, control, id, placeholder, error, label, ...args }: IProps) => {
+const OtpInputComponent = ({ name, control, id, placeholder, error, label, onComplete, ...args }: IProps) => {
   const validateChar = (character: string, index: number) => {
     return !isNaN(parseInt(character, 10))
   }
@@ -55,6 +56,7 @@ const OtpInputComponent = ({ name, control, id, placeholder, error, label, ...ar
             length={6}
             onChange={field.onChange}
             validateChar={validateChar}
+            onComplete={onComplete}
           />
         )}
       />

@@ -1,14 +1,23 @@
+// MUi
 import Stack from '@mui/material/Stack'
-import Link from 'next/link'
-import { Routes } from '@/routes/routes'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
-import { useTranslations } from 'next-intl'
-import TextFieldComponent from '@/components/FormInputs/TextFieldComponent'
-import useEmailComponent from '@/hooks/useEmailComponent'
 import Button from '@mui/material/Button'
-import OuterLoadingComponent from '@/components/shared/OuterLoadingComponent'
+
+// Routes
+import { Routes } from '@/routes/routes'
+
+// Hooks
+import useEmailComponent from '@/container/ForgetPassword/useEmailComponent'
+import { useTranslations } from 'next-intl'
+
+// Types
 import { IEmailComponentProps } from '@/types/pages/forgetpassword'
+
+// Components
+import Link from 'next/link'
+import TextFieldComponent from '@/components/FormInputs/TextFieldComponent'
+import OuterLoadingComponent from '@/components/shared/OuterLoadingComponent'
 
 const EmailComponent = ({ changeStage }: IEmailComponentProps) => {
   const t = useTranslations('forgetPassword')

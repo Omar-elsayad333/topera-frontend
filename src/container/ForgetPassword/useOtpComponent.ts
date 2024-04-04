@@ -2,9 +2,8 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { object, string } from 'yup'
 import { EForgetPasswordStages, IUseOtpComponentProps } from '@/types/pages/forgetpassword'
-import { useState } from 'react'
 import useRequestHandlers from '@/hooks/useRequestHandlers'
-
+import useHandleError from '@/hooks/useHandleError'
 // LocalStorage Utils
 import { localStorageDelete, localStorageGet, localStorageSet } from '@/utils'
 
@@ -18,8 +17,8 @@ const defaultValues = {
   code: '',
 }
 const useOtpComponent = ({ changeStage }: IUseOtpComponentProps) => {
-  const [loading, setLoading] = useState<boolean>(false)
-  const { postHandler } = useRequestHandlers()
+  const { postHandler, loading } = useRequestHandlers()
+  const { handleError } = useHandleError()
   const {
     formState: { errors },
     control,
@@ -28,16 +27,11 @@ const useOtpComponent = ({ changeStage }: IUseOtpComponentProps) => {
   const email = localStorageGet('userEmailToResetPassword')
 
   const handelSubmitRequest = async (body: { email: string; code: string }) => {
-    try {
-      setLoading(true)
-      const res = await postHandler({ endpoint: '/account/verify-otp', body })
-      localStorageSet('userTokenToResetPassword', res.token)
-      changeStage(EForgetPasswordStages.NewPasswordStage)
-    } catch (error) {
-      console.log(error)
-    } finally {
-      setLoading(false)
-    }
+    const { data, error } = await postHandler({ endpoint: '/account/verify-otp', body })
+    if (error) return handleError(error)
+    localStorageSet('userTokenToResetPassword', data.token)
+    changeStage(EForgetPasswordStages.NewPasswordStage)
+    console.log(error)
   }
   const submitHandlebar = async (data: IOtpForm) => {
     const email = localStorageGet('userEmailToResetPassword')

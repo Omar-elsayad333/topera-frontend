@@ -9,6 +9,7 @@ import useRequestHandlers from '@/hooks/useRequestHandlers'
 
 // LocalStorage Utils
 import { localStorageSet } from '@/utils/localStorage'
+import useHandleError from '@/hooks/useHandleError'
 
 const schema = object({
   email: string().required().email(),
@@ -16,6 +17,7 @@ const schema = object({
 
 const useEmailComponent = ({ changeStage }: IUseEmailComponentProps) => {
   const { postHandler, loading } = useRequestHandlers()
+  const { handleError } = useHandleError()
   const {
     formState: { errors },
     control,
@@ -27,13 +29,11 @@ const useEmailComponent = ({ changeStage }: IUseEmailComponentProps) => {
     },
   })
   const handelRequest = async (body: IForgetPasswordEmail) => {
-    try {
-      await postHandler({ endpoint: '/account/forgot-password', body })
-      changeStage(EForgetPasswordStages.OtpStage)
-      localStorageSet('userEmailToResetPassword', body.email)
-    } catch (err) {
-      console.log(err)
-    }
+    const { data, error } = await postHandler({ endpoint: '/account/forgot-password', body })
+    if (error) return handleError(error)
+    // TODO: should we save {email} from BE To Make Sure Request Is Success
+    changeStage(EForgetPasswordStages.OtpStage)
+    localStorageSet('userEmailToResetPassword', data.email)
   }
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()

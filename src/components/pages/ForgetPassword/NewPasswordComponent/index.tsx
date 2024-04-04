@@ -1,12 +1,17 @@
 import { FC } from 'react'
+// MUI
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
-import { useTranslations } from 'next-intl'
-import useNewPasswordComponents from '@//hooks/useNewPasswordComponents'
-import TextFieldComponent from '@/components/FormInputs/TextFieldComponent'
 import Button from '@mui/material/Button'
+
+// Hooks
+import { useTranslations } from 'next-intl'
+import useNewPasswordComponents from '@/container/ForgetPassword/useNewPasswordComponents'
+
+// Components
 import OuterLoadingComponent from '@/components/shared/OuterLoadingComponent'
 import PasswordInputComponent from '@/components/FormInputs/PasswordInputComponent'
+
 const NewPasswordComponent: FC = () => {
   const t = useTranslations('forgetPassword')
   const { data, states, actions } = useNewPasswordComponents()
