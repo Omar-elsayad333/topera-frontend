@@ -19,6 +19,7 @@
     "@hookform/resolvers": "^3.3.4",
     "@mui/icons-material": "^5.15.13",
     "@mui/material": "^5.15.14",
+    "axios": "^1.6.8",
     "clsx": "^2.1.0",
     "cookies-next": "^4.1.1",
     "framer-motion": "^11.0.20",
@@ -30,7 +31,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.51.0",
     "react-type-animation": "^3.2.0",
-    "sharp": "^0.33.2",
+    "sharp": "^0.33.3",
     "yup": "^1.4.0",
     "zustand": "^4.5.2"
   },

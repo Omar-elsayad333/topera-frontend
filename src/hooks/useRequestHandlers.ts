@@ -4,61 +4,85 @@ import { useState } from 'react'
 
 // Types
 import { IProps } from './types'
-import { ERequestMethods } from '@/services/types'
+import { AxiosResponse } from 'axios'
 
-// Services
-import { serverAction } from '@/services/actions'
+// Stores
+import { useAppStore } from '@/stores'
+
+// Config
+import { axiosInstance } from '@/config/axios'
 
 const useRequestHandlers = () => {
-  const [loading, setLoading] = useState<boolean>(false)
+  const [state] = useAppStore()
+  const [loading, setLoading] = useState(false)
 
   const getHandler = async ({ endpoint, params, noLoading }: IProps) => {
+    let data, error
+
     try {
       !noLoading && setLoading(true)
-      const response = await serverAction({ endpoint, method: ERequestMethods.GET, params })
-      return response
-    } catch (error: any) {
-      throw new Error(error)
+      const response: AxiosResponse = await axiosInstance.get(endpoint, {
+        params,
+        headers: { ...(state?.currentUser?.token && { Authorization: `Bearer ${state?.currentUser?.token}` }) },
+      })
+      data = response.data.data
+    } catch (err: any) {
+      error = err.response.data
     } finally {
       !noLoading && setLoading(false)
     }
+    return { data, error }
   }
 
   const postHandler = async ({ endpoint, body, params, noLoading }: IProps) => {
+    let data, error
     try {
       !noLoading && setLoading(true)
-      const response = await serverAction({ endpoint, method: ERequestMethods.POST, body, params })
-      return response.data
-    } catch (error: any) {
-      console.log(error)
-      throw new Error(error)
+      const response: AxiosResponse = await axiosInstance.post(endpoint, body, {
+        params,
+        headers: { ...(state?.currentUser?.token && { Authorization: `Bearer ${state?.currentUser?.token}` }) },
+      })
+      data = response.data.data
+    } catch (err: any) {
+      error = err.response.data
     } finally {
       !noLoading && setLoading(false)
     }
+    return { data, error }
   }
 
   const putHandler = async ({ endpoint, body, params, noLoading }: IProps) => {
+    let data, error
     try {
       !noLoading && setLoading(true)
-      const response = await serverAction({ endpoint, method: ERequestMethods.PUT, body, params })
-      return response.data
-    } catch (error: any) {
-      throw Error(error)
+      const response: AxiosResponse = await axiosInstance.put(endpoint, body, {
+        params,
+        headers: { ...(state?.currentUser?.token && { Authorization: `Bearer ${state?.currentUser?.token}` }) },
+      })
+      data = response.data
+    } catch (err: any) {
+      error = err.response.data.data
     } finally {
       !noLoading && setLoading(false)
     }
+    return { data, error }
   }
 
   const deleteHandler = async ({ endpoint, params, noLoading }: IProps) => {
+    let data, error
     try {
       !noLoading && setLoading(true)
-      const response = await serverAction({ endpoint, method: ERequestMethods.DELETE, params })
-      return response.data
-    } catch (error: any) {
-      throw Error(error)
+      const response: AxiosResponse = await axiosInstance.delete(endpoint, {
+        params,
+        headers: { ...(state?.currentUser?.token && { Authorization: `Bearer ${state?.currentUser?.token}` }) },
+      })
+      data = response.data
+    } catch (err: any) {
+      error = err.response.data.data
     } finally {
       !noLoading && setLoading(false)
     }
+    return { data, error }
   }
 
   return {

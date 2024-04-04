@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { PropsWithChildren } from 'react'
 
 // Styles
 import '@/assets/globals.css'
@@ -7,24 +8,16 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 
-// Contexts
-import { AppStoreProvider } from '@/stores'
-import { AlertProvider } from '@/stores/AlertContext'
-
-// Next Intl
-import { NextIntlClientProvider, useMessages } from 'next-intl'
-
-// Theme
-import ThemeProvider from '@/assets/theme/ThemeProvider'
+// Services
+import { getServerAuthSession } from '@/services/auth'
 
 // Components
-import AlertNotify from '@/components/shared/AlertComponent/AlertNotify'
+import AppProviers from '@/components/layout/AppProviders'
 
-interface IProps {
+interface IProps extends PropsWithChildren {
   params: {
     locale: string
   }
-  children: React.ReactNode
 }
 
 export const metadata: Metadata = {
@@ -36,25 +29,15 @@ export const metadata: Metadata = {
     'The coming era of Artificial Intelligence will not be the era of war, but be the era of deep compassion, non-violence, and love.',
 }
 
-export default function RootLayout({ children, params }: IProps) {
+export default async function RootLayout({ children, params }: IProps) {
   const locale = params.locale
 
-  // Receive messages provided in `i18n.ts`
-  const messages = useMessages()
+  const session = await getServerAuthSession()
 
   return (
     <html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
       <body>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <AppStoreProvider locale={locale}>
-            <ThemeProvider>
-              <AlertProvider>
-                {children}
-                <AlertNotify />
-              </AlertProvider>
-            </ThemeProvider>
-          </AppStoreProvider>
-        </NextIntlClientProvider>
+        <AppProviers {...{ locale, session }}>{children}</AppProviers>
       </body>
     </html>
   )

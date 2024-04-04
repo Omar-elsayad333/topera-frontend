@@ -34,7 +34,7 @@ const ChatContentComponent = ({ menu, data }: { menu: any; data: any }) => {
             <Typography sx={{ my: '16px' }} variant="subtitle1" fontWeight={500} color={'gray'}>
               {section.name}
             </Typography>
-            {section.data.map((chat: any) => (
+            {section.data?.map((chat: any) => (
               <ListItem key={chat.id} disablePadding>
                 <ListItemButton
                   selected={chatId === chat.id}
