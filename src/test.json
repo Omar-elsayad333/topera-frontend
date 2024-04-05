@@ -1,0 +1,219 @@
+[
+  {
+    "Text": "Programming languages you have basic knowledge in",
+    "QuestionPhase": 2,
+    "QuestionChoices": [
+      {
+        "Text": "C"
+      },
+      {
+        "Text": "C++"
+      },
+      {
+        "Text": "C#"
+      },
+      {
+        "Text": "Java"
+      },
+      {
+        "Text": "Python"
+      },
+      {
+        "Text": "JavaScript"
+      },
+      {
+        "Text": "Go"
+      },
+      {
+        "Text": "Dart"
+      }
+    ]
+  },
+  {
+    "Text": "Programming languages you are proficient in",
+
+    "QuestionPhase": 2,
+    "QuestionChoices": [
+      {
+        "Text": "C"
+      },
+      {
+        "Text": "C++"
+      },
+      {
+        "Text": "C#"
+      },
+      {
+        "Text": "Java"
+      },
+      {
+        "Text": "Python"
+      },
+      {
+        "Text": "JavaScript"
+      },
+      {
+        "Text": "Go"
+      },
+      {
+        "Text": "Dart"
+      }
+    ]
+  },
+  {
+    "Text": "Preferred learning style",
+
+    "QuestionPhase": 2,
+    "QuestionChoices": [
+      {
+        "Text": "Books and Articles"
+      },
+      {
+        "Text": "Videos"
+      },
+      {
+        "Text": "Documentations"
+      },
+      {
+        "Text": "Interactive Platforms"
+      }
+    ]
+  },
+  {
+    "Text": "What is your frequency in learning?",
+
+    "QuestionPhase": 2,
+    "QuestionChoices": [
+      {
+        "Text": "Daily"
+      },
+      {
+        "Text": "Weekly"
+      },
+      {
+        "Text": "Monthly"
+      }
+    ]
+  },
+  {
+    "Text": "What is your preferred way of communication?",
+
+    "QuestionPhase": 2,
+    "QuestionChoices": [
+      {
+        "Text": "Chat"
+      },
+      {
+        "Text": "Email"
+      },
+      {
+        "Text": "Video Calls"
+      }
+    ]
+  },
+  {
+    "Text": "Which technology/framework are you interested in?",
+
+    "QuestionPhase": 2,
+    "QuestionChoices": [
+      {
+        "Text": "choice 1"
+      },
+      {
+        "Text": "choice 2"
+      },
+      {
+        "Text": "choice 3"
+      },
+      {
+        "Text": "uchoice 4"
+      }
+    ]
+  },
+  {
+    "Text": "How many hours per week are you willing to dedicate to learning?",
+
+    "QuestionPhase": 2,
+    "QuestionChoices": [
+      {
+        "Text": "0-5 hours"
+      },
+      {
+        "Text": "5-10 hours"
+      },
+      {
+        "Text": "10-15 hours"
+      },
+      {
+        "Text": "more than 15 hours"
+      }
+    ]
+  },
+  {
+    "Text": "What motivates you to learn and collaborate with others?",
+
+    "QuestionPhase": 2,
+    "QuestionChoices": [
+      {
+        "Text": "career advancement"
+      },
+      {
+        "Text": "personal interest"
+      },
+      {
+        "Text": "skill development"
+      }
+    ]
+  },
+  {
+    "Text": "What specific goals do you hope to achieve through our platform?",
+
+    "QuestionPhase": 2,
+    "QuestionChoices": [
+      {
+        "Text": "choice 1"
+      },
+      {
+        "Text": "choice 2"
+      },
+      {
+        "Text": "choice 3"
+      },
+      {
+        "Text": "uchoice 4"
+      }
+    ]
+  },
+  {
+    "Text": "How comfortable are you with remote work or collaboration?",
+
+    "QuestionPhase": 2,
+    "QuestionChoices": [
+      {
+        "Text": "very comfortable"
+      },
+      {
+        "Text": "somewhat comfortable"
+      },
+      {
+        "Text": "not comfortable"
+      }
+    ]
+  },
+  {
+    "Text": "What type of projects are you interested in collaborating on?",
+
+    "QuestionPhase": 2,
+    "QuestionChoices": [
+      {
+        "Text": "open source"
+      },
+      {
+        "Text": "freelance"
+      },
+      {
+        "Text": "personal"
+      }
+    ]
+  }
+]
