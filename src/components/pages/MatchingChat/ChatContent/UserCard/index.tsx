@@ -6,6 +6,9 @@ import { IRecomondationUsers } from '../types'
 // Assets
 import CancelIcon from '@/assets/icons/cancel.svg'
 
+// Config
+import env from '@/config/env'
+
 // MUI
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
@@ -26,7 +29,6 @@ const styles: Record<string, SxProps> = {
     padding: '16px',
     overflow: 'hidden',
     backgroundPosition: 'center',
-    backgroundImage: `url("https://www.figma.com/file/oyZsSdgDsguKVadIouHuNY/image/5463768aaa87bd365a3612eef8936f54c58d47e5")`,
   },
   shadowBox: {
     zIndex: 1,
@@ -46,7 +48,12 @@ const UserCard = ({ data, trackName }: IProps) => {
 
   return (
     <Stack sx={{ width: '100%' }} gap={1}>
-      <Stack alignItems={'start'} justifyContent={'space-between'} sx={styles.root}>
+      <Stack
+        sx={styles.root}
+        alignItems={'start'}
+        justifyContent={'space-between'}
+        style={{ backgroundImage: `url("${env.api_file_url}/${data.imageUrl}")` }}
+      >
         <Box sx={styles.shadowBox} />
         <Typography fontWeight={600} sx={{ zIndex: 2 }} color={theme.palette.common.white} variant="body1">
           {data.name}
@@ -60,7 +67,11 @@ const UserCard = ({ data, trackName }: IProps) => {
           </Stack>
           <Button
             variant="contained"
-            sx={{ color: theme.palette.common.black, backgroundColor: theme.palette.common.white }}
+            sx={{
+              width: 'fit-content',
+              color: theme.palette.common.black,
+              backgroundColor: theme.palette.common.white,
+            }}
           >
             View Full Profile
           </Button>

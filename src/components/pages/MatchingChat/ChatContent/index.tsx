@@ -30,8 +30,6 @@ const ChatContent = ({ data }: any) => {
   const { userData, selectedTracks, handleDelete, confirmTracks, loading, recommendations, dialog } =
     useChatContent(data)
 
-  console.log(data)
-
   return (
     <>
       {userData && (
