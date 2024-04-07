@@ -11,11 +11,11 @@ import useForgetPassword from '@/container/ForgetPassword/useForgetPassword'
 const ForgetPassword: NextPage = () => {
   const { data, states, actions } = useForgetPassword()
   const getComponent = {
-    0: () => <EmailComponent changeStage={actions.setCurrentStage} />,
-    1: () => <OtpComponent back={actions.setCurrentStage} />,
-    2: () => <NewPasswordComponent />,
+    0: <EmailComponent changeStage={actions.setCurrentStage} />,
+    1: <OtpComponent back={actions.setCurrentStage} />,
+    2: <NewPasswordComponent />,
   }
-  return getComponent[states.currentStage]()
+  return getComponent[states.currentStage]
 }
 
 export default ForgetPassword
