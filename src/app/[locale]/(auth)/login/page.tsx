@@ -91,7 +91,7 @@ const LogIn: React.FC = () => {
           ))}
         </Grid>
         <Stack sx={{ marginTop: '46px' }}>
-          <Link href={'/forgetpassword'}>
+          <Link href={Routes.forgetPassword}>
             <Typography sx={{ color: '#1473E6', marginLeft: '5px', fontSize: '14px' }}>
               {t('forget_password')}
             </Typography>

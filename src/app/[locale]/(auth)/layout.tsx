@@ -22,7 +22,7 @@ export default function Layout({ children }: IPropsWithChildren) {
     >
       <Box
         sx={{
-          margin: '20px',
+          margin: '10px 10px',
           maxWidth: '700px',
           width: '700px',
           display: 'flex',
