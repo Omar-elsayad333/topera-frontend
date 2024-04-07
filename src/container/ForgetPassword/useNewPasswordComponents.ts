@@ -37,22 +37,21 @@ const useNewPasswordComponents = () => {
   const submitHandlebar = async (body: { password: string; token: string; email: string }) => {
     const { data, error } = await postHandler({ endpoint: '/account/reset-password', body })
     if (error) return handleError(error)
-    if (data) {
-      localStorageDelete('userTokenToResetPassword')
-      localStorageDelete('userEmailToResetPassword')
-    }
+    localStorageDelete('userTokenToResetPassword')
+    localStorageDelete('userEmailToResetPassword')
   }
+  const submit = handleSubmit((data) =>
+    submitHandlebar({
+      password: data.password,
+      token: localStorageGet('userTokenToResetPassword'),
+      email: localStorageGet('userEmailToResetPassword'),
+    })
+  )
   return {
     data: { form },
     states: { control, errors, loading },
     actions: {
-      submit: handleSubmit((data) =>
-        submitHandlebar({
-          password: data.password,
-          token: localStorageGet('userTokenToResetPassword'),
-          email: localStorageGet('userEmailToResetPassword'),
-        })
-      ),
+      submit,
     },
   }
 }

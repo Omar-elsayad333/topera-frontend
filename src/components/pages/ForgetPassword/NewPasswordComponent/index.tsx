@@ -1,3 +1,4 @@
+'use client'
 import { FC } from 'react'
 // MUI
 import Stack from '@mui/material/Stack'

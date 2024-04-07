@@ -31,7 +31,6 @@ const useOtpComponent = ({ changeStage }: IUseOtpComponentProps) => {
     if (error) return handleError(error)
     localStorageSet('userTokenToResetPassword', data.token)
     changeStage(EForgetPasswordStages.NewPasswordStage)
-    console.log(error)
   }
   const submitHandlebar = async (data: IOtpForm) => {
     const email = localStorageGet('userEmailToResetPassword')
