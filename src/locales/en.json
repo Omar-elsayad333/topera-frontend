@@ -57,5 +57,8 @@
     "lastname": "Last Name",
     "back": "Back",
     "submit": "Submit"
+  },
+  "finishSignup": {
+    "head": "Finish sign up"
   }
 }
