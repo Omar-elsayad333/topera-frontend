@@ -63,7 +63,8 @@ const UserCard = ({ data, trackName }: IProps) => {
         </Typography>
         <Stack gap={1} sx={{ zIndex: 2 }}>
           <Stack gap={1} direction={'row'} flexWrap={'wrap'}>
-            {data.skills.length > 0 && data.skills.map((item) => <Chip key={item.id} label={item.name} />)}
+            {data.skills.length > 0 &&
+              data.skills.map((item) => <Chip sx={{ backgroundColor: '#FFFFFF80' }} key={item.id} label={item.name} />)}
           </Stack>
           <Button
             variant="contained"
