@@ -23,7 +23,7 @@ const OtpComponent: FC<IOtpComponentProps> = ({ back }) => {
   const { data, states, actions } = useOtpComponent({ changeStage: back })
   return (
     <form onSubmit={actions.submit}>
-      <Grid alignItems={'space-between'} container item columns={12} sx={{ height: '700px', padding: '40px 0px 40px' }}>
+      <Grid alignItems={'space-between'} container item columns={12} sx={{ height: '70dvh', minHeight: '500px' }}>
         <Stack width={'100%'} spacing={'40px'}>
           <Stack spacing={'8px'}>
             <Typography sx={{ fontWeight: '500' }} variant={'h3'}>

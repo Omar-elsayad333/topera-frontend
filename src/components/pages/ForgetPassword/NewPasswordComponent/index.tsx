@@ -18,7 +18,7 @@ const NewPasswordComponent: FC = () => {
   const { data, states, actions } = useNewPasswordComponents()
   return (
     <form onSubmit={actions.submit} style={{ width: '100%' }}>
-      <Stack sx={{ height: '700px', padding: '40px 0px 40px' }} gap={'24px'} justifyItems={'space-around'}>
+      <Stack sx={{ height: '70dvh', minHeight: '500px' }} gap={'24px'} justifyItems={'space-around'}>
         <Stack gap={'40px'} sx={{ width: '100%' }}>
           <Typography variant={'h4'}>{t('enterNewPassword')}</Typography>
           {data.form.map((formElement) => (

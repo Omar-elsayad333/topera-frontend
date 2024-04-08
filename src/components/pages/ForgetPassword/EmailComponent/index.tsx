@@ -25,13 +25,7 @@ const EmailComponent = ({ changeStage }: IEmailComponentProps) => {
   const { states, actions } = useEmailComponent({ changeStage })
   return (
     <form onSubmit={actions.submit}>
-      <Grid
-        alignContent={'space-between'}
-        container
-        item
-        columns={12}
-        sx={{ height: '700px', padding: '40px 0px 40px' }}
-      >
+      <Grid alignContent={'space-between'} container item columns={12} sx={{ height: '70dvh', minHeight: '500px' }}>
         <Stack spacing={'40px'}>
           <Stack spacing={'8px'}>
             <Typography sx={{ fontWeight: '500' }} variant={'h3'}>
