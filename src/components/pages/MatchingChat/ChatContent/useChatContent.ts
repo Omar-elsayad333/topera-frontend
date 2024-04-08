@@ -2,8 +2,8 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 
-// Next auth
-import { getSession } from 'next-auth/react'
+// Stores
+import { useAppStore } from '@/stores'
 
 // Hooks
 import useHandleError from '@/hooks/useHandleError'
@@ -11,7 +11,6 @@ import useRequestHandlers from '@/hooks/useRequestHandlers'
 
 // Types
 import { ITrack, IRecomondations } from './types'
-import { useAppStore } from '@/stores'
 
 const useChatContent = (data: any) => {
   const searchParams = useSearchParams()
@@ -26,7 +25,7 @@ const useChatContent = (data: any) => {
   useEffect(() => {
     setSelectedTracks(data.recommendationTracks)
     setRecommendations(data.recommendations)
-  }, [])
+  }, [data])
 
   useEffect(() => {
     getUserData()
@@ -55,11 +54,9 @@ const useChatContent = (data: any) => {
     setSelectedTracks(filterdData)
   }
 
-  const handleEditTracks = (selectedData: ITrack[]) => {
-    const newData = [...selectedTracks, ...selectedData]
+  const handleEditTracks = (selectedData: any) => {
+    const newData = [...selectedData.track]
     setSelectedTracks(newData)
-
-    data.tracks = data.tracks.filter((item: ITrack) => !selectedData.includes(item))
   }
 
   const collectConfirmTracks = () => {

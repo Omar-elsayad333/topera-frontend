@@ -16,6 +16,7 @@ const env = {
 
   // API/Backend basic URL
   api_url: process.env.NEXT_PUBLIC_API_URL,
+  api_file_url: process.env.NEXT_PUBLIC_API_FILE_URL,
 
   // Next Auth
   next_auth_secret: process.env.NEXT_PUBLIC_AUTH_SECRET,

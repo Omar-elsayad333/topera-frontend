@@ -28,7 +28,7 @@ const ChatMenuComponent: React.FC<IProps> = ({ anchorEl, itemId, open, handleClo
         sx: {
           fontSize: '12px',
           overflow: 'visible',
-          filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+          filter: 'drop-shadow(0px 2px 2px rgba(0,0,0,0.10))',
           mt: 1.5,
           '&::before': {
             content: '""',

@@ -19,7 +19,7 @@ const TrackSection = ({ data }: { data: IRecomondations }) => {
         {data.recommendedUsers?.length > 0 &&
           data.recommendedUsers.map((user) => (
             <Grid item key={user.id} lg={4} sm={6} xs={12}>
-              <UserCard data={user} />
+              <UserCard data={user} trackName={data.name} />
             </Grid>
           ))}
       </Grid>
