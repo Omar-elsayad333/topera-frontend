@@ -27,7 +27,7 @@ const ChatNavContentComponent = () => {
   }
 
   return (
-    <Box>
+    <Box className="full-screen" sx={{ display: 'flex', flexDirection: 'column' }}>
       <Toolbar sx={{ p: '0px !important' }}>
         <Tabs
           value={type}

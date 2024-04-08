@@ -34,7 +34,7 @@ const LearnTabComponent = () => {
   }, [matching.learnNavData, matching.learnArchiveData, matching.learnArchiveState])
 
   return (
-    <Box sx={{ px: 3 }}>
+    <Box sx={{ px: 3, display: 'flex', maxHeight: 'calc(100% - 64px)', flexDirection: 'column' }}>
       <Box sx={{ py: 2, display: 'flex', gap: '16px' }}>
         <Button onClick={() => startNewChat()} startIcon={<AddIcon />} variant="grayButton">
           new chat
@@ -51,7 +51,7 @@ const LearnTabComponent = () => {
           <InventoryIcon />
         </ToggleButton>
       </Box>
-      <Box>
+      <Box sx={{ flexGrow: 1, overflowY: 'auto' }}>
         {loading ? <InnerLoadingComponent /> : <ChatContentComponent {...{ data, menu }} />}
         <EditChatComponent
           dialogId={editDialog.dialogId}
