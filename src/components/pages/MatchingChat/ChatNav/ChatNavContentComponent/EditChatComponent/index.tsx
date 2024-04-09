@@ -57,10 +57,10 @@ const EditChatComponent: React.FC<IProps> = ({
   }
 
   return (
-    <Dialog open={editChatDialog} onClose={handleCloseEditDialog}>
+    <Dialog fullWidth maxWidth="xs" open={editChatDialog} onClose={handleCloseEditDialog}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle>Edit Chat Name</DialogTitle>
-        <DialogContent>
+        <DialogContent sx={{ mt: '20px' }}>
           <TextField
             autoFocus
             fullWidth
@@ -76,7 +76,7 @@ const EditChatComponent: React.FC<IProps> = ({
           )}
         </DialogContent>
         <DialogActions>
-          <Button variant="outlined" onClick={handleCloseEditDialog}>
+          <Button variant="text" onClick={handleCloseEditDialog}>
             Cancel
           </Button>
           <Button variant="contained" type="submit" disabled={loading}>

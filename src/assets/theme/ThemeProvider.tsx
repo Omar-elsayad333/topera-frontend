@@ -1,6 +1,6 @@
 'use client'
 import { FunctionComponent, PropsWithChildren, useEffect, useMemo, useState } from 'react'
-import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles'
+import { ThemeProvider as MuiThemeProvider, createTheme, responsiveFontSizes } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import EmotionCacheProvider from './EmotionCacheProvider'
 import { useAppStore } from '@/stores'
@@ -24,6 +24,8 @@ const ThemeProvider: FunctionComponent<PropsWithChildren> = ({ children }) => {
     () => getThemeByDarkMode(state.darkMode, state.locale),
     [state.darkMode, state.locale] // Observe AppStore and re-create the theme when .darkMode changes
   )
+
+  responsiveFontSizes(currentTheme)
 
   useEffect(() => setLoading(false), []) // Set .loading to false when the component is mounted
 

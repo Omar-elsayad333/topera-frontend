@@ -9,7 +9,6 @@ import DelayedComponent from '@/components/shared/AnimationComponents/DelayedCom
 import TypeAnimationComponet from '@/components/shared/AnimationComponents/TypeAnimationComponet'
 
 // MUI
-import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Avatar from '@mui/material/Avatar'
 import Typography from '@mui/material/Typography'
