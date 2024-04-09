@@ -27,7 +27,7 @@ const LogIn: React.FC = () => {
   const t = useTranslations('login')
   return (
     <form onSubmit={actions.stagesHandler}>
-      <Grid rowGap={'20px'} item container columns={12}>
+      <Grid sx={{ height: '70dvh', minHeight: '600px' }} rowGap={'20px'} item container columns={12}>
         <Grid rowGap={'5px'} container item columns={12}>
           <Typography sx={{ fontWeight: '500' }} variant={'h3'}>
             {t('head')}
@@ -91,7 +91,7 @@ const LogIn: React.FC = () => {
           ))}
         </Grid>
         <Stack sx={{ marginTop: '46px' }}>
-          <Link href={'/forgetpassword'}>
+          <Link href={Routes.forgetPassword}>
             <Typography sx={{ color: '#1473E6', marginLeft: '5px', fontSize: '14px' }}>
               {t('forget_password')}
             </Typography>

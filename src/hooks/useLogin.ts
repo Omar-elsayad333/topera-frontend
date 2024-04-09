@@ -14,6 +14,8 @@ import { Routes } from '@/routes/routes'
 import { useEventSwitchDarkMode } from './event'
 import { useTheme } from '@mui/material'
 import { useAppStore } from '@/stores'
+import useHandleError from './useHandleError'
+import { useAlert } from '@/stores/AlertContext'
 const schema = object({
   email: string().email().required(),
   password: string().required(),
@@ -36,6 +38,8 @@ const OAuthProviders: IOAuthProvider[] = [
 ]
 const useLogin = () => {
   const [state] = useAppStore()
+  const { setMessage } = useAlert()
+  const { handleError } = useHandleError()
   const searchParams = useSearchParams()
   const switchTheme = useEventSwitchDarkMode()
   const [currentStage, setCurrentStage] = useState<number>(1)
@@ -62,8 +66,9 @@ const useLogin = () => {
       setLoading(true)
       const callbackUrl = searchParams.get('callbackUrl') || Routes.home
       await signIn('credentials', { ...data, callbackUrl })
-    } catch (err) {
-      console.log(err)
+      setMessage('Welcome to topera', 'success')
+    } catch (error: any) {
+      handleError(error)
     } finally {
       setLoading(false)
     }

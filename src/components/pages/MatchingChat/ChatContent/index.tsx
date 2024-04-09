@@ -30,8 +30,6 @@ const ChatContent = ({ data }: any) => {
   const { userData, selectedTracks, handleDelete, confirmTracks, loading, recommendations, dialog } =
     useChatContent(data)
 
-  console.log(data)
-
   return (
     <>
       {userData && (
@@ -63,7 +61,7 @@ const ChatContent = ({ data }: any) => {
                         />
                       ))}
                     <Button variant="contained" onClick={dialog.handleOpenEditDialog}>
-                      edit
+                      add
                     </Button>
                   </Stack>
                   <Typography>
@@ -94,6 +92,7 @@ const ChatContent = ({ data }: any) => {
           )}
           <EditTrackComponent
             data={data.tracks}
+            selectedTracks={selectedTracks}
             editTrackDialog={dialog.editTrackDialog}
             submitEditDialog={dialog.handleEditTracks}
             handleCloseEditDialog={dialog.handleCloseEditDialog}

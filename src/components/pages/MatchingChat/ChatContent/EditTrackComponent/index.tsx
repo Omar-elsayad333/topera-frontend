@@ -16,6 +16,7 @@ import MultiSelectComponent from '@/components/FormInputs/MultieSelectComponent'
 
 interface IProps {
   data: ITrack[]
+  selectedTracks: ITrack[]
   editTrackDialog: boolean
   handleCloseEditDialog: () => void
   submitEditDialog: (data: ITrack[]) => void
@@ -34,7 +35,13 @@ const validationSchema = object({
   track: array(),
 })
 
-const EditTrackComponent: React.FC<IProps> = ({ data, editTrackDialog, handleCloseEditDialog, submitEditDialog }) => {
+const EditTrackComponent: React.FC<IProps> = ({
+  data,
+  editTrackDialog,
+  handleCloseEditDialog,
+  submitEditDialog,
+  selectedTracks,
+}) => {
   const theme = useTheme()
   const {
     control,
@@ -43,20 +50,29 @@ const EditTrackComponent: React.FC<IProps> = ({ data, editTrackDialog, handleClo
   } = useForm<any>({
     resolver: yupResolver(validationSchema),
     defaultValues: {
-      track: [],
+      track: selectedTracks,
     },
   })
 
   const onSubmit: SubmitHandler<any> = async (data) => {
     submitEditDialog(data)
+    handleCloseEditDialog()
   }
 
   return (
     <Dialog fullWidth maxWidth="xs" open={editTrackDialog} onClose={handleCloseEditDialog}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle>Edit Chat Name</DialogTitle>
-        <DialogContent>
-          <MultiSelectComponent inputLabel="name" inputValue="" options={[]} control={control} name="track" />
+        <DialogContent sx={{ mt: '20px' }}>
+          <MultiSelectComponent
+            label="select tracks"
+            inputLabel="name"
+            inputValue="id"
+            options={data}
+            control={control}
+            minSelect={1}
+            name="track"
+          />
           {errors && errors['name']?.message && (
             <label style={{ fontSize: '14px', color: theme.palette.error.main }}>
               {errors['name']?.message?.toString()}
@@ -64,10 +80,10 @@ const EditTrackComponent: React.FC<IProps> = ({ data, editTrackDialog, handleClo
           )}
         </DialogContent>
         <DialogActions>
-          <Button variant="outlined" onClick={handleCloseEditDialog} sx={{ py: '10px', px: '20px' }}>
+          <Button variant="text" onClick={handleCloseEditDialog}>
             Cancel
           </Button>
-          <Button variant="contained" type="submit" sx={{ borderRadius: '4px' }}>
+          <Button variant="contained" type="submit">
             Edit
           </Button>
         </DialogActions>

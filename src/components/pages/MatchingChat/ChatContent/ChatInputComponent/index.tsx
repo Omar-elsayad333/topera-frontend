@@ -74,6 +74,7 @@ const ChatInputComponent = () => {
           {errors && errors['data']?.message && errors['data']?.message?.toString()}
         </label>
         <TextField
+          autoFocus
           sx={style}
           disabled={loading}
           variant="outlined"

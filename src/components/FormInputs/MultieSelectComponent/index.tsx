@@ -14,6 +14,7 @@ interface IMultiSelectComponentProps<T extends object> {
   inputValue: keyof T
   menuItemSx?: object
   control: any
+  minSelect?: number
   errors?: any
 }
 
@@ -27,6 +28,7 @@ const MultiSelectComponent = <T extends object>({
   menuItemSx,
   name,
   errors,
+  minSelect = 0,
   control,
 }: IMultiSelectComponentProps<T>) => {
   return (
@@ -40,6 +42,7 @@ const MultiSelectComponent = <T extends object>({
             freeSolo
             id={name}
             options={options}
+            disableClearable={!!minSelect}
             getOptionLabel={(option: any) => option[inputLabel] as string}
             onChange={(_, newValue) => {
               const uniArray = newValue.filter(
@@ -54,9 +57,10 @@ const MultiSelectComponent = <T extends object>({
                 <Chip
                   sx={chipSx}
                   variant="outlined"
-                  label={option[inputLabel] as string}
                   {...getTagProps({ index })}
                   key={index}
+                  label={option[inputLabel] as string}
+                  disabled={value.length === minSelect}
                 />
               ))
             }

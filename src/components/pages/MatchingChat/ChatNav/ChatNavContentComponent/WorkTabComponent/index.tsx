@@ -26,19 +26,13 @@ import InventoryIcon from '@mui/icons-material/Inventory'
 
 const WorkTabComponent = () => {
   const theme = useTheme()
+  const matching = useMatching()
+  const [data, setData] = useState([])
   const { loading, menu, editDialog, startNewChat } = useChatNav(MatchingEnum.WORK)
 
-  const [data, setData] = useState([])
-
-  const workData = useMatching((state) => state.workNavData)
-  const workArchiveData = useMatching((state) => state.workArchiveData)
-
-  const workArchiveState = useMatching((state) => state.workArchiveState)
-  const updateWorkArchiveState = useMatching((state) => state.updateWorkArchiveState)
-
   useEffect(() => {
-    workArchiveState ? setData(workArchiveData) : setData(workData)
-  }, [workData, workArchiveData])
+    matching.workArchiveState ? setData(matching.workArchiveData) : setData(matching.workNavData)
+  }, [matching.workNavData, matching.workArchiveData, matching.workArchiveState])
 
   return (
     <Box sx={{ px: 3 }}>
@@ -49,10 +43,10 @@ const WorkTabComponent = () => {
         <ToggleButton
           color="primary"
           value="check"
-          selected={workArchiveState}
-          sx={{ borderColor: workArchiveState ? theme.palette.primary.main : '' }}
+          selected={matching.workArchiveState}
+          sx={{ borderColor: matching.workArchiveState ? theme.palette.primary.main : '' }}
           onChange={() => {
-            updateWorkArchiveState()
+            matching.updateWorkArchiveState()
           }}
         >
           <InventoryIcon />

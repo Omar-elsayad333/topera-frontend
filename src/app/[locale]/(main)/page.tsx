@@ -1,15 +1,12 @@
-'use client'
-
-import { useAlert } from '@/stores/AlertContext'
+import { Stack, Typography } from '@mui/material'
 
 const Home = () => {
-  const { setMessage } = useAlert()
-
   return (
-    <>
-      <h1 onClick={() => setMessage('omar', 'success')}>home</h1>
-      <h1 onClick={() => setMessage('mo', 'error')}>NO</h1>
-    </>
+    <Stack className="full-screen" alignItems={'center'} justifyContent={'center'}>
+      <Typography variant="h1" color={'primary'}>
+        Welcome to Topera
+      </Typography>
+    </Stack>
   )
 }
 

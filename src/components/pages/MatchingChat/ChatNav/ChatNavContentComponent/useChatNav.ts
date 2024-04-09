@@ -11,21 +11,8 @@ import { Routes } from '@/routes/routes'
 
 const useChatNav = (ChatType: any) => {
   const router = useRouter()
+  const matchingStore = useMatching()
   const { handleError } = useHandleError()
-  const type = useMatching((state) => state.type)
-
-  const updateWorkData = useMatching((state) => state.updateWorkNavData)
-  const updateLearnData = useMatching((state) => state.updateLearnNavData)
-
-  const workArchiveState = useMatching((state) => state.workArchiveState)
-  const learnArchiveState = useMatching((state) => state.learnArchiveState)
-
-  const updateWorkArchiveState = useMatching((state) => state.updateWorkArchiveState)
-  const updateLearnArchiveState = useMatching((state) => state.updateLearnArchiveState)
-
-  const updateWorkArchiveData = useMatching((state) => state.updateWorkArchiveData)
-  const updateLearnArchiveData = useMatching((state) => state.updateLearnArchiveData)
-
   const [dialogLoading, setDialogLoading] = useState(false)
   const [editChatDialog, setEditChatDialog] = useState(false)
   const [dialogId, setDialogId] = useState<null | string>(null)
@@ -35,16 +22,37 @@ const useChatNav = (ChatType: any) => {
 
   useEffect(() => {
     getPageData()
-  }, [type, workArchiveState, learnArchiveState])
+  }, [matchingStore.type, matchingStore.workArchiveState, matchingStore.learnArchiveState])
 
   const getPageData = async (noLoading: boolean = false) => {
-    let endpoint = ''
+    let endpoint
     if (ChatType === 0) {
-      endpoint = workArchiveState ? `/matching/archived/${ChatType}` : `/matching/${ChatType}`
+      endpoint = matchingStore.workArchiveState
+        ? !matchingStore.workArchiveData.length && `/matching/archived/${ChatType}`
+        : !matchingStore.workNavData.length && `/matching/${ChatType}`
     } else {
-      endpoint = learnArchiveState ? `/matching/archived/${ChatType}` : `/matching/${ChatType}`
+      endpoint = matchingStore.learnArchiveState
+        ? !matchingStore.learnArchiveData.length && `/matching/archived/${ChatType}`
+        : !matchingStore.learnNavData.length && `/matching/${ChatType}`
     }
 
+    if (!endpoint) return null
+    callServer(endpoint, noLoading)
+  }
+
+  const updatePageData = async (noLoading: boolean = false) => {
+    let endpoint
+    if (ChatType === 0) {
+      endpoint = matchingStore.workArchiveState ? `/matching/archived/${ChatType}` : `/matching/${ChatType}`
+    } else {
+      endpoint = matchingStore.learnArchiveState ? `/matching/archived/${ChatType}` : `/matching/${ChatType}`
+    }
+
+    if (!endpoint) return null
+    callServer(endpoint, noLoading)
+  }
+
+  const callServer = async (endpoint: string, noLoading: boolean = false) => {
     const { data, error } = await getHandler({ endpoint, noLoading })
     if (error) return handleError(error)
 
@@ -55,17 +63,19 @@ const useChatNav = (ChatType: any) => {
     ]
 
     if (ChatType === 0) {
-      workArchiveState ? updateWorkArchiveData(body) : updateWorkData(body)
+      matchingStore.workArchiveState ? matchingStore.updateWorkArchiveData(body) : matchingStore.updateWorkNavData(body)
     } else {
-      learnArchiveState ? updateLearnArchiveData(body) : updateLearnData(body)
+      matchingStore.learnArchiveState
+        ? matchingStore.updateLearnArchiveData(body)
+        : matchingStore.updateLearnNavData(body)
     }
   }
 
   const startNewChat = () => {
     if (ChatType === 0) {
-      workArchiveState && updateWorkArchiveState()
+      matchingStore.workArchiveState && matchingStore.updateWorkArchiveState()
     } else {
-      learnArchiveState && updateLearnArchiveState()
+      matchingStore.learnArchiveState && matchingStore.updateLearnArchiveState()
     }
     router.replace(Routes.matchingChat)
   }
@@ -90,13 +100,13 @@ const useChatNav = (ChatType: any) => {
   const deleteChat = async (selectedChatId: string) => {
     const { error } = await deleteHandler({ endpoint: `/matching/${selectedChatId}` })
     if (error) return handleError(error)
-    getPageData(true)
+    updatePageData(true)
   }
 
   const archiveChat = async (selectedChatId: string) => {
     const { error } = await putHandler({ endpoint: `/matching/archived/${selectedChatId}` })
     if (error) return handleError(error)
-    getPageData(true)
+    updatePageData(true)
   }
 
   const handleOpenEditDialog = (selectedChatId: string) => {
@@ -115,7 +125,7 @@ const useChatNav = (ChatType: any) => {
     const { error } = await postHandler({ endpoint, body, noLoading: true })
     setDialogLoading(false)
     if (error) return handleError(error)
-    getPageData(true)
+    updatePageData(true)
     handleCloseEditDialog()
   }
 

@@ -1,12 +1,16 @@
-import { Box, Grid } from '@mui/material'
 import Image from 'next/image'
-import authBg from '@/assets/images/AuthBackground.svg'
-import logo from '@/assets/images/logo.svg'
-interface IPropsWithChildren {
-  children: React.ReactNode
-}
+import { PropsWithChildren } from 'react'
 
-export default function Layout({ children }: IPropsWithChildren) {
+// MUI
+import { Box, Grid } from '@mui/material'
+
+// Assets
+import logo from '@/assets/images/logo.svg'
+import authBg from '@/assets/images/auth_bg_image.jpg'
+
+interface IProps extends PropsWithChildren {}
+
+export default function Layout({ children }: IProps) {
   return (
     <main
       style={{
@@ -14,7 +18,7 @@ export default function Layout({ children }: IPropsWithChildren) {
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        height: '100dvh',
+        minHeight: '100dvh',
         backgroundImage: `url('${authBg.src}')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
@@ -30,6 +34,7 @@ export default function Layout({ children }: IPropsWithChildren) {
           backgroundColor: '#F4F4FF',
           border: '1px solid transparent',
           borderRadius: '8px',
+          gap: '40px',
           padding: {
             lg: '34px 75px',
             md: '34px 75px',

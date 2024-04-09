@@ -24,24 +24,17 @@ import ToggleButton from '@mui/material/ToggleButton'
 import InventoryIcon from '@mui/icons-material/Inventory'
 
 const LearnTabComponent = () => {
+  const theme = useTheme()
+  const matching = useMatching()
+  const [data, setData] = useState([])
   const { loading, menu, editDialog, startNewChat } = useChatNav(MatchingEnum.LEARN)
 
-  const theme = useTheme()
-
-  const [data, setData] = useState([])
-
-  const learnData = useMatching((state) => state.learnNavData)
-  const learnArchiveData = useMatching((state) => state.learnArchiveData)
-
-  const learnArchiveState = useMatching((state) => state.learnArchiveState)
-  const updateLearnArchiveState = useMatching((state) => state.updateLearnArchiveState)
-
   useEffect(() => {
-    learnArchiveState ? setData(learnArchiveData) : setData(learnData)
-  }, [learnData, learnArchiveData])
+    matching.learnArchiveState ? setData(matching.learnArchiveData) : setData(matching.learnNavData)
+  }, [matching.learnNavData, matching.learnArchiveData, matching.learnArchiveState])
 
   return (
-    <Box sx={{ px: 3 }}>
+    <Box sx={{ px: 3, display: 'flex', maxHeight: 'calc(100% - 64px)', flexDirection: 'column' }}>
       <Box sx={{ py: 2, display: 'flex', gap: '16px' }}>
         <Button onClick={() => startNewChat()} startIcon={<AddIcon />} variant="grayButton">
           new chat
@@ -49,16 +42,16 @@ const LearnTabComponent = () => {
         <ToggleButton
           color="primary"
           value="check"
-          selected={learnArchiveState}
-          sx={{ borderColor: learnArchiveState ? theme.palette.primary.main : '' }}
+          selected={matching.learnArchiveState}
+          sx={{ borderColor: matching.learnArchiveState ? theme.palette.primary.main : '' }}
           onChange={() => {
-            updateLearnArchiveState()
+            matching.updateLearnArchiveState()
           }}
         >
           <InventoryIcon />
         </ToggleButton>
       </Box>
-      <Box>
+      <Box sx={{ flexGrow: 1, overflowY: 'auto' }}>
         {loading ? <InnerLoadingComponent /> : <ChatContentComponent {...{ data, menu }} />}
         <EditChatComponent
           dialogId={editDialog.dialogId}
