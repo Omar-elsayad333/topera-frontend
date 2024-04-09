@@ -48,7 +48,7 @@ const useFinishSignUp = () => {
   const { handleError } = useHandleError()
   const [allFieldsData, setAllFieldsData] = useState<IField[]>([])
   const [frameWorks, setFrameWorks] = useState<IFrameWork[]>([])
-  const { loading, getHandler } = useRequestHandlers()
+  const { loading, getHandler, postHandler } = useRequestHandlers()
   const t = useTranslations('finishSignup')
   const {
     formState: { errors },
@@ -107,7 +107,7 @@ const useFinishSignUp = () => {
     })()
   }, [])
   useEffect(() => {
-    const frameWorks = tracksValue.flatMap((track) => track.frameworks)
+    const frameWorks = tracksValue.flatMap((track, frameworks) => track.frameworks)
     setFrameWorks(frameWorks)
   }, [tracksValue])
   const getData = async (): Promise<void> => {
@@ -115,8 +115,28 @@ const useFinishSignUp = () => {
     if (error) return handleError(error)
     setAllFieldsData(data)
   }
-  const submitHandler = (data: IFinishSignUpFrom) => {
-    console.log(data)
+
+  const generateBody = ({
+    tracks,
+    employmentStatus,
+    frameworks,
+    referralSource,
+    preferredLanguage,
+  }: IFinishSignUpFrom) => {
+    return {
+      trackId: tracks[0].id,
+      trackName: tracks[0].name,
+      frameworkId: frameworks[0].id,
+      frameworkName: frameworks[0].name,
+      referralSource: referralSource[0].name,
+      employmentStatus: employmentStatus[0].name,
+      preferredLanguage: preferredLanguage[0].name,
+    }
+  }
+  const submitHandler = async (body: IFinishSignUpFrom) => {
+    const requestBody = generateBody(body)
+    const { error } = await postHandler({ endpoint: '/submissions/phaseone', body: requestBody })
+    if (error) return handleError(error)
   }
 
   const submit = (e: FormEvent<HTMLFormElement>) => {

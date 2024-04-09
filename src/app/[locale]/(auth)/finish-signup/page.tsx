@@ -5,6 +5,7 @@ import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import MultieSelectComponent from '@/components/FormInputs/MultieSelectComponent'
 import Button from '@mui/material/Button'
+import OuterLoadingComponent from '@/components/shared/OuterLoadingComponent'
 const FinishSignUp: NextPage = () => {
   const {
     data,
@@ -26,6 +27,7 @@ const FinishSignUp: NextPage = () => {
               errors={states.errors[question.name]}
               name={question.name}
               chipSx={data.chipSx}
+              maxSelect={1}
               inputLabel={'name'}
               inputValue={'id'}
               control={states.control}
@@ -35,6 +37,7 @@ const FinishSignUp: NextPage = () => {
         <Button
           type={'submit'}
           variant={'contained'}
+          disabled={states.loading}
           size={'small'}
           sx={{
             color: 'white',
@@ -46,7 +49,7 @@ const FinishSignUp: NextPage = () => {
             alignSelf: 'end',
           }}
         >
-          {t('submit')}
+          {states.loading ? <OuterLoadingComponent size={24} /> : t('submit')}
         </Button>
       </Stack>
     </form>
