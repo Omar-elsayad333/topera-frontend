@@ -59,6 +59,7 @@
     "submit": "Submit"
   },
   "finishSignup": {
-    "head": "Finish sign up"
+    "head": "Finish sign up",
+    "submit": "submit"
   }
 }

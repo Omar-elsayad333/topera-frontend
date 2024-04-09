@@ -1,5 +1,5 @@
 'use client'
-import { Controller } from 'react-hook-form'
+import { Controller, FieldErrors } from 'react-hook-form'
 import FormControl from '@mui/material/FormControl'
 import { Autocomplete, TextField, MenuItem } from '@mui/material'
 import Chip from '@mui/material/Chip'

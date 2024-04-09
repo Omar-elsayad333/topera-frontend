@@ -1,47 +1,133 @@
 'use client'
+import { FormEvent, useEffect, useState } from 'react'
+
+// Translation
 import { useTranslations } from 'next-intl'
+
+// Validation
 import { useForm } from 'react-hook-form'
-import { IFinishSignUpFrom } from '@/types/pages/finishSignup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { object, string } from 'yup'
+import { array, object } from 'yup'
+
+// Types
+import { IFinishSignUpFrom, IField, IFrameWork, IQuestionsList } from '@/types/pages/finishSignup'
+
+// Request Handler
+import useRequestHandlers from '@/hooks/useRequestHandlers'
+
+// Error Handler
+import useHandleError from '@/hooks/useHandleError'
+
 const schema = object({
-  employmentStatus: object().required(),
-  referralSource: object().required(),
-  preferredLanguage: object().required(),
+  tracks: array().min(1).required(),
+  frameworks: array().min(1).required(),
+  employmentStatus: array().min(1).required(),
+  referralSource: array().min(1).required(),
+  preferredLanguage: array().min(1).required(),
 })
-const list = [
-  {
-    Text: 'What is your current employment status?',
-    name: 'employmentStatus',
-    QuestionChoices: [{ Text: 'full time' }, { Text: 'part time' }, { Text: 'Student' }, { Text: 'unemployed' }],
-  },
-  {
-    Text: 'How did you hear about Topera?',
-    name: 'referralSource',
-    QuestionChoices: [{ Text: 'Friend' }, { Text: 'Facebook' }, { Text: 'LinkedIn' }, { Text: 'Search Engine' }],
-  },
-  {
-    Text: 'In which language you prefer to learn?',
-    name: 'preferredLanguage',
-    QuestionChoices: [{ Text: 'arabic' }, { Text: 'english' }],
-  },
-]
-const defaultValues = {
-  employmentStatus: [{ Text: 'full time' }],
-  referralSource: [{ Text: 'Friend' }],
-  preferredLanguage: [{ Text: 'LinkedIn' }],
+
+const defaultValues: IFinishSignUpFrom = {
+  tracks: [],
+  frameworks: [],
+  employmentStatus: [],
+  referralSource: [],
+  preferredLanguage: [],
 }
+const chipSx = {
+  backgroundColor: '#1473E6E5',
+  color: '#ffff',
+  '.MuiChip-deleteIcon': {
+    color: '#ffff',
+    '&:hover': {
+      color: '#ffff',
+    },
+  },
+}
+
 const useFinishSignUp = () => {
+  const { handleError } = useHandleError()
+  const [allFieldsData, setAllFieldsData] = useState<IField[]>([])
+  const [frameWorks, setFrameWorks] = useState<IFrameWork[]>([])
+  const { loading, getHandler } = useRequestHandlers()
   const t = useTranslations('finishSignup')
   const {
     formState: { errors },
     control,
     handleSubmit,
+    watch,
   } = useForm<IFinishSignUpFrom>({ resolver: yupResolver(schema), defaultValues })
+  const tracksValue = watch('tracks')
+  const list: IQuestionsList[] = [
+    {
+      Text: 'What is your current employment status?',
+      name: 'tracks',
+      QuestionChoices: allFieldsData,
+    },
+    {
+      Text: 'Which technology/framework have you learned? *',
+      name: 'frameworks',
+      QuestionChoices: frameWorks,
+    },
+    {
+      Text: 'What is your current employment status?',
+      name: 'employmentStatus',
+      QuestionChoices: [
+        { name: 'full time', id: 'full time' },
+        { name: 'part time', id: 'part time' },
+        { name: 'Student', id: 'Student' },
+        { name: 'unemployed', id: 'unemployed' },
+      ],
+    },
+    {
+      Text: 'In which language you prefer to learn?',
+      name: 'preferredLanguage',
+      QuestionChoices: [
+        { name: 'arabic', id: 'arabic' },
+        { name: 'english', id: 'english' },
+      ],
+    },
+    {
+      Text: 'How did you hear about Topera?',
+      name: 'referralSource',
+      QuestionChoices: [
+        { name: 'Friend', id: 'Friend' },
+        { name: 'Facebook', id: 'Facebook' },
+        { name: 'LinkedIn', id: 'LinkedIn' },
+        { name: 'Search Engine', id: 'Search Engine' },
+      ],
+    },
+  ]
+  useEffect(() => {
+    ;(async (): Promise<void> => {
+      try {
+        await getData()
+      } catch (error) {
+        console.log(error)
+      }
+    })()
+  }, [])
+  useEffect(() => {
+    const frameWorks = tracksValue.flatMap((track) => track.frameworks)
+    setFrameWorks(frameWorks)
+  }, [tracksValue])
+  const getData = async (): Promise<void> => {
+    const { data, error } = await getHandler({ endpoint: '/submissions' })
+    if (error) return handleError(error)
+    setAllFieldsData(data)
+  }
+  const submitHandler = (data: IFinishSignUpFrom) => {
+    console.log(data)
+  }
+
+  const submit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    handleSubmit(submitHandler)()
+  }
+
   return {
-    data: { list },
-    states: { control, errors },
-    actions: { t },
+    data: { allFieldsData, list, chipSx },
+    states: { control, errors, loading },
+    actions: { t, submit },
   }
 }
 
