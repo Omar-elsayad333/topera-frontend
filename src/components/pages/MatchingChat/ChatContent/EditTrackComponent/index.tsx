@@ -56,6 +56,7 @@ const EditTrackComponent: React.FC<IProps> = ({
 
   const onSubmit: SubmitHandler<any> = async (data) => {
     submitEditDialog(data)
+    handleCloseEditDialog()
   }
 
   return (
@@ -69,6 +70,7 @@ const EditTrackComponent: React.FC<IProps> = ({
             inputValue="id"
             options={data}
             control={control}
+            minSelect={1}
             name="track"
           />
           {errors && errors['name']?.message && (
@@ -78,10 +80,10 @@ const EditTrackComponent: React.FC<IProps> = ({
           )}
         </DialogContent>
         <DialogActions>
-          <Button variant="outlined" onClick={handleCloseEditDialog} sx={{ py: '10px', px: '20px' }}>
+          <Button variant="text" onClick={handleCloseEditDialog}>
             Cancel
           </Button>
-          <Button variant="contained" type="submit" sx={{ borderRadius: '4px' }}>
+          <Button variant="contained" type="submit">
             Edit
           </Button>
         </DialogActions>

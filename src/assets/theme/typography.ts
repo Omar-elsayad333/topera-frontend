@@ -9,7 +9,7 @@ export enum Fonts {
 }
 
 export const typography: TypographyOptions = {
-  fontFamily: 'Poppins',
+  fontFamily: `Poppins, sans-serif`,
   h1: {
     fontWeight: Fonts.BOLD,
     fontSize: '3.5rem',
