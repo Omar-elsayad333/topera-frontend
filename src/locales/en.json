@@ -71,5 +71,10 @@
     "lastname": "Last Name",
     "back": "Back",
     "submit": "Submit"
+  },
+  "matchingQuestions": {
+    "head": "Please answer these questions ",
+    "of": "of",
+    "step": "Step"
   }
 }
