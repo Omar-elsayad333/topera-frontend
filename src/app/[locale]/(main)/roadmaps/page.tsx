@@ -1,4 +1,4 @@
-const Roadmaps = () => {
+const Roadmaps = async () => {
   return <p>Roadmaps</p>
 }
 
