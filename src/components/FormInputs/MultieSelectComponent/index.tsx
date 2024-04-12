@@ -52,7 +52,7 @@ const MultiSelectComponent = <T extends object>({
               field.onChange(uniArray)
             }}
             value={field.value}
-            renderInput={(params) => <TextField error={!!errors} {...params} label={label} />}
+            renderInput={(params) => <TextField variant={'standard'} error={!!errors} {...params} label={label} />}
             renderTags={(value: readonly T[], getTagProps) =>
               value.map((option: T, index: number) => (
                 <Chip
@@ -60,6 +60,7 @@ const MultiSelectComponent = <T extends object>({
                   variant="outlined"
                   {...getTagProps({ index })}
                   key={index}
+                  datatype={'multiSelect'}
                   label={option[inputLabel] as string}
                   disabled={value.length === minSelect}
                 />

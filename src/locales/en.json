@@ -75,6 +75,7 @@
   "matchingQuestions": {
     "head": "Please answer these questions ",
     "of": "of",
-    "step": "Step"
+    "step": "Step",
+    "continue": "Continue"
   }
 }

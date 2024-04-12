@@ -16,17 +16,15 @@ import { useTranslations } from 'next-intl'
 import useMatchingQuestions from '@/container/MatchingQuestions/useMatchingQuestions'
 
 // Types
-import MatchingQuestionsStepOne from '@/components/pages/MatchingQuestions/MatchingQuestionsStepOne'
-import MatchingQuestionsStepTwo from '@/components/pages/MatchingQuestions/MatchingQuestionsStepTwo'
 import { EMatchingQuestionsSteps } from '@/types/pages/matchingQuestions'
+import Button from '@mui/material/Button'
+import Stack from '@mui/material/Stack'
+import MultieSelectComponent from '@/components/FormInputs/MultieSelectComponent'
 
 const MatchingQuestions: NextPage = () => {
   const t = useTranslations('matchingQuestions')
-  const { states } = useMatchingQuestions()
-  const renderComponent: { [key: number]: React.JSX.Element } = {
-    [EMatchingQuestionsSteps.StepOne]: <MatchingQuestionsStepOne />,
-    [EMatchingQuestionsSteps.StepTwo]: <MatchingQuestionsStepTwo />,
-  }
+  const { data, states, actions } = useMatchingQuestions()
+
   return (
     <Container
       maxWidth="xl"
@@ -40,7 +38,8 @@ const MatchingQuestions: NextPage = () => {
         backgroundPosition: 'center bottom',
       }}
     >
-      <Box
+      <Stack
+        spacing={'32px'}
         sx={{
           maxWidth: '700px',
           width: '700px',
@@ -48,8 +47,8 @@ const MatchingQuestions: NextPage = () => {
           flexDirection: 'column',
           backgroundColor: '#ffff',
           border: '1px solid transparent',
+          height: 'fit-content',
           borderRadius: '8px',
-          gap: '32px',
           padding: {
             lg: '40px 75px',
             md: '40px 75px',
@@ -60,8 +59,30 @@ const MatchingQuestions: NextPage = () => {
         <Typography variant={'h5'}>
           {t('head')} : {t('step')} {states.currentStep + 1} {t('of')} 2
         </Typography>
-        {renderComponent[states.currentStep]}
-      </Box>
+        <Stack gap={'40px'}>
+          {data.toDisplayQuestions.map((question) => (
+            <MultieSelectComponent
+              key={question.name}
+              options={question.QuestionChoices}
+              minSelect={1}
+              name={question.name}
+              label={question.label}
+              inputLabel={'name'}
+              inputValue={'name'}
+              control={states.control}
+              errors={states.errors[question.name]}
+            />
+          ))}
+        </Stack>
+        <Button
+          sx={{ margin: '24px', width: '100px', alignSelf: 'end' }}
+          variant={'contained'}
+          size={'small'}
+          onClick={actions.submit}
+        >
+          {t('continue')}
+        </Button>
+      </Stack>
     </Container>
   )
 }
