@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
 import { EMatchingQuestionsSteps, IMatchingQuestionsForm, IQuestion } from '@/types/pages/matchingQuestions'
 import { array, object } from 'yup'
 import { FieldErrors, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import useRequestHandlers from '@/hooks/useRequestHandlers'
+import useHandleError from '@/hooks/useHandleError'
 
 const schema = object({
   basicProgrammingLanguagesKnowledge: array().min(1).required(),
@@ -11,7 +13,6 @@ const schema = object({
   learningFrequency: array().min(1).required(),
   preferredCommunicationMethod: array().min(1).required(),
   technologyOfInterest: array().min(1).required(),
-  shiftingFromAnotherCareer: array().min(1).required(),
   weeklyHoursDedicatedToLearningAndCollaboration: array().min(1).required(),
   motivationForLearningAndCollaboration: array().min(1).required(),
   goalsOnThePlatform: array().min(1).required(),
@@ -20,7 +21,8 @@ const schema = object({
 })
 const useMatchingQuestions = () => {
   const [currentStep, setCurrentStep] = useState<EMatchingQuestionsSteps>(0)
-
+  const {postHandler ,loading} = useRequestHandlers()
+  const { handleError } = useHandleError()
   const questions: IQuestion[] = [
     {
       label: 'Programming languages you have basic knowledge in',
@@ -101,21 +103,6 @@ const useMatchingQuestions = () => {
       ],
     },
     {
-      label: 'What is your frequency in learning?',
-      name: 'learningFrequency',
-      QuestionChoices: [
-        {
-          name: 'Daily',
-        },
-        {
-          name: 'Weekly',
-        },
-        {
-          name: 'Monthly',
-        },
-      ],
-    },
-    {
       label: 'What is your preferred way of communication?',
       name: 'preferredCommunicationMethod',
       QuestionChoices: [
@@ -148,6 +135,7 @@ const useMatchingQuestions = () => {
         },
       ],
     },
+
     {
       label: 'How many hours per week are you willing to dedicate to learning?',
       name: 'weeklyHoursDedicatedToLearningAndCollaboration',
@@ -166,6 +154,22 @@ const useMatchingQuestions = () => {
         },
       ],
     },
+    {
+      label: 'What is your frequency in learning?',
+      name: 'learningFrequency',
+      QuestionChoices: [
+        {
+          name: 'Daily',
+        },
+        {
+          name: 'Weekly',
+        },
+        {
+          name: 'Monthly',
+        },
+      ],
+    },
+
     {
       label: 'What motivates you to learn and collaborate with others?',
       name: 'motivationForLearningAndCollaboration',
@@ -238,7 +242,6 @@ const useMatchingQuestions = () => {
     learningFrequency: [],
     preferredCommunicationMethod: [],
     technologyOfInterest: [],
-    shiftingFromAnotherCareer: [],
     weeklyHoursDedicatedToLearningAndCollaboration: [],
     motivationForLearningAndCollaboration: [],
     goalsOnThePlatform: [],
@@ -253,9 +256,17 @@ const useMatchingQuestions = () => {
     resolver: yupResolver(schema),
     defaultValues,
   })
-  const sendData = (data: IMatchingQuestionsForm) => {}
+  const sendData = async (data: IMatchingQuestionsForm) => {
+    const body: any = {}
+    Object.keys(data).forEach((item) => {
+      body[item] = data[item as keyof IMatchingQuestionsForm].map(item => item.name).join(', ')
+    })
+    const {error} = await postHandler({endpoint:'/submissions/phasetwo',body})
+    if (error) return handleError(error)
+  }
 
-  const handelError = (errorData: FieldErrors<IMatchingQuestionsForm>) => {
+  const handelFormError = (errorData: FieldErrors<IMatchingQuestionsForm>) => {
+    console.log(errorData)
     const stepOnFieldNames: string[] = [
       'technologyOfInterest',
       'preferredCommunicationMethod',
@@ -266,18 +277,19 @@ const useMatchingQuestions = () => {
     ]
     if (stepOnFieldNames.includes(Object.keys(errorData)[0])) setCurrentStep(EMatchingQuestionsSteps.StepOne)
   }
-  const submit = () => {
+  const submit = (e: FormEvent) => {
+    e.preventDefault()
     if (currentStep === EMatchingQuestionsSteps.StepOne) {
       setCurrentStep(EMatchingQuestionsSteps.StepTwo)
     } else {
-      handleSubmit(sendData, handelError)()
+      handleSubmit(sendData, handelFormError)()
     }
   }
   const toDisplayQuestions = questions.slice(currentStep * 6, currentStep * 6 + 6)
 
   return {
     data: { toDisplayQuestions },
-    states: { currentStep, errors, control },
+    states: { currentStep, errors, control,loading },
     actions: { setCurrentStep, submit },
   }
 }

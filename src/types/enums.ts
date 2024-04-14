@@ -1,4 +1,4 @@
-export enum EChatStatus {
+  export enum EChatStatus {
   Open,
   Closed,
 }

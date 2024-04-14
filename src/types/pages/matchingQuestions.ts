@@ -13,7 +13,6 @@ export interface IMatchingQuestionsForm {
   learningFrequency: IMatchingQuestionsSelect[]
   preferredCommunicationMethod: IMatchingQuestionsSelect[]
   technologyOfInterest: IMatchingQuestionsSelect[]
-  shiftingFromAnotherCareer: IMatchingQuestionsSelect[]
   weeklyHoursDedicatedToLearningAndCollaboration: IMatchingQuestionsSelect[]
   motivationForLearningAndCollaboration: IMatchingQuestionsSelect[]
   goalsOnThePlatform: IMatchingQuestionsSelect[]

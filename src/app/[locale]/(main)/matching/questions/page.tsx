@@ -26,6 +26,7 @@ const MatchingQuestions: NextPage = () => {
   const { data, states, actions } = useMatchingQuestions()
 
   return (
+    <form onSubmit={actions.submit}>
     <Container
       maxWidth="xl"
       sx={{
@@ -78,12 +79,13 @@ const MatchingQuestions: NextPage = () => {
           sx={{ margin: '24px', width: '100px', alignSelf: 'end' }}
           variant={'contained'}
           size={'small'}
-          onClick={actions.submit}
+          type={'submit'}
         >
           {t('continue')}
         </Button>
       </Stack>
     </Container>
+    </form>
   )
 }
 
