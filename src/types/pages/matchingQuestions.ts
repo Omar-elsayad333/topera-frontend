@@ -13,7 +13,7 @@ export interface IMatchingQuestionsForm {
   learningFrequency: IMatchingQuestionsSelect[]
   preferredCommunicationMethod: IMatchingQuestionsSelect[]
   technologyOfInterest: IMatchingQuestionsSelect[]
-  weeklyHoursDedicatedToLearningAndCollaboration: IMatchingQuestionsSelect[]
+  weeklyHoursDedicatedToLearningAndCollaboration: number | null
   motivationForLearningAndCollaboration: IMatchingQuestionsSelect[]
   goalsOnThePlatform: IMatchingQuestionsSelect[]
   comfortLevelWithRemoteWorkOrCollaboration: IMatchingQuestionsSelect[]
@@ -23,5 +23,6 @@ export interface IMatchingQuestionsForm {
 export interface IQuestion {
   label: string
   name: keyof IMatchingQuestionsForm
-  QuestionChoices: { name: string }[]
+  QuestionChoices?: { name: string }[]
+  type?: 'number'
 }

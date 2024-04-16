@@ -1,6 +1,6 @@
 import { FormEvent, useState } from 'react'
 import { EMatchingQuestionsSteps, IMatchingQuestionsForm, IQuestion } from '@/types/pages/matchingQuestions'
-import { array, object } from 'yup'
+import { array, number, object } from 'yup'
 import { FieldErrors, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import useRequestHandlers from '@/hooks/useRequestHandlers'
@@ -13,7 +13,7 @@ const schema = object({
   learningFrequency: array().min(1).required(),
   preferredCommunicationMethod: array().min(1).required(),
   technologyOfInterest: array().min(1).required(),
-  weeklyHoursDedicatedToLearningAndCollaboration: array().min(1).required(),
+  weeklyHoursDedicatedToLearningAndCollaboration: number().min(1).required().nullable(),
   motivationForLearningAndCollaboration: array().min(1).required(),
   goalsOnThePlatform: array().min(1).required(),
   comfortLevelWithRemoteWorkOrCollaboration: array().min(1).required(),
@@ -21,8 +21,11 @@ const schema = object({
 })
 const useMatchingQuestions = () => {
   const [currentStep, setCurrentStep] = useState<EMatchingQuestionsSteps>(0)
-  const {postHandler ,loading} = useRequestHandlers()
+
+  const { postHandler, loading } = useRequestHandlers()
+
   const { handleError } = useHandleError()
+
   const questions: IQuestion[] = [
     {
       label: 'Programming languages you have basic knowledge in',
@@ -135,25 +138,6 @@ const useMatchingQuestions = () => {
         },
       ],
     },
-
-    {
-      label: 'How many hours per week are you willing to dedicate to learning?',
-      name: 'weeklyHoursDedicatedToLearningAndCollaboration',
-      QuestionChoices: [
-        {
-          name: '0-5 hours',
-        },
-        {
-          name: '5-10 hours',
-        },
-        {
-          name: '10-15 hours',
-        },
-        {
-          name: 'more than 15 hours',
-        },
-      ],
-    },
     {
       label: 'What is your frequency in learning?',
       name: 'learningFrequency',
@@ -168,6 +152,11 @@ const useMatchingQuestions = () => {
           name: 'Monthly',
         },
       ],
+    },
+    {
+      label: 'How many hours per week are you willing to dedicate to learning and collaborating?',
+      name: 'weeklyHoursDedicatedToLearningAndCollaboration',
+      type: 'number',
     },
 
     {
@@ -242,7 +231,7 @@ const useMatchingQuestions = () => {
     learningFrequency: [],
     preferredCommunicationMethod: [],
     technologyOfInterest: [],
-    weeklyHoursDedicatedToLearningAndCollaboration: [],
+    weeklyHoursDedicatedToLearningAndCollaboration: 0,
     motivationForLearningAndCollaboration: [],
     goalsOnThePlatform: [],
     comfortLevelWithRemoteWorkOrCollaboration: [],
@@ -259,9 +248,13 @@ const useMatchingQuestions = () => {
   const sendData = async (data: IMatchingQuestionsForm) => {
     const body: any = {}
     Object.keys(data).forEach((item) => {
-      body[item] = data[item as keyof IMatchingQuestionsForm].map(item => item.name).join(', ')
+      if (Array.isArray(data[item as keyof IMatchingQuestionsForm])) {
+        body[item] = [...(data[item as keyof IMatchingQuestionsForm] as any)].map((item) => item.name).join(', ')
+      } else {
+        body[item] = data[item as keyof IMatchingQuestionsForm]
+      }
     })
-    const {error} = await postHandler({endpoint:'/submissions/phasetwo',body})
+    const { error } = await postHandler({ endpoint: '/submissions/phasetwo', body })
     if (error) return handleError(error)
   }
 
@@ -277,6 +270,7 @@ const useMatchingQuestions = () => {
     ]
     if (stepOnFieldNames.includes(Object.keys(errorData)[0])) setCurrentStep(EMatchingQuestionsSteps.StepOne)
   }
+
   const submit = (e: FormEvent) => {
     e.preventDefault()
     if (currentStep === EMatchingQuestionsSteps.StepOne) {
@@ -289,7 +283,7 @@ const useMatchingQuestions = () => {
 
   return {
     data: { toDisplayQuestions },
-    states: { currentStep, errors, control,loading },
+    states: { currentStep, errors, control, loading },
     actions: { setCurrentStep, submit },
   }
 }
