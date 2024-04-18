@@ -1,3 +1,5 @@
+import { Metadata } from 'next'
+
 // Server Actions
 import { serverAction } from '@/services/actions'
 
@@ -11,9 +13,12 @@ import CareersCardComponent from '@/components/pages/Roadmaps/CareersCardCompone
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 
+export const metadata: Metadata = {
+  title: 'Roadmaps',
+}
+
 const Roadmaps = async () => {
-  var { data }: { data: ICareers[] } = await serverAction('/roadmaps')
-  var data = [...data, ...data, ...data, ...data, ...data, ...data, ...data, ...data, ...data]
+  const { data }: { data: ICareers[] } = await serverAction('/roadmaps')
 
   return (
     <Stack sx={{ py: '64px' }} gap={'40px'}>

@@ -1,6 +1,9 @@
 'use client'
 import { motion } from 'framer-motion'
 
+// Routes
+import { Routes } from '@/routes/routes'
+
 // Types
 import { ICareers } from '@/types/pages/roadmaps'
 
@@ -10,6 +13,7 @@ import Stack from '@mui/material/Stack'
 import { useTheme } from '@mui/material'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
+import Link from 'next/link'
 
 const CareersCardComponent = ({ data }: { data: ICareers }) => {
   const theme = useTheme()
@@ -77,19 +81,21 @@ const CareersCardComponent = ({ data }: { data: ICareers }) => {
             <Typography variant="h5">{data.description}</Typography>
           </motion.div>
           <motion.div style={{ opacity: 0 }} variants={showVariant}>
-            <Button
-              color="primary"
-              variant="contained"
-              sx={{
-                color: theme.palette.primary.main,
-                borderRadius: '10px',
-                padding: '12px 50px',
-                background: '#fff',
-                ':hover': { color: '#fff' },
-              }}
-            >
-              learn more
-            </Button>
+            <Link href={`${Routes.roadmaps}/${data.id}`}>
+              <Button
+                color="primary"
+                variant="contained"
+                sx={{
+                  color: theme.palette.primary.main,
+                  borderRadius: '10px',
+                  padding: '12px 50px',
+                  background: '#fff',
+                  ':hover': { color: '#fff' },
+                }}
+              >
+                learn more
+              </Button>
+            </Link>
           </motion.div>
         </Stack>
         <div style={{ background: '#00000080', inset: '0px', zIndex: 1, position: 'absolute' }} />
