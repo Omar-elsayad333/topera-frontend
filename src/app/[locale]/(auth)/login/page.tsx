@@ -34,7 +34,7 @@ const LogIn: React.FC = () => {
           </Typography>
           <Grid item container columns={12}>
             <Typography>{t('new_user')}</Typography>
-            <Link href={Routes.forgetPassword}>
+            <Link href={Routes.signup}>
               <Typography sx={{ color: '#1473E6', marginLeft: '5px' }}>{t('create_new_account')}</Typography>
             </Link>
           </Grid>
