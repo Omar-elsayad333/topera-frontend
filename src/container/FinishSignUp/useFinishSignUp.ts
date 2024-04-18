@@ -59,7 +59,7 @@ const useFinishSignUp = () => {
   const tracksValue = watch('tracks')
   const list: IQuestionsList[] = [
     {
-      Text: 'What is your current employment status?',
+      Text: 'Which track have you learned? ',
       name: 'tracks',
       QuestionChoices: allFieldsData,
     },
@@ -111,7 +111,7 @@ const useFinishSignUp = () => {
     setFrameWorks(frameWorks)
   }, [tracksValue])
   const getData = async (): Promise<void> => {
-    const { data, error } = await getHandler({ endpoint: '/submissions' })
+    const { data, error } = await getHandler({ endpoint: '/submissions/phaseone' })
     if (error) return handleError(error)
     setAllFieldsData(data)
   }
