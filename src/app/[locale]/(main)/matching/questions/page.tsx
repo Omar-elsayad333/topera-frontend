@@ -16,11 +16,11 @@ import { useTranslations } from 'next-intl'
 import useMatchingQuestions from '@/container/MatchingQuestions/useMatchingQuestions'
 
 // Types
-import { EMatchingQuestionsSteps } from '@/types/pages/matchingQuestions'
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
 import MultieSelectComponent from '@/components/FormInputs/MultieSelectComponent'
 import TextFieldComponent from '@/components/FormInputs/TextFieldComponent'
+import SelectComponent from '@/components/FormInputs/SelectComponent'
 
 const MatchingQuestions: NextPage = () => {
   const t = useTranslations('matchingQuestions')
@@ -63,7 +63,7 @@ const MatchingQuestions: NextPage = () => {
           </Typography>
           <Stack gap={'40px'}>
             {data.toDisplayQuestions.map((question) => {
-              if (!question?.QuestionChoices?.length) {
+              if (question?.type === 'number') {
                 return (
                   <TextFieldComponent
                     key={question.name}
@@ -73,19 +73,36 @@ const MatchingQuestions: NextPage = () => {
                     label={question.label}
                   />
                 )
+              } else if (question.type === 'single') {
+                return (
+                  !!question?.QuestionChoices?.length && (
+                    <SelectComponent
+                      key={question.name}
+                      name={question.name}
+                      label={question.label}
+                      control={states.control}
+                      options={question?.QuestionChoices}
+                      errors={states.errors[question.name]}
+                      inputLabel={'name'}
+                      inputValue={'value'}
+                    />
+                  )
+                )
               } else {
                 return (
-                  <MultieSelectComponent
-                    key={question.name}
-                    options={question?.QuestionChoices}
-                    minSelect={1}
-                    name={question.name}
-                    label={question.label}
-                    inputLabel={'name'}
-                    inputValue={'name'}
-                    control={states.control}
-                    errors={states.errors[question.name]}
-                  />
+                  !!question?.QuestionChoices?.length && (
+                    <MultieSelectComponent
+                      key={question.name}
+                      options={question?.QuestionChoices}
+                      minSelect={1}
+                      name={question.name}
+                      label={question.label}
+                      inputLabel={'name'}
+                      inputValue={'name'}
+                      control={states.control}
+                      errors={states.errors[question.name]}
+                    />
+                  )
                 )
               }
             })}

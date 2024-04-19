@@ -1,6 +1,11 @@
 import { FormEvent, useState } from 'react'
-import { EMatchingQuestionsSteps, IMatchingQuestionsForm, IQuestion } from '@/types/pages/matchingQuestions'
-import { array, number, object } from 'yup'
+import {
+  EMatchingQuestionsSteps,
+  IMatchingQuestionsForm,
+  IQuestion,
+  IQuestionChoice,
+} from '@/types/pages/matchingQuestions'
+import { array, string, number, object, boolean } from 'yup'
 import { FieldErrors, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import useRequestHandlers from '@/hooks/useRequestHandlers'
@@ -13,10 +18,17 @@ const schema = object({
   learningFrequency: array().min(1).required(),
   preferredCommunicationMethod: array().min(1).required(),
   technologyOfInterest: array().min(1).required(),
-  weeklyHoursDedicatedToLearningAndCollaboration: number().min(1).required().nullable(),
+  weeklyHoursDedicatedToLearningAndCollaboration: number().nullable().required(),
   motivationForLearningAndCollaboration: array().min(1).required(),
   goalsOnThePlatform: array().min(1).required(),
-  comfortLevelWithRemoteWorkOrCollaboration: array().min(1).required(),
+  comfortLevelWithRemoteWorkOrCollaboration: object()
+    .shape({
+      name: string().required(),
+      disabled: boolean(),
+      default: boolean(),
+      value: string().nullable(),
+    })
+    .required(),
   projectTypeInterest: array().min(1).required(),
 })
 const useMatchingQuestions = () => {
@@ -158,7 +170,6 @@ const useMatchingQuestions = () => {
       name: 'weeklyHoursDedicatedToLearningAndCollaboration',
       type: 'number',
     },
-
     {
       label: 'What motivates you to learn and collaborate with others?',
       name: 'motivationForLearningAndCollaboration',
@@ -193,17 +204,17 @@ const useMatchingQuestions = () => {
       ],
     },
     {
-      label: 'How comfortable are you with remote work or collaboration?',
+      label: 'Are you comfortable with remote work or collaboration?',
       name: 'comfortLevelWithRemoteWorkOrCollaboration',
+      type: 'single',
       QuestionChoices: [
         {
-          name: 'very comfortable',
+          name: 'yes',
+          value: 'true',
         },
         {
-          name: 'somewhat comfortable',
-        },
-        {
-          name: 'not comfortable',
+          name: 'no',
+          value: 'false',
         },
       ],
     },
@@ -231,10 +242,10 @@ const useMatchingQuestions = () => {
     learningFrequency: [],
     preferredCommunicationMethod: [],
     technologyOfInterest: [],
-    weeklyHoursDedicatedToLearningAndCollaboration: 0,
+    weeklyHoursDedicatedToLearningAndCollaboration: null,
     motivationForLearningAndCollaboration: [],
     goalsOnThePlatform: [],
-    comfortLevelWithRemoteWorkOrCollaboration: [],
+    comfortLevelWithRemoteWorkOrCollaboration: { name: '', value: null },
     projectTypeInterest: [],
   }
   const {
@@ -246,10 +257,13 @@ const useMatchingQuestions = () => {
     defaultValues,
   })
   const sendData = async (data: IMatchingQuestionsForm) => {
+    console.log(data)
     const body: any = {}
     Object.keys(data).forEach((item) => {
       if (Array.isArray(data[item as keyof IMatchingQuestionsForm])) {
         body[item] = [...(data[item as keyof IMatchingQuestionsForm] as any)].map((item) => item.name).join(', ')
+      } else if (typeof data[item as keyof IMatchingQuestionsForm] === 'object') {
+        body[item] = data[item as 'comfortLevelWithRemoteWorkOrCollaboration']?.value
       } else {
         body[item] = data[item as keyof IMatchingQuestionsForm]
       }
