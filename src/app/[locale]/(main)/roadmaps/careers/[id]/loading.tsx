@@ -1,7 +1,11 @@
 import SplashComponent from '@/components/shared/SplashComponent'
 
 const Loading = () => {
-  return <SplashComponent />
+  return (
+    <div>
+      <SplashComponent />
+    </div>
+  )
 }
 
 export default Loading

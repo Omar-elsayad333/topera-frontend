@@ -1,4 +1,6 @@
 'use client'
+import Link from 'next/link'
+
 import { motion } from 'framer-motion'
 
 // Routes
@@ -13,7 +15,6 @@ import Stack from '@mui/material/Stack'
 import { useTheme } from '@mui/material'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
-import Link from 'next/link'
 
 const CareersCardComponent = ({ data }: { data: ICareers }) => {
   const theme = useTheme()
@@ -81,7 +82,11 @@ const CareersCardComponent = ({ data }: { data: ICareers }) => {
             <Typography variant="h5">{data.description}</Typography>
           </motion.div>
           <motion.div style={{ opacity: 0 }} variants={showVariant}>
-            <Link href={`${Routes.roadmaps}/${data.id}`}>
+            <Link
+              href={{
+                pathname: `${Routes.careers}/${data.id}`,
+              }}
+            >
               <Button
                 color="primary"
                 variant="contained"
