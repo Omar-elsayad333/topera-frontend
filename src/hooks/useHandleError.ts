@@ -1,7 +1,7 @@
 // Contexts
 import { useAlert } from '@/stores/AlertContext'
 
-interface IError {
+export interface IError {
   errors: string[]
   errorId: string
   message: string
