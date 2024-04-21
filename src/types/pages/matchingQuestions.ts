@@ -31,6 +31,8 @@ export interface IQuestionChoice {
 export interface IQuestion {
   label: string
   name: keyof IMatchingQuestionsForm
+  maxLength?: number
   QuestionChoices?: IQuestionChoice[]
+  frameworks?: any
   type?: 'number' | 'single'
 }

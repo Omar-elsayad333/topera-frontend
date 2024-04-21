@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useState, useEffect } from 'react'
 import {
   EMatchingQuestionsSteps,
   IMatchingQuestionsForm,
@@ -10,6 +10,7 @@ import { FieldErrors, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import useRequestHandlers from '@/hooks/useRequestHandlers'
 import useHandleError from '@/hooks/useHandleError'
+import { IFrameWork } from '@/types/pages/finishSignup'
 
 const schema = object({
   basicProgrammingLanguagesKnowledge: array().min(1).required(),
@@ -28,9 +29,59 @@ const schema = object({
 const useMatchingQuestions = () => {
   const [currentStep, setCurrentStep] = useState<EMatchingQuestionsSteps>(0)
 
-  const { postHandler, loading } = useRequestHandlers()
+  const [allFieldsData, setAllFieldsData] = useState<IQuestionChoice[]>([])
+
+  const [frameWorks, setFrameWorks] = useState<IFrameWork[]>([])
+
+  const { postHandler, loading, getHandler } = useRequestHandlers()
 
   const { handleError } = useHandleError()
+  const getData = async (): Promise<void> => {
+    const { data, error } = await getHandler({ endpoint: '/submissions/phaseone' })
+    if (error) return handleError(error)
+    setAllFieldsData(data)
+  }
+
+  const defaultValues = {
+    basicProgrammingLanguagesKnowledge: [],
+    proficientProgrammingLanguages: [],
+    preferredLearningStyle: [],
+    learningFrequency: [],
+    preferredCommunicationMethod: [],
+    TrackOfInterest: [],
+    technologyOfInterest: [],
+    weeklyHoursDedicatedToLearningAndCollaboration: '',
+    motivationForLearningAndCollaboration: [],
+    goalsOnThePlatform: [],
+    comfortLevelWithRemoteWorkOrCollaboration: null,
+    projectTypeInterest: [],
+  }
+
+  const {
+    formState: { errors },
+    control,
+    handleSubmit,
+    watch,
+  } = useForm<IMatchingQuestionsForm>({
+    resolver: yupResolver(schema),
+    defaultValues,
+  })
+
+  const tracksValue = watch('TrackOfInterest')
+
+  useEffect(() => {
+    const frameWorks = tracksValue.flatMap((track, frameworks) => track.frameworks)
+    setFrameWorks(frameWorks)
+  }, [tracksValue])
+  useEffect(() => {
+    ;(async (): Promise<void> => {
+      try {
+        await getData()
+      } catch (error) {
+        console.log(error)
+      }
+    })()
+  }, [])
 
   const questions: IQuestion[] = [
     {
@@ -129,39 +180,17 @@ const useMatchingQuestions = () => {
     {
       label: 'Which tracks are you interested in?',
       name: 'TrackOfInterest',
-      QuestionChoices: [
-        {
-          name: 'Chat',
-        },
-        {
-          name: 'Email',
-        },
-        {
-          name: 'Video Calls',
-        },
-      ],
+      QuestionChoices: allFieldsData,
     },
     {
       label: 'Which technology/framework are you interested in?',
       name: 'technologyOfInterest',
-      QuestionChoices: [
-        {
-          name: 'choice 1',
-        },
-        {
-          name: 'choice 2',
-        },
-        {
-          name: 'choice 3',
-        },
-        {
-          name: 'uchoice 4',
-        },
-      ],
+      QuestionChoices: frameWorks,
     },
     {
       label: 'What is your frequency in learning?',
       name: 'learningFrequency',
+      maxLength: 1,
       QuestionChoices: [
         {
           name: 'Daily',
@@ -182,6 +211,7 @@ const useMatchingQuestions = () => {
     {
       label: 'What motivates you to learn and collaborate with others?',
       name: 'motivationForLearningAndCollaboration',
+      maxLength: 1,
       QuestionChoices: [
         {
           name: 'career advancement',
@@ -197,6 +227,7 @@ const useMatchingQuestions = () => {
     {
       label: 'What specific goals do you hope to achieve through our platform?',
       name: 'goalsOnThePlatform',
+      maxLength: 1,
       QuestionChoices: [
         {
           name: 'choice 1',
@@ -230,6 +261,7 @@ const useMatchingQuestions = () => {
     {
       label: 'What type of projects are you interested in collaborating on?',
       name: 'projectTypeInterest',
+      maxLength: 1,
       QuestionChoices: [
         {
           name: 'open source',
@@ -244,31 +276,7 @@ const useMatchingQuestions = () => {
     },
   ]
 
-  const defaultValues = {
-    basicProgrammingLanguagesKnowledge: [],
-    proficientProgrammingLanguages: [],
-    preferredLearningStyle: [],
-    learningFrequency: [],
-    preferredCommunicationMethod: [],
-    TrackOfInterest: [],
-    technologyOfInterest: [],
-    weeklyHoursDedicatedToLearningAndCollaboration: '',
-    motivationForLearningAndCollaboration: [],
-    goalsOnThePlatform: [],
-    comfortLevelWithRemoteWorkOrCollaboration: null,
-    projectTypeInterest: [],
-  }
-
-  const {
-    formState: { errors },
-    control,
-    handleSubmit,
-  } = useForm<IMatchingQuestionsForm>({
-    resolver: yupResolver(schema),
-    defaultValues,
-  })
   const sendData = async (data: IMatchingQuestionsForm) => {
-    console.log(data)
     const body: any = {}
     Object.keys(data).forEach((item) => {
       if (Array.isArray(data[item as keyof IMatchingQuestionsForm])) {

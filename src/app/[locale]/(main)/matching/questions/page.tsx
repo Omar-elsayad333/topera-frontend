@@ -75,34 +75,31 @@ const MatchingQuestions: NextPage = () => {
                 )
               } else if (question.type === 'single') {
                 return (
-                  !!question?.QuestionChoices?.length && (
-                    <SelectComponent
-                      key={question.name}
-                      name={question.name}
-                      label={question.label}
-                      control={states.control}
-                      options={question?.QuestionChoices}
-                      errors={states.errors[question.name]}
-                      inputLabel={'name'}
-                      inputValue={'value'}
-                    />
-                  )
+                  <SelectComponent
+                    key={question.name}
+                    name={question.name}
+                    label={question.label}
+                    control={states.control}
+                    options={question?.QuestionChoices ?? []}
+                    errors={states.errors[question.name]}
+                    inputLabel={'name'}
+                    inputValue={'value'}
+                  />
                 )
               } else {
                 return (
-                  !!question?.QuestionChoices?.length && (
-                    <MultieSelectComponent
-                      key={question.name}
-                      options={question?.QuestionChoices}
-                      minSelect={1}
-                      name={question.name}
-                      label={question.label}
-                      inputLabel={'name'}
-                      inputValue={'name'}
-                      control={states.control}
-                      errors={states.errors[question.name]}
-                    />
-                  )
+                  <MultieSelectComponent
+                    key={question.name}
+                    options={question?.QuestionChoices ?? []}
+                    minSelect={1}
+                    maxSelect={question?.maxLength}
+                    name={question.name}
+                    label={question.label}
+                    inputLabel={'name'}
+                    inputValue={'name'}
+                    control={states.control}
+                    errors={states.errors[question.name]}
+                  />
                 )
               }
             })}
