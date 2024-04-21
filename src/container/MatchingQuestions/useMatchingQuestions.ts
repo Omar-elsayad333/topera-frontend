@@ -18,17 +18,11 @@ const schema = object({
   learningFrequency: array().min(1).required(),
   preferredCommunicationMethod: array().min(1).required(),
   technologyOfInterest: array().min(1).required(),
-  weeklyHoursDedicatedToLearningAndCollaboration: number().nullable().required(),
+  weeklyHoursDedicatedToLearningAndCollaboration: number().required(),
   motivationForLearningAndCollaboration: array().min(1).required(),
+  TrackOfInterest: array().min(1).required(),
   goalsOnThePlatform: array().min(1).required(),
-  comfortLevelWithRemoteWorkOrCollaboration: object()
-    .shape({
-      name: string().required(),
-      disabled: boolean(),
-      default: boolean(),
-      value: string().nullable(),
-    })
-    .required(),
+  comfortLevelWithRemoteWorkOrCollaboration: object().required(),
   projectTypeInterest: array().min(1).required(),
 })
 const useMatchingQuestions = () => {
@@ -120,6 +114,21 @@ const useMatchingQuestions = () => {
     {
       label: 'What is your preferred way of communication?',
       name: 'preferredCommunicationMethod',
+      QuestionChoices: [
+        {
+          name: 'Chat',
+        },
+        {
+          name: 'Email',
+        },
+        {
+          name: 'Video Calls',
+        },
+      ],
+    },
+    {
+      label: 'Which tracks are you interested in?',
+      name: 'TrackOfInterest',
       QuestionChoices: [
         {
           name: 'Chat',
@@ -241,13 +250,15 @@ const useMatchingQuestions = () => {
     preferredLearningStyle: [],
     learningFrequency: [],
     preferredCommunicationMethod: [],
+    TrackOfInterest: [],
     technologyOfInterest: [],
-    weeklyHoursDedicatedToLearningAndCollaboration: null,
+    weeklyHoursDedicatedToLearningAndCollaboration: '',
     motivationForLearningAndCollaboration: [],
     goalsOnThePlatform: [],
-    comfortLevelWithRemoteWorkOrCollaboration: { name: '', value: null },
+    comfortLevelWithRemoteWorkOrCollaboration: null,
     projectTypeInterest: [],
   }
+
   const {
     formState: { errors },
     control,
@@ -274,7 +285,7 @@ const useMatchingQuestions = () => {
 
   const handelFormError = (errorData: FieldErrors<IMatchingQuestionsForm>) => {
     console.log(errorData)
-    const stepOnFieldNames: string[] = [
+    const stepOnFieldNames: (keyof IMatchingQuestionsForm)[] = [
       'technologyOfInterest',
       'preferredCommunicationMethod',
       'learningFrequency',
@@ -282,7 +293,8 @@ const useMatchingQuestions = () => {
       'proficientProgrammingLanguages',
       'basicProgrammingLanguagesKnowledge',
     ]
-    if (stepOnFieldNames.includes(Object.keys(errorData)[0])) setCurrentStep(EMatchingQuestionsSteps.StepOne)
+    if (stepOnFieldNames.includes(Object.keys(errorData)[0] as keyof IMatchingQuestionsForm))
+      setCurrentStep(EMatchingQuestionsSteps.StepOne)
   }
 
   const submit = (e: FormEvent) => {

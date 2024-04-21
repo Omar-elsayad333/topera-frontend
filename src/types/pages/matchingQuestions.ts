@@ -7,17 +7,18 @@ export interface IMatchingQuestionsSelect {
   name: string
 }
 export interface IMatchingQuestionsForm {
-  basicProgrammingLanguagesKnowledge: any[]
-  proficientProgrammingLanguages: any[]
-  preferredLearningStyle: any[]
-  learningFrequency: any[]
-  preferredCommunicationMethod: any[]
-  technologyOfInterest: any[]
-  weeklyHoursDedicatedToLearningAndCollaboration: number | null
-  motivationForLearningAndCollaboration: any[]
-  goalsOnThePlatform: any[]
-  comfortLevelWithRemoteWorkOrCollaboration: IQuestionChoice
-  projectTypeInterest: any[]
+  basicProgrammingLanguagesKnowledge: IQuestion[]
+  proficientProgrammingLanguages: IQuestion[]
+  preferredLearningStyle: IQuestion[]
+  learningFrequency: IQuestion[]
+  preferredCommunicationMethod: IQuestion[]
+  TrackOfInterest: IQuestion[]
+  technologyOfInterest: IQuestion[]
+  weeklyHoursDedicatedToLearningAndCollaboration: number | any
+  motivationForLearningAndCollaboration: IQuestion[]
+  goalsOnThePlatform: IQuestion[]
+  comfortLevelWithRemoteWorkOrCollaboration: any | null
+  projectTypeInterest: IQuestion[]
 }
 
 export interface IQuestionChoice {
