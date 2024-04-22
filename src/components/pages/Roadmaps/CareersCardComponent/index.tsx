@@ -49,6 +49,7 @@ const CareersCardComponent = ({ data }: { data: ICareers }) => {
       <motion.div
         variants={hoverVariant}
         whileHover={['hover', 'show', 'rotate', 'exit']}
+        whileTap={['hover', 'show', 'rotate', 'exit']}
         style={{
           position: 'relative',
           gap: '0px',
@@ -66,21 +67,28 @@ const CareersCardComponent = ({ data }: { data: ICareers }) => {
             'url("https://s3-alpha-sig.figma.com/img/6296/675d/3641b01b0af8547e6cff4047684d413e?Expires=1713744000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=qWL91f2yEyLC-oU10CuykhqYzrmX4z9bITH6I~P3RY~dl1LKeANJkZ502H0wy0EwDodvUlDxEbQ7g7YD7vV05VCBQwyoRd7SH-x3W-nGnFHT3I6w7xcyV5B0-f1jLCA0gsMwwStOhljlZ9ZFshyL4mvc2K1IXGbK8L6fq9bKvO6rgrBzQjaYtytt6a-BthPICkaMtNCrE04tvLlghl1YKEfImVnAW-QCYLWXl8ImUB~UQLoIznis-aUDV-o7NPv6buNH-naWs-jVBuC9pah2tDBuNsEkTBKBhIYS9rO0tRAed-ix8IvDtv04WI2H-StreKLldq1rhHzCxGqhX1Fn5g__")',
         }}
       >
-        <Stack gap={'50px'} alignItems={'start'} sx={{ height: '100%', position: 'relative', zIndex: 2 }}>
-          <motion.div
-            variants={rotateVariant}
-            style={{ position: 'absolute', rotate: '90deg', left: 0, top: 0, transformOrigin: '25px 20px' }}
-          >
-            <Typography whiteSpace={'nowrap'} variant="h3">
-              {data.name}
-            </Typography>
-          </motion.div>
-          <motion.div variants={showVariant} style={{ opacity: 0 }}>
-            <Typography variant="h3">{data.name}</Typography>
-          </motion.div>
-          <motion.div style={{ opacity: 0 }} variants={showVariant} exit={{ transition: { delay: 0.2 } }}>
-            <Typography variant="h5">{data.description}</Typography>
-          </motion.div>
+        <Stack
+          gap={'50px'}
+          alignItems={'start'}
+          justifyContent={'space-between'}
+          sx={{ height: '100%', position: 'relative', zIndex: 2 }}
+        >
+          <Stack gap={'50px'}>
+            <motion.div
+              variants={rotateVariant}
+              style={{ position: 'absolute', rotate: '90deg', left: 0, top: 0, transformOrigin: '25px 20px' }}
+            >
+              <Typography whiteSpace={'nowrap'} variant="h3">
+                {data.name}
+              </Typography>
+            </motion.div>
+            <motion.div variants={showVariant} style={{ opacity: 0 }}>
+              <Typography variant="h3">{data.name}</Typography>
+            </motion.div>
+            <motion.div style={{ opacity: 0 }} variants={showVariant} exit={{ transition: { delay: 0.2 } }}>
+              <Typography variant="h5">{data.description}</Typography>
+            </motion.div>
+          </Stack>
           <motion.div style={{ opacity: 0 }} variants={showVariant}>
             <Link
               href={{

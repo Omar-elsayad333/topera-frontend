@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { Orbitron } from 'next/font/google'
 
 // Server Actions
 import { serverAction } from '@/services/actions'
@@ -14,6 +15,12 @@ import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 
+// Google Font
+const orbitron = Orbitron({
+  display: 'swap',
+  subsets: ['latin'],
+})
+
 interface IProps {
   params: {
     id: string
@@ -28,11 +35,11 @@ const RoadmapsCareer = async ({ params }: IProps) => {
   const { data }: { data: ICareer } = await serverAction(`/roadmaps/${params.id}`)
 
   return (
-    <Grid container sx={{ py: '64px' }} gap={'40px'}>
+    <Grid container sx={{ py: '64px' }} spacing={4}>
       <Grid item xs={12} lg={7}>
         <Stack gap={'24px'} sx={{ mb: '56px' }}>
           <Typography fontWeight={500} color={'primary'} variant="h5">
-            Defintion
+            <p className={`${orbitron.className}`}>Defintion</p>
           </Typography>
           <Typography fontWeight={400} variant="h6">
             {data.description}
@@ -41,9 +48,13 @@ const RoadmapsCareer = async ({ params }: IProps) => {
 
         <Stack gap={'24px'}>
           <Typography fontWeight={500} color={'primary'} variant="h5">
-            Tracks
+            <p className={`${orbitron.className}`}>Tracks</p>
           </Typography>
-          {data?.tracks.length > 0 && data.tracks.map((item) => <TrackTabComponent key={item.id} trackData={item} />)}
+          {data?.tracks?.length > 0 && (
+            <Stack direction={'row'} alignItems={'center'}>
+              {<TrackTabComponent data={data.tracks} />}
+            </Stack>
+          )}
         </Stack>
       </Grid>
       <Grid item xs={12} lg={5}>

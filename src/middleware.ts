@@ -50,13 +50,15 @@ export default async function middleware(request: NextRequest) {
   }
 
   const publicPathnameRegex = RegExp(
-    `^(/(${locales.join('|')}))?(${publicPages.flatMap((p) => (p === '/' ? ['', '/'] : p)).join('|')})/?$`,
+    `^(/(${locales.join('|')}))?(${publicPages.flatMap((p) => (p === '/' ? ['', '/'] : p)).join('|')})(/.*)?$`,
     'i'
   )
+
   const privatePathnameRegex = RegExp(
-    `^(/(${locales.join('|')}))?(${privatePages.flatMap((p) => (p === '/' ? ['', '/'] : p)).join('|')})/?$`,
+    `^(/(${locales.join('|')}))?(${privatePages.flatMap((p) => (p === '/' ? ['', '/'] : p)).join('|')})(/.*)?$`,
     'i'
   )
+
   const isPublicPage = publicPathnameRegex.test(request.nextUrl.pathname)
   const isPrivatePage = privatePathnameRegex.test(request.nextUrl.pathname)
 
