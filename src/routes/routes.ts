@@ -10,7 +10,7 @@ export const Routes = {
   verifyCode: '/verify-code',
   newPassword: '/new-password',
   confirmEmail: '/confirm-email',
-
+  welcome: 'welcome',
   // PUBLIC
   home: '/',
   test: '/test',
