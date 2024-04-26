@@ -75,5 +75,9 @@
   "finishSignup": {
     "head": "Finish sign up",
     "submit": "submit"
+  },
+  "profile": {
+    "intro": "Intro",
+    "resume": "Resume"
   }
 }
