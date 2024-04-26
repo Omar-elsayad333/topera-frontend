@@ -18,8 +18,9 @@ const TrackButtonComponent: React.FC<IProps> = ({ selectedItem, selected, select
 
   const style: CSSProperties = {
     minWidth: 'fit-content',
-    padding: '18px 25px',
+    padding: '14px 20px',
     textAlign: 'center',
+    cursor: 'pointer',
     borderRadius: '4px',
     border: selected ? 'none' : `1px solid ${theme.palette.grey[400]}`,
     backgroundColor: selected ? theme.palette.primary.main : 'transparent',
