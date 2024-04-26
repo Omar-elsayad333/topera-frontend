@@ -78,6 +78,7 @@
   },
   "profile": {
     "intro": "Intro",
-    "resume": "Resume"
+    "resume": "Resume",
+    "experiences": "Experiences"
   }
 }

@@ -31,7 +31,7 @@ const Resume = () => {
               Example-resume.pdf
             </Typography>
           </span>
-          <Image src={DownloadIcon} alt={'download-icon'} height={26} width={24} />
+          <Image loading={'lazy'} src={DownloadIcon} alt={'download-icon'} height={26} width={24} />
         </ListItem>
       </List>
     </Grid>

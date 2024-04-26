@@ -4,6 +4,8 @@ import Grid from '@mui/material/Grid'
 // Profile Component
 import Intro from '@/components/pages/Profile/Intro'
 import Resume from '@/components/pages/Profile/Resume'
+import About from '@/components/pages/Profile/About'
+import Experiences from '@/components/pages/Profile/Experiences'
 
 // Types
 import { NextPage } from 'next'
@@ -15,8 +17,14 @@ const Profile: NextPage = () => {
         <Intro />
         <Resume />
       </Grid>
-      <Grid lg={8} md={8} container item sx={{ backgroundColor: 'blue' }}>
+      <Grid lg={8} md={8} rowGap={'16px'} container item>
         hero sections
+        <About />
+        <Experiences
+          experiences={[
+            { name: 'hallo', icon: 'https://placehold.co/84x84', location: 'almansoura', jobStatus: 'remote' },
+          ]}
+        />
       </Grid>
     </Grid>
   )
