@@ -33,3 +33,15 @@ export interface ICareer {
   article: IArticle
   tracks: ITrack[]
 }
+
+export interface ISections {
+  id: string
+  head: string
+  body: string
+}
+
+export interface IArticleDetails {
+  id: string
+  name: string
+  sections: ISections[]
+}
