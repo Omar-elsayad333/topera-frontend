@@ -43,7 +43,7 @@ const useMatchingQuestions = () => {
 
   useEffect(() => {
     setAllQuestionsData(questions({ allFieldsData, frameWorks }))
-  }, [allFieldsData, frameWorks])
+  }, [allFieldsData])
 
   const defaultValues = {
     basicProgrammingLanguagesKnowledge: [],
