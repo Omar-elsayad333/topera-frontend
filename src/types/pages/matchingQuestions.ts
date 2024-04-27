@@ -14,10 +14,10 @@ export interface IMatchingQuestionsForm {
   preferredCommunicationMethod: IQuestion[]
   TrackOfInterest: IQuestion[]
   technologyOfInterest: IQuestion[]
-  weeklyHoursDedicatedToLearningAndCollaboration: number | any
+  weeklyHoursDedicatedToLearningAndCollaboration: any
   motivationForLearningAndCollaboration: IQuestion[]
   goalsOnThePlatform: IQuestion[]
-  comfortLevelWithRemoteWorkOrCollaboration: any | null
+  comfortLevelWithRemoteWorkOrCollaboration: any
   projectTypeInterest: IQuestion[]
 }
 

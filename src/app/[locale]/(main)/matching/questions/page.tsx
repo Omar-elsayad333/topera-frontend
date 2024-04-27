@@ -3,7 +3,6 @@ import { NextPage } from 'next'
 
 // MUI
 import Container from '@mui/material/Container'
-import Box from '@mui/material/Box'
 
 // ASSETS
 import MatchingHandLayout from '@/assets/images/matchingHandLayout.svg'
@@ -21,6 +20,7 @@ import Stack from '@mui/material/Stack'
 import MultieSelectComponent from '@/components/FormInputs/MultieSelectComponent'
 import TextFieldComponent from '@/components/FormInputs/TextFieldComponent'
 import SelectComponent from '@/components/FormInputs/SelectComponent'
+import { IMatchingQuestionsForm } from '@/types/pages/matchingQuestions'
 
 const MatchingQuestions: NextPage = () => {
   const t = useTranslations('matchingQuestions')
@@ -71,19 +71,20 @@ const MatchingQuestions: NextPage = () => {
                     control={states.control}
                     name={question.name}
                     label={question.label}
+                    error={states.errors[question.name as keyof IMatchingQuestionsForm] as any}
                   />
                 )
               } else if (question.type === 'single') {
                 return (
-                  <SelectComponent
+                  <SelectComponent<{ name: string; value: string; disabled?: boolean; default?: boolean }>
                     key={question.name}
                     name={question.name}
                     label={question.label}
-                    control={states.control}
-                    options={question?.QuestionChoices ?? []}
-                    errors={states.errors[question.name]}
                     inputLabel={'name'}
+                    control={states.control}
                     inputValue={'value'}
+                    options={question?.QuestionChoices ?? []}
+                    errors={states.errors[question.name as keyof IMatchingQuestionsForm]}
                   />
                 )
               } else {
@@ -98,7 +99,7 @@ const MatchingQuestions: NextPage = () => {
                     inputLabel={'name'}
                     inputValue={'name'}
                     control={states.control}
-                    errors={states.errors[question.name]}
+                    errors={states.errors[question.name as keyof IMatchingQuestionsForm]}
                   />
                 )
               }

@@ -16,7 +16,7 @@ interface IProps {
   name: string
   label?: string
   placeholder?: string
-  type: 'text' | 'number'
+  type?: 'text' | 'number'
 }
 
 const TextFieldComponent = ({ name, control, id, placeholder, error, label, type = 'text', ...args }: IProps) => {
