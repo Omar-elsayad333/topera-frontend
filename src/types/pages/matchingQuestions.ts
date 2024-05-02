@@ -10,10 +10,28 @@ export interface IMatchingQuestionsForm {
   basicProgrammingLanguagesKnowledge: IQuestion[]
   proficientProgrammingLanguages: IQuestion[]
   preferredLearningStyle: IQuestion[]
-  learningFrequency: IQuestion[]
   preferredCommunicationMethod: IQuestion[]
   TrackOfInterest: IQuestion[]
   technologyOfInterest: IQuestion[]
+  learningFrequency: IQuestion[]
+  weeklyHoursDedicatedToLearningAndCollaboration: any
+  motivationForLearningAndCollaboration: IQuestion[]
+  goalsOnThePlatform: IQuestion[]
+  comfortLevelWithRemoteWorkOrCollaboration: any
+  projectTypeInterest: IQuestion[]
+}
+
+export interface StepOneForm {
+  basicProgrammingLanguagesKnowledge: IQuestion[]
+  proficientProgrammingLanguages: IQuestion[]
+  preferredCommunicationMethod: IQuestion[]
+  TrackOfInterest: IQuestion[]
+  technologyOfInterest: IQuestion[]
+  preferredLearningStyle: IQuestion[]
+}
+
+export interface StepTwoForm {
+  learningFrequency: IQuestion[]
   weeklyHoursDedicatedToLearningAndCollaboration: any
   motivationForLearningAndCollaboration: IQuestion[]
   goalsOnThePlatform: IQuestion[]

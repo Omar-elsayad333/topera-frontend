@@ -20,7 +20,13 @@ import Stack from '@mui/material/Stack'
 import MultieSelectComponent from '@/components/FormInputs/MultieSelectComponent'
 import TextFieldComponent from '@/components/FormInputs/TextFieldComponent'
 import SelectComponent from '@/components/FormInputs/SelectComponent'
-import { IMatchingQuestionsForm } from '@/types/pages/matchingQuestions'
+import {
+  EMatchingQuestionsSteps,
+  IMatchingQuestionsForm,
+  StepOneForm,
+  StepTwoForm,
+} from '@/types/pages/matchingQuestions'
+import Slack from 'next-auth/providers/slack'
 
 const MatchingQuestions: NextPage = () => {
   const t = useTranslations('matchingQuestions')
@@ -41,7 +47,6 @@ const MatchingQuestions: NextPage = () => {
         }}
       >
         <Stack
-          spacing={'32px'}
           sx={{
             maxWidth: '700px',
             width: '700px',
@@ -71,7 +76,7 @@ const MatchingQuestions: NextPage = () => {
                     control={states.control}
                     name={question.name}
                     label={question.label}
-                    error={states.errors[question.name as keyof IMatchingQuestionsForm] as any}
+                    error={states.errors[question.name as keyof (StepOneForm | StepTwoForm)] as any}
                   />
                 )
               } else if (question.type === 'single') {
@@ -84,7 +89,7 @@ const MatchingQuestions: NextPage = () => {
                     control={states.control}
                     inputValue={'value'}
                     options={question?.QuestionChoices ?? []}
-                    errors={states.errors[question.name as keyof IMatchingQuestionsForm]}
+                    errors={states.errors[question.name as keyof (StepOneForm | StepTwoForm)]}
                   />
                 )
               } else {
@@ -99,20 +104,35 @@ const MatchingQuestions: NextPage = () => {
                     inputLabel={'name'}
                     inputValue={'name'}
                     control={states.control}
-                    errors={states.errors[question.name as keyof IMatchingQuestionsForm]}
+                    errors={states.errors[question.name as keyof (StepOneForm | StepTwoForm)]}
                   />
                 )
               }
             })}
           </Stack>
-          <Button
-            sx={{ margin: '24px', width: '100px', alignSelf: 'end' }}
-            variant={'contained'}
-            size={'small'}
-            type={'submit'}
-          >
-            {t('continue')}
-          </Button>
+          <Stack alignSelf={'end'} direction={'row-reverse'}>
+            <Button
+              sx={{ margin: '24px', width: '100px', alignSelf: 'end' }}
+              variant={'contained'}
+              size={'small'}
+              type={'submit'}
+            >
+              {t('continue')}
+            </Button>
+            {states.currentStep === EMatchingQuestionsSteps.StepTwo && (
+              <Button
+                onClick={() => actions.setCurrentStep(EMatchingQuestionsSteps.StepOne)}
+                sx={{
+                  color: '#9999',
+                  '&:hover': {
+                    backgroundColor: 'unset',
+                  },
+                }}
+              >
+                {t('back')}
+              </Button>
+            )}
+          </Stack>
         </Stack>
       </Container>
     </form>

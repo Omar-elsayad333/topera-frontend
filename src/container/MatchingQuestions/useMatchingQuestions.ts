@@ -1,27 +1,18 @@
-import { FormEvent, useState, useEffect } from 'react'
-import { EMatchingQuestionsSteps, IMatchingQuestionsForm, IQuestionChoice } from '@/types/pages/matchingQuestions'
-import { array, number, object, boolean } from 'yup'
+import { FormEvent, useEffect, useState } from 'react'
+import {
+  EMatchingQuestionsSteps,
+  IMatchingQuestionsForm,
+  IQuestionChoice,
+  StepOneForm,
+  StepTwoForm,
+} from '@/types/pages/matchingQuestions'
+import { array, object, number } from 'yup'
 import { FieldErrors, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import useRequestHandlers from '@/hooks/useRequestHandlers'
 import useHandleError from '@/hooks/useHandleError'
 import { IFrameWork } from '@/types/pages/finishSignup'
 import { questions } from '@/constants/matchingQuestions'
-
-const schema = object({
-  basicProgrammingLanguagesKnowledge: array().min(1).required(),
-  proficientProgrammingLanguages: array().min(1).required(),
-  preferredLearningStyle: array().min(1).required(),
-  learningFrequency: array().min(1).required(),
-  preferredCommunicationMethod: array().min(1).required(),
-  technologyOfInterest: array().min(1).required(),
-  weeklyHoursDedicatedToLearningAndCollaboration: number().required(),
-  motivationForLearningAndCollaboration: array().min(1).required(),
-  TrackOfInterest: array().min(1).required(),
-  goalsOnThePlatform: array().min(1).required(),
-  comfortLevelWithRemoteWorkOrCollaboration: object().required(),
-  projectTypeInterest: array().min(1).required(),
-})
 
 const useMatchingQuestions = () => {
   const [currentStep, setCurrentStep] = useState<EMatchingQuestionsSteps>(0)
@@ -41,9 +32,24 @@ const useMatchingQuestions = () => {
     setAllFieldsData(data)
   }
 
-  useEffect(() => {
-    setAllQuestionsData(questions({ allFieldsData, frameWorks }))
-  }, [allFieldsData])
+  const schema =
+    currentStep === EMatchingQuestionsSteps.StepOne
+      ? object({
+          basicProgrammingLanguagesKnowledge: array().min(1).required(),
+          proficientProgrammingLanguages: array().min(1).required(),
+          preferredCommunicationMethod: array().min(1).required(),
+          TrackOfInterest: array().min(1).required(),
+          technologyOfInterest: array().min(1).required(),
+          preferredLearningStyle: array().min(1).required(),
+        })
+      : object({
+          learningFrequency: array().min(1).required(),
+          weeklyHoursDedicatedToLearningAndCollaboration: number().required(),
+          motivationForLearningAndCollaboration: array().min(1).required(),
+          goalsOnThePlatform: array().min(1).required(),
+          comfortLevelWithRemoteWorkOrCollaboration: object().required(),
+          projectTypeInterest: array().min(1).required(),
+        })
 
   const defaultValues = {
     basicProgrammingLanguagesKnowledge: [],
@@ -65,30 +71,26 @@ const useMatchingQuestions = () => {
     control,
     handleSubmit,
     watch,
-  } = useForm<IMatchingQuestionsForm>({
+    trigger,
+  } = useForm<StepOneForm | StepTwoForm>({
     resolver: yupResolver(schema),
     defaultValues,
   })
 
   const tracksValue = watch('TrackOfInterest')
 
-  useEffect(() => {
-    const frameWorks = tracksValue.flatMap((track) => track.frameworks)
-    setFrameWorks(frameWorks)
-  }, [tracksValue])
-  useEffect(() => {
-    getData()
-  }, [])
-
-  const sendData = async (data: IMatchingQuestionsForm) => {
+  const sendData = async (data: StepOneForm | StepTwoForm) => {
     const body: any = {}
     Object.keys(data).forEach((item) => {
-      if (Array.isArray(data[item as keyof IMatchingQuestionsForm])) {
-        body[item] = [...(data[item as keyof IMatchingQuestionsForm] as any)].map((item) => item.name).join(', ')
-      } else if (typeof data[item as keyof IMatchingQuestionsForm] === 'object') {
+      if (Array.isArray(data[item as keyof (StepOneForm | StepTwoForm)])) {
+        body[item] = [...(data[item as keyof (StepOneForm | StepTwoForm)] as any)].map((item) => item.name).join(', ')
+      } else if (
+        data.hasOwnProperty('comfortLevelWithRemoteWorkOrCollaboration') &&
+        typeof data[item as 'comfortLevelWithRemoteWorkOrCollaboration'] === 'object'
+      ) {
         body[item] = data[item as 'comfortLevelWithRemoteWorkOrCollaboration']?.value
       } else {
-        body[item] = data[item as keyof IMatchingQuestionsForm]
+        body[item] = data[item as keyof (StepOneForm | StepTwoForm)]
       }
     })
     const { error } = await postHandler({ endpoint: '/submissions/phasetwo', body })
@@ -108,15 +110,28 @@ const useMatchingQuestions = () => {
       setCurrentStep(EMatchingQuestionsSteps.StepOne)
   }
 
-  const submit = (e: FormEvent) => {
+  const submit = async (e: FormEvent) => {
     e.preventDefault()
     if (currentStep === EMatchingQuestionsSteps.StepOne) {
-      setCurrentStep(EMatchingQuestionsSteps.StepTwo)
+      const formState = await trigger()
+      if (formState) setCurrentStep(EMatchingQuestionsSteps.StepTwo)
     } else {
       handleSubmit(sendData, handelFormError)()
     }
   }
   const toDisplayQuestions = allQuestionsData.slice(currentStep * 6, currentStep * 6 + 6) ?? []
+
+  useEffect(() => {
+    setAllQuestionsData(questions({ allFieldsData, frameWorks }))
+  }, [allFieldsData, tracksValue])
+
+  useEffect(() => {
+    const frameWorks = tracksValue.flatMap((track) => track.frameworks)
+    setFrameWorks(frameWorks)
+  }, [tracksValue])
+  useEffect(() => {
+    getData()
+  }, [])
 
   return {
     data: { toDisplayQuestions },
