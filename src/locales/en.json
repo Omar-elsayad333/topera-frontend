@@ -79,6 +79,9 @@
   "profile": {
     "intro": "Intro",
     "resume": "Resume",
-    "experiences": "Experiences"
+    "experiences": "Experiences",
+    "education": "Education",
+    "skills": "Skills",
+    "showAllSkills": "Show all skills"
   }
 }

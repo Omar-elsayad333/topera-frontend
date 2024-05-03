@@ -10,7 +10,7 @@ interface IProps {
   children: ReactNode
   title: string
 }
-const ComponentHolder = ({ children, title }: IProps) => {
+const ComponentHolder = ({ children, title, ...props }: IProps) => {
   const t = useTranslations('profile')
 
   return (
@@ -22,7 +22,9 @@ const ComponentHolder = ({ children, title }: IProps) => {
           </Typography>
         </ListItem>
         <Divider component={'li'} />
-        <div style={{ padding: '24px 32px' }}>{children}</div>
+        <div style={{ padding: '24px 32px' }} {...props}>
+          {children}
+        </div>
       </List>
     </Grid>
   )

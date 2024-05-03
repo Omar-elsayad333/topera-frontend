@@ -6,6 +6,8 @@ const withNextIntl = createNextIntlPlugin()
 const nextConfig = {
   reactStrictMode: false,
   images: {
+    loader:'custom',
+    loaderFile:'src/utils/imageLoader.ts',
     remotePatterns: [
       {
         protocol: 'https',
