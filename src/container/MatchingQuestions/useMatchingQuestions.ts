@@ -34,22 +34,22 @@ const useMatchingQuestions = () => {
 
   const schema =
     currentStep === EMatchingQuestionsSteps.StepOne
-      ? object({
+      ? (object({
           basicProgrammingLanguagesKnowledge: array().min(1).required(),
           proficientProgrammingLanguages: array().min(1).required(),
           preferredCommunicationMethod: array().min(1).required(),
           TrackOfInterest: array().min(1).required(),
           technologyOfInterest: array().min(1).required(),
           preferredLearningStyle: array().min(1).required(),
-        })
-      : object({
+        }) as any)
+      : (object({
           learningFrequency: array().min(1).required(),
           weeklyHoursDedicatedToLearningAndCollaboration: number().required(),
           motivationForLearningAndCollaboration: array().min(1).required(),
           goalsOnThePlatform: array().min(1).required(),
           comfortLevelWithRemoteWorkOrCollaboration: object().required(),
           projectTypeInterest: array().min(1).required(),
-        })
+        }) as any)
 
   const defaultValues = {
     basicProgrammingLanguagesKnowledge: [],
@@ -72,14 +72,14 @@ const useMatchingQuestions = () => {
     handleSubmit,
     watch,
     trigger,
-  } = useForm<StepOneForm | StepTwoForm>({
+  } = useForm<any>({
     resolver: yupResolver(schema),
     defaultValues,
   })
 
   const tracksValue = watch('TrackOfInterest')
 
-  const sendData = async (data: StepOneForm | StepTwoForm) => {
+  const sendData = async (data: Partial<IMatchingQuestionsForm>) => {
     const body: any = {}
     Object.keys(data).forEach((item) => {
       if (Array.isArray(data[item as keyof (StepOneForm | StepTwoForm)])) {
@@ -126,7 +126,7 @@ const useMatchingQuestions = () => {
   }, [allFieldsData, tracksValue])
 
   useEffect(() => {
-    const frameWorks = tracksValue.flatMap((track) => track.frameworks)
+    const frameWorks = tracksValue.flatMap((track: { frameworks: any[] }) => track.frameworks)
     setFrameWorks(frameWorks)
   }, [tracksValue])
   useEffect(() => {
