@@ -10,7 +10,7 @@ export const Routes = {
   verifyCode: '/verify-code',
   newPassword: '/new-password',
   confirmEmail: '/confirm-email',
-
+  welcome: '/welcome',
   // PUBLIC
   home: '/',
   test: '/test',
@@ -36,6 +36,7 @@ export const getAuthRoutes = () => {
     Routes.verifyCode,
     Routes.newPassword,
     Routes.confirmEmail,
+    Routes.welcome,
   ]
 }
 
@@ -56,6 +57,7 @@ export const getPublicRoutes = () => {
     Routes.confirmEmail,
     Routes.matching,
     Routes.test,
+    Routes.welcome,
   ]
 }
 

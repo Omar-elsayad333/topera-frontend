@@ -53,7 +53,7 @@
     "enterNewPassword": "Enter New Password",
     "password": "Password",
     "passwordConfirmation": "Password Confirmation",
-    "backToSignIn":"Back To Sign In"
+    "backToSignIn": "Back To Sign In"
   },
   "signUp": {
     "head": "Sign up",
@@ -82,5 +82,10 @@
   "finishSignup": {
     "head": "Finish sign up",
     "submit": "submit"
+  },
+  "welcomeToTopera": {
+    "gtToSignIn": "Go To Sign In",
+    "welcomeHeadText": "Welcome to Topera!",
+    "welcomeHelperText": "You’ve successfully confirmed your account."
   }
 }
