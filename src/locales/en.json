@@ -72,6 +72,13 @@
     "back": "Back",
     "submit": "Submit"
   },
+  "matchingQuestions": {
+    "head": "Please answer these questions ",
+    "of": "of",
+    "step": "Step",
+    "continue": "Continue",
+    "back": "Back"
+  },
   "finishSignup": {
     "head": "Finish sign up",
     "submit": "submit"

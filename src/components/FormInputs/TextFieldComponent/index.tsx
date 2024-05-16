@@ -16,9 +16,10 @@ interface IProps {
   name: string
   label?: string
   placeholder?: string
+  type?: 'text' | 'number'
 }
 
-const TextFieldComponent = ({ name, control, id, placeholder, error, label, ...args }: IProps) => {
+const TextFieldComponent = ({ name, control, id, placeholder, error, label, type = 'text', ...args }: IProps) => {
   return (
     <FormControl fullWidth error={!!error}>
       <Controller
@@ -30,7 +31,7 @@ const TextFieldComponent = ({ name, control, id, placeholder, error, label, ...a
             fullWidth
             id={id}
             label={label}
-            type="text"
+            type={type}
             value={field.value}
             onChange={field.onChange}
             placeholder={placeholder}
