@@ -1,5 +1,5 @@
 // Types
-import { ILevel } from '@/types/pages/framework'
+import { IFramework } from '@/types/pages/framework'
 
 // Services
 import { serverAction } from '@/services/actions'
@@ -14,9 +14,9 @@ interface IProps {
 }
 
 const Framework = async ({ params }: IProps) => {
-  const data: ILevel[] = await serverAction(`/roadmaps/framework/${params.id}`)
+  const { data }: { data: IFramework } = await serverAction(`/roadmaps/framework/${params.id}`)
 
-  return <>{data?.length > 0 && <FrameworkDetails data={data} />}</>
+  return <section>{data && <FrameworkDetails data={data} />}</section>
 }
 
 export default Framework

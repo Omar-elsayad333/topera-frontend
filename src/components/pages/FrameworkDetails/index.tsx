@@ -1,33 +1,41 @@
 'use client'
-import { useState } from 'react'
 
 // Types
-import { ILevel, IStage } from '@/types/pages/framework'
+import { IFramework } from '@/types/pages/framework'
+
+// Containers
+import useFramework from '@/container/roadmapsFramework/useFramework'
 
 // Components
 import LevelSelect from './LevelSelect'
 import SkillComponent from './SkillComponent'
+import StagesComponent from './StagesComponent'
+import BlurComponent from '@/components/shared/AnimationComponents/BlurComponent'
 
 // MUI
-import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
+import Stack from '@mui/material/Stack'
 
-const FrameworkDetails = ({ data }: { data: ILevel[] }) => {
-  const [selectedLevel, setSelectedLevel] = useState<ILevel>()
-  const [selectedStage, setSelectedStage] = useState<IStage>()
+const FrameworkDetails = ({ data }: { data: IFramework }) => {
+  const { states, actions } = useFramework(data)
 
   return (
-    <section>
-      <LevelSelect levels={data} />
-      <Box>
-        <Box>
-          {selectedStage &&
-            selectedStage.skills?.length > 0 &&
-            selectedStage?.skills.map((item) => <SkillComponent key={item.id} skill={item} />)}
-        </Box>
-        <Box>video</Box>
-        <Box>stages</Box>
-      </Box>
-    </section>
+    <BlurComponent>
+      <Stack gap={'50px'}>
+        <LevelSelect levels={data.levels} />
+        <Grid container spacing={2}>
+          <Grid item xs={12} lg={7}>
+            {states?.selectedStage && <SkillComponent skills={states.selectedStage.skills} />}
+          </Grid>
+          <Grid item xs={12} lg={4}>
+            video
+          </Grid>
+          <Grid item xs={12} lg={1}>
+            {states?.selectedLevel && <StagesComponent stages={states.selectedLevel.stages} />}
+          </Grid>
+        </Grid>
+      </Stack>
+    </BlurComponent>
   )
 }
 

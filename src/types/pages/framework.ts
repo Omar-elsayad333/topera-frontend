@@ -16,3 +16,7 @@ export interface IStage extends IBase {
 export interface ILevel extends IBase {
   stages: IStage[]
 }
+
+export interface IFramework extends IBase {
+  levels: ILevel[]
+}
