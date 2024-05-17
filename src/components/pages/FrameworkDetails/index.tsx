@@ -21,8 +21,12 @@ const FrameworkDetails = ({ data }: { data: IFramework }) => {
 
   return (
     <BlurComponent>
-      <Stack gap={'50px'}>
-        <LevelSelect levels={data.levels} />
+      <Stack gap={'50px'} sx={{ mt: 4 }}>
+        <LevelSelect
+          levels={data.levels}
+          selectedLevel={states.selectedLevel}
+          handleSelecteLevel={actions.handleSelecteLevel}
+        />
         <Grid container spacing={2}>
           <Grid item xs={12} lg={7}>
             {states?.selectedStage && <SkillComponent skills={states.selectedStage.skills} />}

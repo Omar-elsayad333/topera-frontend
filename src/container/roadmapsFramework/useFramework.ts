@@ -8,7 +8,10 @@ const useFramework = (data: IFramework) => {
   const [selectedLevel, setSelectedLevel] = useState<ILevel>(data?.levels[0])
   const [selectedStage, setSelectedStage] = useState<IStage>(data?.levels[0].stages[0])
 
-  const handleSelecteLevel = () => {}
+  const handleSelecteLevel = (value: ILevel) => {
+    setSelectedLevel(value)
+    setSelectedStage(value.stages[0])
+  }
 
   const handleSelecteStage = () => {}
 
