@@ -1,10 +1,13 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-import { Controller } from 'react-hook-form'
+import { Controller, FieldErrors } from 'react-hook-form'
 import FormControl from '@mui/material/FormControl'
 import { Autocomplete, TextField, MenuItem } from '@mui/material'
 import Chip from '@mui/material/Chip'
 import FormHelperText from '@mui/material/FormHelperText'
+
+import InputAdornment from '@mui/material/InputAdornment'
+import IconButton from '@mui/material/IconButton'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 interface IMultiSelectComponentProps<T extends object> {
   id?: string
   label?: string
@@ -16,6 +19,7 @@ interface IMultiSelectComponentProps<T extends object> {
   menuItemSx?: object
   control: any
   minSelect?: number
+  maxSelect?: number
   errors?: any
 }
 
@@ -30,6 +34,7 @@ const MultiSelectComponent = <T extends object>({
   name,
   errors,
   minSelect = 0,
+  maxSelect = options.length,
   control,
 }: IMultiSelectComponentProps<T>) => {
   return (
@@ -49,10 +54,29 @@ const MultiSelectComponent = <T extends object>({
               const uniArray = newValue.filter(
                 (item, index, self) => index === self.findIndex((t) => t[inputValue] === item[inputValue])
               )
-              field.onChange(uniArray)
+              maxSelect >= uniArray.length
+                ? field.onChange(uniArray)
+                : field.onChange(uniArray.slice(uniArray.length - maxSelect))
             }}
             value={field.value}
-            renderInput={(params) => <TextField error={!!errors} {...params} label={label} />}
+            renderInput={(params) => (
+              <TextField
+                variant={'standard'}
+                error={!!errors}
+                {...params}
+                label={label}
+                InputProps={{
+                  ...params.InputProps,
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton aria-label="toggle menu list">
+                        <KeyboardArrowDownIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            )}
             renderTags={(value: readonly T[], getTagProps) =>
               value.map((option: T, index: number) => (
                 <Chip
@@ -60,6 +84,7 @@ const MultiSelectComponent = <T extends object>({
                   variant="outlined"
                   {...getTagProps({ index })}
                   key={index}
+                  datatype={'multiSelect'}
                   label={option[inputLabel] as string}
                   disabled={value.length === minSelect}
                 />

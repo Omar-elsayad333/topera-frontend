@@ -95,6 +95,16 @@ export const components: Components<Theme> = {
           width: 'fit-content',
           padding: '20px',
         }),
+        ...(ownerState.datatype === 'multiSelect' && {
+          backgroundColor: '#1473E6E5',
+          color: '#ffff',
+          '.MuiChip-deleteIcon': {
+            color: '#ffff',
+            '&:hover': {
+              color: '#ffff',
+            },
+          },
+        }),
       }),
     },
   },

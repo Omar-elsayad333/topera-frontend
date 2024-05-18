@@ -1,13 +1,13 @@
 'use client'
-import React, { useState } from 'react'
+import React from 'react'
 import FormControl from '@mui/material/FormControl'
 import { Autocomplete, MenuItem, TextField } from '@mui/material'
 import { Controller } from 'react-hook-form'
 import FormHelperText from '@mui/material/FormHelperText'
 
-interface ISelectComponentProps<T extends object> {
+interface ISelectComponentProps<T extends { disabled?: boolean; default?: boolean }> {
   label: string
-  id: string
+  id?: string
   options: T[]
   inputLabel: keyof T
   inputValue: keyof T
@@ -17,7 +17,7 @@ interface ISelectComponentProps<T extends object> {
   menuItemSx?: object
 }
 
-const SelectComponent = <T extends object>({
+const SelectComponent = <T extends { disabled?: boolean; default?: boolean }>({
   label,
   id,
   options,
@@ -41,9 +41,15 @@ const SelectComponent = <T extends object>({
             value={field.value}
             getOptionLabel={(option: T) => (option[inputLabel] ? String(option[inputLabel]) : '')}
             onChange={(event, newValue) => field.onChange(newValue)}
-            renderInput={(params) => <TextField error={!!errors} {...params} label={label} />}
+            renderInput={(params) => <TextField variant={'standard'} error={!!errors} {...params} label={label} />}
             renderOption={(props, option: T) => (
-              <MenuItem sx={menuItemSx} component={'li'} {...props} key={option[inputValue] as React.Key}>
+              <MenuItem
+                disabled={(option['disabled'] as boolean) ?? false}
+                sx={menuItemSx}
+                component={'li'}
+                {...props}
+                key={option[inputValue] as React.Key}
+              >
                 {option[inputLabel] as string}
               </MenuItem>
             )}
