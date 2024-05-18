@@ -42,11 +42,13 @@ const ArticleComponent: React.FC<IProps> = ({ id, open, handleDrawer }) => {
   return (
     <div>
       <Drawer anchor="left" open={open} onClose={() => handleDrawer(false)}>
-        <Container sx={{ position: 'relative', backgroundColor: theme.palette.background, pt: 4, height: '100%' }}>
+        <Container
+          sx={{ position: 'relative', backgroundColor: theme.palette.background.default, pt: 4, height: '100%' }}
+        >
           <CloseIcon
             color="primary"
             onClick={() => handleDrawer(false)}
-            sx={{ position: 'absolute', top: '20px', right: '20px' }}
+            sx={{ position: 'absolute', top: '20px', right: '20px', cursor: 'pointer' }}
           />
           <Typography variant="h2" color={'primary'} mb={'50px'}>
             {data.name}
@@ -57,9 +59,7 @@ const ArticleComponent: React.FC<IProps> = ({ id, open, handleDrawer }) => {
                 <Typography variant="h5" color={'primary'}>
                   {item.head}
                 </Typography>
-                <Typography variant="h6">
-                  {item.body}
-                </Typography>
+                <Typography variant="h6">{item.body}</Typography>
               </Stack>
             ))}
           </Stack>
