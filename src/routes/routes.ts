@@ -11,6 +11,7 @@ export const Routes = {
   newPassword: '/new-password',
   confirmEmail: '/confirm-email',
   welcome: '/welcome',
+
   // PUBLIC
   home: '/',
   test: '/test',
@@ -25,7 +26,7 @@ export const Routes = {
   // PRIVATE
   profile: '/profile',
   editProfile: '/edit-profile',
-  matchingChat: '/matching-chat',
+  matchingChat: '/matching-chat/',
 }
 
 // Get auth routes

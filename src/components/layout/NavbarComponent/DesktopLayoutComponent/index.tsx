@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Orbitron } from 'next/font/google'
+import { Saira } from 'next/font/google'
 import { useParams, usePathname } from 'next/navigation'
 
 // Next intl
@@ -15,7 +15,7 @@ import Box from '@mui/material/Box'
 import { useTheme } from '@mui/material'
 import Button from '@mui/material/Button'
 
-const orbitron = Orbitron({
+const orbitron = Saira({
   display: 'swap',
   subsets: ['latin'],
 })

@@ -18,6 +18,7 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: Routes.login,
+    signOut: Routes.login,
     error: Routes.notFound,
   },
   providers: [

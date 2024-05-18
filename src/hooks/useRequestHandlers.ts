@@ -27,7 +27,7 @@ const useRequestHandlers = () => {
       })
       data = response.data.data
     } catch (err: any) {
-      error = err.response.data
+      error = err.response?.data
     } finally {
       !noLoading && setLoading(false)
     }

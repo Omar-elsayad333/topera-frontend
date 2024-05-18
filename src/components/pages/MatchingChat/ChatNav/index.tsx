@@ -13,8 +13,7 @@ import Drawer from '@mui/material/Drawer'
 
 const ChatNav: React.FC = () => {
   const theme = useTheme()
-  const mobileNav = useMatching((state) => state.mobileNav)
-  const updateMobileNav = useMatching((state) => state.updateMobileNav)
+  const { mobileNav, updateMobileNav } = useMatching()
 
   const handleDrawerClose = () => {
     updateMobileNav()
@@ -28,7 +27,6 @@ const ChatNav: React.FC = () => {
         flexShrink: { sm: 0 },
         borderInline: `1px solid ${theme.palette.text.primary}`,
       }}
-      aria-label="mailbox folders"
     >
       <Drawer
         variant="temporary"
