@@ -31,7 +31,7 @@ const CareerButtonComponent = ({ careerName, articalId }: { careerName: string; 
       border: `1px solid #00000066`,
     },
   }
-
+  
   const handleDrawer = (state: boolean) => {
     setDrawerState(state)
   }
@@ -41,7 +41,7 @@ const CareerButtonComponent = ({ careerName, articalId }: { careerName: string; 
       <Button onClick={() => handleDrawer(true)} sx={styles.buttonStyle}>
         <Stack direction={'row'} gap={2} alignItems={'center'} justifyContent={'flex-start'}>
           <Image width={30} height={30} alt={careerName} src={GraduateIcon} />
-          <Typography color={'black'} variant="h6">{`What is ${careerName}?`}</Typography>
+          <Typography color={'primary'} variant="h6">{`What is ${careerName}?`}</Typography>
         </Stack>
         <Image alt={careerName} src={RightArrow} />
       </Button>

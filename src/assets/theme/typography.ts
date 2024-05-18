@@ -13,26 +13,44 @@ export const typography: TypographyOptions = {
   h1: {
     fontWeight: Fonts.BOLD,
     fontSize: '3.5rem',
+    '@media (max-width:1000px)': {
+      fontSize: '3rem',
+    },
   },
   h2: {
     fontWeight: Fonts.BOLD,
     fontSize: '3rem',
+    '@media (max-width:1000px)': {
+      fontSize: '2.5rem',
+    },
   },
   h3: {
     fontWeight: Fonts.BOLD,
     fontSize: '2.5rem',
+    '@media (max-width:1000px)': {
+      fontSize: '2rem',
+    },
   },
   h4: {
     fontWeight: Fonts.SEMI_BOLD,
     fontSize: '2rem',
+    '@media (max-width:1000px)': {
+      fontSize: '1.5rem',
+    },
   },
   h5: {
     fontWeight: Fonts.MEDIUM,
     fontSize: '1.5rem',
+    '@media (max-width:1000px)': {
+      fontSize: '1rem',
+    },
   },
   h6: {
     fontWeight: Fonts.MEDIUM,
     fontSize: '1rem',
+    '@media (max-width:1000px)': {
+      fontSize: '.8rem',
+    },
   },
   subtitle1: {
     fontWeight: Fonts.LIGHT,

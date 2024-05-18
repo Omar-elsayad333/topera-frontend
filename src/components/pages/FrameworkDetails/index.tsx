@@ -28,14 +28,20 @@ const FrameworkDetails = ({ data }: { data: IFramework }) => {
           handleSelecteLevel={actions.handleSelecteLevel}
         />
         <Grid container spacing={2}>
-          <Grid item xs={12} lg={7}>
+          <Grid item xs={10} lg={7}>
             {states?.selectedStage && <SkillComponent skills={states.selectedStage.skills} />}
           </Grid>
-          <Grid item xs={12} lg={4}>
+          <Grid item lg={3} sx={{ display: { xs: 'none', lg: 'block' } }}>
             video
           </Grid>
-          <Grid item xs={12} lg={1}>
-            {states?.selectedLevel && <StagesComponent stages={states.selectedLevel.stages} />}
+          <Grid item xs={2}>
+            {states?.selectedLevel && (
+              <StagesComponent
+                stages={states.selectedLevel.stages}
+                selectedStageId={states.selectedStage.id}
+                handleSelecteStage={actions.handleSelecteStage}
+              />
+            )}
           </Grid>
         </Grid>
       </Stack>

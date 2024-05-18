@@ -15,7 +15,7 @@ const SkillComponent = ({ skills }: { skills: ISkill[] }) => {
     <div>
       {skills?.length > 0 &&
         skills.map((item) => (
-          <Box sx={{ mb: '32px' }}>
+          <Box sx={{ mb: '32px' }} key={item.id}>
             <Typography sx={{ mb: '24px' }} color={'primary'} variant="h5" fontWeight={600}>
               {item.name}
             </Typography>

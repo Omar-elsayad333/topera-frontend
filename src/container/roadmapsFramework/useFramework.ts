@@ -13,7 +13,9 @@ const useFramework = (data: IFramework) => {
     setSelectedStage(value.stages[0])
   }
 
-  const handleSelecteStage = () => {}
+  const handleSelecteStage = (stage: IStage) => {
+    setSelectedStage(stage)
+  }
 
   return {
     states: {

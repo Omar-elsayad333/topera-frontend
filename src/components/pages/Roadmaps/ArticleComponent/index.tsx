@@ -9,6 +9,7 @@ import useRequestHandlers from '@/hooks/useRequestHandlers'
 
 // MUI
 import Stack from '@mui/material/Stack'
+import { useTheme } from '@mui/material'
 import Drawer from '@mui/material/Drawer'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
@@ -21,6 +22,7 @@ interface IProps {
 }
 
 const ArticleComponent: React.FC<IProps> = ({ id, open, handleDrawer }) => {
+  const theme = useTheme()
   const { handleError } = useHandleError()
   const { getHandler } = useRequestHandlers()
   const [data, setData] = useState<IArticleDetails | null>(null)
@@ -40,7 +42,7 @@ const ArticleComponent: React.FC<IProps> = ({ id, open, handleDrawer }) => {
   return (
     <div>
       <Drawer anchor="left" open={open} onClose={() => handleDrawer(false)}>
-        <Container sx={{ position: 'relative', backgroundColor: '#F4F4FF', pt: 4, height: '100%' }}>
+        <Container sx={{ position: 'relative', backgroundColor: theme.palette.background, pt: 4, height: '100%' }}>
           <CloseIcon
             color="primary"
             onClick={() => handleDrawer(false)}
@@ -55,7 +57,7 @@ const ArticleComponent: React.FC<IProps> = ({ id, open, handleDrawer }) => {
                 <Typography variant="h5" color={'primary'}>
                   {item.head}
                 </Typography>
-                <Typography variant="h6" color={'black'}>
+                <Typography variant="h6">
                   {item.body}
                 </Typography>
               </Stack>

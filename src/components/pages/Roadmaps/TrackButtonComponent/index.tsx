@@ -24,7 +24,7 @@ const TrackButtonComponent: React.FC<IProps> = ({ selectedItem, selected, select
     borderRadius: '4px',
     border: selected ? 'none' : `1px solid ${theme.palette.grey[400]}`,
     backgroundColor: selected ? theme.palette.primary.main : 'transparent',
-    color: selected ? theme.palette.common.white : theme.palette.common.black,
+    ...(selected && {color: theme.palette.common.white}),
   }
 
   return (

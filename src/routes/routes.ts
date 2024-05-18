@@ -17,6 +17,7 @@ export const Routes = {
   news: '/news',
   roadmaps: '/roadmaps',
   careers: '/roadmaps/careers/',
+  framework: '/roadmaps/framework/',
   contactUs: '/contact-us',
   matching: '/matching',
   matchingQuestions: '/matching/questions',
