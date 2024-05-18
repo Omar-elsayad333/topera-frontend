@@ -45,7 +45,6 @@ export const DARK_PALETTE_COLORS: Partial<PaletteOptions> = {
     main: '#20C30D',
   },
   background: {
-    // paper: 'red', // Gray 800 - Background of "Paper" based component
     default: '#121212',
   },
 }
