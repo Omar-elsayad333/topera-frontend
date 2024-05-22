@@ -82,6 +82,9 @@
     "experiences": "Experiences",
     "education": "Education",
     "skills": "Skills",
-    "showAllSkills": "Show all skills"
+    "showAllSkills": "Show all skills",
+    "showLess": "Show Less",
+    "tracks": "Tracks",
+    "showAllTracks": "Show all tracks"
   }
 }

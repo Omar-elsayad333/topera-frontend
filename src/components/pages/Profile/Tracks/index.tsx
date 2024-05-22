@@ -1,59 +1,59 @@
-// Components
-import ComponentHolder from '@/components/pages/Profile/ComponentHolder'
-import LinearProgress from '@mui/material/LinearProgress'
-import Button from '@mui/material/Button'
-import Grid from '@mui/material/Grid'
-
-// Icon
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
-
 // Hooks
 import { useTranslations } from 'next-intl'
-import Typography from '@mui/material/Typography'
-import { TSkill } from '@/container/Profile/types'
 import { useState } from 'react'
 
-const Skills = ({ skills }: { skills: TSkill[] }) => {
+// Types
+import { TTrack } from '@/container/Profile/types'
+
+// Components
+import ComponentHolder from '@/components/pages/Profile/ComponentHolder'
+
+// Mui
+import Grid from '@mui/material/Grid'
+import Typography from '@mui/material/Typography'
+import LinearProgress from '@mui/material/LinearProgress'
+import Button from '@mui/material/Button'
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
+
+export default function Tracks({ tracks }: { tracks: TTrack[] }) {
   const t = useTranslations('profile')
   const [cutted, setCutted] = useState<boolean>(true)
-  const cutSKills = cutted ? skills.slice(0, 3) : skills
+  const cutTracks = cutted ? tracks.slice(0, 3) : tracks
   return (
-    <ComponentHolder title={'skills'}>
+    <ComponentHolder title={'tracks'}>
       <Grid container gap={'32px'}>
-        {cutSKills.map(({ skill, rate }, i) => {
+        {cutTracks.map(({ track, level }, i) => {
           return (
             <Grid container key={i} item lg={3} md={5} xs={12} direction={'column'}>
               <Typography variant={'h6'} sx={{ color: (theme) => theme.palette.primary.main, width: '100%' }}>
-                {skill}
+                {track}
               </Typography>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
                 <LinearProgress
                   variant="determinate"
                   color={'primary'}
-                  value={rate * 10}
+                  value={level * 10}
                   sx={{ maxHeight: '3px', width: '60%', transform: 'scaleX(-1)' }}
                   key={i}
                 />
                 <Typography variant={'h6'} sx={{ color: (theme) => theme.palette.primary.main, width: '30%' }}>
-                  {rate * 10}%
+                  {level * 10}%
                 </Typography>
               </div>
             </Grid>
           )
         })}
       </Grid>
-      {skills.length > 3 && (
+      {tracks.length > 3 && (
         <Button
           onClick={() => setCutted(!cutted)}
           sx={{ marginTop: '24px' }}
           variant={'contained'}
           endIcon={<KeyboardArrowRightIcon />}
         >
-          {!cutted ? t('showLess') : t('showAllSkills')}
+          {!cutted ? t('showLess') : t('showAllTracks')}
         </Button>
       )}
     </ComponentHolder>
   )
 }
-
-export default Skills

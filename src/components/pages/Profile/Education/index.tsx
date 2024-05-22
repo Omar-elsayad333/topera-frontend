@@ -1,20 +1,31 @@
+// Components
 import ComponentHolder from '@/components/pages/Profile/ComponentHolder'
 import ListItem from '@mui/material/ListItem'
 import Image from 'next/image'
 import Typography from '@mui/material/Typography'
 
-interface IEducationsProps {
-  educations: { icon: string; schoolName: string; degreeName: string }[]
+// Utils
+import { imagesFilter } from '@/utils'
+
+// Types
+import { TEducation } from '@/container/Profile/types'
+
+export interface IEducationsProps {
+  educations: TEducation[]
 }
 const Education = ({ educations }: IEducationsProps) => {
   return (
     <ComponentHolder title={'education'}>
-      {educations.map((item, index) => (
-        <ListItem sx={{ display: 'flex', gap: '30px' }} key={index}>
-          <Image src={item.icon} alt={item.schoolName} width={85} height={85} />
-          <Typography variant={'h6'}>{item.degreeName}</Typography>
-        </ListItem>
-      ))}
+      {educations &&
+        educations.map((item, index) => (
+          <ListItem sx={{ display: 'flex', gap: '30px' }} key={index}>
+            <Image src={imagesFilter(item as any, 'icon', item.school)} alt={item.school} width={85} height={85} />
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <Typography variant={'h6'}>{item.school}</Typography>
+              <Typography variant={'subtitle1'}>{item.degree}</Typography>
+            </div>
+          </ListItem>
+        ))}
     </ComponentHolder>
   )
 }

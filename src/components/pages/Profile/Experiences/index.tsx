@@ -4,20 +4,26 @@ import ListItem from '@mui/material/ListItem'
 import Image from 'next/image'
 import Typography from '@mui/material/Typography'
 
-interface IProps {
-  experiences: { companyName: string; icon: string; location: string; jobStatus: string; title: string }[]
+// Types
+import { TExperience } from '@/container/Profile/types'
+
+// Utils
+import { imagesFilter } from '@/utils'
+
+export interface IExperienceProps {
+  experiences: TExperience[]
 }
 
-const Experiences = ({ experiences }: IProps) => {
+const Experiences = ({ experiences }: IExperienceProps) => {
   return (
     <ComponentHolder title={'experiences'}>
       {experiences.map((item, index) => (
         <ListItem sx={{ display: 'flex', gap: '30px' }} key={index}>
-          <Image src={item.icon} alt={item.companyName} width={85} height={85} />
+          <Image src={imagesFilter(item as any, 'icon', item.company)} alt={item.company} width={85} height={85} />
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <Typography variant={'h6'}>{item.title}</Typography>
             <Typography variant={'subtitle2'}>
-              {item.title}.{item.jobStatus}
+              {item.company}.{item.location}
             </Typography>
           </div>
         </ListItem>
