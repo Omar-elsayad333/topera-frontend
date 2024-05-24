@@ -56,7 +56,7 @@ const SettingComponent: React.FC = () => {
           />
         </IconButton>
       </Tooltip>
-
+      {/* 
       <Menu
         sx={{ mt: '45px' }}
         id="menu-appbar"
@@ -78,7 +78,7 @@ const SettingComponent: React.FC = () => {
             <Typography textAlign="center">{locale.text}</Typography>
           </MenuItem>
         ))}
-      </Menu>
+      </Menu> */}
     </Box>
   )
 }
