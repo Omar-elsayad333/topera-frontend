@@ -39,7 +39,11 @@ const Profile: NextPage = () => {
       </Grid>
       <Grid height={'fit-content'} gap={'16px'} container justifyItems={'start'} item lg={3} md={3} xs={12}>
         <Resume />
-        <Intro />
+        <Intro
+          school={data?.profileData?.educations.reverse()[0]}
+          currentCompany={data.profileData.experiences.reverse()[0]}
+          fullLocation={{ city: data.profileData?.city, country: data.profileData?.country }}
+        />
       </Grid>
     </Grid>
   )

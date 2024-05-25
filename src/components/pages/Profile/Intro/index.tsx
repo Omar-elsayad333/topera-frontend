@@ -20,8 +20,38 @@ import { useTranslations } from 'next-intl'
 // Next Image
 import Image from 'next/image'
 
-const Intro = () => {
+// Types
+import { ESocialLogin } from '@/types/enums'
+import { ReactNode } from 'react'
+import { TEducation, TExperience } from '@/container/Profile/types'
+import { object } from 'yup'
+export interface IProps {
+  currentCompany: TExperience
+  school: TEducation
+  fullLocation: { city: string; country: string }
+}
+
+const Intro = ({ currentCompany, school, fullLocation }: IProps) => {
   const t = useTranslations('profile')
+
+  const renderData: Record<ESocialLogin, ReactNode> = {
+    0: (
+      <ListItem sx={{ display: 'flex', gap: '16px' }}>
+        <AlternateEmailIcon color={'disabled'} />
+        <Typography variant={'subtitle1'} sx={{ fontWeight: '500' }}>
+          Email
+        </Typography>
+      </ListItem>
+    ),
+    1: (
+      <ListItem sx={{ display: 'flex', gap: '16px' }}>
+        <Image height={'24'} src={Discord} alt={'discord-icon'} />
+        <Typography variant={'subtitle1'} sx={{ fontWeight: '500' }}>
+          github
+        </Typography>
+      </ListItem>
+    ),
+  }
   return (
     <Grid item xs={12}>
       <List sx={{ backgroundColor: '#ffff', borderRadius: '10px' }}>
@@ -34,21 +64,23 @@ const Intro = () => {
         <ListItem sx={{ display: 'flex', gap: '16px' }}>
           <BusinessCenterIcon color={'disabled'} />
           <Typography variant={'subtitle1'} sx={{ fontWeight: '500' }}>
-            mohamed salah
+            {t('work_at', { title: currentCompany?.title, company: currentCompany?.company })}
           </Typography>
         </ListItem>
         <ListItem sx={{ display: 'flex', gap: '16px' }}>
           <SchoolIcon color={'disabled'} />
           <Typography variant={'subtitle1'} sx={{ fontWeight: '500' }}>
-            graduation of
+            {t('went_to', { school: school?.school })}
           </Typography>
         </ListItem>
-        <ListItem sx={{ display: 'flex', gap: '16px' }}>
-          <LocationOnIcon color={'disabled'} />
-          <Typography variant={'subtitle1'} sx={{ fontWeight: '500' }}>
-            locate in
-          </Typography>
-        </ListItem>
+        {Object.values(fullLocation).some((e) => e !== '') && (
+          <ListItem sx={{ display: 'flex', gap: '16px' }}>
+            <LocationOnIcon color={'disabled'} />
+            <Typography variant={'subtitle1'} sx={{ fontWeight: '500' }}>
+              {t('lives_in', fullLocation)}
+            </Typography>
+          </ListItem>
+        )}
         <ListItem sx={{ display: 'flex', gap: '16px' }}>
           <AlternateEmailIcon color={'disabled'} />
           <Typography variant={'subtitle1'} sx={{ fontWeight: '500' }}>

@@ -13,6 +13,8 @@ const useProfile = () => {
     experiences: [],
     skills: [],
     tracks: [],
+    country: '',
+    city: '',
   })
   const getData = async () => {
     const { data, error } = await getHandler({ endpoint: '/profile' })
@@ -26,6 +28,9 @@ const useProfile = () => {
   useEffect(() => {
     getData()
   }, [])
+
+  // Dev
+
   return {
     data: { profileData },
   }

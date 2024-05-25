@@ -12,6 +12,7 @@ import DescriptionIcon from '@mui/icons-material/Description'
 // Icon
 import DownloadIcon from '@/assets/icons/downloadIcon.svg'
 import Image from 'next/image'
+
 const Resume = () => {
   const t = useTranslations('profile')
 

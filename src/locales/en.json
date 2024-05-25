@@ -85,6 +85,9 @@
     "showAllSkills": "Show all skills",
     "showLess": "Show Less",
     "tracks": "Tracks",
-    "showAllTracks": "Show all tracks"
+    "showAllTracks": "Show all tracks",
+    "work_at": "{title} at {company}",
+    "went_to": "Went to {school}",
+    "lives_in": "Lives in {country},{city}"
   }
 }

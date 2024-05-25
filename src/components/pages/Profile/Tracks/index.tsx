@@ -32,12 +32,12 @@ export default function Tracks({ tracks }: { tracks: TTrack[] }) {
                 <LinearProgress
                   variant="determinate"
                   color={'primary'}
-                  value={level * 10}
+                  value={level}
                   sx={{ maxHeight: '3px', width: '60%', transform: 'scaleX(-1)' }}
                   key={i}
                 />
                 <Typography variant={'h6'} sx={{ color: (theme) => theme.palette.primary.main, width: '30%' }}>
-                  {level * 10}%
+                  {level}%
                 </Typography>
               </div>
             </Grid>
