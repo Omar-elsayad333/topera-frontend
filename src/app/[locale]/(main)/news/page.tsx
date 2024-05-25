@@ -1,5 +1,13 @@
+import PostComponent from '@/components/pages/News/PostComponent'
+
+import { Stack } from '@mui/material'
+
 const News = () => {
-  return <p>news</p>
+  return (
+    <Stack>
+      <PostComponent />
+    </Stack>
+  )
 }
 
 export default News
