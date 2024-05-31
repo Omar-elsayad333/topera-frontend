@@ -72,6 +72,13 @@
     "back": "Back",
     "submit": "Submit"
   },
+  "matchingQuestions": {
+    "head": "Please answer these questions ",
+    "of": "of",
+    "step": "Step",
+    "continue": "Continue",
+    "back": "Back"
+  },
   "finishSignup": {
     "head": "Finish sign up",
     "submit": "submit"
@@ -94,5 +101,10 @@
     "inActive": "In Available",
     "tab_to_click": "Tab to Change",
     "edit": "Edit"
+  },
+  "welcomeToTopera": {
+    "gtToSignIn": "Go To Sign In",
+    "welcomeHeadText": "Welcome to Topera!",
+    "welcomeHelperText": "You’ve successfully confirmed your account."
   }
 }

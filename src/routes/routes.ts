@@ -10,12 +10,15 @@ export const Routes = {
   verifyCode: '/verify-code',
   newPassword: '/new-password',
   confirmEmail: '/confirm-email',
+  welcome: '/welcome',
 
   // PUBLIC
   home: '/',
   test: '/test',
   news: '/news',
   roadmaps: '/roadmaps',
+  careers: '/roadmaps/careers/',
+  framework: '/roadmaps/framework/',
   contactUs: '/contact-us',
   matching: '/matching',
   matchingQuestions: '/matching/questions',
@@ -23,7 +26,7 @@ export const Routes = {
   // PRIVATE
   profile: '/profile',
   editProfile: '/edit-profile',
-  matchingChat: '/matching-chat',
+  matchingChat: '/matching-chat/',
 }
 
 // Get auth routes
@@ -36,6 +39,7 @@ export const getAuthRoutes = () => {
     Routes.verifyCode,
     Routes.newPassword,
     Routes.confirmEmail,
+    Routes.welcome,
   ]
 }
 
@@ -46,6 +50,7 @@ export const getPublicRoutes = () => {
     Routes.home,
     Routes.news,
     Routes.roadmaps,
+    Routes.careers,
     Routes.contactUs,
     Routes.login,
     Routes.signup,
@@ -57,6 +62,7 @@ export const getPublicRoutes = () => {
     Routes.matching,
     Routes.test,
     Routes.editProfile,
+    Routes.welcome,
   ]
 }
 

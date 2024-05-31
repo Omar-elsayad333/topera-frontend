@@ -95,13 +95,15 @@ export const components: Components<Theme> = {
           width: 'fit-content',
           padding: '20px',
         }),
-        ...(ownerState.datatype === 'skillChip' && {
-          backgroundColor: '#4E4EBC',
+        ...(ownerState.datatype === 'multiSelect' && {
+          backgroundColor: '#1473E6E5',
           color: '#ffff',
-          borderRadius: '5px',
-          fontSize: '16px',
-          width: 'fit-content',
-          padding: '5px 10px',
+          '.MuiChip-deleteIcon': {
+            color: '#ffff',
+            '&:hover': {
+              color: '#ffff',
+            },
+          },
         }),
       }),
     },

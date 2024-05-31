@@ -24,7 +24,7 @@ const useChatNav = (ChatType: any) => {
     getPageData()
   }, [matchingStore.type, matchingStore.workArchiveState, matchingStore.learnArchiveState])
 
-  const getPageData = async (noLoading: boolean = false) => {
+  const getPageData = async (noLoading: boolean = false) => {    
     let endpoint
     if (ChatType === 0) {
       endpoint = matchingStore.workArchiveState

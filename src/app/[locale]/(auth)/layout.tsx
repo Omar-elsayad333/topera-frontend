@@ -4,13 +4,20 @@ import { PropsWithChildren } from 'react'
 // MUI
 import { Box, Grid } from '@mui/material'
 
+// Services
+import { getServerAuthSession } from '@/services/auth'
+
 // Assets
 import logo from '@/assets/images/logo.svg'
 import authBg from '@/assets/images/auth_bg_image.jpg'
+import { redirect } from 'next/navigation'
 
 interface IProps extends PropsWithChildren {}
 
-export default function Layout({ children }: IProps) {
+export default async function Layout({ children }: IProps) {
+  const user = await getServerAuthSession()
+  if (user) redirect('/')
+
   return (
     <main
       style={{

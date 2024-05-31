@@ -1,4 +1,8 @@
 import { Metadata } from 'next'
+import { redirect } from 'next/navigation'
+
+// Services
+import { getServerAuthSession } from '@/services/auth'
 
 // MUI
 import Grid from '@mui/material/Grid'
@@ -12,7 +16,10 @@ export const metadata: Metadata = {
   title: 'Matching Chat',
 }
 
-const MatchingChatLayout = ({ content, nav }: IProps) => {
+const MatchingChatLayout = async ({ content, nav }: IProps) => {
+  const user = await getServerAuthSession()
+  if (!user) redirect('/login')
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={0} md={3} xl={2}>

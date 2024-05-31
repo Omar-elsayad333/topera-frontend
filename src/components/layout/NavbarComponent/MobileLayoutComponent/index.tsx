@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { Orbitron } from 'next/font/google'
+import { Saira } from 'next/font/google'
 import { useParams, usePathname } from 'next/navigation'
 
 // Next intl
@@ -20,7 +20,7 @@ import MenuItem from '@mui/material/MenuItem'
 import MenuIcon from '@mui/icons-material/Menu'
 import IconButton from '@mui/material/IconButton'
 
-const orbitron = Orbitron({
+const orbitron = Saira({
   display: 'swap',
   subsets: ['latin'],
 })

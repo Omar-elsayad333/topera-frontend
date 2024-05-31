@@ -19,8 +19,7 @@ import Toolbar from '@mui/material/Toolbar'
 const ChatNavContentComponent = () => {
   const t = useTranslations('matching_chat_nav')
 
-  const type = useMatching((state) => state.type)
-  const updateTypeNav = useMatching((state) => state.updateTypeNav)
+  const { type, updateTypeNav } = useMatching()
 
   const handleChange = () => {
     updateTypeNav()
