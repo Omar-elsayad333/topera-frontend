@@ -20,6 +20,13 @@ import Tracks from '@/components/pages/Profile/Tracks'
 
 const Profile: NextPage = () => {
   const { data } = useProfile()
+  const MainProps = {
+    cover: data?.profileData?.coverUrl,
+    image: data?.profileData?.imageUrl,
+    active: data?.profileData.isActive,
+    name: data?.profileData?.fullName,
+    occupation: data?.profileData?.intro?.occupation,
+  }
   return (
     <Grid
       container
@@ -30,7 +37,7 @@ const Profile: NextPage = () => {
       margin={'60px 0'}
     >
       <Grid lg={8} md={8} rowGap={'16px'} container item>
-        <Main />
+        <Main {...MainProps} />
         {data.profileData.bio && <About bio={data.profileData.bio} />}
         <Experiences experiences={data.profileData.experiences} />
         <Education educations={data.profileData.educations} />
@@ -38,12 +45,8 @@ const Profile: NextPage = () => {
         <Tracks tracks={data.profileData?.tracks} />
       </Grid>
       <Grid height={'fit-content'} gap={'16px'} container justifyItems={'start'} item lg={3} md={3} xs={12}>
-        <Resume />
-        <Intro
-          school={data?.profileData?.educations.reverse()[0]}
-          currentCompany={data.profileData.experiences.reverse()[0]}
-          fullLocation={{ city: data.profileData?.city, country: data.profileData?.country }}
-        />
+        {data?.profileData?.resume && <Resume resume={data?.profileData?.resume} />}
+        <Intro {...data?.profileData?.intro} />
       </Grid>
     </Grid>
   )

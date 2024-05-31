@@ -53,7 +53,7 @@
     "enterNewPassword": "Enter New Password",
     "password": "Password",
     "passwordConfirmation": "Password Confirmation",
-    "backToSignIn":"Back To Sign In"
+    "backToSignIn": "Back To Sign In"
   },
   "signUp": {
     "head": "Sign up",
@@ -88,6 +88,11 @@
     "showAllTracks": "Show all tracks",
     "work_at": "{title} at {company}",
     "went_to": "Went to {school}",
-    "lives_in": "Lives in {country},{city}"
+    "lives_in": "Lives in {country},{city}",
+    "message": "Message",
+    "active": "Available",
+    "inActive": "In Available",
+    "tab_to_click": "Tab to Change",
+    "edit": "Edit"
   }
 }

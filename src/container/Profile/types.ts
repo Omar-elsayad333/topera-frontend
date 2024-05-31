@@ -8,12 +8,27 @@ export type TSkill = { skill: string; rate: number }
 
 export type TTrack = { track: string; level: EUserTrackLevel }
 
+export type TIntro = {
+  occupation: string | null
+  company: string | null
+  education: string | null
+  country: string | null
+  city: string | null
+  email: string | null
+  linkedIn: string | null
+  gitHub: string | null
+  discord: string | null
+}
 export interface IProfile {
   educations: TEducation[]
   experiences: TExperience[]
   skills: TSkill[]
   tracks: TTrack[]
   bio: string
-  city: string
-  country: string
+  intro: TIntro
+  resume: string | null
+  coverUrl: string | null
+  imageUrl: string | null
+  fullName: string | null
+  isActive: boolean
 }

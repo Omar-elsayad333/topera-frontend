@@ -20,3 +20,12 @@ export enum EUserTrackLevel {
   Intermediate = 75,
   Advanced = 100,
 }
+export enum ESocialPlatform {
+  Google,
+  GitHub,
+  Facebook,
+  X,
+  LinkedIn,
+  Discord,
+  Microsoft,
+}

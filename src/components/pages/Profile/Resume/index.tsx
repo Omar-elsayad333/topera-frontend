@@ -12,8 +12,9 @@ import DescriptionIcon from '@mui/icons-material/Description'
 // Icon
 import DownloadIcon from '@/assets/icons/downloadIcon.svg'
 import Image from 'next/image'
+import Link from 'next/link'
 
-const Resume = () => {
+const Resume = ({ resume }: { resume: string }) => {
   const t = useTranslations('profile')
 
   return (
@@ -29,10 +30,12 @@ const Resume = () => {
           <span style={{ display: 'flex', gap: '16px' }}>
             <DescriptionIcon color={'disabled'} />
             <Typography variant={'subtitle1'} sx={{ fontWeight: '500', color: '#fffff' }}>
-              Example-resume.pdf
+              {resume}
             </Typography>
           </span>
-          <Image loading={'lazy'} src={DownloadIcon} alt={'download-icon'} height={26} width={24} />
+          <Link href={resume}>
+            <Image loading={'lazy'} src={DownloadIcon} alt={'download-icon'} height={26} width={24} />
+          </Link>
         </ListItem>
       </List>
     </Grid>

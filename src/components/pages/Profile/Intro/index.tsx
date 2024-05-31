@@ -21,37 +21,24 @@ import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 
 // Types
-import { ESocialLogin } from '@/types/enums'
+import { TIntro } from '@/container/Profile/types'
 import { ReactNode } from 'react'
-import { TEducation, TExperience } from '@/container/Profile/types'
-import { object } from 'yup'
-export interface IProps {
-  currentCompany: TExperience
-  school: TEducation
-  fullLocation: { city: string; country: string }
+import Link from 'next/link'
+
+const RenderRow = ({ children, icon }: { children: ReactNode; icon: ReactNode }) => {
+  return (
+    <ListItem sx={{ display: 'flex', gap: '16px' }}>
+      {icon}
+      <Typography variant={'subtitle1'} sx={{ fontWeight: '500' }}>
+        {children}
+      </Typography>
+    </ListItem>
+  )
 }
 
-const Intro = ({ currentCompany, school, fullLocation }: IProps) => {
+const Intro = ({ occupation, company, education, city, country, linkedIn, gitHub, email, discord }: TIntro) => {
   const t = useTranslations('profile')
 
-  const renderData: Record<ESocialLogin, ReactNode> = {
-    0: (
-      <ListItem sx={{ display: 'flex', gap: '16px' }}>
-        <AlternateEmailIcon color={'disabled'} />
-        <Typography variant={'subtitle1'} sx={{ fontWeight: '500' }}>
-          Email
-        </Typography>
-      </ListItem>
-    ),
-    1: (
-      <ListItem sx={{ display: 'flex', gap: '16px' }}>
-        <Image height={'24'} src={Discord} alt={'discord-icon'} />
-        <Typography variant={'subtitle1'} sx={{ fontWeight: '500' }}>
-          github
-        </Typography>
-      </ListItem>
-    ),
-  }
   return (
     <Grid item xs={12}>
       <List sx={{ backgroundColor: '#ffff', borderRadius: '10px' }}>
@@ -61,50 +48,39 @@ const Intro = ({ currentCompany, school, fullLocation }: IProps) => {
           </Typography>
         </ListItem>
         <Divider component={'li'} />
-        <ListItem sx={{ display: 'flex', gap: '16px' }}>
-          <BusinessCenterIcon color={'disabled'} />
-          <Typography variant={'subtitle1'} sx={{ fontWeight: '500' }}>
-            {t('work_at', { title: currentCompany?.title, company: currentCompany?.company })}
-          </Typography>
-        </ListItem>
-        <ListItem sx={{ display: 'flex', gap: '16px' }}>
-          <SchoolIcon color={'disabled'} />
-          <Typography variant={'subtitle1'} sx={{ fontWeight: '500' }}>
-            {t('went_to', { school: school?.school })}
-          </Typography>
-        </ListItem>
-        {Object.values(fullLocation).some((e) => e !== '') && (
-          <ListItem sx={{ display: 'flex', gap: '16px' }}>
-            <LocationOnIcon color={'disabled'} />
-            <Typography variant={'subtitle1'} sx={{ fontWeight: '500' }}>
-              {t('lives_in', fullLocation)}
-            </Typography>
-          </ListItem>
+        {occupation && company && (
+          <RenderRow icon={<BusinessCenterIcon color={'disabled'} />}>
+            {t('work_at', { title: occupation, company })}
+          </RenderRow>
         )}
-        <ListItem sx={{ display: 'flex', gap: '16px' }}>
-          <AlternateEmailIcon color={'disabled'} />
-          <Typography variant={'subtitle1'} sx={{ fontWeight: '500' }}>
-            Email
-          </Typography>
-        </ListItem>
-        <ListItem sx={{ display: 'flex', gap: '16px' }}>
-          <LinkedInIcon color={'disabled'} />
-          <Typography variant={'subtitle1'} sx={{ fontWeight: '500' }}>
-            Linked in
-          </Typography>
-        </ListItem>
-        <ListItem sx={{ display: 'flex', gap: '16px' }}>
-          <GitHubIcon color={'disabled'} />
-          <Typography variant={'subtitle1'} sx={{ fontWeight: '500' }}>
-            github
-          </Typography>
-        </ListItem>
-        <ListItem sx={{ display: 'flex', gap: '16px' }}>
-          <Image height={'24'} src={Discord} alt={'discord-icon'} />
-          <Typography variant={'subtitle1'} sx={{ fontWeight: '500' }}>
-            github
-          </Typography>
-        </ListItem>
+
+        {education && <RenderRow icon={<SchoolIcon color={'disabled'} />}> {education}</RenderRow>}
+
+        {city && country && (
+          <RenderRow icon={<LocationOnIcon color={'disabled'} />}> {t('lives_in', { country, city })}</RenderRow>
+        )}
+
+        {linkedIn && (
+          <RenderRow icon={<LinkedInIcon color={'disabled'} />}>
+            <Link href={linkedIn}>{linkedIn}</Link>
+          </RenderRow>
+        )}
+        {gitHub && (
+          <RenderRow icon={<GitHubIcon color={'disabled'} />}>
+            <Link href={gitHub}>{gitHub}</Link>
+          </RenderRow>
+        )}
+        {discord && (
+          <RenderRow icon={<GitHubIcon color={'disabled'} />}>
+            <Link href={discord}>{discord}</Link>
+          </RenderRow>
+        )}
+
+        {email && (
+          <RenderRow icon={<GitHubIcon color={'disabled'} />}>
+            <Link href={email}>{email}</Link>
+          </RenderRow>
+        )}
       </List>
     </Grid>
   )

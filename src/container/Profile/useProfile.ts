@@ -13,11 +13,25 @@ const useProfile = () => {
     experiences: [],
     skills: [],
     tracks: [],
-    country: '',
-    city: '',
+    intro: {
+      company: '',
+      education: '',
+      occupation: '',
+      city: null,
+      country: null,
+      email: '',
+      linkedIn: '',
+      gitHub: '',
+      discord: '',
+    },
+    resume: null,
+    coverUrl: '',
+    imageUrl: '',
+    fullName: '',
+    isActive: false,
   })
   const getData = async () => {
-    const { data, error } = await getHandler({ endpoint: '/profile' })
+    const { data, error } = await getHandler({ endpoint: '/profile/details' })
     if (data) {
       console.log(data)
       setProfileData(data)
