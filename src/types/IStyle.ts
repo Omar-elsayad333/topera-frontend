@@ -9,5 +9,6 @@ declare module '@mui/material/Button' {
     grayButton: true
     primary: true
     socialButton: true
+    postActions: true
   }
 }
