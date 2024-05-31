@@ -3,6 +3,9 @@ import Image from 'next/image'
 // Types
 import { CSSProperties } from 'react'
 
+// Assets
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
+
 // Components
 import PostActionsComponent from './PostActionsComponent'
 
@@ -11,6 +14,7 @@ import Box from '@mui/material/Box'
 import Chip from '@mui/material/Chip'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
 
 const PostComponent = () => {
   const avatarStyle: CSSProperties = {
@@ -29,16 +33,21 @@ const PostComponent = () => {
 
   return (
     <Stack gap={2}>
-      <Stack direction={'row'} alignItems={'center'} gap={2}>
-        <Image src={''} alt="" style={avatarStyle} width={40} height={40} />
-        <Stack direction={'row'} alignItems={'center'} gap={1}>
-          <Typography fontWeight={500} variant="h5">
-            Google
-          </Typography>
-          <Typography fontWeight={500} variant="h6">
-            7 Days ago
-          </Typography>
+      <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} gap={2}>
+        <Stack direction={'row'} alignItems={'center'} gap={2}>
+          <Image src={''} alt="" style={avatarStyle} width={40} height={40} />
+          <Stack direction={'row'} alignItems={'center'} gap={1}>
+            <Typography fontWeight={500} variant="h5">
+              Google
+            </Typography>
+            <Typography fontWeight={500} variant="h6">
+              7 Days ago
+            </Typography>
+          </Stack>
         </Stack>
+        <IconButton>
+          <BookmarkBorderIcon />
+        </IconButton>
       </Stack>
       <Box sx={postImageStyle}>
         <Image src={''} alt="" style={avatarStyle} />
