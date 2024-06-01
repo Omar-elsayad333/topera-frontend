@@ -16,7 +16,7 @@ export default function EditProfileHeroComponent() {
     >
       <Grid height={'fit-content'} gap={'16px'} container justifyItems={'start'} item lg={3} md={3} xs={12}></Grid>
       <Grid lg={8} md={8} rowGap={'16px'} container item>
-        <DescriptionComponent />
+        <DescriptionComponent value={'lorem'} />
       </Grid>
     </Grid>
   )
