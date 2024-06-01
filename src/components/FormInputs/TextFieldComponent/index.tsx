@@ -30,6 +30,7 @@ const TextFieldComponent = ({ name, control, id, placeholder, error, label, type
             {...args}
             fullWidth
             id={id}
+            error={!!error}
             label={label}
             type={type}
             value={field.value}

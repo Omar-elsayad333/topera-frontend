@@ -10,7 +10,7 @@ import FormDialog from './FormDialog'
 // MUI
 import Button from '@mui/material/Button'
 
-const AddPostComponent = () => {
+const AddPostComponent = ({ organizationId = 'bf6c39d7-9c8f-42b1-ade7-301941b4947e' }: { organizationId: string }) => {
   const dialogRef = useRef<IAddPostRef>()
 
   const openDialog = () => {
@@ -22,7 +22,7 @@ const AddPostComponent = () => {
       <Button variant="contained" onClick={openDialog}>
         add Post
       </Button>
-      <FormDialog ref={dialogRef} />
+      <FormDialog organizationId={organizationId} ref={dialogRef} />
     </>
   )
 }

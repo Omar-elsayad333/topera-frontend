@@ -1,6 +1,7 @@
-import { ICreatePost } from '@/types/pages/news'
+import useRequestHandlers from '@/hooks/useRequestHandlers'
+import { ICreatePost, ITag } from '@/types/pages/news'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { array, number, object, string } from 'yup'
 
@@ -9,20 +10,25 @@ const validationSchema = object({
   title: string().required(),
   EndDate: string().required(),
   NewsCategoryId: string().required(),
+  TagIds: array().min(1).required(),
   Color: number(),
   Images: array().required(),
 })
 
-const useAddPost = () => {
+const useAddPost = (organizationId: string) => {
   const [open, setOpen] = useState(false)
+  const [tagsData, setTagsData] = useState<ITag[]>([])
+  const [categoriesData, setCategoriesData] = useState([])
+  const { getHandler, loading } = useRequestHandlers()
 
   const defaultValues: Partial<ICreatePost> = {
     body: '',
     title: '',
-    NewsCategoryId: '',
     Color: 0,
+    TagIds: [],
     EndDate: '',
     Images: [],
+    NewsCategoryId: '',
   }
 
   const {
@@ -35,6 +41,23 @@ const useAddPost = () => {
   })
 
   console.log(errors)
+
+  useEffect(() => {
+    getTagsData()
+    getCategoriesData()
+  }, [])
+
+  const getTagsData = async () => {
+    const { data, error } = await getHandler({ endpoint: 'news/tags' })
+    if (error) return
+    setTagsData(data)
+  }
+
+  const getCategoriesData = async () => {
+    const { data, error } = await getHandler({ endpoint: `news/organizations/categories/${organizationId}` })
+    if (error) return
+    setCategoriesData(data)
+  }
 
   const handleOpen = () => {
     setOpen(true)
@@ -51,7 +74,10 @@ const useAddPost = () => {
 
   return {
     open,
+    loading,
     control,
+    tagsData,
+    categoriesData,
     errors,
     handleSubmit,
     onSubmit,
