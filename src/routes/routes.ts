@@ -62,6 +62,8 @@ export const getPublicRoutes = () => {
     Routes.matching,
     Routes.test,
     Routes.welcome,
+    Routes.profile,
+    Routes.editProfile,
   ]
 }
 
