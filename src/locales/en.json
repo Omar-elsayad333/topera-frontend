@@ -87,5 +87,10 @@
     "gtToSignIn": "Go To Sign In",
     "welcomeHeadText": "Welcome to Topera!",
     "welcomeHelperText": "You’ve successfully confirmed your account."
+  },
+  "edit_profile": {
+    "about_me": "About me",
+    "description": "Description",
+    "submit": "Submit"
   }
 }

@@ -1,5 +1,8 @@
+// Components
+import EditProfileHeroComponent from '@/components/pages/EditProfile/HeroComponent'
+
 const EditProfile = () => {
-  return <h1>edit profile</h1>
+  return <EditProfileHeroComponent />
 }
 
 export default EditProfile
