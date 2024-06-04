@@ -2,9 +2,18 @@
 
 // Mui
 import Grid from '@mui/material/Grid'
+
+// Components
 import DescriptionComponent from '@/components/pages/EditProfile/DescriptionComponent'
+import Social from '@/components/pages/EditProfile/Social'
+
+// Hooks
+import useProfile from '@/components/pages/EditProfile/useProfile'
 
 export default function EditProfileHeroComponent() {
+  const {
+    data: { profileData },
+  } = useProfile()
   return (
     <Grid
       container
@@ -16,7 +25,8 @@ export default function EditProfileHeroComponent() {
     >
       <Grid height={'fit-content'} gap={'16px'} container justifyItems={'start'} item lg={3} md={3} xs={12}></Grid>
       <Grid lg={8} md={8} rowGap={'16px'} container item>
-        <DescriptionComponent value={'lorem'} />
+        <DescriptionComponent value={profileData?.bio} />
+        <Social />
       </Grid>
     </Grid>
   )

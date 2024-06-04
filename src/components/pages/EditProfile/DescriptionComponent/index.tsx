@@ -15,8 +15,9 @@ import useRequestHandlers from '@/hooks/useRequestHandlers'
 // Yup
 import { yupResolver } from '@hookform/resolvers/yup'
 import { object, string } from 'yup'
+import { useEffect } from 'react'
 
-export default function DescriptionComponent({ value }: { value: string }) {
+export default function DescriptionComponent({ value }: { value: string | undefined }) {
   const { loading, putHandler } = useRequestHandlers()
 
   const tEditProfile = useTranslations('edit_profile')
@@ -27,6 +28,7 @@ export default function DescriptionComponent({ value }: { value: string }) {
     formState: { errors },
     control,
     handleSubmit,
+    setValue,
   } = useForm<{ description: string }>({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -37,6 +39,11 @@ export default function DescriptionComponent({ value }: { value: string }) {
     const body = { bio: data.description }
     await putHandler({ endpoint: 'profile/bio', body })
   }
+
+  useEffect(() => {
+    if (value) setValue('description', value)
+  }, [value])
+
   return (
     <Card sx={{ padding: '32px', display: 'flex', flexDirection: 'column', width: '100%', gap: '16px' }}>
       <Typography sx={{ fontWeight: 500 }} variant={'subtitle2'}>
@@ -50,7 +57,7 @@ export default function DescriptionComponent({ value }: { value: string }) {
         name={'description'}
       />
       <Stack justifyContent={'end'} direction={'row'} alignItems={'center'} gap={'16px'}>
-        <Button variant={'contained'} onClick={handleSubmit(submit)}>
+        <Button variant={'contained'} onClick={handleSubmit(submit)} sx={{ height: '26px' }}>
           {loading ? <CircularProgress size={'1.5rem'} /> : tEditProfile('submit')}
         </Button>
         <CloseIcon fontSize={'small'} />

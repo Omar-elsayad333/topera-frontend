@@ -91,6 +91,11 @@
   "edit_profile": {
     "about_me": "About me",
     "description": "Description",
-    "submit": "Submit"
+    "submit": "Submit",
+    "on_the_web": "On The Web",
+    "email": "E-mail",
+    "linkedin": "Linked in ",
+    "github": "Github",
+    "discord": "Discord"
   }
 }
