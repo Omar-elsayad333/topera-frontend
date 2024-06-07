@@ -1,7 +1,6 @@
 // Mui
 import Typography from '@mui/material/Typography'
 import Card from '@mui/material/Card'
-import Box from '@mui/material/Box'
 
 // Mui Icons
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
@@ -10,55 +9,27 @@ import GitHubIcon from '@mui/icons-material/GitHub'
 
 // Hooks
 import { useTranslations } from 'next-intl'
-import { useForm } from 'react-hook-form'
 
-// Yup
-import { object, string } from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
-import TextFieldComponent from '@/components/FormInputs/TextFieldComponent'
-import Button from '@mui/material/Button'
-import { Simulate } from 'react-dom/test-utils'
-import submit = Simulate.submit
+// Component
+import SocialComponent from '@/components/pages/EditProfile/Social/SocialComponent'
 
-export default function Social() {
+// Types
+import { ESocialPlatform } from '@/types/enums'
+
+export default function Social({ value }: { value: {}[] }) {
   const tEditProfile = useTranslations('edit_profile')
 
-  const schema = object({
-    email: string(),
-    linkedin: string(),
-    github: string(),
-    discord: string(),
-  })
-  const {
-    formState: { errors },
-    control,
-    handleSubmit,
-    setValue,
-    trigger,
-  } = useForm<{ email?: string; linkedin?: string; github?: string; discord?: string }>({
-    resolver: yupResolver(schema),
-    defaultValues: {
-      email: '',
-      linkedin: '',
-      github: '',
-      discord: '',
-    },
-  })
-
-  const submit = (data) => {
-    console.log(data)
-    // console.log(trigger(ele))
-  }
-
-  const handelSubmitEvent = async (ele) => {
-    const data = await handleSubmit(submit)(ele)
-    console.log(data)
-  }
   const iconsMap: Record<string, any> = {
     email: <AlternateEmailIcon />,
     linkedin: <LinkedInIcon />,
     github: <GitHubIcon />,
     discord: <AlternateEmailIcon />,
+  }
+  const SocialIds: Record<string, ESocialPlatform> = {
+    email: ESocialPlatform.Google,
+    linkedin: ESocialPlatform.LinkedIn,
+    github: ESocialPlatform.GitHub,
+    discord: ESocialPlatform.Discord,
   }
   return (
     <Card sx={{ padding: '32px', display: 'flex', flexDirection: 'column', width: '100%' }}>
@@ -66,21 +37,14 @@ export default function Social() {
         {tEditProfile('on_the_web')}
       </Typography>
       {['email', 'linkedin', 'github', 'discord'].map((ele) => (
-        <Box
+        <SocialComponent
+          id={SocialIds[ele]}
           key={ele}
-          sx={{ display: 'flex', flexDirection: { md: 'row', xs: 'column' }, justifyContent: 'space-between' }}
-        >
-          <Box sx={{ display: 'flex', gap: '16px' }}>
-            {iconsMap[ele]}
-            <Typography variant={'subtitle1'}>{tEditProfile(ele)}</Typography>
-          </Box>
-          <Box sx={{ display: 'flex', gap: '16px' }}>
-            <TextFieldComponent control={control} name={ele} placeholder={tEditProfile(ele)} />
-            <Button sx={{ height: '26px' }} variant={'contained'} onClick={handleSubmit(submit)}>
-              {tEditProfile('submit')}
-            </Button>
-          </Box>
-        </Box>
+          icon={iconsMap[ele]}
+          text={tEditProfile(ele)}
+          name={ele}
+          value={''}
+        />
       ))}
     </Card>
   )

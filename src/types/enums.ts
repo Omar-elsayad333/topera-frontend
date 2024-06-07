@@ -1,4 +1,4 @@
-  export enum EChatStatus {
+export enum EChatStatus {
   Open,
   Closed,
 }
@@ -12,4 +12,14 @@ export enum ESocialLogin {
   Google,
   GitHub,
   LinkedIn,
+}
+
+export enum ESocialPlatform {
+  Google,
+  GitHub,
+  Facebook,
+  X,
+  LinkedIn,
+  Discord,
+  Microsoft,
 }
