@@ -15,8 +15,15 @@ import SocialComponent from '@/components/pages/EditProfile/Social/SocialCompone
 
 // Types
 import { ESocialPlatform } from '@/types/enums'
+import { TSocials } from '@/components/pages/EditProfile/types'
 
-export default function Social({ value }: { value: {}[] }) {
+interface ISocialCProps {
+  email: string | null
+  linkedin: string | null
+  github: string | null
+  discord: string | null
+}
+export default function Social({ value }: { value: ISocialCProps }) {
   const tEditProfile = useTranslations('edit_profile')
 
   const iconsMap: Record<string, any> = {
@@ -43,7 +50,7 @@ export default function Social({ value }: { value: {}[] }) {
           icon={iconsMap[ele]}
           text={tEditProfile(ele)}
           name={ele}
-          value={''}
+          value={value[ele as TSocials]}
         />
       ))}
     </Card>

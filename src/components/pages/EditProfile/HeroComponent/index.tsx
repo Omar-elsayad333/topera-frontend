@@ -14,6 +14,7 @@ export default function EditProfileHeroComponent() {
   const {
     data: { profileData },
   } = useProfile()
+  console.log(profileData)
   return (
     <Grid
       container
@@ -26,7 +27,9 @@ export default function EditProfileHeroComponent() {
       <Grid height={'fit-content'} gap={'16px'} container justifyItems={'start'} item lg={3} md={3} xs={12}></Grid>
       <Grid lg={8} md={8} rowGap={'16px'} container item>
         <DescriptionComponent value={profileData?.bio} />
-        <Social />
+        <Social
+          value={{ email: null, linkedin: 'hallow with linkedin ', github: 'hallow with github', discord: null }}
+        />
       </Grid>
     </Grid>
   )

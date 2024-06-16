@@ -61,3 +61,5 @@ export interface Track {
   framework: string
   level: number
 }
+
+export type TSocials = 'email' | 'linkedin' | 'github' | 'discord'

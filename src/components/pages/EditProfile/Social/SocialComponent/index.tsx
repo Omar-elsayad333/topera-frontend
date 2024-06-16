@@ -5,7 +5,7 @@ import TextFieldComponent from '@/components/FormInputs/TextFieldComponent'
 import Button from '@mui/material/Button'
 
 // Types
-import { ReactNode, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { ESocialPlatform } from '@/types/enums'
 
 // Hooks
@@ -28,7 +28,7 @@ interface IProps {
   value: string | null
 }
 export default function SocialComponent({ icon, text, name, value, id }: IProps) {
-  const [formIsOpen, setFormIsOpen] = useState<boolean>(false)
+  const [formIsOpen, setFormIsOpen] = useState<boolean>(value !== null)
 
   // request handler
   const { deleteHandler } = useRequestHandlers()
