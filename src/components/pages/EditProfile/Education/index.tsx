@@ -1,48 +1,27 @@
+// Components
 import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
-import Grid from '@mui/material/Grid'
-
-// Components
-import TextFieldComponent from '@/components/FormInputs/TextFieldComponent'
+import Button from '@mui/material/Button'
+import AddIcon from '@mui/icons-material/Add'
+import Form from '@/components/pages/EditProfile/Education/Form'
 
 // Hooks
-import { useTranslations } from 'next-intl'
-import { useForm } from 'react-hook-form'
 
-// Form Validation
-import { object, string } from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { useTranslations } from 'next-intl'
 import useRequestHandlers from '@/hooks/useRequestHandlers'
 import { useEffect, useState } from 'react'
 
-interface IEducationForm {
-  university_name: string
-}
 export default function Education() {
-  const [majors, setMajors] = useState<{ id: string; name: string }>([])
+  const tEditProfile = useTranslations('edit_profile')
 
   const { getHandler } = useRequestHandlers()
 
-  const tEditProfile = useTranslations('edit_profile')
-
-  const defaultValues = {
-    university_name: '',
-  }
-
-  const schema = object({
-    university_name: string().required(),
-  })
-
-  const {
-    control,
-    formState: { errors },
-  } = useForm({ defaultValues, resolver: yupResolver(schema) })
+  const [majors, setMajors] = useState<{ id: string; name: string; disabled?: boolean; default?: boolean }[]>([])
 
   const getMajors = async () => {
     const { data } = await getHandler({ endpoint: 'majors' })
     setMajors(data)
   }
-
   useEffect(() => {
     getMajors()
   }, [])
@@ -51,16 +30,11 @@ export default function Education() {
       <Typography sx={{ fontWeight: 500 }} variant={'subtitle2'}>
         {tEditProfile('education')}
       </Typography>
-      <Grid container spacing={16}>
-        <Grid item md={6} lg={4}>
-          <TextFieldComponent
-            control={control}
-            label={tEditProfile('university_name')}
-            name={'university_name'}
-            error={errors['university_name']}
-          />
-        </Grid>
-      </Grid>
+      <Form majors={majors} />
+      <Button sx={{ height: '26px', width: 'fit-content', display: 'flex', gap: '16px' }}>
+        <AddIcon />
+        <Typography variant={'h6'}>{tEditProfile('add_education')}</Typography>
+      </Button>
     </Card>
   )
 }

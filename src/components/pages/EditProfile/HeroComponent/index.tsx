@@ -8,6 +8,7 @@ import DescriptionComponent from '@/components/pages/EditProfile/DescriptionComp
 import Social from '@/components/pages/EditProfile/Social'
 import WorkExperience from '@/components/pages/EditProfile/WorkExperience'
 import Education from '@/components/pages/EditProfile/Education'
+import Skills from '@/components/pages/EditProfile/Skills'
 
 // Hooks
 import useProfile from '@/components/pages/EditProfile/useProfile'
@@ -33,6 +34,7 @@ export default function EditProfileHeroComponent() {
         />
         <WorkExperience />
         <Education />
+        <Skills />
       </Grid>
     </Grid>
   )
