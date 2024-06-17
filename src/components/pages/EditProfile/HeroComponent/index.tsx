@@ -6,6 +6,8 @@ import Grid from '@mui/material/Grid'
 // Components
 import DescriptionComponent from '@/components/pages/EditProfile/DescriptionComponent'
 import Social from '@/components/pages/EditProfile/Social'
+import WorkExperience from '@/components/pages/EditProfile/WorkExperience'
+import Education from '@/components/pages/EditProfile/Education'
 
 // Hooks
 import useProfile from '@/components/pages/EditProfile/useProfile'
@@ -14,7 +16,6 @@ export default function EditProfileHeroComponent() {
   const {
     data: { profileData },
   } = useProfile()
-  console.log(profileData)
   return (
     <Grid
       container
@@ -30,6 +31,8 @@ export default function EditProfileHeroComponent() {
         <Social
           value={{ email: null, linkedin: 'hallow with linkedin ', github: 'hallow with github', discord: null }}
         />
+        <WorkExperience />
+        <Education />
       </Grid>
     </Grid>
   )

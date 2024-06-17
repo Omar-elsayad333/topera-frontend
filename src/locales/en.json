@@ -97,6 +97,15 @@
     "linkedin": "Linked in ",
     "github": "Github",
     "discord": "Discord",
-    "link": "Link"
+    "link": "Link",
+    "work_experience": "Work Experience",
+    "add_work_experience": "Add Work Experience",
+    "company_name": "Company Name",
+    "add_company_name": "Add Company Name",
+    "start_date": "Start Date",
+    "end_date": "End Date",
+    "present": "Present",
+    "education": "Education",
+    "university_name": "University name"
   }
 }
