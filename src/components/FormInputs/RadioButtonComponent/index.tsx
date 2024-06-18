@@ -5,10 +5,13 @@ import { Controller, Merge, FieldErrorsImpl } from 'react-hook-form'
 // MUI
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
-import TextField from '@mui/material/TextField'
-// Types
-import { FieldError, FieldsControl } from '@/types/validation'
 import Typography from '@mui/material/Typography'
+
+// Types
+import { FieldError } from '@/types/validation'
+
+// Hooks
+import { useTheme } from '@mui/material'
 
 interface IProps {
   id?: string
@@ -20,6 +23,7 @@ interface IProps {
 }
 
 const RadioButtonComponent = ({ name, control, id, error, label, type = 'text', ...args }: IProps) => {
+  const theme = useTheme()
   return (
     <FormControl fullWidth error={!!error}>
       <Controller
@@ -37,7 +41,13 @@ const RadioButtonComponent = ({ name, control, id, error, label, type = 'text', 
               type={'radio'}
               {...args}
             />
-            <Typography sx={{ color: !!error ? 'red' : 'black' }}>{label}</Typography>
+            <Typography
+              sx={{
+                color: !error ? (theme?.palette?.mode === 'dark' ? theme?.palette?.grey[400] : 'black') : 'red',
+              }}
+            >
+              {label}
+            </Typography>
           </div>
         )}
       />

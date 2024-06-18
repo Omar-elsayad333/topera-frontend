@@ -7,12 +7,14 @@ import { Controller, Merge, FieldErrorsImpl } from 'react-hook-form'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
 import FormLabel from '@mui/material/FormLabel'
+import Typography from '@mui/material/Typography'
+
+// Hooks
+import { useTheme } from '@mui/material'
 
 // Types
 import { FieldError } from '@/types/validation'
 import { ComponentProps } from 'react'
-import Typography from '@mui/material/Typography'
-import { bool } from 'yup'
 
 interface IProps {
   id?: string
@@ -36,6 +38,9 @@ const TextAreaComponent = ({
   noResize,
   ...args
 }: IProps & ComponentProps<'textarea'>) => {
+  const theme = useTheme()
+
+  const borderColor = `${!error ? (theme?.palette?.mode === 'dark' ? 'white' : 'transparent') : 'red'}`
   return (
     <FormControl fullWidth error={!!error}>
       <FormLabel>
@@ -49,9 +54,10 @@ const TextAreaComponent = ({
         render={({ field }) => (
           <textarea
             style={{
-              border: `1px solid  ${error ? 'red' : 'rgba(0, 0, 0, 0.2)'}`,
+              border: `1px solid ${borderColor}`,
               borderRadius: '3px',
               resize: `${noResize ? 'none' : 'both'}`,
+              backgroundColor: 'transparent',
             }}
             rows={rows}
             id={id}

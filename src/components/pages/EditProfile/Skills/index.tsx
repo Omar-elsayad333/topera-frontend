@@ -16,6 +16,7 @@ import { useForm } from 'react-hook-form'
 import { array, object } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import MultieSelectComponent from '@/components/FormInputs/MultieSelectComponent'
+import SkillComponent from '@/components/pages/EditProfile/Skills/SkillComponent'
 
 interface ISkillsForm {
   skills: any[]
@@ -77,6 +78,12 @@ export default function Skills() {
             name={'skills'}
           />
         </Grid>
+
+        {watch('skills').map((skill) => (
+          <Grid item xs={12} key={skill?.id}>
+            <SkillComponent skill={skill} />
+          </Grid>
+        ))}
       </Grid>
     </Card>
   )
