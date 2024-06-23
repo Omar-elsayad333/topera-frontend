@@ -33,6 +33,7 @@ const CheckBoxComponent = ({ name, control, id, error, label, ...args }: IProps)
               style={{ width: 'fit-content', height: '12px' }}
               {...field}
               name={name}
+              checked={field?.value}
               aria-label={label}
               aria-describedby={`check-${label}`}
               aria-controls={name}

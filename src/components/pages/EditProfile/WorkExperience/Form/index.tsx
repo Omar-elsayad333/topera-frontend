@@ -4,7 +4,7 @@ import Button from '@mui/material/Button'
 import CloseIcon from '@mui/icons-material/Close'
 
 // Validation
-import { date, object, string } from 'yup'
+import { boolean, date, object, string } from 'yup'
 
 // Hooks
 import { useEffect } from 'react'
@@ -25,7 +25,7 @@ interface IWorkExperienceForm {
   company: string
   startDate: Date | null
   endDate: Date | null
-  present: string
+  present: boolean
   description: string
 }
 
@@ -36,7 +36,7 @@ export default function Form({ data }: { data: IExperience }) {
     company: '',
     startDate: null,
     endDate: null,
-    present: 'true',
+    present: true,
     description: '',
   }
 
@@ -44,7 +44,7 @@ export default function Form({ data }: { data: IExperience }) {
     company: string().required(),
     startDate: date().required().nullable(),
     endDate: date().required().nullable(),
-    present: string().required(),
+    present: boolean().required(),
     description: string().required(),
   })
 
@@ -58,6 +58,7 @@ export default function Form({ data }: { data: IExperience }) {
     handleSubmit,
     control,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<IWorkExperienceForm>({ resolver: yupResolver(schema), defaultValues })
 
@@ -65,6 +66,7 @@ export default function Form({ data }: { data: IExperience }) {
     for (const property in data) {
       setValue(property as keyof IWorkExperienceForm, data[property as keyof IExperience])
     }
+    setValue('present', !!data?.endDate)
   }
 
   useEffect(() => {
@@ -86,7 +88,13 @@ export default function Form({ data }: { data: IExperience }) {
         <DatePickerComponent error={errors['startDate']} control={control} name={'startDate'} label={t('start_date')} />
       </Grid>
       <Grid item lg={3} md={6} padding={0} alignItems={'end'}>
-        <DatePickerComponent error={errors['endDate']} control={control} name={'endDate'} label={t('end_date')} />
+        <DatePickerComponent
+          disabled={watch('present')}
+          error={errors['endDate']}
+          control={control}
+          name={'endDate'}
+          label={t('end_date')}
+        />
       </Grid>
       <Grid item lg={3} md={6} padding={0} display={'flex'} justifyItems={'start'} alignItems={'end'}>
         <CheckBoxComponent error={errors['present']} name={'present'} control={control} label={t('present')} />

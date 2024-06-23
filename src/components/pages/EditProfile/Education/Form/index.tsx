@@ -11,32 +11,46 @@ import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 
 // Validation
-import { object, string } from 'yup'
+import { mixed, object, string } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useEffect } from 'react'
 
 interface IEducationForm {
+  id: string
   university_name: string
+  description: string
+  degrees: any
+  majors: any
 }
 export default function Form({
   majors,
+  data,
+  deleteFun,
 }: {
   majors: { id: string; name: string; default?: boolean; disabled?: boolean }[]
+  data: IEducationForm & { isNew?: boolean }
+  deleteFun: (id: string, isNew: boolean | undefined) => void
 }) {
   const tEditProfile = useTranslations('edit_profile')
 
   const defaultValues = {
     university_name: '',
+    description: '',
+    degrees: null,
+    majors: null,
   }
 
   const schema = object({
+    id: string().required(),
     university_name: string().required(),
+    description: string().required(),
+    degrees: mixed().required(),
+    majors: mixed().required(),
   })
 
   const submit = (data: IEducationForm) => {
     console.log(data)
   }
-
-  const handelDelete = () => {}
 
   const {
     handleSubmit,
@@ -86,7 +100,7 @@ export default function Form({
         <CloseIcon
           sx={{ cursor: 'pointer' }}
           fontSize={'small'}
-          onClick={handelDelete}
+          onClick={() => deleteFun(data.id, data?.isNew)}
           aria-label={'delete work experience'}
           aria-describedby={'delete work experience'}
         />

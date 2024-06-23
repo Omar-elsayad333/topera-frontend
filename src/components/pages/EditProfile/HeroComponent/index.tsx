@@ -31,7 +31,7 @@ export default function EditProfileHeroComponent() {
         <DescriptionComponent value={profileData?.bio} />
         <Social data={profileData?.socials} />
         <WorkExperience experiences={profileData?.experiences} />
-        <Education />
+        <Education educations={profileData?.educations} />
         <Skills />
       </Grid>
     </Grid>

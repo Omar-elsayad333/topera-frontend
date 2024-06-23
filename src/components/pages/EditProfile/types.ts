@@ -14,7 +14,7 @@ export interface IProfileData {
   isActive: boolean
   socials: ISocial[]
   experiences: IExperience[]
-  educations: Education[]
+  educations: IEducation[]
   skills: Skill[]
   tracks: Track[]
 }
@@ -37,7 +37,7 @@ export interface IExperience {
   icon?: any
 }
 
-export interface Education {
+export interface IEducation {
   id: string
   school: string
   degree: string
