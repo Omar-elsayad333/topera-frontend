@@ -34,7 +34,7 @@ const MultiSelectComponent = <T extends object>({
   name,
   errors,
   minSelect = 0,
-  maxSelect = options.length,
+  maxSelect = options?.length,
   control,
 }: IMultiSelectComponentProps<T>) => {
   return (

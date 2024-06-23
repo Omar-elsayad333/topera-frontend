@@ -17,7 +17,7 @@ export enum ESocialLogin {
 export enum ESocialPlatform {
   Google,
   GitHub,
-  Facebook,
+  t,
   X,
   LinkedIn,
   Discord,

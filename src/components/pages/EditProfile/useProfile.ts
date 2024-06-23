@@ -12,6 +12,7 @@ export default function useProfile() {
   const getProfileData = async () => {
     const { data } = await getHandler({ endpoint: '/profile' })
     setProfileData(data as IProfileData)
+    console.log(data)
   }
 
   useEffect(() => {

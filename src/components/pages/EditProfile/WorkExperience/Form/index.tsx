@@ -1,43 +1,49 @@
 // Mui
 import Grid from '@mui/material/Grid'
+import Button from '@mui/material/Button'
+import CloseIcon from '@mui/icons-material/Close'
 
 // Validation
 import { date, object, string } from 'yup'
 
 // Hooks
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import TextFieldComponent from '@/components/FormInputs/TextFieldComponent'
 import { useTranslations } from 'next-intl'
-import DatePickerComponent from '@/components/FormInputs/DatePickerComponent'
-import RadioButtonComponent from '@/components/FormInputs/RadioButtonComponent'
-import Button from '@mui/material/Button'
+import { yupResolver } from '@hookform/resolvers/yup'
+
+// Types
+import { IExperience } from '@/components/pages/EditProfile/types'
+
+// Components
 import TextAreaComponent from '@/components/FormInputs/TextAreaComponet'
-import CloseIcon from '@mui/icons-material/Close'
+import TextFieldComponent from '@/components/FormInputs/TextFieldComponent'
+import DatePickerComponent from '@/components/FormInputs/DatePickerComponent'
+import CheckBoxComponent from '@/components/FormInputs/CheckBoxComponent'
 
 interface IWorkExperienceForm {
-  company_name: string
-  start_date: Date | null
-  end_date: Date | null
+  company: string
+  startDate: Date | null
+  endDate: Date | null
   present: string
   description: string
 }
 
-export default function Form() {
+export default function Form({ data }: { data: IExperience }) {
   const t = useTranslations('edit_profile')
 
   const defaultValues = {
-    company_name: '',
-    start_date: null,
-    end_date: null,
+    company: '',
+    startDate: null,
+    endDate: null,
     present: 'true',
     description: '',
   }
 
   const schema = object({
-    company_name: string().required(),
-    start_date: date().required().nullable(),
-    end_date: date().required().nullable(),
+    company: string().required(),
+    startDate: date().required().nullable(),
+    endDate: date().required().nullable(),
     present: string().required(),
     description: string().required(),
   })
@@ -51,32 +57,39 @@ export default function Form() {
   const {
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
   } = useForm<IWorkExperienceForm>({ resolver: yupResolver(schema), defaultValues })
+
+  const handelSetDataInForm = () => {
+    for (const property in data) {
+      setValue(property as keyof IWorkExperienceForm, data[property as keyof IExperience])
+    }
+  }
+
+  useEffect(() => {
+    if (data) handelSetDataInForm()
+  }, [data])
+
   return (
     <Grid container spacing={'16px'}>
       <Grid item lg={3} md={6}>
         <TextFieldComponent
           control={control}
-          name={'company_name'}
-          error={errors['company_name']}
+          name={'company'}
+          error={errors['company']}
           label={t('company_name')}
           placeholder={t('add_company_name')}
         />
       </Grid>
       <Grid item lg={3} md={6} padding={0} alignItems={'end'}>
-        <DatePickerComponent
-          error={errors['start_date']}
-          control={control}
-          name={'start_date'}
-          label={t('start_date')}
-        />
+        <DatePickerComponent error={errors['startDate']} control={control} name={'startDate'} label={t('start_date')} />
       </Grid>
       <Grid item lg={3} md={6} padding={0} alignItems={'end'}>
-        <DatePickerComponent error={errors['end_date']} control={control} name={'end_date'} label={t('end_date')} />
+        <DatePickerComponent error={errors['endDate']} control={control} name={'endDate'} label={t('end_date')} />
       </Grid>
       <Grid item lg={3} md={6} padding={0} display={'flex'} justifyItems={'start'} alignItems={'end'}>
-        <RadioButtonComponent error={errors['present']} name={'present'} control={control} label={t('present')} />
+        <CheckBoxComponent error={errors['present']} name={'present'} control={control} label={t('present')} />
       </Grid>
       <Grid xs={12} item padding={0} display={'flex'} justifyItems={'start'} alignItems={'end'}>
         <TextAreaComponent
@@ -90,13 +103,15 @@ export default function Form() {
         <Button sx={{ height: '26px' }} variant={'contained'} onClick={handleSubmit(submit)}>
           {t('submit')}
         </Button>
-        <CloseIcon
-          sx={{ cursor: 'pointer' }}
-          fontSize={'small'}
-          onClick={handelDelete}
-          aria-label={'delete work experience'}
-          aria-describedby={'delete work experience'}
-        />
+        {data?.id && (
+          <CloseIcon
+            sx={{ cursor: 'pointer' }}
+            fontSize={'small'}
+            onClick={handelDelete}
+            aria-label={'delete work experience'}
+            aria-describedby={'delete work experience'}
+          />
+        )}
       </Grid>
     </Grid>
   )

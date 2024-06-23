@@ -21,17 +21,18 @@ import { date, object, string } from 'yup'
 import CloseIcon from '@mui/icons-material/Close'
 
 interface IProps {
-  id: ESocialPlatform
+  id: string
   text: string
   name: string
   icon: ReactNode
-  value: string | null
+  value: string | null | undefined
+  socialId: ESocialPlatform
 }
-export default function SocialComponent({ icon, text, name, value, id }: IProps) {
+export default function SocialComponent({ icon, text, name, value, id, socialId }: IProps) {
   const [formIsOpen, setFormIsOpen] = useState<boolean>(value !== null)
 
   // request handler
-  const { deleteHandler } = useRequestHandlers()
+  const { deleteHandler, putHandler, postHandler } = useRequestHandlers()
 
   const tEditProfile = useTranslations('edit_profile')
 
@@ -48,8 +49,20 @@ export default function SocialComponent({ icon, text, name, value, id }: IProps)
     },
   })
 
-  const submit = (data: { input: string }) => {
-    const ServerRoute = value !== null ? '' : ''
+  // On Update
+  const onUpdate = async (value: string) => {
+    await putHandler({ endpoint: `profile/social/${id}`, body: { email: value } })
+  }
+
+  // On Submit New
+  const onSubmit = async (value: string) => {
+    await postHandler({ endpoint: 'profile/social', body: { email: value, socialPlatform: socialId } })
+  }
+
+  const submit = async (data: { input: string }) => {
+    if (value) {
+      await onUpdate(data.input)
+    } else await onSubmit(data.input)
   }
   const handelDelete = async () => {
     const { data } = await deleteHandler({ endpoint: `profile/social/${id}` })

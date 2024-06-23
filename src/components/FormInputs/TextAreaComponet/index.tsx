@@ -40,7 +40,7 @@ const TextAreaComponent = ({
 }: IProps & ComponentProps<'textarea'>) => {
   const theme = useTheme()
 
-  const borderColor = `${!error ? (theme?.palette?.mode === 'dark' ? 'white' : 'transparent') : 'red'}`
+  const borderColor = `${!error ? (theme?.palette?.mode === 'dark' ? 'white' : 'gray') : 'red'}`
   return (
     <FormControl fullWidth error={!!error}>
       <FormLabel>

@@ -15,44 +15,56 @@ import SocialComponent from '@/components/pages/EditProfile/Social/SocialCompone
 
 // Types
 import { ESocialPlatform } from '@/types/enums'
-import { TSocials } from '@/components/pages/EditProfile/types'
+import { ISocial } from '@/components/pages/EditProfile/types'
 
-interface ISocialCProps {
-  email: string | null
-  linkedin: string | null
-  github: string | null
-  discord: string | null
-}
-export default function Social({ value }: { value: ISocialCProps }) {
+export default function Social({ data }: { data: ISocial[] | undefined }) {
   const tEditProfile = useTranslations('edit_profile')
 
-  const iconsMap: Record<string, any> = {
-    email: <AlternateEmailIcon />,
-    linkedin: <LinkedInIcon />,
-    github: <GitHubIcon />,
-    discord: <AlternateEmailIcon />,
+  const iconsMap: any = {
+    0: <AlternateEmailIcon />,
+    4: <LinkedInIcon />,
+    1: <GitHubIcon />,
+    5: <AlternateEmailIcon />,
   }
-  const SocialIds: Record<string, ESocialPlatform> = {
-    email: ESocialPlatform.Google,
-    linkedin: ESocialPlatform.LinkedIn,
-    github: ESocialPlatform.GitHub,
-    discord: ESocialPlatform.Discord,
-  }
+
+  const arrayToMap = data
+    ? [
+        ...data,
+        { socialPlatform: 0, id: '0', email: null },
+        { socialPlatform: 4, id: '4', email: null },
+        { socialPlatform: 1, id: '1', email: null },
+        { socialPlatform: 5, id: '5', email: null },
+      ]
+    : []
+
+  const uniqueBySocialPlatform = Array.from(
+    arrayToMap
+      .reduce((map, item) => {
+        if (!map.has(item.socialPlatform)) {
+          map.set(item.socialPlatform, item)
+        }
+        return map
+      }, new Map())
+      .values()
+  )
+
   return (
     <Card sx={{ padding: '32px', display: 'flex', flexDirection: 'column', width: '100%' }}>
       <Typography sx={{ fontWeight: 500 }} variant={'subtitle2'}>
         {tEditProfile('on_the_web')}
       </Typography>
-      {['email', 'linkedin', 'github', 'discord'].map((ele) => (
-        <SocialComponent
-          id={SocialIds[ele]}
-          key={ele}
-          icon={iconsMap[ele]}
-          text={tEditProfile(ele)}
-          name={ele}
-          value={value[ele as TSocials]}
-        />
-      ))}
+      {Array.isArray(uniqueBySocialPlatform) &&
+        uniqueBySocialPlatform.map((ele) => (
+          <SocialComponent
+            id={ele.id}
+            key={ele.socialPlatform}
+            icon={iconsMap[ele.socialPlatform]}
+            text={tEditProfile(ESocialPlatform[ele.socialPlatform].toLowerCase())}
+            name={ESocialPlatform[ele.socialPlatform]}
+            socialId={ele.socialPlatform}
+            value={ele?.email}
+          />
+        ))}
     </Card>
   )
 }

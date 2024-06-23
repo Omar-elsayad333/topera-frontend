@@ -3,13 +3,16 @@
 // Types
 import { IDatePickerProps } from '@/components/FormInputs/DatePickerComponent/types'
 
-import FormControl from '@mui/material/FormControl'
+// React Form Hook
 import { Controller } from 'react-hook-form'
-import FormHelperText from '@mui/material/FormHelperText'
 
+// Mui
+import FormControl from '@mui/material/FormControl'
+import FormHelperText from '@mui/material/FormHelperText'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+
 export default function DatePickerComponent({
   error,
   name,

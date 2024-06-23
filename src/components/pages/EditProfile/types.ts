@@ -12,29 +12,29 @@ export interface IProfileData {
   imageUrl: string
   coverUrl: any
   isActive: boolean
-  socials: Social[]
-  experiences: Experience[]
+  socials: ISocial[]
+  experiences: IExperience[]
   educations: Education[]
   skills: Skill[]
   tracks: Track[]
 }
 
-export interface Social {
+export interface ISocial {
   id: string
   socialPlatform: number
   userName?: string
   email?: string
 }
 
-export interface Experience {
-  id: string
-  title: string
+export interface IExperience {
+  id: string | null
+  title?: string
   company: string
-  location: string
+  location?: string
   startDate: string
   endDate?: string
   description: string
-  icon: any
+  icon?: any
 }
 
 export interface Education {
