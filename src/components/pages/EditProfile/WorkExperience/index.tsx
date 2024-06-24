@@ -15,17 +15,32 @@ import { useEffect, useState } from 'react'
 
 // Types
 import { IExperience } from '@/components/pages/EditProfile/types'
+import { boolean } from 'yup'
+import useRequestHandlers from '@/hooks/useRequestHandlers'
 
 interface IWorkExperienceProps {
   experiences: IExperience[] | undefined
 }
 
 export default function WorkExperience({ experiences }: IWorkExperienceProps) {
+  const { deleteHandler } = useRequestHandlers()
+
   const tEditProfile = useTranslations('edit_profile')
+
   const [exp, setExp] = useState<IExperience[]>([])
 
   const handelAddExp = () => {
-    setExp([...exp, { id: null, endDate: '', startDate: '', company: '', description: '' }])
+    const currentTime = new Date()
+    const id = (currentTime.getSeconds() + currentTime.getUTCMinutes() + currentTime.getTime()).toString()
+    setExp([...exp, { id, isNew: true, endDate: '', startDate: '', company: '', description: '' }])
+  }
+
+  const handelDelete = async (id: string) => {
+    const res = await deleteHandler({ endpoint: `profile/education/${id}` })
+    if (res) {
+      const newExpArr = exp.filter((e) => e?.id === id)
+      setExp(newExpArr)
+    }
   }
 
   useEffect(() => {
@@ -36,7 +51,7 @@ export default function WorkExperience({ experiences }: IWorkExperienceProps) {
       <Typography sx={{ fontWeight: 500 }} variant={'subtitle2'}>
         {tEditProfile('work_experience')}
       </Typography>
-      {Array(exp) && exp?.map((experience) => <Form data={experience} />)}
+      {Array(exp) && exp?.map((experience) => <Form data={experience} deleteFunc={handelDelete} />)}
       <Button
         sx={{ height: '26px', width: 'fit-content', display: 'flex', gap: '16px' }}
         onClick={() => handelAddExp()}

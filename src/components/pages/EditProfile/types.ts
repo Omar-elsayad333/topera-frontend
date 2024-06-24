@@ -35,6 +35,7 @@ export interface IExperience {
   endDate?: string
   description: string
   icon?: any
+  isNew?: boolean
 }
 
 export interface IEducation {

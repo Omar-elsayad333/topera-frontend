@@ -29,7 +29,7 @@ interface IWorkExperienceForm {
   description: string
 }
 
-export default function Form({ data }: { data: IExperience }) {
+export default function Form({ data, deleteFunc }: { data: IExperience; deleteFunc: (id: string) => void }) {
   const t = useTranslations('edit_profile')
 
   const defaultValues = {
@@ -51,8 +51,6 @@ export default function Form({ data }: { data: IExperience }) {
   const submit = (data: IWorkExperienceForm) => {
     console.log(data)
   }
-
-  const handelDelete = () => {}
 
   const {
     handleSubmit,
@@ -115,7 +113,7 @@ export default function Form({ data }: { data: IExperience }) {
           <CloseIcon
             sx={{ cursor: 'pointer' }}
             fontSize={'small'}
-            onClick={handelDelete}
+            onClick={() => deleteFunc(data.id!)}
             aria-label={'delete work experience'}
             aria-describedby={'delete work experience'}
           />
