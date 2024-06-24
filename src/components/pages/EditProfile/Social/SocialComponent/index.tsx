@@ -51,7 +51,7 @@ export default function SocialComponent({ icon, text, name, value, id, socialId 
 
   // On Update
   const onUpdate = async (value: string) => {
-    await putHandler({ endpoint: `profile/social/${id}`, body: { email: value } })
+    await putHandler({ endpoint: `profile/social/${id}`, body: { id, email: value, userName: value } })
   }
 
   // On Submit New
