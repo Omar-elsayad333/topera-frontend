@@ -11,6 +11,7 @@ import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslations } from 'next-intl'
 import { yupResolver } from '@hookform/resolvers/yup'
+import useRequestHandlers from '@/hooks/useRequestHandlers'
 
 // Types
 import { IExperience } from '@/components/pages/EditProfile/types'
@@ -20,6 +21,9 @@ import TextAreaComponent from '@/components/FormInputs/TextAreaComponet'
 import TextFieldComponent from '@/components/FormInputs/TextFieldComponent'
 import DatePickerComponent from '@/components/FormInputs/DatePickerComponent'
 import CheckBoxComponent from '@/components/FormInputs/CheckBoxComponent'
+import { parseDate } from '@/utils/dateFns'
+
+import { parseISO, format } from 'date-fns'
 
 interface IWorkExperienceForm {
   company: string
@@ -30,6 +34,8 @@ interface IWorkExperienceForm {
 }
 
 export default function Form({ data, deleteFunc }: { data: IExperience; deleteFunc: (id: string) => void }) {
+  const { postHandler, putHandler } = useRequestHandlers()
+
   const t = useTranslations('edit_profile')
 
   const defaultValues = {
@@ -48,8 +54,40 @@ export default function Form({ data, deleteFunc }: { data: IExperience; deleteFu
     description: string().required(),
   })
 
-  const submit = (data: IWorkExperienceForm) => {
-    console.log(data)
+  const generateBody = (data: any) => {
+    const { isNew, ...rest } = data
+    if (data.present) rest['endDate'] = null
+    return {
+      ...rest,
+      startDate: parseDate({
+        date: rest?.startDate?.toString().replace(/ GMT.*$/, ''),
+        formatStr: 'EEE MMM dd yyyy HH:mm:ss',
+      }),
+      ...(rest?.endDate && {
+        endDate: parseDate({
+          date: rest?.endDate?.toString().replace(/ GMT.*$/, ''),
+          formatStr: 'EEE MMM dd yyyy HH:mm:ss',
+        }),
+      }),
+    }
+  }
+  const onSubmit = async (data: any) => {
+    delete data['id']
+
+    await postHandler({ endpoint: 'profile/experience', body: data })
+  }
+
+  const onEdit = async (data: any) => {
+    await putHandler({ endpoint: `profile/experience/${data.id}`, body: data })
+  }
+
+  const submit = async (data: IWorkExperienceForm & { isNew?: boolean }) => {
+    const body = generateBody(data)
+    if (data?.isNew) {
+      await onSubmit(body)
+    } else {
+      await onEdit(body)
+    }
   }
 
   const {
@@ -62,9 +100,13 @@ export default function Form({ data, deleteFunc }: { data: IExperience; deleteFu
 
   const handelSetDataInForm = () => {
     for (const property in data) {
-      setValue(property as keyof IWorkExperienceForm, data[property as keyof IExperience])
+      if (property === 'startDate' || property === 'endDate') {
+        setValue(property as keyof IWorkExperienceForm, parseISO(data[property as keyof IExperience]))
+      } else {
+        setValue(property as keyof IWorkExperienceForm, data[property as keyof IExperience])
+      }
     }
-    setValue('present', !!data?.endDate)
+    setValue('present', !data?.endDate)
   }
 
   useEffect(() => {

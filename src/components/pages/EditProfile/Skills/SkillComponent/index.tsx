@@ -15,7 +15,7 @@ export default function SkillComponent({ skill }: { skill: TSkill }) {
         aria-describedby={skill?.name}
         valueLabelDisplay={'auto'}
         slotProps={{
-          thumb: { style: { height: '1px', backgroundColor: 'unset' } },
+          thumb: { style: { display: 'none' } },
         }}
       />
     </Grid>

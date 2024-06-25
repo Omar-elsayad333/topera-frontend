@@ -36,7 +36,7 @@ export default function WorkExperience({ experiences }: IWorkExperienceProps) {
   }
 
   const handelDelete = async (id: string) => {
-    const res = await deleteHandler({ endpoint: `profile/education/${id}` })
+    const res = await deleteHandler({ endpoint: `profile/experience/${id}` })
     if (res) {
       const newExpArr = exp.filter((e) => e?.id === id)
       setExp(newExpArr)
@@ -51,7 +51,8 @@ export default function WorkExperience({ experiences }: IWorkExperienceProps) {
       <Typography sx={{ fontWeight: 500 }} variant={'subtitle2'}>
         {tEditProfile('work_experience')}
       </Typography>
-      {Array(exp) && exp?.map((experience) => <Form data={experience} deleteFunc={handelDelete} />)}
+      {Array(exp) &&
+        exp?.map((experience) => <Form key={experience?.id} data={experience} deleteFunc={handelDelete} />)}
       <Button
         sx={{ height: '26px', width: 'fit-content', display: 'flex', gap: '16px' }}
         onClick={() => handelAddExp()}
