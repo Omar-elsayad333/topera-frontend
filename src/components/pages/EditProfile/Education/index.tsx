@@ -24,7 +24,7 @@ export default function Education({ educations }: { educations: IEducation[] | u
   const [educationsArr, setEduArr] = useState<any[]>([])
 
   useEffect(() => {
-    if (Array.isArray(educations)) setEduArr([educations])
+    if (Array.isArray(educations)) setEduArr([...educationsArr, ...educations])
   }, [educations])
 
   const handelAddEducation = () => {
@@ -49,12 +49,13 @@ export default function Education({ educations }: { educations: IEducation[] | u
   useEffect(() => {
     getMajors()
   }, [])
+
   return (
     <Card sx={{ padding: '32px', display: 'flex', flexDirection: 'column', width: '100%' }}>
       <Typography sx={{ fontWeight: 500 }} variant={'subtitle2'}>
         {tEditProfile('education')}
       </Typography>
-      {educationsArr.length
+      {educationsArr?.length
         ? educationsArr?.map((ele) => <Form deleteFun={onDelete} data={ele} key={ele?.id} majors={majors} />)
         : null}
       <Button

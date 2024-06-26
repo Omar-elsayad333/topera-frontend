@@ -17,6 +17,7 @@ export default function EditProfileHeroComponent() {
   const {
     data: { profileData },
   } = useProfile()
+
   return (
     <Grid
       container

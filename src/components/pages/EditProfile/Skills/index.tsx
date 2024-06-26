@@ -17,6 +17,7 @@ import { array, object } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import MultieSelectComponent from '@/components/FormInputs/MultieSelectComponent'
 import SkillComponent from '@/components/pages/EditProfile/Skills/SkillComponent'
+import SliderComponent from '@/components/pages/EditProfile/Skills/slider'
 
 interface ISkillsForm {
   skills: any[]
@@ -80,8 +81,9 @@ export default function Skills() {
         </Grid>
 
         {watch('skills').map((skill) => (
-          <Grid item xs={12} key={skill?.id}>
-            <SkillComponent skill={skill} />
+          <Grid item xs={12}>
+            {skill.toString()}
+            {/*<SliderComponent key={skill?.id} aria-label={`skill-${skill?.name}`} name={'skills'} control={control} />*/}
           </Grid>
         ))}
       </Grid>

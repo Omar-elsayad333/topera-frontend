@@ -11,16 +11,17 @@ import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 
 // Validation
-import { mixed, object, string } from 'yup'
+import { boolean, mixed, object, string } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useEffect } from 'react'
 
 interface IEducationForm {
   id: string
-  university_name: string
+  school: string
   description: string
   degrees: any
   majors: any
+  isNew?: boolean
 }
 export default function Form({
   majors,
@@ -28,21 +29,22 @@ export default function Form({
   deleteFun,
 }: {
   majors: { id: string; name: string; default?: boolean; disabled?: boolean }[]
-  data: IEducationForm & { isNew?: boolean }
+  data: IEducationForm
   deleteFun: (id: string, isNew: boolean | undefined) => void
 }) {
   const tEditProfile = useTranslations('edit_profile')
 
   const defaultValues = {
-    university_name: '',
+    school: '',
     description: '',
     degrees: null,
     majors: null,
+    isNew: true,
   }
 
   const schema = object({
     id: string().required(),
-    university_name: string().required(),
+    school: string().required(),
     description: string().required(),
     degrees: mixed().required(),
     majors: mixed().required(),
@@ -55,19 +57,30 @@ export default function Form({
   const {
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
   } = useForm<IEducationForm>({ defaultValues, resolver: yupResolver(schema) })
 
   const listOfDegree: { id: string; name: string; disabled?: boolean; default?: boolean }[] = []
 
+  const handelSetDataInForm = (data: any) => {
+    for (const property in data) {
+      const typedProperty = property as keyof IEducationForm
+      setValue(typedProperty, data[typedProperty])
+    }
+  }
+
+  useEffect(() => {
+    if (data) handelSetDataInForm(data)
+  }, [data])
   return (
     <Grid container spacing={'16px'}>
       <Grid item md={6} lg={4}>
         <TextFieldComponent
           control={control}
           label={tEditProfile('university_name')}
-          name={'university_name'}
-          error={errors['university_name']}
+          name={'school'}
+          error={errors['school']}
         />
       </Grid>
       <Grid item md={6} lg={3}>
