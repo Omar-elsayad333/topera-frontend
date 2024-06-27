@@ -90,6 +90,28 @@ const FormDialog = ({ organizationId }: { organizationId: string }, ref: any) =>
               errors={errors['NewsCategoryId']}
             />
           </Grid>
+          <Grid item sm={12} md={6}>
+            <SelectComponent
+              label="select categories"
+              inputLabel="name"
+              inputValue="id"
+              options={categoriesData}
+              control={control}
+              name="NewsCategoryId"
+              errors={errors['NewsCategoryId']}
+            />
+          </Grid>
+          <Grid item sm={12} md={6}>
+            <SelectComponent
+              label="select categories"
+              inputLabel="name"
+              inputValue="id"
+              options={categoriesData}
+              control={control}
+              name="NewsCategoryId"
+              errors={errors['NewsCategoryId']}
+            />
+          </Grid>
           <Button type="submit" variant="contained" fullWidth>
             Post
           </Button>

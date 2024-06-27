@@ -9,7 +9,7 @@ const validationSchema = object({
   body: string().required(),
   title: string().required(),
   EndDate: string().required(),
-  NewsCategoryId: string().required(),
+  NewsCategoryId: object().required(),
   TagIds: array().min(1).required(),
   Color: number(),
   Images: array().required(),
@@ -39,8 +39,6 @@ const useAddPost = (organizationId: string) => {
     resolver: yupResolver(validationSchema),
     defaultValues: defaultValues,
   })
-
-  console.log(errors)
 
   useEffect(() => {
     getTagsData()
