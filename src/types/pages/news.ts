@@ -21,6 +21,8 @@ export interface IOrganization {
   id: string
   name: string
   imageUrl: string
+  followers: number
+  categories: string[]
 }
 
 export interface IPost {

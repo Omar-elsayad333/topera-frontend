@@ -2,6 +2,7 @@ import Image from 'next/image'
 
 // Types
 import { CSSProperties } from 'react'
+import { IPost } from '@/types/pages/news'
 
 // Assets
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
@@ -16,13 +17,14 @@ import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 
-const PostComponent = () => {
+const PostComponent = ({ data }: { data: IPost }) => {
   const avatarStyle: CSSProperties = {
     borderRadius: '50%',
     background: 'black',
   }
   const postImageStyle: CSSProperties = {
     width: '100%',
+    position: 'relative',
     aspectRatio: '3 / 1',
     background: 'black',
   }
@@ -35,10 +37,10 @@ const PostComponent = () => {
     <Stack gap={2}>
       <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} gap={2}>
         <Stack direction={'row'} alignItems={'center'} gap={2}>
-          <Image src={''} alt="" style={avatarStyle} width={40} height={40} />
+          <Image src={data.organization.imageUrl} alt="" style={avatarStyle} width={40} height={40} />
           <Stack direction={'row'} alignItems={'center'} gap={1}>
             <Typography fontWeight={500} variant="h5">
-              Google
+              {data.organization.name}
             </Typography>
             <Typography fontWeight={500} variant="h6">
               7 Days ago
@@ -50,15 +52,17 @@ const PostComponent = () => {
         </IconButton>
       </Stack>
       <Box sx={postImageStyle}>
-        <Image src={''} alt="" style={avatarStyle} />
+        <Image src={data.images[0].imageUrl} alt={data.title} objectFit="cover" objectPosition="center" fill />
       </Box>
       <Typography variant="h3" fontWeight={900}>
-        title
+        {data.title}
       </Typography>
-      <Typography variant="h5">body</Typography>
+      <Typography variant="h5">{data.body}</Typography>
       <Stack direction={'row'} flexWrap={'wrap'} gap={1}>
         <Typography sx={{ flex: '100%' }}>Tags</Typography>
-        <Chip label="hi" sx={postChipStyle} />
+        {data.tags.map((tag) => (
+          <Chip key={tag.id} label={tag.name} sx={postChipStyle} />
+        ))}
       </Stack>
       <PostActionsComponent />
     </Stack>
