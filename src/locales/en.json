@@ -83,6 +83,25 @@
     "head": "Finish sign up",
     "submit": "submit"
   },
+  "profile": {
+    "intro": "Intro",
+    "resume": "Resume",
+    "experiences": "Experiences",
+    "education": "Education",
+    "skills": "Skills",
+    "showAllSkills": "Show all skills",
+    "showLess": "Show Less",
+    "tracks": "Tracks",
+    "showAllTracks": "Show all tracks",
+    "work_at": "{title} at {company}",
+    "went_to": "Went to {school}",
+    "lives_in": "Lives in {country},{city}",
+    "message": "Message",
+    "active": "Available",
+    "inActive": "In Available",
+    "tab_to_click": "Tab to Change",
+    "edit": "Edit"
+  },
   "welcomeToTopera": {
     "gtToSignIn": "Go To Sign In",
     "welcomeHeadText": "Welcome to Topera!",
