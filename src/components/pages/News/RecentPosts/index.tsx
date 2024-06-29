@@ -1,3 +1,4 @@
+'use client'
 // Types
 import type { IOrganization, IPost } from '@/types/pages/news'
 
@@ -10,6 +11,7 @@ import Stack from '@mui/material/Stack'
 import ImageList from '@mui/material/ImageList'
 import Typography from '@mui/material/Typography'
 import ImageListItem from '@mui/material/ImageListItem'
+import { useMediaQuery, useTheme } from '@mui/material'
 
 interface IProps {
   postsData: IPost[]
@@ -17,10 +19,13 @@ interface IProps {
 }
 
 const RecentPosts = ({ postsData, OrganizationsData }: IProps) => {
+  const theme = useTheme()
+  const matchDownMd = useMediaQuery(theme.breakpoints.down('md'))
+
   return (
     <Stack gap={2}>
       <Typography>Recent posts</Typography>
-      <ImageList variant="masonry" cols={2} gap={20}>
+      <ImageList variant="masonry" cols={matchDownMd ? 1 : 2} gap={20}>
         <ImageListItem sx={{ py: 1 }}>
           <PostComponent data={postsData[0]} />
         </ImageListItem>
