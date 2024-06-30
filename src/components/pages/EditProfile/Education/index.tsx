@@ -21,6 +21,8 @@ export default function Education({ educations }: { educations: IEducation[] | u
 
   const [majors, setMajors] = useState<{ id: string; name: string; disabled?: boolean; default?: boolean }[]>([])
 
+  const [degrees, setDegrees] = useState<{ id: string; name: string }[]>([])
+
   const [educationsArr, setEduArr] = useState<any[]>([])
 
   useEffect(() => {
@@ -30,24 +32,29 @@ export default function Education({ educations }: { educations: IEducation[] | u
   const handelAddEducation = () => {
     const currentTime = new Date()
     const id = (currentTime.getSeconds() + currentTime.getUTCMinutes() + currentTime.getTime()).toString()
-    setEduArr([...educationsArr, { id, isNew: true }])
+    setEduArr([...educationsArr, { id, isNew: true, graduationDate: currentTime }])
   }
   const getMajors = async () => {
     const { data } = await getHandler({ endpoint: 'majors' })
     setMajors(data)
   }
 
+  const getDegrees = async () => {
+    const { data } = await getHandler({ endpoint: 'degrees' })
+    setDegrees(data)
+  }
+
   const onDelete = async (id: string, isNew: boolean | undefined) => {
-    if (isNew) {
-      const newArr = educationsArr.filter((e) => e.id !== id)
-      setEduArr(newArr)
-    } else {
-      await deleteHandler({ endpoint: '' })
+    if (!isNew) {
+      await deleteHandler({ endpoint: `profile/education/${id}` })
     }
+    const newArr = educationsArr.filter((e) => e.id !== id)
+    setEduArr(newArr)
   }
 
   useEffect(() => {
     getMajors()
+    getDegrees()
   }, [])
 
   return (
@@ -56,7 +63,9 @@ export default function Education({ educations }: { educations: IEducation[] | u
         {tEditProfile('education')}
       </Typography>
       {educationsArr?.length
-        ? educationsArr?.map((ele) => <Form deleteFun={onDelete} data={ele} key={ele?.id} majors={majors} />)
+        ? educationsArr?.map((ele) => (
+            <Form deleteFun={onDelete} data={ele} key={ele?.id} majors={majors} degrees={degrees} />
+          ))
         : null}
       <Button
         onClick={() => handelAddEducation()}

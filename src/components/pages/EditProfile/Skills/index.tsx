@@ -3,20 +3,14 @@ import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
 
-// Components
-import SelectComponent from '@/components/FormInputs/SelectComponent'
-
 // Hooks
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 import useRequestHandlers from '@/hooks/useRequestHandlers'
 import { useForm } from 'react-hook-form'
 
-// Form Validation
-import { array, object } from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
+// Components
 import MultieSelectComponent from '@/components/FormInputs/MultieSelectComponent'
-import SkillComponent from '@/components/pages/EditProfile/Skills/SkillComponent'
 import SliderComponent from '@/components/pages/EditProfile/Skills/slider'
 
 interface ISkillsForm {
@@ -38,10 +32,6 @@ export default function Skills() {
     skills: [],
   }
 
-  const schema = object({
-    skills: array().required(),
-  })
-
   const handelSubmit = async (data: ISkillsForm) => {
     console.log(data)
   }
@@ -52,7 +42,6 @@ export default function Skills() {
     formState: { errors },
   } = useForm<ISkillsForm>({
     defaultValues,
-    resolver: yupResolver(schema),
   })
 
   useEffect(() => {
@@ -63,13 +52,15 @@ export default function Skills() {
     console.log(watch('skills'))
   }, [watch('skills')])
 
+  const handelDelete = (id: string) => {}
+
   return (
     <Card sx={{ padding: '32px', display: 'flex', flexDirection: 'column', width: '100%' }}>
       <Typography sx={{ fontWeight: 500 }} variant={'subtitle2'}>
         {tEditProfile('skills')}
       </Typography>
       <Grid container spacing={'16px'}>
-        <Grid item xs={3}>
+        <Grid item xs={12} md={3}>
           <MultieSelectComponent
             label={tEditProfile('skills')}
             inputLabel={'name'}
@@ -82,8 +73,15 @@ export default function Skills() {
 
         {watch('skills').map((skill) => (
           <Grid item xs={12}>
-            {skill.toString()}
-            {/*<SliderComponent key={skill?.id} aria-label={`skill-${skill?.name}`} name={'skills'} control={control} />*/}
+            <Grid item xs={12} md={6}>
+              <SliderComponent
+                key={skill?.id}
+                control={control}
+                name={skill.name}
+                onDelete={handelDelete}
+                aria-label={`skill-${skill?.name}`}
+              />
+            </Grid>
           </Grid>
         ))}
       </Grid>
