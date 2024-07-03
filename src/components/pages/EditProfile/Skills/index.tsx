@@ -40,19 +40,34 @@ export default function Skills() {
     watch,
     control,
     formState: { errors },
+    setValue,
   } = useForm<ISkillsForm>({
     defaultValues,
   })
 
+  const handelDelete = (name: string) => {
+    setValue('skills', [...watch('skills').filter((e) => e?.name !== name)])
+  }
+
+  const handelChange = (name: string, value: number) => {
+    if (name && value && skills.length) {
+      const changedItem = watch('skills').filter((e) => e.name === name)[0]
+      const otherItems = watch('skills').filter((e) => e.name !== name)
+      if (changedItem) {
+        changedItem.rete = value
+        setValue('skills', [...otherItems, changedItem])
+      }
+      console.log(watch('skills'))
+    }
+  }
+
+  useEffect(() => {
+    console.log('s', skills)
+  }, [skills])
+
   useEffect(() => {
     getSkills()
   }, [])
-
-  useEffect(() => {
-    console.log(watch('skills'))
-  }, [watch('skills')])
-
-  const handelDelete = (id: string) => {}
 
   return (
     <Card sx={{ padding: '32px', display: 'flex', flexDirection: 'column', width: '100%' }}>
@@ -72,10 +87,10 @@ export default function Skills() {
         </Grid>
 
         {watch('skills').map((skill) => (
-          <Grid item xs={12}>
+          <Grid key={skill?.name} item xs={12}>
             <Grid item xs={12} md={6}>
               <SliderComponent
-                key={skill?.id}
+                handelChange={handelChange}
                 control={control}
                 name={skill.name}
                 onDelete={handelDelete}

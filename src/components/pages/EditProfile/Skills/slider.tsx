@@ -14,8 +14,9 @@ interface IProps extends ComponentProps<'input'> {
   name: string
   control: any
   onDelete: (name: string) => void
+  handelChange: (name: string, value: number) => void
 }
-export default function SliderComponent({ name, control, onDelete }: IProps) {
+export default function SliderComponent({ name, control, onDelete, handelChange }: IProps) {
   return (
     <Controller
       name={name}
@@ -27,7 +28,11 @@ export default function SliderComponent({ name, control, onDelete }: IProps) {
             <Typography sx={{ color: (theme) => theme.palette.primary.main }}>{field.value}</Typography>
           </Box>
           <Box sx={{ display: 'flex', gap: '24px', justifyContent: 'space-between' }}>
-            <Slider {...field} slotProps={{ thumb: { style: { display: 'none' } } }} />
+            <Slider
+              {...field}
+              onChange={(e, nv) => handelChange(name, nv as number)}
+              slotProps={{ thumb: { style: { display: 'none' } } }}
+            />
             <CloseIcon
               sx={{ cursor: 'pointer' }}
               fontSize={'small'}
