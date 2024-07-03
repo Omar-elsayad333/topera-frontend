@@ -16,6 +16,7 @@ export const Routes = {
   home: '/',
   test: '/test',
   news: '/news',
+  organization: '/news/organizations',
   roadmaps: '/roadmaps',
   careers: '/roadmaps/careers/',
   framework: '/roadmaps/framework/',

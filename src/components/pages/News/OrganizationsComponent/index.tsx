@@ -13,6 +13,7 @@ import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 
 import AddIcon from '@mui/icons-material/Add'
+import { Routes } from '@/routes/routes'
 interface IProps {
   organizationsData: IOrganization[]
 }
@@ -31,10 +32,12 @@ const OrganizationsComponent = ({ organizationsData }: IProps) => {
           <Stack direction={'row'} justifyContent={'space-between'} my={0.5} key={organization.id}>
             <Stack direction={'row'} gap={1}>
               <Image src={organization.imageUrl} alt="" style={avatarStyle} width={40} height={40} />
-              <Stack pt={1}>
-                <Typography variant="h6" fontWeight={500}>
-                  {organization.name}
-                </Typography>
+              <Stack pt={0.7}>
+                <Link href={`${Routes.organization}/${organization.id}`}>
+                  <Typography variant="h6" fontWeight={500}>
+                    {organization.name}
+                  </Typography>
+                </Link>
                 <Typography variant="subtitle2">{organization.categories.join(', ')}</Typography>
                 <Typography variant="subtitle2">{organization.followers} Followers</Typography>
               </Stack>

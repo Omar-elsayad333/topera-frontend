@@ -22,6 +22,7 @@ export interface IOrganization {
   name: string
   imageUrl: string
   followers: number
+  description?: string
   categories: string[]
 }
 
@@ -52,4 +53,13 @@ export interface ICreatePost {
     }
   }[]
   TagIds: string[]
+}
+
+export interface IOrganization {
+  id: string
+  name: string
+  imageUrl: string
+  categories: string[]
+  followers: number
+  posts: IPost[]
 }

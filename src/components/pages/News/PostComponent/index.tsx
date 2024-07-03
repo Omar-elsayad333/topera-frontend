@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 // Types
 import { CSSProperties } from 'react'
-import { IPost } from '@/types/pages/news'
+import { IOrganization, IPost } from '@/types/pages/news'
 
 // Assets
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
@@ -17,8 +17,9 @@ import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 
-const PostComponent = ({ data }: { data: IPost }) => {
+const PostComponent = ({ data, organizationData }: { data: IPost; organizationData?: IOrganization }) => {
   const avatarStyle: CSSProperties = {
+    objectFit: 'cover',
     borderRadius: '50%',
     background: 'black',
   }
@@ -37,10 +38,16 @@ const PostComponent = ({ data }: { data: IPost }) => {
     <Stack gap={2}>
       <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} gap={2}>
         <Stack direction={'row'} alignItems={'center'} gap={2}>
-          <Image src={data.organization.imageUrl} alt="" style={avatarStyle} width={40} height={40} />
+          <Image
+            alt=""
+            width={40}
+            height={40}
+            style={avatarStyle}
+            src={data.organization?.imageUrl || organizationData?.imageUrl || ''}
+          />
           <Stack direction={'row'} alignItems={'center'} gap={1}>
             <Typography fontWeight={500} variant="h5">
-              {data.organization.name}
+              {data.organization?.name || organizationData?.name}
             </Typography>
             <Typography fontWeight={500} variant="h6">
               7 Days ago
