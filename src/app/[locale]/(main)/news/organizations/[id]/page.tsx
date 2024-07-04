@@ -16,7 +16,7 @@ import PostComponent from '@/components/pages/News/PostComponent'
 import { Box, Button, Divider, Grid, IconButton, Paper, Stack, Typography } from '@mui/material'
 import { CSSProperties } from 'react'
 
-const Organizations = async ({ params }: { params: { id: string } }) => {
+const Organization = async ({ params }: { params: { id: string } }) => {
   const { data }: { data: IOrganization } = await serverAction(`/news/organizations/${params.id}`)
 
   const organizationData: IOrganization = {
@@ -81,4 +81,4 @@ const Organizations = async ({ params }: { params: { id: string } }) => {
   )
 }
 
-export default Organizations
+export default Organization

@@ -53,7 +53,7 @@ const OrganizationsComponent = ({ organizationsData }: IProps) => {
           </Stack>
         ))}
         <Divider />
-        <Link href={'/'}>
+        <Link href={Routes.organization}>
           <Typography textAlign={'center'} fontWeight={500}>
             See all Organizations
           </Typography>
