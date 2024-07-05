@@ -60,7 +60,7 @@ export default function EditProfileHeroComponent() {
           <Social data={profileData?.socials} />
           <WorkExperience experiences={profileData?.experiences} />
           <Education educations={profileData?.educations} />
-          <Skills />
+          <Skills skillsData={profileData?.skills} />
         </Grid>
       </Grid>
     </div>

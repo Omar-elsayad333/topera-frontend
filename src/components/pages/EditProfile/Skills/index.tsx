@@ -12,28 +12,27 @@ import { useForm } from 'react-hook-form'
 // Components
 import MultieSelectComponent from '@/components/FormInputs/MultieSelectComponent'
 import SliderComponent from '@/components/pages/EditProfile/Skills/slider'
+import { ISkill } from '@/components/pages/EditProfile/types'
+import Button from '@mui/material/Button'
 
 interface ISkillsForm {
-  skills: any[]
+  skills: ISkill[] | undefined
 }
-export default function Skills() {
-  const { getHandler } = useRequestHandlers()
 
-  const [skills, setSkills] = useState<{ id: string; name: string; default?: boolean; disabled?: boolean }[]>([])
+export default function Skills({ skillsData }: { skillsData: ISkill[] | undefined }) {
+  const { getHandler, postHandler } = useRequestHandlers()
+
+  const [skills, setSkills] = useState<ISkill[]>([])
 
   const tEditProfile = useTranslations('edit_profile')
 
   const getSkills = async () => {
     const { data } = await getHandler({ endpoint: 'skills' })
-    setSkills(data)
+    setSkills(data.map((e) => ({ skill: e['name'], ...e })))
   }
 
   const defaultValues = {
     skills: [],
-  }
-
-  const handelSubmit = async (data: ISkillsForm) => {
-    console.log(data)
   }
 
   const {
@@ -41,29 +40,34 @@ export default function Skills() {
     control,
     formState: { errors },
     setValue,
+    handleSubmit,
+    getValues,
   } = useForm<ISkillsForm>({
     defaultValues,
   })
 
   const handelDelete = (name: string) => {
-    setValue('skills', [...watch('skills').filter((e) => e?.name !== name)])
+    const filteredArray = watch('skills')?.filter((e) => e?.skill !== name) ?? watch('skills') ?? []
+    setValue('skills', [...filteredArray])
   }
 
   const handelChange = (name: string, value: number) => {
     if (name && value && skills.length) {
-      const changedItem = watch('skills').filter((e) => e.name === name)[0]
-      const otherItems = watch('skills').filter((e) => e.name !== name)
-      if (changedItem) {
-        changedItem.rete = value
-        setValue('skills', [...otherItems, changedItem])
-      }
-      console.log(watch('skills'))
+      const currentSkills = getValues('skills')
+      currentSkills?.forEach((e) => {
+        if (e.skill === name) e.rate = value
+      })
+      setValue('skills', currentSkills)
     }
   }
 
+  const onSubmit = async (data: ISkillsForm) => {
+    await postHandler({ endpoint: 'profile/skills', body: { skills: data.skills } })
+  }
+
   useEffect(() => {
-    console.log('s', skills)
-  }, [skills])
+    if (skillsData && skillsData.length) setValue('skills', skillsData)
+  }, [skillsData])
 
   useEffect(() => {
     getSkills()
@@ -78,7 +82,7 @@ export default function Skills() {
         <Grid item xs={12} md={3}>
           <MultieSelectComponent
             label={tEditProfile('skills')}
-            inputLabel={'name'}
+            inputLabel={'skill'}
             control={control}
             inputValue={'id'}
             options={skills}
@@ -86,20 +90,27 @@ export default function Skills() {
           />
         </Grid>
 
-        {watch('skills').map((skill) => (
-          <Grid key={skill?.name} item xs={12}>
+        {watch('skills')?.map((skill) => (
+          <Grid key={skill?.skill} item xs={12}>
             <Grid item xs={12} md={6}>
               <SliderComponent
                 handelChange={handelChange}
                 control={control}
-                name={skill.name}
+                name={skill.skill}
                 onDelete={handelDelete}
-                aria-label={`skill-${skill?.name}`}
+                aria-label={`skill-${skill?.skill}`}
               />
             </Grid>
           </Grid>
         ))}
       </Grid>
+      <Button
+        variant={'contained'}
+        sx={{ height: '26px', maxWidth: '100px', alignSelf: 'end' }}
+        onClick={handleSubmit(onSubmit, (e) => console.log(e))}
+      >
+        {tEditProfile('submit')}
+      </Button>
     </Card>
   )
 }

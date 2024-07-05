@@ -19,7 +19,7 @@ export default function ImageComponent({ url, setValue }: { url?: string; setVal
 
   const tEditProfile = useTranslations('edit_profile')
 
-  const toBase64 = (file) =>
+  const toBase64 = (file: File) =>
     new Promise((resolve, reject) => {
       const reader = new FileReader()
       reader.readAsDataURL(file)

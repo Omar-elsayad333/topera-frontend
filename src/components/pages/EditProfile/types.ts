@@ -48,7 +48,7 @@ export interface IEducation {
   icon: any
 }
 
-export interface Skill {
+export interface ISkill {
   id: string
   skill: string
   rate: number
