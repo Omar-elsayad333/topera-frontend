@@ -15,7 +15,7 @@ export interface IProfileData {
   socials: ISocial[]
   experiences: IExperience[]
   educations: IEducation[]
-  skills: Skill[]
+  skills: ISkill[]
   tracks: Track[]
 }
 

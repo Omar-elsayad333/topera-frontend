@@ -28,7 +28,7 @@ export default function Skills({ skillsData }: { skillsData: ISkill[] | undefine
 
   const getSkills = async () => {
     const { data } = await getHandler({ endpoint: 'skills' })
-    setSkills(data.map((e) => ({ skill: e['name'], ...e })))
+    setSkills(data.map((e: any) => ({ skill: e['name'], ...e })))
   }
 
   const defaultValues = {
