@@ -43,7 +43,7 @@ const ChatSectionCardComponent = ({ chatId }: IChatSectionCardComponentProps) =>
   const chat = chatData[chatId]
   return (
     <>
-      {chat.messages.map((message) => (
+      {chat?.messages?.map((message) => (
         <Stack key={message.id} direction={'row'} gap={2}>
           <Image src={'/path/to/avatar.png'} alt="Avatar" width={50} height={50} />
           <Stack gap={1}>

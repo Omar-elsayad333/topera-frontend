@@ -33,9 +33,9 @@ export const navigations: readonly INavigations[] = [
     meta: {},
   },
   {
-    name: 'Contact us',
-    text: 'contact_us',
-    value: Routes.contactUs,
+    name: 'Chat',
+    text: 'chat',
+    value: Routes.chat,
     meta: {},
   },
 ]

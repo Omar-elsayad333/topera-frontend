@@ -11,12 +11,12 @@ interface IChatSectionComponentProps {
 const ChatSectionComponent = ({ selectedChat, setSelectedChat }: IChatSectionComponentProps) => {
   return (
     <>
-      <Stack sx={{ height: '100%' }} justifyContent={'space-between'}>
-        <Box sx={{ flexGrow: 1, maxHeight: 'calc(100dvh - 110px)', height: '100%', overflowY: 'auto' }}>
+      <Stack sx={{ height: '100%', maxHeight: '100%' }} justifyContent={'space-between'}>
+        <Box sx={{ flexGrow: 1, overflowY: 'auto' }}>
           {selectedChat !== null ? (
             <ChatSectionCardComponent chatId={selectedChat} />
           ) : (
-            <div style={{ height: 'calc(100dvh - 200px)' }}>Select a chat to start messaging</div>
+            <div>Select a chat to start messaging</div>
           )}
         </Box>
         <ChatSectionInputComponent selectedChat={selectedChat} setSelectedChat={setSelectedChat} />

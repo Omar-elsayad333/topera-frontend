@@ -2,7 +2,7 @@
 
 import Button from '@mui/material/Button'
 import ToggleButton from '@mui/material/ToggleButton'
-import { List, ListSubheader, Stack } from '@mui/material'
+import { List, ListSubheader, Stack, SxProps } from '@mui/material'
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft'
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd'
 import MoveToInboxIcon from '@mui/icons-material/MoveToInbox'
@@ -25,20 +25,18 @@ const ChatNavComponent = ({ isPanelOpen, togglePanel, selectedChat, selectChat }
     togglePanel()
   }
 
-  const panelStyle = {
+  const panelStyle: SxProps = {
     p: '15px',
-    width: '300px',
-    height: isPanelOpen ? '100%' : '0px',
+    width: '100%',
+    maxHeight: '100%',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    overflow: 'hidden',
-    transition: 'height 0.3s ease',
   }
 
-  const subHeaderStyle = {
-    backgroundColor: 'transparent',
+  const subHeaderStyle: SxProps = {
     color: 'white',
     lineHeight: 1,
     padding: '12px',
+    backgroundColor: 'transparent',
   }
 
   const chats = [
@@ -71,36 +69,34 @@ const ChatNavComponent = ({ isPanelOpen, togglePanel, selectedChat, selectChat }
   ]
 
   return (
-    <>
-      <Stack sx={panelStyle} gap={3}>
-        <Stack spacing={2} direction={'row'} justifyContent={'space-between'}>
-          <ToggleButton onClick={handleToggleChatNav} color="primary" value="check">
-            <KeyboardDoubleArrowLeftIcon />
-          </ToggleButton>
-          <ToggleButton color="primary" value="check" onClick={handleNewChat}>
-            <LibraryAddIcon />
-          </ToggleButton>
-        </Stack>
-        <Button startIcon={<MoveToInboxIcon />} variant="grayButton">
-          Archived chats
-        </Button>
-        <List component="nav" sx={{ maxHeight: '550px', overflowY: 'auto' }}>
-          {chats.map((chat, index) => (
-            <>
-              <ListSubheader style={subHeaderStyle}>{chat.time}</ListSubheader>
-              {chat.items.map((item) => (
-                <ChatNavItemComponent
-                  key={item.id}
-                  chat={item}
-                  isSelected={selectedChat === item.id}
-                  selectChat={selectChat}
-                />
-              ))}
-            </>
-          ))}
-        </List>
+    <Stack sx={panelStyle} gap={3}>
+      <Stack spacing={2} direction={'row'} justifyContent={'space-between'}>
+        <ToggleButton onClick={handleToggleChatNav} color="primary" value="check">
+          <KeyboardDoubleArrowLeftIcon />
+        </ToggleButton>
+        <ToggleButton color="primary" value="check" onClick={handleNewChat}>
+          <LibraryAddIcon />
+        </ToggleButton>
       </Stack>
-    </>
+      <Button startIcon={<MoveToInboxIcon />} sx={{ maxHeight: '70px' }} variant="grayButton">
+        Archived chats
+      </Button>
+      <List component="nav" sx={{ flexGrow: 1, overflowY: 'auto' }}>
+        {chats.map((chat) => (
+          <>
+            <ListSubheader sx={subHeaderStyle}>{chat.time}</ListSubheader>
+            {chat.items.map((item) => (
+              <ChatNavItemComponent
+                key={item.id}
+                chat={item}
+                selectChat={selectChat}
+                isSelected={selectedChat === item.id}
+              />
+            ))}
+          </>
+        ))}
+      </List>
+    </Stack>
   )
 }
 

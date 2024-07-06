@@ -28,7 +28,7 @@ const UnityComponent = () => {
   }
 
   return (
-    <div style={{ height: 'calc(100vh - 80px)' }}>
+    <div style={{ height: '100%' }}>
       {!isLoaded && <p>Loading... ({Math.round(loadingProgression * 100)}%)</p>}
       <Unity unityProvider={unityProvider} style={unityStyle} />
     </div>

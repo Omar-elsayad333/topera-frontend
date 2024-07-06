@@ -12,34 +12,34 @@ const Chat = () => {
   const { isPanelOpen, togglePanel, selectedChat, selectChat } = useChatContext()
 
   return (
-    <Box sx={{ position: 'relative', height: 'calc(100dvh - 80px)', overflowY: 'auto' }}>
+    <Box sx={{ position: 'relative', width: '100%', height: 'calc(100dvh - 73px)', overflow: 'hidden' }}>
       <UnityComponent />
       <Grid
         container
-        spacing={1}
         sx={{
-          height: '100&',
-          position: 'absolute',
+          m: 0,
           top: 0,
           zIndex: 3,
+          width: '100%',
+          height: '100%',
+          position: 'absolute',
         }}
       >
-        <Grid item md={3}>
-          {!isPanelOpen && (
+        <Grid item xl={2} lg={3} md={4} sx={{ maxHeight: '100%' }}>
+          {!isPanelOpen ? (
             <ToggleButton color="primary" value="check" onClick={togglePanel}>
               <KeyboardDoubleArrowRightIcon />
             </ToggleButton>
-          )}
-          {isPanelOpen && (
+          ) : (
             <ChatNavComponent
+              selectChat={selectChat}
               isPanelOpen={isPanelOpen}
               togglePanel={togglePanel}
               selectedChat={selectedChat}
-              selectChat={selectChat}
             />
           )}
         </Grid>
-        <Grid item md={9} sx={{ maxHeight: 'calc(100dvh - 110px)' }}>
+        <Grid item xl={10} lg={9} md={8} sx={{ height: '100%', maxHeigth: '100%', p: 4 }}>
           <ChatSectionComponent selectedChat={selectedChat} setSelectedChat={selectChat} />
         </Grid>
       </Grid>
