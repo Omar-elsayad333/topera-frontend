@@ -5,8 +5,8 @@ import SendIcon from '@mui/icons-material/Send'
 import { useEffect, useState } from 'react'
 
 interface IChatSectionInputComponentProps {
-  selectedChat: number | null
-  setSelectedChat: (chatId: number | null) => void
+  selectedChat: string | null
+  setSelectedChat: (conversationId: string | null) => void
 }
 
 const ChatSectionInputComponent = ({ selectedChat, setSelectedChat }: IChatSectionInputComponentProps) => {

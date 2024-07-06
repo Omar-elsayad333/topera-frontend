@@ -5,16 +5,17 @@ import IconButton from '@mui/material/IconButton'
 
 import { MoreHorizRounded } from '@mui/icons-material'
 import { ListItem } from '@mui/material'
+import { IConversation } from '@/container/Chat/useChatContext'
 
 interface IChatNavItemComponentProps {
-  chat: { id: number; text: string; color: string }
   isSelected: boolean
-  selectChat: (chatId: number) => void
+  selectChat: (conversationId: string) => void
+  conversation: IConversation
 }
 
-const ChatNavItemComponent = ({ chat, isSelected, selectChat }: IChatNavItemComponentProps) => {
+const ChatNavItemComponent = ({ conversation, isSelected, selectChat }: IChatNavItemComponentProps) => {
   const handleSelectChat = () => {
-    selectChat(chat.id)
+    selectChat(conversation.id)
   }
 
   return (

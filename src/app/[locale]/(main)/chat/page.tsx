@@ -9,7 +9,12 @@ import { Box, ToggleButton } from '@mui/material'
 import useChatContext from '@/container/Chat/useChatContext'
 
 const Chat = () => {
-  const { isPanelOpen, togglePanel, selectedChat, selectChat } = useChatContext()
+  const { isPanelOpen, togglePanel, selectedChat, selectChat, loading, navChatData, getNavData } = useChatContext()
+
+  const handleToggleButton = async () => {
+    await getNavData()
+    togglePanel()
+  }
 
   return (
     <Box sx={{ position: 'relative', width: '100%', height: 'calc(100dvh - 73px)', overflow: 'hidden' }}>
@@ -27,11 +32,12 @@ const Chat = () => {
       >
         <Grid item xl={2} lg={3} md={4} sx={{ maxHeight: '100%' }}>
           {!isPanelOpen ? (
-            <ToggleButton color="primary" value="check" onClick={togglePanel}>
+            <ToggleButton color="primary" value="check" onClick={async () => await handleToggleButton()}>
               <KeyboardDoubleArrowRightIcon />
             </ToggleButton>
           ) : (
             <ChatNavComponent
+              conversationData={navChatData}
               selectChat={selectChat}
               isPanelOpen={isPanelOpen}
               togglePanel={togglePanel}

@@ -4,8 +4,8 @@ import ChatSectionInputComponent from './ChatSectionInputComponent'
 import { Box } from '@mui/material'
 
 interface IChatSectionComponentProps {
-  selectedChat: number | null
-  setSelectedChat: (chatId: number | null) => void
+  selectedChat: string | null
+  setSelectedChat: (conversationId: string | null) => void
 }
 
 const ChatSectionComponent = ({ selectedChat, setSelectedChat }: IChatSectionComponentProps) => {
@@ -14,7 +14,7 @@ const ChatSectionComponent = ({ selectedChat, setSelectedChat }: IChatSectionCom
       <Stack sx={{ height: '100%', maxHeight: '100%' }} justifyContent={'space-between'}>
         <Box sx={{ flexGrow: 1, overflowY: 'auto' }}>
           {selectedChat !== null ? (
-            <ChatSectionCardComponent chatId={selectedChat} />
+            <ChatSectionCardComponent conversationId={selectedChat} />
           ) : (
             <div>Select a chat to start messaging</div>
           )}
