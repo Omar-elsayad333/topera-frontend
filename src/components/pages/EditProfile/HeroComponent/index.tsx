@@ -63,7 +63,7 @@ export default function EditProfileHeroComponent() {
           <WorkExperience experiences={profileData?.experiences} />
           <Education educations={profileData?.educations} />
           <Skills skillsData={profileData?.skills} />
-          <Tracks tracksData={profileData?.tracks} />
+          <Tracks tracksData={profileData?.tracks!} />
         </Grid>
       </Grid>
     </div>
