@@ -20,7 +20,7 @@ interface ISkillsForm {
 }
 
 export default function Skills({ skillsData }: { skillsData: ISkill[] | undefined }) {
-  const { getHandler, postHandler } = useRequestHandlers()
+  const { getHandler, putHandler } = useRequestHandlers()
 
   const [skills, setSkills] = useState<ISkill[]>([])
 
@@ -62,19 +62,29 @@ export default function Skills({ skillsData }: { skillsData: ISkill[] | undefine
   }
 
   const onSubmit = async (data: ISkillsForm) => {
-    await postHandler({ endpoint: 'profile/skills', body: { skills: data.skills } })
+    await putHandler({
+      endpoint: 'profile/skills',
+      body: { skills: data.skills?.map(({ id, rate }) => ({ id, rate })) },
+    })
   }
 
   useEffect(() => {
-    if (skillsData && skillsData.length) setValue('skills', skillsData)
+    if (skillsData && skillsData.length) {
+      setValue('skills', skillsData)
+      for (const skill in skillsData) {
+        // setValue(skillsData[skill].skill, skillsData[skill].rate)
+      }
+    }
   }, [skillsData])
 
   useEffect(() => {
     getSkills()
   }, [])
 
+  console.log(watch('skills'))
+
   return (
-    <Card sx={{ padding: '32px', display: 'flex', flexDirection: 'column', width: '100%' }}>
+    <Card id={'skills'} sx={{ padding: '32px', display: 'flex', flexDirection: 'column', width: '100%' }}>
       <Typography sx={{ fontWeight: 500 }} variant={'subtitle2'}>
         {tEditProfile('skills')}
       </Typography>
@@ -95,7 +105,7 @@ export default function Skills({ skillsData }: { skillsData: ISkill[] | undefine
             <Grid item xs={12} md={6}>
               <SliderComponent
                 handelChange={handelChange}
-                control={control}
+                value={skill.rate}
                 name={skill.skill}
                 onDelete={handelDelete}
                 aria-label={`skill-${skill?.skill}`}
@@ -107,7 +117,7 @@ export default function Skills({ skillsData }: { skillsData: ISkill[] | undefine
       <Button
         variant={'contained'}
         sx={{ height: '26px', maxWidth: '100px', alignSelf: 'end' }}
-        onClick={handleSubmit(onSubmit, (e) => console.log(e))}
+        onClick={handleSubmit(onSubmit)}
       >
         {tEditProfile('submit')}
       </Button>

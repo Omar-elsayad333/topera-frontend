@@ -47,7 +47,10 @@ export default function WorkExperience({ experiences }: IWorkExperienceProps) {
     if (experiences) setExp([...exp, ...experiences])
   }, [experiences])
   return (
-    <Card sx={{ padding: '32px', display: 'flex', flexDirection: 'column', width: '100%', gap: '16px' }}>
+    <Card
+      id={'work_experience'}
+      sx={{ padding: '32px', display: 'flex', flexDirection: 'column', width: '100%', gap: '16px' }}
+    >
       <Typography sx={{ fontWeight: 500 }} variant={'subtitle2'}>
         {tEditProfile('work_experience')}
       </Typography>

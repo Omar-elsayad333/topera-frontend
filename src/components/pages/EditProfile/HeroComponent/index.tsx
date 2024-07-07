@@ -18,6 +18,7 @@ import useProfile from '@/components/pages/EditProfile/useProfile'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import Tracks from '@/components/pages/EditProfile/Tracks'
+import SideComponent from '@/components/pages/EditProfile/SideComponent'
 
 export default function EditProfileHeroComponent() {
   const router = useRouter()
@@ -29,7 +30,14 @@ export default function EditProfileHeroComponent() {
   const tEditProfile = useTranslations('edit_profile')
   return (
     <div>
-      <Box sx={{ width: '100%', background: '#fff', padding: '13px 0', display: 'flex', justifyContent: 'center' }}>
+      <Box
+        sx={{
+          background: '#fff',
+          padding: '13px 0',
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
         <Button
           sx={{ height: '46px', backgroundColor: '#4E4EBC' }}
           variant={'contained'}
@@ -46,7 +54,9 @@ export default function EditProfileHeroComponent() {
         rowGap={'30px'}
         margin={'60px 0'}
       >
-        <Grid height={'fit-content'} gap={'16px'} container justifyItems={'start'} item lg={3} md={3} xs={12}></Grid>
+        <Grid height={'fit-content'} container justifyItems={'start'} item lg={3} md={3} xs={12}>
+          <SideComponent />
+        </Grid>
         <Grid lg={8} md={8} rowGap={'16px'} container item>
           <BasicInformation
             imageUrl={profileData?.imageUrl!}

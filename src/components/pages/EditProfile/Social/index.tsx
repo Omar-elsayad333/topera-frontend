@@ -49,7 +49,7 @@ export default function Social({ data }: { data: ISocial[] | undefined }) {
   )
 
   return (
-    <Card sx={{ padding: '32px', display: 'flex', flexDirection: 'column', width: '100%' }}>
+    <Card id={'on_the_web'} sx={{ padding: '32px', display: 'flex', flexDirection: 'column', width: '100%' }}>
       <Typography sx={{ fontWeight: 500 }} variant={'subtitle2'}>
         {tEditProfile('on_the_web')}
       </Typography>

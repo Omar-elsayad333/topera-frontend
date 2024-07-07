@@ -115,9 +115,6 @@ export default function Form({
     if (data) handelSetDataInForm(data)
   }, [data, degrees?.length, majors?.length])
 
-  useEffect(() => {
-    console.log(watch())
-  }, [watch()])
   return (
     <Grid container spacing={'16px'}>
       <Grid item md={6} lg={4}>
@@ -168,7 +165,7 @@ export default function Form({
         />
       </Grid>
       <Grid item marginTop={'24px'} display={'flex'} xs={12} gap={'16px'} alignItems={'center'} justifyContent={'end'}>
-        <Button sx={{ height: '26px' }} variant={'contained'} onClick={handleSubmit(submit, (e) => console.log(e))}>
+        <Button sx={{ height: '26px' }} variant={'contained'} onClick={handleSubmit(submit)}>
           {tEditProfile('submit')}
         </Button>
         <CloseIcon

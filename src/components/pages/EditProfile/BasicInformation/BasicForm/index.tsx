@@ -29,7 +29,7 @@ export default function BasicForm({ control, errors }: IBasicFormProps) {
     getOptions()
   }, [])
   return (
-    <Grid container paddingInline={'32px'} spacing={'40px'}>
+    <Grid container paddingInline={'32px'} spacing={'40px'} id={'basic_information'}>
       <Grid item xs={6}>
         <TextFieldComponent
           label={tEditProfile('first_name')}

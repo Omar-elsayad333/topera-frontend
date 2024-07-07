@@ -45,7 +45,10 @@ export default function DescriptionComponent({ value }: { value: string | undefi
   }, [value])
 
   return (
-    <Card sx={{ padding: '32px', display: 'flex', flexDirection: 'column', width: '100%', gap: '16px' }}>
+    <Card
+      id={'about_me'}
+      sx={{ padding: '32px', display: 'flex', flexDirection: 'column', width: '100%', gap: '16px' }}
+    >
       <Typography sx={{ fontWeight: 500 }} variant={'subtitle2'}>
         {tEditProfile('about_me')}
       </Typography>

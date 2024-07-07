@@ -10,6 +10,7 @@ import Grid from '@mui/material/Grid'
 
 export default function TrackComponent({ track, control, setValue }: { track: ITrack; control: any; setValue: any }) {
   const [frameWorks, setFrameWorks] = useState<any[]>([])
+
   const frameWorksWatch = useWatch({ control, name: track.name! })
 
   const onChange = (name: string, value: number) => {

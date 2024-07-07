@@ -58,7 +58,7 @@ export default function Education({ educations }: { educations: IEducation[] | u
   }, [])
 
   return (
-    <Card sx={{ padding: '32px', display: 'flex', flexDirection: 'column', width: '100%' }}>
+    <Card id={'education'} sx={{ padding: '32px', display: 'flex', flexDirection: 'column', width: '100%' }}>
       <Typography sx={{ fontWeight: 500 }} variant={'subtitle2'}>
         {tEditProfile('education')}
       </Typography>

@@ -18,7 +18,7 @@ import TrackComponent from '@/components/pages/EditProfile/Tracks/TrackComponent
 import Button from '@mui/material/Button'
 
 export default function Tracks({ tracksData }: { tracksData: any[] }) {
-  const { getHandler } = useRequestHandlers()
+  const { getHandler, putHandler } = useRequestHandlers()
 
   const [tracks, setTracks] = useState<ITrack[]>([])
 
@@ -40,20 +40,49 @@ export default function Tracks({ tracksData }: { tracksData: any[] }) {
 
   const handleSetTracksInForm = () => {
     for (const item in tracksData) {
-      console.log('track', tracksData[item])
-      // setValue(tracksData[item].name, tracksData[item].frameWork)
+      setValue(
+        tracksData[item].track,
+        tracksData[item].frameworks.map((e: any) => ({ ...e, rate: e.level * 25 }))
+      )
+      const newTracksValue = Array.isArray(watch('tracks'))
+        ? [...watch('tracks'), ...tracks.filter((e) => e.name === tracksData[item].track)]
+        : tracks.filter((e) => e.name === tracksData[item].track)
+      setValue('tracks', newTracksValue)
     }
   }
 
-  const onSubmit = (data: any) => {
-    console.log(data)
+  const generateBody = (data: Record<string, any>) => {
+    const wholeArray = data.tracks.map((track: any) => ({
+      ...track,
+      frameworks: Array.isArray(data[track.name])
+        ? data[track.name].map((framework: any) => {
+            const { rate, ...rest } = framework
+            return {
+              ...rest,
+              level: rate ? rate / 25 : 0,
+            }
+          })
+        : [],
+    }))
+    const array: any[] = []
+    wholeArray.map((track: any) => {
+      track.frameworks.forEach((frameWork: any) => {
+        array.push({ level: frameWork.level, trackId: track.id, frameWorkId: frameWork.id })
+      })
+    })
+    return array
+  }
+
+  const onSubmit = async (data: any) => {
+    const generatedBody = generateBody(data)
+    await putHandler({ endpoint: 'profile/tracks', body: { tracks: generatedBody } })
   }
 
   useEffect(() => {
-    handleSetTracksInForm()
-  }, [tracksData])
+    if (!watch('tracks').length) handleSetTracksInForm()
+  }, [tracksData, tracks.length])
   return (
-    <Card sx={{ padding: '32px', display: 'flex', flexDirection: 'column', width: '100%' }}>
+    <Card id={'tracks'} sx={{ padding: '32px', display: 'flex', flexDirection: 'column', width: '100%' }}>
       <Typography sx={{ fontWeight: 500 }} variant={'subtitle2'}>
         {tEditProfile('tracks')}
       </Typography>
