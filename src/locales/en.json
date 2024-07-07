@@ -119,6 +119,7 @@
     "country": "Country",
     "city": "City",
     "upload_file": "Replace",
-    "back_to_profile": "Back To Profile"
+    "back_to_profile": "Back To Profile",
+    "tracks": "Tracks"
   }
 }

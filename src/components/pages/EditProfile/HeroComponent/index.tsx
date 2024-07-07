@@ -17,6 +17,7 @@ import BasicInformation from '@/components/pages/EditProfile/BasicInformation'
 import useProfile from '@/components/pages/EditProfile/useProfile'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
+import Tracks from '@/components/pages/EditProfile/Tracks'
 
 export default function EditProfileHeroComponent() {
   const router = useRouter()
@@ -48,6 +49,7 @@ export default function EditProfileHeroComponent() {
         <Grid height={'fit-content'} gap={'16px'} container justifyItems={'start'} item lg={3} md={3} xs={12}></Grid>
         <Grid lg={8} md={8} rowGap={'16px'} container item>
           <BasicInformation
+            imageUrl={profileData?.imageUrl!}
             data={{
               firstName: profileData?.firstName!,
               lastName: profileData?.lastName!,
@@ -61,6 +63,7 @@ export default function EditProfileHeroComponent() {
           <WorkExperience experiences={profileData?.experiences} />
           <Education educations={profileData?.educations} />
           <Skills skillsData={profileData?.skills} />
+          <Tracks tracksData={profileData?.tracks} />
         </Grid>
       </Grid>
     </div>

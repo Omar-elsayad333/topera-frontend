@@ -13,27 +13,25 @@ import UploadIcon from '@mui/icons-material/Upload'
 import { UseFormSetValue } from 'react-hook-form'
 import { IBasicForm } from '@/components/pages/EditProfile/BasicInformation/BasicForm/types'
 import { encodeToBase64 } from 'next/dist/build/webpack/loaders/utils'
+import { convertFileToBase64 } from '@/utils/converters'
 
 export default function ImageComponent({ url, setValue }: { url?: string; setValue: UseFormSetValue<IBasicForm> }) {
   const [currentUrl, set] = useState<string>('')
 
   const tEditProfile = useTranslations('edit_profile')
 
-  const toBase64 = (file: File) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.readAsDataURL(file)
-      reader.onload = () => resolve(reader.result)
-      reader.onerror = reject
-    })
-  const handelChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.length && e.target.files[0]
-
-    if (file) {
-      const url = URL.createObjectURL(file)
+  const handelChange = async (e: any) => {
+    const value = e.target.files
+    const [fileToConvert] = e.target.files
+    const convertedImage: any = await convertFileToBase64(fileToConvert)
+    const image = {
+      data: convertedImage,
+      extension: `.${value[0].type.slice(6)}`,
+    }
+    if (value[0]) {
+      const url = URL.createObjectURL(value[0])
       set(url)
-      setValue('image', { extension: file?.type.split('/')[1], data: await toBase64(file) })
-      console.log(file)
+      setValue('image', image)
     }
   }
 

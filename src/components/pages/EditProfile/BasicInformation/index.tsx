@@ -16,7 +16,7 @@ import BasicForm from '@/components/pages/EditProfile/BasicInformation/BasicForm
 import { IBasicForm } from '@/components/pages/EditProfile/BasicInformation/BasicForm/types'
 import { useEffect } from 'react'
 
-export default function BasicInformation({ data }: { data: Partial<IBasicForm> }) {
+export default function BasicInformation({ data, imageUrl }: { data: Partial<IBasicForm>; imageUrl: string }) {
   const tEditProfile = useTranslations('edit_profile')
 
   const { control, errors, setValue, handleSubmit, onSubmit } = useBasicForm()
@@ -34,7 +34,7 @@ export default function BasicInformation({ data }: { data: Partial<IBasicForm> }
       </Typography>
       <Grid container>
         <Grid container item xs={12} lg={2}>
-          <ImageComponent setValue={setValue} />
+          <ImageComponent setValue={setValue} url={imageUrl} />
         </Grid>
         <Grid container item xs={12} lg={10}>
           <BasicForm control={control} errors={errors} />

@@ -16,7 +16,7 @@ export interface IProfileData {
   experiences: IExperience[]
   educations: IEducation[]
   skills: ISkill[]
-  tracks: Track[]
+  tracks: ITrack[]
 }
 
 export interface ISocial {
@@ -54,12 +54,14 @@ export interface ISkill {
   rate: number
 }
 
-export interface Track {
+export interface ITrack {
   id: string
+  name?: string
   trackId: string
   track: string
   frameworkId: string
   framework: string
+  frameworks?: { id: string; name: string }[]
   level: number
 }
 

@@ -94,7 +94,11 @@ export default function SocialComponent({ icon, text, name, value, id, socialId 
           <CloseIcon sx={{ cursor: 'pointer' }} fontSize={'small'} onClick={handelDelete} />
         </Box>
       ) : (
-        <Button sx={{ height: '26px' }} variant={'contained'} onClick={() => setFormIsOpen(true)}>
+        <Button
+          sx={{ height: '26px', maxWidth: '100px', alignSelf: 'end' }}
+          variant={'contained'}
+          onClick={() => setFormIsOpen(true)}
+        >
           {tEditProfile('link')}
         </Button>
       )}

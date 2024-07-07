@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form'
 
 // Components
 import MultieSelectComponent from '@/components/FormInputs/MultieSelectComponent'
-import SliderComponent from '@/components/pages/EditProfile/Skills/slider'
+import SliderComponent from '@/components/pages/EditProfile/Shared/slider'
 import { ISkill } from '@/components/pages/EditProfile/types'
 import Button from '@mui/material/Button'
 

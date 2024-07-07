@@ -92,7 +92,7 @@ const MultiSelectComponent = <T extends object>({
             }
             renderOption={(props, option) => (
               <MenuItem
-                selected={field.value.map((e: T) => e[inputValue]).includes(option[inputValue])}
+                selected={field?.value?.map((e: T) => e[inputValue]).includes(option[inputValue])}
                 sx={menuItemSx}
                 component="li"
                 {...props}

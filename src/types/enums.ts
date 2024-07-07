@@ -23,3 +23,10 @@ export enum ESocialPlatform {
   Discord,
   Microsoft,
 }
+
+export enum EUserTrackLevel {
+  AbsoluteBeginner,
+  Beginner,
+  Intermediate,
+  Advanced,
+}

@@ -11,12 +11,13 @@ import { ComponentProps } from 'react'
 import CloseIcon from '@mui/icons-material/Close'
 
 interface IProps extends ComponentProps<'input'> {
+  label?: string
   name: string
   control: any
   onDelete: (name: string) => void
   handelChange: (name: string, value: number) => void
 }
-export default function SliderComponent({ name, control, onDelete, handelChange }: IProps) {
+export default function SliderComponent({ name, control, onDelete, handelChange, label }: IProps) {
   return (
     <Controller
       name={name}
@@ -24,7 +25,7 @@ export default function SliderComponent({ name, control, onDelete, handelChange 
       render={({ field }) => (
         <>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Typography sx={{ color: (theme) => theme.palette.primary.main }}>{name}</Typography>
+            <Typography sx={{ color: (theme) => theme.palette.primary.main }}>{label ? label : name}</Typography>
             <Typography sx={{ color: (theme) => theme.palette.primary.main }}>{field.value}</Typography>
           </Box>
           <Box sx={{ display: 'flex', gap: '24px', justifyContent: 'space-between' }}>
