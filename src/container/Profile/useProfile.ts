@@ -8,6 +8,7 @@ const useProfile = () => {
   const { handleError } = useHandleError()
   const { getHandler } = useRequestHandlers()
   const [profileData, setProfileData] = useState<IProfile>({
+    employmentStatus: 'student',
     educations: [],
     bio: '',
     experiences: [],

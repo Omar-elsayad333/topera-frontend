@@ -26,6 +26,7 @@ const Profile: NextPage = () => {
     active: data?.profileData.isActive,
     name: data?.profileData?.fullName,
     occupation: data?.profileData?.intro?.occupation,
+    employmentStatus: data?.profileData?.employmentStatus,
   }
   return (
     <Grid

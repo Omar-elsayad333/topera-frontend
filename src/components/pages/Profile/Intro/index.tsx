@@ -54,10 +54,30 @@ const Intro = ({ occupation, company, education, city, country, linkedIn, gitHub
           </RenderRow>
         )}
 
-        {education && <RenderRow icon={<SchoolIcon color={'disabled'} />}> {education}</RenderRow>}
+        {education && (
+          <RenderRow icon={<SchoolIcon color={'disabled'} />}>
+            <div style={{ display: 'flex', gap: '4px' }}>
+              <Typography variant={'subtitle1'} sx={{ fontWeight: 500 }}>
+                {t('went_to')}
+              </Typography>
+              <Typography variant={'h6'} sx={{ fontWeight: 700 }}>
+                {education}
+              </Typography>
+            </div>
+          </RenderRow>
+        )}
 
         {city && country && (
-          <RenderRow icon={<LocationOnIcon color={'disabled'} />}> {t('lives_in', { country, city })}</RenderRow>
+          <RenderRow icon={<LocationOnIcon color={'disabled'} />}>
+            <div style={{ display: 'flex', gap: '4px' }}>
+              <Typography variant={'subtitle1'} sx={{ fontWeight: 500 }}>
+                {t('lives_in')}
+              </Typography>
+              <Typography variant={'h6'} sx={{ fontWeight: 700 }}>
+                {country},{city}
+              </Typography>
+            </div>
+          </RenderRow>
         )}
 
         {linkedIn && (
