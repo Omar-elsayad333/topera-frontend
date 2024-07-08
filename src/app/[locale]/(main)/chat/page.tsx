@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react'
 import ChatNavComponent from '@/components/pages/Chat/ChatNavComponent'
 import Grid from '@mui/material/Grid'
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight'
@@ -7,9 +8,31 @@ import ChatSectionComponent from '@/components/pages/Chat/ChatSectionComponent'
 import UnityComponent from '@/components/pages/Chat/UnityComponent'
 import { Box, ToggleButton } from '@mui/material'
 import useChatContext from '@/container/Chat/useChatContext'
+import { NextPage } from 'next'
 
-const Chat = () => {
-  const { isPanelOpen, togglePanel, selectedChat, selectChat, loading, navChatData, getNavData } = useChatContext()
+interface IProps {
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
+const Chat: NextPage<IProps> = ({ searchParams }) => {
+  const {
+    isPanelOpen,
+    togglePanel,
+    selectedChat,
+    selectChat,
+    loading,
+    navChatData,
+    getNavData,
+    chatMessageData,
+    getChatMessageData,
+  } = useChatContext()
+
+  useEffect(() => {
+    const chatId = Array.isArray(searchParams.chatId) ? searchParams.chatId[0] : searchParams.chatId
+    if (chatId) {
+      getChatMessageData(chatId)
+    }
+  }, [searchParams.chatId])
 
   const handleToggleButton = async () => {
     await getNavData()
@@ -32,7 +55,7 @@ const Chat = () => {
       >
         <Grid item xl={2} lg={3} md={4} sx={{ maxHeight: '100%' }}>
           {!isPanelOpen ? (
-            <ToggleButton color="primary" value="check" onClick={async () => await handleToggleButton()}>
+            <ToggleButton color="primary" value="check" onClick={handleToggleButton}>
               <KeyboardDoubleArrowRightIcon />
             </ToggleButton>
           ) : (
@@ -42,11 +65,17 @@ const Chat = () => {
               isPanelOpen={isPanelOpen}
               togglePanel={togglePanel}
               selectedChat={selectedChat}
+              chatMessageData={chatMessageData}
+              getChatMessageData={getChatMessageData}
             />
           )}
         </Grid>
-        <Grid item xl={10} lg={9} md={8} sx={{ height: '100%', maxHeigth: '100%', p: 4 }}>
-          <ChatSectionComponent selectedChat={selectedChat} setSelectedChat={selectChat} />
+        <Grid item xl={10} lg={9} md={8} sx={{ height: '100%', maxHeight: '100%', p: 4 }}>
+          <ChatSectionComponent
+            conversationMessages={chatMessageData}
+            selectedChat={selectedChat}
+            setSelectedChat={selectChat}
+          />
         </Grid>
       </Grid>
     </Box>

@@ -8,6 +8,7 @@ import LibraryAddIcon from '@mui/icons-material/LibraryAdd'
 import MoveToInboxIcon from '@mui/icons-material/MoveToInbox'
 import ChatNavItemComponent from './ChatNavItemComponent'
 import { IConversationData } from '@/container/Chat/useChatContext'
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 interface IChatNavComponentProps {
   isPanelOpen: boolean
@@ -15,6 +16,8 @@ interface IChatNavComponentProps {
   selectedChat: string | null
   selectChat: (conversationId: string | null) => void
   conversationData: IConversationData[] | undefined
+  chatMessageData: any
+  getChatMessageData: (conversationId: string) => void
 }
 
 const ChatNavComponent = ({
@@ -23,6 +26,8 @@ const ChatNavComponent = ({
   selectedChat,
   selectChat,
   conversationData,
+  chatMessageData,
+  getChatMessageData,
 }: IChatNavComponentProps) => {
   const handleNewChat = () => {
     selectChat(null)
@@ -71,6 +76,8 @@ const ChatNavComponent = ({
                   conversation={item}
                   selectChat={selectChat}
                   isSelected={selectedChat === item.id}
+                  chatMessageData={chatMessageData}
+                  getChatMessageData={getChatMessageData}
                 />
               ))}
             </>

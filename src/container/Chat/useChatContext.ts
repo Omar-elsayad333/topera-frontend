@@ -2,6 +2,7 @@
 
 import useHandleError from '@/hooks/useHandleError'
 import useRequestHandlers from '@/hooks/useRequestHandlers'
+import { IConversationMessages } from '@/types/pages/chat'
 import { useEffect, useState } from 'react'
 
 // Define an interface for Conversation
@@ -21,6 +22,7 @@ const useChatContext = () => {
   const [isPanelOpen, setIsPanelOpen] = useState(false)
   const [selectedChat, setSelectedChat] = useState<string | null>(null)
   const [navChatData, setNavChatData] = useState<IConversationData[] | undefined>()
+  const [chatMessageData, setChatMessageData] = useState<IConversationMessages | undefined>()
   const { loading, postHandler, getHandler } = useRequestHandlers()
   const { handleError } = useHandleError()
 
@@ -32,6 +34,13 @@ const useChatContext = () => {
     setSelectedChat(chatId)
   }
 
+  const getChatMessageData = async (conversationId: string) => {
+    const { data, error } = await getHandler({ endpoint: `/conversations/${conversationId}` })
+    console.log(data)
+    if (error) return handleError(error)
+    setChatMessageData(data)
+  }
+
   const getNavData = async () => {
     const { data, error } = await getHandler({ endpoint: '/conversations' })
     console.log(data)
@@ -40,12 +49,8 @@ const useChatContext = () => {
   }
 
   useEffect(() => {
-    console.log('i am see changes')
-  }, [isPanelOpen])
-
-  useEffect(() => {
-    console.log('Selected chat changed:', selectedChat)
-  }, [selectedChat])
+    console.log(chatMessageData)
+  }, [chatMessageData])
 
   return {
     isPanelOpen,
@@ -55,6 +60,8 @@ const useChatContext = () => {
     loading,
     navChatData,
     getNavData,
+    chatMessageData,
+    getChatMessageData,
   }
 }
 
