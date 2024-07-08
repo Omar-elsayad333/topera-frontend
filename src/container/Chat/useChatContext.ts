@@ -2,66 +2,53 @@
 
 import useHandleError from '@/hooks/useHandleError'
 import useRequestHandlers from '@/hooks/useRequestHandlers'
-import { IConversationMessages } from '@/types/pages/chat'
+import { IConversationData, IConversationMessages } from '@/types/pages/chat'
 import { useEffect, useState } from 'react'
-
-// Define an interface for Conversation
-export interface IConversation {
-  id: string
-  name: string
-  createdAt: string // Assuming createdAt is a string representation of a date
-}
-
-// Define an interface for the entire data structure
-export interface IConversationData {
-  groupName: string
-  conversations: IConversation[]
-}
 
 const useChatContext = () => {
   const [isPanelOpen, setIsPanelOpen] = useState(false)
-  const [selectedChat, setSelectedChat] = useState<string | null>(null)
-  const [navChatData, setNavChatData] = useState<IConversationData[] | undefined>()
-  const [chatMessageData, setChatMessageData] = useState<IConversationMessages | undefined>()
-  const { loading, postHandler, getHandler } = useRequestHandlers()
+  const [chatData, setChatData] = useState<{
+    navChatData: IConversationData[]
+    chatMessageData: IConversationMessages | null
+  }>({
+    navChatData: [],
+    chatMessageData: null,
+  })
+
+  const { loading, getHandler } = useRequestHandlers()
   const { handleError } = useHandleError()
 
   const togglePanel = () => {
     setIsPanelOpen((prevState) => !prevState)
   }
 
-  const selectChat = (chatId: string | null) => {
-    setSelectedChat(chatId)
-  }
-
-  const getChatMessageData = async (conversationId: string) => {
-    const { data, error } = await getHandler({ endpoint: `/conversations/${conversationId}` })
-    console.log(data)
-    if (error) return handleError(error)
-    setChatMessageData(data)
+  const selectChat = async (chatId: string | null) => {
+    if (chatId) {
+      const { data, error } = await getHandler({ endpoint: `/conversations/${chatId}` })
+      if (error) return handleError(error)
+      setChatData((prevState) => ({ ...prevState, chatMessageData: data }))
+    } else {
+      setChatData((prevState) => ({ ...prevState, chatMessageData: null }))
+    }
   }
 
   const getNavData = async () => {
     const { data, error } = await getHandler({ endpoint: '/conversations' })
-    console.log(data)
     if (error) return handleError(error)
-    setNavChatData(data)
+    setChatData((prevState) => ({ ...prevState, navChatData: data }))
   }
 
   useEffect(() => {
-    console.log(chatMessageData)
-  }, [chatMessageData])
+    console.log(chatData.chatMessageData)
+  }, [chatData.chatMessageData])
 
   return {
     isPanelOpen,
     togglePanel,
-    selectedChat,
-    selectChat,
     loading,
-    navChatData,
+    chatData,
     getNavData,
-    chatMessageData,
-    getChatMessageData,
+    selectChat,
   }
 }
 

@@ -6,10 +6,10 @@ import { useEffect, useState } from 'react'
 
 interface IChatSectionInputComponentProps {
   selectedChat: string | null
-  setSelectedChat: (conversationId: string | null) => void
+  // setSelectedChat: (conversationId: string | null) => void
 }
 
-const ChatSectionInputComponent = ({ selectedChat, setSelectedChat }: IChatSectionInputComponentProps) => {
+const ChatSectionInputComponent = ({ selectedChat }: IChatSectionInputComponentProps) => {
   const [inputValue, setInputValue] = useState('')
 
   useEffect(() => {

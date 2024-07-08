@@ -1,36 +1,25 @@
 'use client'
 
 import { useEffect } from 'react'
-import ChatNavComponent from '@/components/pages/Chat/ChatNavComponent'
-import Grid from '@mui/material/Grid'
+import { Box, Grid, ToggleButton } from '@mui/material'
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight'
-import ChatSectionComponent from '@/components/pages/Chat/ChatSectionComponent'
+import ChatNavComponent from '@/components/pages/Chat/ChatNavComponent'
 import UnityComponent from '@/components/pages/Chat/UnityComponent'
-import { Box, ToggleButton } from '@mui/material'
 import useChatContext from '@/container/Chat/useChatContext'
 import { NextPage } from 'next'
+import ChatSectionComponent from '@/components/pages/Chat/ChatSectionComponent'
 
 interface IProps {
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
 const Chat: NextPage<IProps> = ({ searchParams }) => {
-  const {
-    isPanelOpen,
-    togglePanel,
-    selectedChat,
-    selectChat,
-    loading,
-    navChatData,
-    getNavData,
-    chatMessageData,
-    getChatMessageData,
-  } = useChatContext()
+  const { isPanelOpen, togglePanel, chatData, selectChat, loading, getNavData } = useChatContext()
 
   useEffect(() => {
     const chatId = Array.isArray(searchParams.chatId) ? searchParams.chatId[0] : searchParams.chatId
     if (chatId) {
-      getChatMessageData(chatId)
+      selectChat(chatId)
     }
   }, [searchParams.chatId])
 
@@ -60,21 +49,19 @@ const Chat: NextPage<IProps> = ({ searchParams }) => {
             </ToggleButton>
           ) : (
             <ChatNavComponent
-              conversationData={navChatData}
+              conversationData={chatData.navChatData}
               selectChat={selectChat}
               isPanelOpen={isPanelOpen}
               togglePanel={togglePanel}
-              selectedChat={selectedChat}
-              chatMessageData={chatMessageData}
-              getChatMessageData={getChatMessageData}
+              selectedChat={chatData.chatMessageData ? chatData.chatMessageData.id : null}
             />
           )}
         </Grid>
-        <Grid item xl={10} lg={9} md={8} sx={{ height: '100%', maxHeight: '100%', p: 4 }}>
+        <Grid item xl={10} lg={9} md={8} sx={{ height: '100%', maxHeigth: '100%' }}>
           <ChatSectionComponent
-            conversationMessages={chatMessageData}
-            selectedChat={selectedChat}
-            setSelectedChat={selectChat}
+            selectChat={selectChat}
+            conversationMessages={chatData.chatMessageData}
+            selectedChat={chatData.chatMessageData ? chatData.chatMessageData.id : null}
           />
         </Grid>
       </Grid>

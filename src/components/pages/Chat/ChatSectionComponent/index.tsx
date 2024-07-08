@@ -1,29 +1,38 @@
-import Stack from '@mui/material/Stack'
+'use client'
+
+import { Box, Typography, Stack, ToggleButton } from '@mui/material'
+import { IConversationMessages } from '@/types/pages/chat'
 import ChatSectionCardComponent from './ChatSectionCardComponent'
 import ChatSectionInputComponent from './ChatSectionInputComponent'
-import { Box } from '@mui/material'
-import { IConversationMessages } from '@/types/pages/chat'
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight'
 
 interface IChatSectionComponentProps {
   selectedChat: string | null
-  setSelectedChat: (conversationId: string | null) => void
-  conversationMessages: IConversationMessages | undefined
+  conversationMessages: IConversationMessages | null
+  selectChat: (conversationId: string | null) => void
 }
 
-const ChatSectionComponent = ({ selectedChat, setSelectedChat, conversationMessages }: IChatSectionComponentProps) => {
+const ChatSectionComponent = ({ selectedChat, conversationMessages, selectChat }: IChatSectionComponentProps) => {
   return (
-    <>
-      <Stack sx={{ height: '100%', maxHeight: '100%' }} justifyContent={'space-between'}>
-        <Stack gap={2} sx={{ p: '10px', flexGrow: 1, overflowY: 'auto' }}>
-          {selectedChat !== null ? (
-            <ChatSectionCardComponent conversationMessages={conversationMessages} conversationId={selectedChat} />
+    <Stack gap={2} sx={{ height: '100%', maxHeight: '100%' }} justifyContent={'space-between'}>
+      <Stack direction={'row'} justifyContent={'flex-end'}>
+        <ToggleButton color="primary" value="check" onClick={() => selectChat(null)}>
+          <KeyboardDoubleArrowRightIcon />
+        </ToggleButton>
+      </Stack>
+      <Box sx={{ height: '100%', overflowY: 'auto' }}>
+        <Stack gap={2} sx={{ p: '10px' }}>
+          {selectedChat && conversationMessages ? (
+            <ChatSectionCardComponent key={conversationMessages.id} conversationMessages={conversationMessages} />
           ) : (
-            <div>Select a chat to start messaging</div>
+            <Typography variant="h6" sx={{ textAlign: 'center', mt: 4 }}>
+              Select a chat to start messaging
+            </Typography>
           )}
         </Stack>
-        <ChatSectionInputComponent selectedChat={selectedChat} setSelectedChat={setSelectedChat} />
-      </Stack>
-    </>
+      </Box>
+      <ChatSectionInputComponent selectedChat={selectedChat} />
+    </Stack>
   )
 }
 

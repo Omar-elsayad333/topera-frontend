@@ -1,41 +1,29 @@
 'use client'
 
-import Button from '@mui/material/Button'
-import ToggleButton from '@mui/material/ToggleButton'
-import { List, ListSubheader, Stack, SxProps } from '@mui/material'
+import { List, ListSubheader, Stack, SxProps, ToggleButton, Button } from '@mui/material'
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft'
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd'
 import MoveToInboxIcon from '@mui/icons-material/MoveToInbox'
 import ChatNavItemComponent from './ChatNavItemComponent'
-import { IConversationData } from '@/container/Chat/useChatContext'
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
+import { IConversationData } from '@/types/pages/chat'
 
 interface IChatNavComponentProps {
   isPanelOpen: boolean
   togglePanel: () => void
-  selectedChat: string | null
   selectChat: (conversationId: string | null) => void
   conversationData: IConversationData[] | undefined
-  chatMessageData: any
-  getChatMessageData: (conversationId: string) => void
+  selectedChat: string | null
 }
 
 const ChatNavComponent = ({
   isPanelOpen,
   togglePanel,
-  selectedChat,
   selectChat,
   conversationData,
-  chatMessageData,
-  getChatMessageData,
+  selectedChat,
 }: IChatNavComponentProps) => {
   const handleNewChat = () => {
     selectChat(null)
-  }
-
-  const handleToggleChatNav = () => {
-    selectChat(null)
-    togglePanel()
   }
 
   const panelStyle: SxProps = {
@@ -55,7 +43,7 @@ const ChatNavComponent = ({
   return (
     <Stack sx={panelStyle} gap={3}>
       <Stack spacing={2} direction={'row'} justifyContent={'space-between'}>
-        <ToggleButton onClick={handleToggleChatNav} color="primary" value="check">
+        <ToggleButton onClick={togglePanel} color="primary" value="check">
           <KeyboardDoubleArrowLeftIcon />
         </ToggleButton>
         <ToggleButton color="primary" value="check" onClick={handleNewChat}>
@@ -76,8 +64,6 @@ const ChatNavComponent = ({
                   conversation={item}
                   selectChat={selectChat}
                   isSelected={selectedChat === item.id}
-                  chatMessageData={chatMessageData}
-                  getChatMessageData={getChatMessageData}
                 />
               ))}
             </>
