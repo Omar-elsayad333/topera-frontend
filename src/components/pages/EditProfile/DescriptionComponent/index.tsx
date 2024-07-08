@@ -22,14 +22,14 @@ export default function DescriptionComponent({ value }: { value: string | undefi
 
   const tEditProfile = useTranslations('edit_profile')
   const schema = object({
-    description: string().required(),
+    description: string(),
   })
   const {
     formState: { errors },
     control,
     handleSubmit,
     setValue,
-  } = useForm<{ description: string }>({
+  } = useForm<{ description?: string }>({
     resolver: yupResolver(schema),
     defaultValues: {
       description: value ?? '',
@@ -63,7 +63,7 @@ export default function DescriptionComponent({ value }: { value: string | undefi
         <Button variant={'contained'} onClick={handleSubmit(submit)} sx={{ height: '26px' }}>
           {loading ? <CircularProgress size={'1.5rem'} /> : tEditProfile('submit')}
         </Button>
-        <CloseIcon fontSize={'small'} />
+        {/*<CloseIcon fontSize={'small'} />*/}
       </Stack>
     </Card>
   )

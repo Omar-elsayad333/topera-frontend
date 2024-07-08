@@ -54,6 +54,14 @@ export default function BasicForm({ control, errors }: IBasicFormProps) {
           error={errors['occupation']}
         />
       </Grid>
+      <Grid item xs={12}>
+        <TextFieldComponent
+          label={tEditProfile('company')}
+          control={control}
+          name={'company'}
+          error={errors['company']}
+        />
+      </Grid>
       <Grid item xs={12} lg={6}>
         <SelectComponent
           inputLabel={'name'}

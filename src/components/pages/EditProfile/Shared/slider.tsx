@@ -30,6 +30,7 @@ export default function SliderComponent({ name, value, onDelete, handelChange, l
           value={value}
           onChange={(e, nv) => handelChange(name, nv as number)}
           slotProps={{ thumb: { style: { display: 'none' } } }}
+          sx={{ transform: 'scaleX(-1)' }}
         />
         <CloseIcon
           sx={{ cursor: 'pointer' }}

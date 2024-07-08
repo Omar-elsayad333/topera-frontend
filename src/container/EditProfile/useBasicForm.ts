@@ -19,6 +19,7 @@ export default function useBasicForm() {
     country: { name: '' },
     city: { name: '' },
     image: { extension: '', data: '' },
+    company: '',
   }
 
   const schema = object({
@@ -28,6 +29,7 @@ export default function useBasicForm() {
     country: object({ name: string().required() }).required(),
     city: object({ name: string().required() }).required(),
     image: mixed(),
+    company: string(),
   })
 
   const {

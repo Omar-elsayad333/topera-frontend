@@ -46,6 +46,7 @@ export default function TrackSlider({ name, onDelete, handelChange, label, value
           value={value}
           onChange={(e, nv) => handelChange(name, nv as number)}
           slotProps={{ thumb: { style: { display: 'none' } } }}
+          sx={{ transform: 'scaleX(-1)' }}
         />
         <CloseIcon
           sx={{ cursor: 'pointer' }}

@@ -1,5 +1,6 @@
 // Components
 import Card from '@mui/material/Card'
+import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import AddIcon from '@mui/icons-material/Add'
@@ -63,8 +64,11 @@ export default function Education({ educations }: { educations: IEducation[] | u
         {tEditProfile('education')}
       </Typography>
       {educationsArr?.length
-        ? educationsArr?.map((ele) => (
-            <Form deleteFun={onDelete} data={ele} key={ele?.id} majors={majors} degrees={degrees} />
+        ? educationsArr?.map((ele, index) => (
+            <>
+              <Form deleteFun={onDelete} data={ele} key={ele?.id} majors={majors} degrees={degrees} />
+              {index !== educationsArr.length - 1 && <Divider sx={{ margin: '16px 0' }} />}
+            </>
           ))
         : null}
       <Button

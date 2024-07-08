@@ -7,6 +7,7 @@ export interface IBasicForm {
   country: { name: string }
   city: { name: string }
   image?: { extension?: string; data?: any }
+  company?: string
 }
 
 export interface IBasicFormProps {

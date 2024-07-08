@@ -58,6 +58,8 @@ const TextAreaComponent = ({
               borderRadius: '3px',
               resize: `${noResize ? 'none' : 'both'}`,
               backgroundColor: 'transparent',
+              fontWeight: 400,
+              fontSize: '12px',
             }}
             rows={rows}
             id={id}
