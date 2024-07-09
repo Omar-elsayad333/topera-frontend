@@ -1,25 +1,36 @@
 'use client'
 
 import { Box, Typography, Stack, ToggleButton } from '@mui/material'
-import { IConversationMessages } from '@/types/pages/chat'
+import { IConversationMessages, IMessage } from '@/types/pages/chat'
 import ChatSectionCardComponent from './ChatSectionCardComponent'
 import ChatSectionInputComponent from './ChatSectionInputComponent'
-import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight'
+import { useEffect, useRef } from 'react'
 
 interface IChatSectionComponentProps {
   selectedChat: string | null
   conversationMessages: IConversationMessages | null
   selectChat: (conversationId: string | null) => void
+  addMessage: (chatId: string, message: IMessage) => Promise<void>
 }
 
-const ChatSectionComponent = ({ selectedChat, conversationMessages, selectChat }: IChatSectionComponentProps) => {
+const ChatSectionComponent = ({
+  selectedChat,
+  conversationMessages,
+  selectChat,
+  addMessage,
+}: IChatSectionComponentProps) => {
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [conversationMessages])
+
   return (
     <Stack gap={2} sx={{ height: '100%', maxHeight: '100%' }} justifyContent={'space-between'}>
-      <Stack direction={'row'} justifyContent={'flex-end'}>
-        <ToggleButton color="primary" value="check" onClick={() => selectChat(null)}>
-          <KeyboardDoubleArrowRightIcon />
-        </ToggleButton>
-      </Stack>
       <Box sx={{ height: '100%', overflowY: 'auto' }}>
         <Stack gap={2} sx={{ p: '10px' }}>
           {selectedChat && conversationMessages ? (
@@ -29,9 +40,10 @@ const ChatSectionComponent = ({ selectedChat, conversationMessages, selectChat }
               Select a chat to start messaging
             </Typography>
           )}
+          <div ref={messagesEndRef} />
         </Stack>
       </Box>
-      <ChatSectionInputComponent selectedChat={selectedChat} />
+      <ChatSectionInputComponent selectedChat={selectedChat} addMessage={addMessage} />
     </Stack>
   )
 }

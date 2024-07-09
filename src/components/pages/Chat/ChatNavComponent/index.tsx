@@ -6,6 +6,7 @@ import LibraryAddIcon from '@mui/icons-material/LibraryAdd'
 import MoveToInboxIcon from '@mui/icons-material/MoveToInbox'
 import ChatNavItemComponent from './ChatNavItemComponent'
 import { IConversationData } from '@/types/pages/chat'
+import { useRouter } from 'next/navigation'
 
 interface IChatNavComponentProps {
   isPanelOpen: boolean
@@ -22,9 +23,7 @@ const ChatNavComponent = ({
   conversationData,
   selectedChat,
 }: IChatNavComponentProps) => {
-  const handleNewChat = () => {
-    selectChat(null)
-  }
+  const router = useRouter()
 
   const panelStyle: SxProps = {
     p: '15px',
@@ -40,19 +39,30 @@ const ChatNavComponent = ({
     backgroundColor: 'transparent',
   }
 
+  const handleNewChat = () => {
+    selectChat(null)
+    router.replace('chat')
+  }
+
+  const handleTogglePanle = () => {
+    togglePanel()
+    selectChat(null)
+    router.replace('chat')
+  }
+
   return (
     <Stack sx={panelStyle} gap={3}>
       <Stack spacing={2} direction={'row'} justifyContent={'space-between'}>
-        <ToggleButton onClick={togglePanel} color="primary" value="check">
+        <ToggleButton onClick={handleTogglePanle} color="primary" value="check">
           <KeyboardDoubleArrowLeftIcon />
         </ToggleButton>
         <ToggleButton color="primary" value="check" onClick={handleNewChat}>
           <LibraryAddIcon />
         </ToggleButton>
       </Stack>
-      <Button startIcon={<MoveToInboxIcon />} sx={{ maxHeight: '70px' }} variant="grayButton">
+      {/* <Button startIcon={<MoveToInboxIcon />} sx={{ maxHeight: '70px' }} variant="grayButton">
         Archived chats
-      </Button>
+      </Button> */}
       <List component="nav" sx={{ flexGrow: 1, overflowY: 'auto' }}>
         {conversationData?.length ? (
           conversationData.map((conversation) => (

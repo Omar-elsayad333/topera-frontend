@@ -2,7 +2,7 @@
 
 import useHandleError from '@/hooks/useHandleError'
 import useRequestHandlers from '@/hooks/useRequestHandlers'
-import { IConversationData, IConversationMessages } from '@/types/pages/chat'
+import { IConversationData, IConversationMessages, IMessage } from '@/types/pages/chat'
 import { useEffect, useState } from 'react'
 
 const useChatContext = () => {
@@ -14,8 +14,9 @@ const useChatContext = () => {
     navChatData: [],
     chatMessageData: null,
   })
+  const [audioData, setAudioData] = useState<string | null>(null)
 
-  const { loading, getHandler } = useRequestHandlers()
+  const { loading, getHandler, postHandler } = useRequestHandlers()
   const { handleError } = useHandleError()
 
   const togglePanel = () => {
@@ -38,6 +39,39 @@ const useChatContext = () => {
     setChatData((prevState) => ({ ...prevState, navChatData: data }))
   }
 
+  const addMessage = async (chatId: string, message: IMessage) => {
+    setChatData((prevState) => ({
+      ...prevState,
+      chatMessageData: {
+        ...prevState.chatMessageData!,
+        messages: [...prevState.chatMessageData!.messages, message],
+      },
+    }))
+
+    const { data, error } = await postHandler({
+      endpoint: `/conversations/${chatId}`,
+      body: { id: chatId, content: message.content },
+    })
+
+    if (error) return handleError(error)
+
+    const responseMessage: IMessage = {
+      id: data.message.id,
+      content: data.message.content,
+      sender: data.message.sender,
+      createdAt: data.message.createdAt,
+    }
+
+    setChatData((prevState) => ({
+      ...prevState,
+      chatMessageData: {
+        ...prevState.chatMessageData!,
+        messages: [...prevState.chatMessageData!.messages, responseMessage],
+      },
+    }))
+    setAudioData(data.base64Audio) // Set the audio data
+  }
+
   useEffect(() => {
     console.log(chatData.chatMessageData)
   }, [chatData.chatMessageData])
@@ -49,6 +83,8 @@ const useChatContext = () => {
     chatData,
     getNavData,
     selectChat,
+    addMessage,
+    audioData, // Add the audio data to the return object
   }
 }
 

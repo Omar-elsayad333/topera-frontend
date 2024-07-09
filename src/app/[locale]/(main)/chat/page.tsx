@@ -14,7 +14,7 @@ interface IProps {
 }
 
 const Chat: NextPage<IProps> = ({ searchParams }) => {
-  const { isPanelOpen, togglePanel, chatData, selectChat, loading, getNavData } = useChatContext()
+  const { isPanelOpen, togglePanel, chatData, selectChat, loading, getNavData, addMessage } = useChatContext()
 
   useEffect(() => {
     const chatId = Array.isArray(searchParams.chatId) ? searchParams.chatId[0] : searchParams.chatId
@@ -57,11 +57,12 @@ const Chat: NextPage<IProps> = ({ searchParams }) => {
             />
           )}
         </Grid>
-        <Grid item xl={10} lg={9} md={8} sx={{ height: '100%', maxHeigth: '100%' }}>
+        <Grid item xl={10} lg={9} md={8} sx={{ height: '100%', maxHeigth: '100%', p: '10px' }}>
           <ChatSectionComponent
             selectChat={selectChat}
             conversationMessages={chatData.chatMessageData}
             selectedChat={chatData.chatMessageData ? chatData.chatMessageData.id : null}
+            addMessage={addMessage}
           />
         </Grid>
       </Grid>

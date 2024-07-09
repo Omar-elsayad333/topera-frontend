@@ -1,14 +1,16 @@
 'use client'
 
 import { IConversationMessages } from '@/types/pages/chat'
-import { Avatar, Stack, SxProps, Typography } from '@mui/material'
+import { Avatar, Stack, SxProps, Typography, Box } from '@mui/material'
 import Image from 'next/image'
 import { ESender } from '@/types/enums'
 import AvatarLogo from '@/assets/images/avatar_logo.svg'
 import { uiAvatar } from '@/utils'
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { vs } from 'react-syntax-highlighter/dist/cjs/styles/prism'
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 
 interface IChatSectionCardComponentProps {
   conversationMessages: IConversationMessages | null
@@ -19,6 +21,13 @@ const ChatSectionCardComponent = ({ conversationMessages }: IChatSectionCardComp
     p: '15px',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     borderRadius: '20px',
+  }
+
+  const codeBlockStyle: SxProps = {
+    position: 'relative',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    borderRadius: '10px',
+    pt: 2, // Padding top only
   }
 
   const guide: string = `
@@ -144,7 +153,6 @@ In this example, we're creating a \`UsersController\` class that has methods for
           <Stack gap={1} sx={{ color: 'white' }}>
             <Typography fontWeight={600}>
               {message.sender === ESender.User ? conversationMessages.userName : 'Topera'}{' '}
-              {/* Assuming `userName` is available */}
             </Typography>
             <Typography fontWeight={400}>{message.content}</Typography>
             <ReactMarkdown
@@ -152,9 +160,33 @@ In this example, we're creating a \`UsersController\` class that has methods for
                 code({ node, className, children, ...props }) {
                   const match = /language-(\w+)/.exec(className || '')
                   return match ? (
-                    <SyntaxHighlighter style={vs} language={match[1]}>
-                      {String(children).replace(/\n$/, '')}
-                    </SyntaxHighlighter>
+                    <Box sx={codeBlockStyle}>
+                      <Stack sx={{ pl: '8px' }}>
+                        <Typography variant="caption" color="textSecondary" sx={{ mb: 1 }}>
+                          {match[1]}
+                        </Typography>
+                        <CopyToClipboard text={String(children).replace(/\n$/, '')}>
+                          <ContentCopyIcon
+                            sx={{
+                              position: 'absolute',
+                              top: '10px',
+                              right: '10px',
+                              cursor: 'pointer',
+                              color: 'white',
+                            }}
+                          />
+                        </CopyToClipboard>
+                      </Stack>
+                      <SyntaxHighlighter
+                        style={{
+                          ...vscDarkPlus,
+                          'pre[class*="language-"]': { background: 'rgba(0, 0, 0, 0.8)', padding: '15px' },
+                        }}
+                        language={match[1]}
+                      >
+                        {String(children).replace(/\n$/, '')}
+                      </SyntaxHighlighter>
+                    </Box>
                   ) : (
                     <code className={className} {...props}>
                       {children}

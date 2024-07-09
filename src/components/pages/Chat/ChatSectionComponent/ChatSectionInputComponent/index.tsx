@@ -3,13 +3,14 @@
 import { InputAdornment, TextField } from '@mui/material'
 import SendIcon from '@mui/icons-material/Send'
 import { useEffect, useState } from 'react'
+import { IMessage } from '@/types/pages/chat'
 
 interface IChatSectionInputComponentProps {
   selectedChat: string | null
-  // setSelectedChat: (conversationId: string | null) => void
+  addMessage: (chatId: string, message: IMessage) => Promise<void>
 }
 
-const ChatSectionInputComponent = ({ selectedChat }: IChatSectionInputComponentProps) => {
+const ChatSectionInputComponent = ({ selectedChat, addMessage }: IChatSectionInputComponentProps) => {
   const [inputValue, setInputValue] = useState('')
 
   useEffect(() => {
@@ -20,10 +21,18 @@ const ChatSectionInputComponent = ({ selectedChat }: IChatSectionInputComponentP
     setInputValue(event.target.value)
   }
 
-  const handleSend = () => {
+  const handleSend = async () => {
+    // need to handle this method, if the chatId == null this mean a new conversation, else
+    // create message chat
     if (inputValue.trim()) {
-      // Handle sending the message
-      console.log('Send message:', inputValue)
+      const newMessage = {
+        id: Date.now().toString(), // Temporary ID
+        content: inputValue,
+        sender: 0, // Assuming 0 is for user
+        createdAt: new Date().toISOString(),
+      }
+
+      await addMessage(selectedChat!, newMessage)
       setInputValue('')
     }
   }

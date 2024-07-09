@@ -26,3 +26,9 @@ export interface IConversationMessages {
   imageUrl: string
   messages: IMessage[]
 }
+
+export interface INewConversationMessage {
+  id: string
+  message: IMessage
+  base64Audio: string
+}
