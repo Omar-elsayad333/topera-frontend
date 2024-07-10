@@ -35,9 +35,11 @@ export default function DescriptionComponent({ value }: { value: string | undefi
       description: value ?? '',
     },
   })
-  const submit = async (data: { description: string }) => {
-    const body = { bio: data.description }
-    await putHandler({ endpoint: 'profile/bio', body })
+  const submit = async (data: { description?: string }) => {
+    if (data.description) {
+      const body = { bio: data.description }
+      await putHandler({ endpoint: 'profile/bio', body })
+    }
   }
 
   useEffect(() => {
