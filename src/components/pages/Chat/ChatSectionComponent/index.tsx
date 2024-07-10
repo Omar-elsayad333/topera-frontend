@@ -9,15 +9,15 @@ import { useEffect, useRef } from 'react'
 interface IChatSectionComponentProps {
   selectedChat: string | null
   conversationMessages: IConversationMessages | null
-  selectChat: (conversationId: string | null) => void
   addMessage: (chatId: string, message: IMessage) => Promise<void>
+  createConversation: (content: string) => Promise<void>
 }
 
 const ChatSectionComponent = ({
   selectedChat,
   conversationMessages,
-  selectChat,
   addMessage,
+  createConversation,
 }: IChatSectionComponentProps) => {
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
@@ -43,7 +43,11 @@ const ChatSectionComponent = ({
           <div ref={messagesEndRef} />
         </Stack>
       </Box>
-      <ChatSectionInputComponent selectedChat={selectedChat} addMessage={addMessage} />
+      <ChatSectionInputComponent
+        selectedChat={selectedChat}
+        addMessage={addMessage}
+        createConversation={createConversation}
+      />
     </Stack>
   )
 }

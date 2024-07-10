@@ -25,6 +25,7 @@ export interface IConversationMessages {
   userName: string
   imageUrl: string
   messages: IMessage[]
+  base64Audio: string | null
 }
 
 export interface INewConversationMessage {

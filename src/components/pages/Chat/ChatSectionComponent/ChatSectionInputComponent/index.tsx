@@ -8,9 +8,14 @@ import { IMessage } from '@/types/pages/chat'
 interface IChatSectionInputComponentProps {
   selectedChat: string | null
   addMessage: (chatId: string, message: IMessage) => Promise<void>
+  createConversation: (content: string) => Promise<void>
 }
 
-const ChatSectionInputComponent = ({ selectedChat, addMessage }: IChatSectionInputComponentProps) => {
+const ChatSectionInputComponent = ({
+  selectedChat,
+  addMessage,
+  createConversation,
+}: IChatSectionInputComponentProps) => {
   const [inputValue, setInputValue] = useState('')
 
   useEffect(() => {
@@ -32,7 +37,12 @@ const ChatSectionInputComponent = ({ selectedChat, addMessage }: IChatSectionInp
         createdAt: new Date().toISOString(),
       }
 
-      await addMessage(selectedChat!, newMessage)
+      if (selectedChat) {
+        await addMessage(selectedChat, newMessage)
+      } else {
+        await createConversation(newMessage.content)
+      }
+
       setInputValue('')
     }
   }

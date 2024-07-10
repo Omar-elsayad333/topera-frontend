@@ -2,7 +2,8 @@
 
 import useHandleError from '@/hooks/useHandleError'
 import useRequestHandlers from '@/hooks/useRequestHandlers'
-import { IConversationData, IConversationMessages, IMessage } from '@/types/pages/chat'
+import { IConversationData, IConversationMessages, IMessage, IConversation } from '@/types/pages/chat'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 const useChatContext = () => {
@@ -15,6 +16,7 @@ const useChatContext = () => {
     chatMessageData: null,
   })
   const [audioData, setAudioData] = useState<string | null>(null)
+  const router = useRouter()
 
   const { loading, getHandler, postHandler } = useRequestHandlers()
   const { handleError } = useHandleError()
@@ -37,6 +39,59 @@ const useChatContext = () => {
     const { data, error } = await getHandler({ endpoint: '/conversations' })
     if (error) return handleError(error)
     setChatData((prevState) => ({ ...prevState, navChatData: data }))
+  }
+
+  const createConversation = async (content: string) => {
+    const { data, error } = await postHandler({
+      endpoint: '/conversations',
+      body: { content },
+    })
+    if (error) return handleError(error)
+
+    const newConversation: IConversationMessages = {
+      id: data.id,
+      name: data.name,
+      createdAt: data.createdAt,
+      userName: data.userName,
+      imageUrl: data.imageUrl,
+      messages: data.messages,
+      base64Audio: data.base64Audio,
+    }
+
+    const newConversationData: IConversation = {
+      id: newConversation.id,
+      name: newConversation.name,
+      createdAt: newConversation.createdAt,
+    }
+
+    setChatData((prevState) => {
+      const todayGroupIndex = prevState.navChatData.findIndex((group) => group.groupName === 'Today')
+
+      let newNavChatData = [...prevState.navChatData]
+
+      if (todayGroupIndex >= 0) {
+        newNavChatData[todayGroupIndex] = {
+          ...newNavChatData[todayGroupIndex],
+          conversations: [newConversationData, ...newNavChatData[todayGroupIndex].conversations],
+        }
+      } else {
+        newNavChatData = [
+          {
+            groupName: 'Today',
+            conversations: [newConversationData],
+          },
+          ...newNavChatData,
+        ]
+      }
+
+      return {
+        ...prevState,
+        navChatData: newNavChatData,
+        chatMessageData: newConversation,
+      }
+    })
+
+    router.replace(`chat?chatId=${newConversation.id}`)
   }
 
   const addMessage = async (chatId: string, message: IMessage) => {
@@ -85,6 +140,7 @@ const useChatContext = () => {
     selectChat,
     addMessage,
     audioData, // Add the audio data to the return object
+    createConversation,
   }
 }
 
