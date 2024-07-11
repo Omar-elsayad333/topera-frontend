@@ -1,8 +1,8 @@
 import Image from 'next/image'
 
 // Types
-import { CSSProperties } from 'react'
-import { IOrganization, IPost } from '@/types/pages/news'
+import type { CSSProperties } from 'react'
+import type { IOrganization, IPost } from '@/types/pages/news'
 
 // Assets
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
@@ -71,7 +71,7 @@ const PostComponent = ({ data, organizationData }: { data: IPost; organizationDa
           <Chip key={tag.id} label={tag.name} sx={postChipStyle} />
         ))}
       </Stack>
-      <PostActionsComponent />
+      <PostActionsComponent votes={data.votes} postId={data.id} />
     </Stack>
   )
 }

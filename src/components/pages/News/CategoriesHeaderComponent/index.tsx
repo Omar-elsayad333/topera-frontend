@@ -6,7 +6,7 @@ import type { ITag } from '@/types/pages/news'
 // MUI
 import Button from '@mui/material/Button'
 
-const TagsHeaderComponent = ({ tagData }: { tagData: ITag }) => {
+const CategoriesHeaderComponent = ({ tagData }: { tagData: ITag }) => {
   const selectTag = (tagId: string) => {
     console.log(tagId)
   }
@@ -24,4 +24,4 @@ const TagsHeaderComponent = ({ tagData }: { tagData: ITag }) => {
   )
 }
 
-export default TagsHeaderComponent
+export default CategoriesHeaderComponent

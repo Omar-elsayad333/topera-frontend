@@ -16,6 +16,7 @@ export interface ITag {
   id: string
   name: string
 }
+export interface ICategory extends ITag {}
 
 export interface IOrganization {
   id: string
@@ -62,4 +63,21 @@ export interface IOrganization {
   categories: string[]
   followers: number
   posts: IPost[]
+}
+
+export interface IShareDialogRef extends ComponentProps<'div'> {
+  open: boolean
+  handleOpen: () => void
+  handleClose: () => void
+}
+
+export enum EVoteType {
+  Up,
+  Down,
+  None,
+}
+
+export enum EFollowType {
+  Follow,
+  UnFollow,
 }

@@ -5,12 +5,12 @@ import { Saira } from 'next/font/google'
 import { serverAction } from '@/services/actions'
 
 // Types
-import type { ITag } from '@/types/pages/news'
+import type { ICategory, ITag } from '@/types/pages/news'
 
 // Components
 import RecentPosts from '@/components/pages/News/RecentPosts'
 import TrendingPosts from '@/components/pages/News/TrendingPosts'
-import TagsHeaderComponent from '@/components/pages/News/TagsHeaderComponent'
+import CategoriesHeaderComponent from '@/components/pages/News/CategoriesHeaderComponent'
 
 // MUI
 import Stack from '@mui/material/Stack'
@@ -27,7 +27,7 @@ const saira = Saira({
 
 const News = async () => {
   const { data } = await serverAction('/news')
-  const { data: tags }: { data: ITag[] } = await serverAction('/news/tags')
+  const { data: categories }: { data: ICategory[] } = await serverAction('/news/categories')
 
   return (
     <Stack gap={6} my={6}>
@@ -40,12 +40,12 @@ const News = async () => {
           <Divider />
         </Stack>
         <Stack direction={'row'} flexWrap={'wrap'} alignItems={'center'} justifyContent={'center'}>
-          <TagsHeaderComponent tagData={{ id: 'all', name: 'All News' }} />
+          <CategoriesHeaderComponent tagData={{ id: 'all', name: 'All News' }} />
           <Divider orientation="vertical" variant="middle" sx={{ color: 'text.primary' }} flexItem />
-          {tags.map((item, index) => (
+          {categories.map((item, index) => (
             <>
-              <TagsHeaderComponent tagData={item} />
-              {tags.length !== index + 1 && (
+              <CategoriesHeaderComponent tagData={item} />
+              {categories.length !== index + 1 && (
                 <Divider orientation="vertical" variant="middle" sx={{ color: 'text.primary' }} flexItem />
               )}
             </>
