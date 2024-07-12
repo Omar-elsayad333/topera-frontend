@@ -11,6 +11,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'topera.azurewebsites.net',
       },
+      {
+        protocol: 'https',
+        hostname: 'placehold.co',
+      },
     ],
   },
 }

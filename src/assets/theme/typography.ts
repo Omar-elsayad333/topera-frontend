@@ -72,10 +72,10 @@ export const typography: TypographyOptions = {
   //     fontWeight: Fonts.REGULAR,
   //     fontSize: '0.75rem',
   //   },
-  //   button: {
-  //     fontWeight: Fonts.MEDIUM,
-  //     fontSize: '1.25rem',
-  //   },
+  // button: {
+  //   fontWeight: Fonts.MEDIUM,
+  //   fontSize: '1.25rem',
+  // },
   //   overline: {
   //     fontWeight: Fonts.REGULAR,
   //     fontSize: '0.75rem',
