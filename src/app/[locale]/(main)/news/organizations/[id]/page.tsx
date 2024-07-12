@@ -25,6 +25,7 @@ const Organization = async ({ params }: { params: { id: string } }) => {
     posts: data.posts,
     imageUrl: data.imageUrl,
     followers: data.followers,
+    isFollower: data.isFollower,
     categories: data.categories,
   }
 
