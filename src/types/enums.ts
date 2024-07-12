@@ -13,7 +13,6 @@ export enum ESocialLogin {
   GitHub,
   LinkedIn,
 }
-
 export enum ESocialPlatform {
   Google,
   GitHub,
@@ -25,8 +24,8 @@ export enum ESocialPlatform {
 }
 
 export enum EUserTrackLevel {
-  AbsoluteBeginner,
-  Beginner,
-  Intermediate,
-  Advanced,
+  AbsoluteBeginner = 25,
+  Beginner = 50,
+  Intermediate = 75,
+  Advanced = 100,
 }

@@ -1,0 +1,17 @@
+{
+<<<<<<< HEAD
+    "window.closeWhenEmpty": false,
+    "debug.autoExpandLazyVariables": false,
+    "explorer.fileNesting.expand": true,
+    "explorer.expandSingleFolderWorkspaces": true,
+    "explorer.fileNesting.enabled": false,
+    "search.experimental.closedNotebookRichContentResults": false,
+    "search.searchEditor.reusePriorSearchConfiguration": false,
+    "testing.automaticallyOpenPeekViewDuringAutoRun": false,
+    "explorer.compactFolders": false,
+=======
+>>>>>>> b4a1a2cd24e7828d319fe2c9c85b721da8263f4c
+    "i18n-ally.localesPaths": [
+        "src/locales"
+    ]
+}
