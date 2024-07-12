@@ -36,14 +36,7 @@ const PostComponent = ({ data, organizationData }: { data: IPost; organizationDa
   }
 
   return (
-    <Stack
-      p={2}
-      gap={2}
-      sx={{
-        transition: '.2s',
-        '&:hover': { boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)' },
-      }}
-    >
+    <Stack p={2} gap={2}>
       <Stack direction={'row'} alignItems={'center'} gap={2}>
         <Image
           alt=""
