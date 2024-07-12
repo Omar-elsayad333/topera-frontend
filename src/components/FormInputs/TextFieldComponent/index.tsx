@@ -27,6 +27,7 @@ const TextFieldComponent = ({ name, control, id, placeholder, error, label, type
         control={control}
         render={({ field }) => (
           <TextField
+            error={!!error}
             {...args}
             fullWidth
             id={id}
