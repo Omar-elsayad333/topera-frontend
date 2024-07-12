@@ -23,10 +23,10 @@ const ImageInput = ({ name, control, id, placeholder, error, label, ...args }: I
             id={id}
             multiple
             type="file"
-            label={label}
-            error={!!error}
+            // label={label}
+            // error={!!error}
             value={field.value}
-            variant={'standard'}
+            // variant={'standard'}
             onChange={field.onChange}
             placeholder={placeholder}
           />
