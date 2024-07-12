@@ -94,13 +94,14 @@
     "tracks": "Tracks",
     "showAllTracks": "Show all tracks",
     "work_at": "{title} at {company}",
-    "went_to": "Went to {school}",
-    "lives_in": "Lives in {country},{city}",
+    "went_to": "Went to ",
+    "lives_in": "Lives in ",
     "message": "Message",
     "active": "Available",
     "inActive": "In Available",
     "tab_to_click": "Tab to Change",
-    "edit": "Edit"
+    "edit": "Edit",
+    "about": "About"
   },
   "welcomeToTopera": {
     "gtToSignIn": "Go To Sign In",

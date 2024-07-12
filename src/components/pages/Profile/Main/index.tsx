@@ -19,17 +19,27 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import Link from 'next/link'
+import { types } from 'sass'
+import Null = types.Null
+import useRequestHandlers from '@/hooks/useRequestHandlers'
 interface IPros {
   cover: string | null
   image: string | null
   name: string | null
   occupation: string | null
   active: boolean
+  employmentStatus: string | null
 }
 
-const Main = ({ cover, image, active, name, occupation }: IPros) => {
+const Main = ({ cover, image, active, name, occupation, employmentStatus }: IPros) => {
+  const { postHandler } = useRequestHandlers()
   const tProfile = useTranslations('profile')
   const [available, isAvailable] = useState<boolean>(active)
+
+  const handleChangeStatus = async () => {
+    await postHandler({ endpoint: '', body: {} })
+  }
+
   return (
     <Card>
       <Image
@@ -66,13 +76,17 @@ const Main = ({ cover, image, active, name, occupation }: IPros) => {
           </span>
         </div>
         <Stack gap={'8px'} alignItems={'start'} direction={'column'}>
-          <div style={{ display: 'flex' }}>
+          <div style={{ display: 'flex', gap: '8px' }}>
             <Typography sx={{ fontWeight: 500 }} variant={'h5'}>
               {name}
             </Typography>
             <Typography variant={'subtitle1'}>{occupation}</Typography>
           </div>
-          <div style={{ display: 'flex', gap: '7px', alignItems: 'center', cursor: 'pointer' }}>
+          <Typography variant={'body1'}>{employmentStatus}</Typography>
+          <div
+            style={{ display: 'flex', gap: '7px', alignItems: 'center', cursor: 'pointer' }}
+            onClick={() => handleChangeStatus}
+          >
             <span style={{ display: 'flex', alignItems: 'center' }}>
               <FiberManualRecordIcon color={active ? 'success' : 'error'} fontSize={'small'} />
               <Typography sx={{ fontWeight: 500 }} color={'success'} variant={'subtitle1'}>

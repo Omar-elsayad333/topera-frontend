@@ -14,7 +14,7 @@ const ComponentHolder = ({ children, title, ...props }: IProps) => {
   const t = useTranslations('profile')
 
   return (
-    <Grid item xs={12}>
+    <Grid item xs={12} sx={{ boxShadow: '0px 0px 2px 0px #00000040' }}>
       <List sx={{ backgroundColor: '#ffff', borderRadius: '10px' }}>
         <ListItem sx={{ padding: '32px' }}>
           <Typography variant={'h6'} sx={{ fontWeight: '600' }}>

@@ -30,12 +30,12 @@ const Skills = ({ skills }: { skills: TSkill[] }) => {
                 <LinearProgress
                   variant="determinate"
                   color={'primary'}
-                  value={rate * 10}
+                  value={rate}
                   sx={{ maxHeight: '3px', width: '60%', transform: 'scaleX(-1)' }}
                   key={i}
                 />
                 <Typography variant={'h6'} sx={{ color: (theme) => theme.palette.primary.main, width: '30%' }}>
-                  {rate * 10}%
+                  {rate}%
                 </Typography>
               </div>
             </Grid>
