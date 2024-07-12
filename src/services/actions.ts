@@ -6,12 +6,17 @@ import env from '@/config/env'
 // Next Auth
 import { getServerAuthSession } from './auth'
 
-export async function serverAction(endpoint: string) {
+export async function serverAction(endpoint: string, tag?: string) {
   const user: any = await getServerAuthSession()
+
+  const reqTags = [endpoint]
+  tag && reqTags.push(tag)
 
   const options: any = {
     headers: {},
+    next: { tags: reqTags },
   }
+
   if (user?.user?.token) options.headers['Authorization'] = `Bearer ${user.user.token}`
   options.headers['Content-Type'] = 'application/json'
 
@@ -21,5 +26,6 @@ export async function serverAction(endpoint: string) {
   if (!res.ok) {
     throw new Error(jsonData.errors)
   }
+
   return await jsonData
 }

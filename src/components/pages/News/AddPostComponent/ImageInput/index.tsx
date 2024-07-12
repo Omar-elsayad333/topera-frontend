@@ -1,13 +1,5 @@
-'use client'
-
-// Validation Controllers
-import { Controller, Merge, FieldErrorsImpl } from 'react-hook-form'
-// MUI
-import FormControl from '@mui/material/FormControl'
-import FormHelperText from '@mui/material/FormHelperText'
-import TextField from '@mui/material/TextField'
-// Types
-import { FieldError } from '@/types/validation'
+import { FormControl, FormHelperText } from '@mui/material'
+import { Controller, FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
 
 interface IProps {
   id?: string
@@ -19,24 +11,24 @@ interface IProps {
   type?: 'text' | 'number'
 }
 
-const TextFieldComponent = ({ name, control, id, placeholder, error, label, type = 'text', ...args }: IProps) => {
+const ImageInput = ({ name, control, id, placeholder, error, label, ...args }: IProps) => {
   return (
     <FormControl fullWidth error={!!error}>
       <Controller
         name={name}
         control={control}
         render={({ field }) => (
-          <TextField
+          <input
             {...args}
-            fullWidth
             id={id}
-            error={!!error}
-            label={label}
-            type={type}
+            multiple
+            type="file"
+            // label={label}
+            // error={!!error}
             value={field.value}
+            // variant={'standard'}
             onChange={field.onChange}
             placeholder={placeholder}
-            variant={'standard'}
           />
         )}
       />
@@ -47,4 +39,4 @@ const TextFieldComponent = ({ name, control, id, placeholder, error, label, type
   )
 }
 
-export default TextFieldComponent
+export default ImageInput
