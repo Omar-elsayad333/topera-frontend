@@ -63,6 +63,8 @@ export const getPublicRoutes = () => {
     Routes.test,
     Routes.editProfile,
     Routes.welcome,
+    Routes.profile,
+    Routes.editProfile,
   ]
 }
 
