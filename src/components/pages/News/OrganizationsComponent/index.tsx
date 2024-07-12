@@ -1,19 +1,22 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
+// Routes
+import { Routes } from '@/routes/routes'
+
 // Types
 import type { CSSProperties } from 'react'
 import type { IOrganization } from '@/types/pages/news'
 
+// Components
+import OrganizationActionsComponent from './OrganizationActionsComponent'
+
 // MUI
 import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
-import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 
-import AddIcon from '@mui/icons-material/Add'
-import { Routes } from '@/routes/routes'
 interface IProps {
   organizationsData: IOrganization[]
 }
@@ -42,14 +45,7 @@ const OrganizationsComponent = ({ organizationsData }: IProps) => {
                 <Typography variant="subtitle2">{organization.followers} Followers</Typography>
               </Stack>
             </Stack>
-            <Button
-              color="secondary"
-              variant="outlined"
-              startIcon={<AddIcon />}
-              sx={{ borderRadius: '8px', height: '50px', fontWeight: '500' }}
-            >
-              follow
-            </Button>
+            <OrganizationActionsComponent organizationId={organization.id} isFollower={organization.isFollower} />
           </Stack>
         ))}
         <Divider />

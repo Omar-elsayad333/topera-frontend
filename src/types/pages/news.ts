@@ -63,6 +63,7 @@ export interface IOrganization {
   categories: string[]
   followers: number
   posts: IPost[]
+  isFollower: boolean
 }
 
 export interface IShareDialogRef extends ComponentProps<'div'> {

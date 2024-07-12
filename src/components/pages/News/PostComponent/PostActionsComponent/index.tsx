@@ -21,7 +21,7 @@ import IconButton from '@mui/material/IconButton'
 import useHandleError from '@/hooks/useHandleError'
 import useRequestHandlers from '@/hooks/useRequestHandlers'
 
-const PostActionsComponent = ({ postId, votes }: { votes: number; postId: string }) => {
+const PostActionsComponent = ({ postId, votes, voteType }: { votes: number; postId: string; voteType: number }) => {
   const ShareRef = useRef<IShareDialogRef>(null)
   const { handleError } = useHandleError()
   const { postHandler, loading } = useRequestHandlers()
@@ -39,12 +39,12 @@ const PostActionsComponent = ({ postId, votes }: { votes: number; postId: string
         disabled={loading}
         variant="postActions"
         startIcon={
-          <IconButton onClick={() => handleVote(EVoteType.Up)}>
+          <IconButton disabled={voteType === EVoteType.Up} onClick={() => handleVote(EVoteType.Up)}>
             <ExpandLessIcon />
           </IconButton>
         }
         endIcon={
-          <IconButton onClick={() => handleVote(EVoteType.Down)}>
+          <IconButton disabled={voteType === EVoteType.Down} onClick={() => handleVote(EVoteType.Down)}>
             <ExpandMoreIcon />
           </IconButton>
         }
