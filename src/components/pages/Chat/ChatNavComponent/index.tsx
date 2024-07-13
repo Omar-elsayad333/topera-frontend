@@ -29,7 +29,7 @@ const ChatNavComponent = ({
     p: '15px',
     width: '100%',
     maxHeight: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
   }
 
   const subHeaderStyle: SxProps = {

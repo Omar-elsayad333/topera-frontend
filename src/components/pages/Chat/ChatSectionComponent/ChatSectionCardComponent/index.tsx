@@ -19,13 +19,13 @@ interface IChatSectionCardComponentProps {
 const ChatSectionCardComponent = ({ conversationMessages }: IChatSectionCardComponentProps) => {
   const cardStyle: SxProps = {
     p: '15px',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
     borderRadius: '20px',
   }
 
   const codeBlockStyle: SxProps = {
     position: 'relative',
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
     borderRadius: '10px',
     pt: 2, // Padding top only
   }
