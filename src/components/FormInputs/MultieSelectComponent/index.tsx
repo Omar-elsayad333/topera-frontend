@@ -34,7 +34,7 @@ const MultiSelectComponent = <T extends object>({
   name,
   errors,
   minSelect = 0,
-  maxSelect = options.length,
+  maxSelect = options?.length,
   control,
 }: IMultiSelectComponentProps<T>) => {
   return (
@@ -92,7 +92,7 @@ const MultiSelectComponent = <T extends object>({
             }
             renderOption={(props, option) => (
               <MenuItem
-                selected={field.value.map((e: T) => e[inputValue]).includes(option[inputValue])}
+                selected={field?.value?.map((e: T) => e[inputValue]).includes(option[inputValue])}
                 sx={menuItemSx}
                 component="li"
                 {...props}

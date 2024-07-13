@@ -75,3 +75,11 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+
+
+/* For Date Picker */
+.MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd mui-102v1rr-MuiInputBase-root-MuiOutlinedInput-root{
+  outline-color: transparent !important;
+
+}

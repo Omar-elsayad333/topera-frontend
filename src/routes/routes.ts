@@ -16,6 +16,7 @@ export const Routes = {
   home: '/',
   test: '/test',
   news: '/news',
+  organization: '/news/organizations',
   roadmaps: '/roadmaps',
   careers: '/roadmaps/careers/',
   framework: '/roadmaps/framework/',
@@ -62,7 +63,10 @@ export const getPublicRoutes = () => {
     Routes.confirmEmail,
     Routes.matching,
     Routes.test,
+    Routes.editProfile,
     Routes.welcome,
+    Routes.profile,
+    Routes.editProfile,
   ]
 }
 

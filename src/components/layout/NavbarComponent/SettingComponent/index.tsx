@@ -1,11 +1,15 @@
 'use client'
 
+import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 // Assets
 import MeAvatar from '@/assets/images/me.jpg'
+
+// Routes
+import { Routes } from '@/routes/routes'
 
 // Constants
 import { ILocales, localesObject } from '@/constants'
@@ -44,18 +48,20 @@ const SettingComponent: React.FC = () => {
       <Button aria-label="Notification" color="inherit" sx={{ width: '40px', minWidth: 'unset' }}>
         <NotificationsIcon />
       </Button>
-      <Tooltip title="Open settings">
-        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Image
-            priority
-            width={40}
-            height={40}
-            src={MeAvatar}
-            alt="omar elsayad"
-            style={{ objectFit: 'cover', borderRadius: '50%' }}
-          />
-        </IconButton>
-      </Tooltip>
+      <Link href={Routes.profile}>
+        <Tooltip title="Open settings">
+          <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+            <Image
+              alt=""
+              priority
+              width={40}
+              height={40}
+              src={MeAvatar}
+              style={{ objectFit: 'cover', borderRadius: '50%' }}
+            />
+          </IconButton>
+        </Tooltip>
+      </Link>
       {/* 
       <Menu
         sx={{ mt: '45px' }}

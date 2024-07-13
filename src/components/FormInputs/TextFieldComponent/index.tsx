@@ -7,7 +7,7 @@ import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
 import TextField from '@mui/material/TextField'
 // Types
-import { FieldError, FieldsControl } from '@/types/validation'
+import { FieldError } from '@/types/validation'
 
 interface IProps {
   id?: string
@@ -30,6 +30,7 @@ const TextFieldComponent = ({ name, control, id, placeholder, error, label, type
             {...args}
             fullWidth
             id={id}
+            error={!!error}
             label={label}
             type={type}
             value={field.value}

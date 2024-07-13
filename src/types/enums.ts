@@ -18,3 +18,20 @@ export enum ESender {
   User = 0,
   Model = 1,
 }
+
+export enum ESocialPlatform {
+  Google,
+  GitHub,
+  t,
+  X,
+  LinkedIn,
+  Discord,
+  Microsoft,
+}
+
+export enum EUserTrackLevel {
+  AbsoluteBeginner = 25,
+  Beginner = 50,
+  Intermediate = 75,
+  Advanced = 100,
+}

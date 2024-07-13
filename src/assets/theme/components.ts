@@ -52,6 +52,13 @@ export const components: Components<Theme> = {
             borderColor: theme.palette.primary.main,
           },
         }),
+        ...(ownerState.variant === 'postActions' && {
+          fontWeight: 600,
+          fontSize: '14px',
+          padding: '8px 16px',
+          borderRadius: '30px',
+          backgroundColor: theme.palette.grey[300] 
+        }),
       }),
     },
   },
