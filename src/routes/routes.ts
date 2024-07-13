@@ -25,6 +25,7 @@ export const Routes = {
   matchingQuestions: '/matching/questions',
 
   // PRIVATE
+  chat: '/chat',
   profile: '/profile',
   editProfile: '/edit-profile',
   matchingChat: '/matching-chat/',
@@ -71,5 +72,5 @@ export const getPublicRoutes = () => {
 
 // get private routes
 export const getPrivateRoutes = () => {
-  return [Routes.matchingChat, Routes.matchingQuestions, Routes.profile]
+  return [Routes.profile, Routes.editProfile, Routes.matchingChat, Routes.matchingQuestions, Routes.chat]
 }

@@ -13,6 +13,12 @@ export enum ESocialLogin {
   GitHub,
   LinkedIn,
 }
+
+export enum ESender {
+  User = 0,
+  Model = 1,
+}
+
 export enum ESocialPlatform {
   Google,
   GitHub,
