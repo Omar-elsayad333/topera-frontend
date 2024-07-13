@@ -1,11 +1,12 @@
+import Link from 'next/link'
 import Image from 'next/image'
 
 // Types
 import type { CSSProperties } from 'react'
 import type { IOrganization, IPost } from '@/types/pages/news'
 
-// Assets
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
+// Routes
+import { Routes } from '@/routes/routes'
 
 // Components
 import PostActionsComponent from './PostActionsComponent'
@@ -16,7 +17,6 @@ import Box from '@mui/material/Box'
 import Chip from '@mui/material/Chip'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
-import IconButton from '@mui/material/IconButton'
 
 const PostComponent = ({ data, organizationData }: { data: IPost; organizationData?: IOrganization }) => {
   const avatarStyle: CSSProperties = {
@@ -46,9 +46,11 @@ const PostComponent = ({ data, organizationData }: { data: IPost; organizationDa
           src={data.organization?.imageUrl || organizationData?.imageUrl || ''}
         />
         <Stack direction={'row'} alignItems={'center'} gap={1}>
-          <Typography fontWeight={500} variant="h5">
-            {data.organization?.name || organizationData?.name}
-          </Typography>
+          <Link href={`${Routes.organization}/${organizationData?.id ?? data.organization.id}`}>
+            <Typography fontWeight={500} variant="h5">
+              {data.organization?.name || organizationData?.name}
+            </Typography>
+          </Link>
           <Typography fontWeight={500} variant="h6">
             7 Days ago
           </Typography>

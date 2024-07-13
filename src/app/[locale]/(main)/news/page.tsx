@@ -25,8 +25,8 @@ const saira = Saira({
   subsets: ['latin'],
 })
 
-const News = async () => {
-  const { data } = await serverAction('/news')
+const News = async ({ searchParams }: { searchParams: { [key: string]: string | undefined } }) => {
+  const { data } = await serverAction(`/news?id=${searchParams.id}`)
   const { data: categories }: { data: ICategory[] } = await serverAction('/news/categories')
 
   return (
