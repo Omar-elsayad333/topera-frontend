@@ -1,11 +1,10 @@
-import { Stack, Typography } from '@mui/material'
+import LandingSection from '@/components/pages/Home/LandingSection'
+import { Stack } from '@mui/material'
 
 const Home = () => {
   return (
-    <Stack className="full-screen" alignItems={'center'} justifyContent={'center'}>
-      <Typography variant="h1" color={'primary'}>
-        Welcome to Topera
-      </Typography>
+    <Stack className="full-screen" alignItems={'center'} justifyContent={'flex-start'}>
+      <LandingSection />
     </Stack>
   )
 }
