@@ -31,12 +31,14 @@ const AppBarComponent = () => {
     <AppBar
       color="primary"
       component={'header'}
+      position={pathname !== `/${params.locale}` ? 'static' : 'sticky'}
       sx={{
+        zIndex: 20,
         boxShadow: 'none',
-        borderBottom: `1px solid ${theme.palette.text.primary}`,
-        background: theme.palette.background.paper,
+        backdropFilter: 'blur(5px)',
+        borderBottom: true ? 'none' : `1px solid ${theme.palette.text.primary}`,
+        background: false ? theme.palette.background.paper : ' rgba(255, 255, 255, 0.2)',
       }}
-      position={pathname !== params.locale ? 'static' : 'sticky'}
     >
       <Container maxWidth={false}>
         <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
