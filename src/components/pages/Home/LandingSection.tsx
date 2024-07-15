@@ -1,14 +1,26 @@
+'use client'
 import { Box, Button, Stack, SxProps } from '@mui/material'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 
 import LandingBG from '@/../public/landing_background.jpg'
+import { useAppStore } from '@/stores'
+import { useEventSwitchDarkMode } from '@/hooks'
 
 const LandingSection = () => {
+  const [state] = useAppStore()
+  const onSwitchDarkMode = useEventSwitchDarkMode()
+
+  if (!state.darkMode) {
+    onSwitchDarkMode()
+  }
+
   const containerStyle: SxProps = {
     width: '100%',
     height: '100dvh',
+    minHeight: '100dvh',
     color: 'white',
+    position: 'relative',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',

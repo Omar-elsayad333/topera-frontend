@@ -5,7 +5,7 @@ import { Stack } from '@mui/material'
 
 const Home = () => {
   return (
-    <Stack className="full-screen" justifyContent={'flex-start'}>
+    <Stack justifyContent={'flex-start'}>
       <LandingSection />
       <RoadMapsSectionComponent />
       <MatchingAndLiveChatSectionComponent />
