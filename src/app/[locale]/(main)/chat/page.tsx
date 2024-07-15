@@ -14,8 +14,17 @@ interface IProps {
 }
 
 const Chat: NextPage<IProps> = ({ searchParams }) => {
-  const { isPanelOpen, togglePanel, chatData, selectChat, loading, getNavData, addMessage, createConversation } =
-    useChatContext()
+  const {
+    isPanelOpen,
+    togglePanel,
+    chatData,
+    selectChat,
+    loading,
+    getNavData,
+    addMessage,
+    createConversation,
+    setUnityInstance,
+  } = useChatContext()
 
   useEffect(() => {
     const chatId = Array.isArray(searchParams.chatId) ? searchParams.chatId[0] : searchParams.chatId
@@ -32,7 +41,7 @@ const Chat: NextPage<IProps> = ({ searchParams }) => {
 
   return (
     <Box sx={{ position: 'relative', width: '100%', height: 'calc(100dvh - 73px)', overflow: 'hidden' }}>
-      <UnityComponent />
+      <UnityComponent setUnityInstance={setUnityInstance} />
       <Grid
         container
         sx={{

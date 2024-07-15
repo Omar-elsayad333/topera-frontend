@@ -5,6 +5,7 @@ import useRequestHandlers from '@/hooks/useRequestHandlers'
 import { IConversationData, IConversationMessages, IMessage, IConversation } from '@/types/pages/chat'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { UnityInstance } from 'react-unity-webgl/declarations/unity-instance'
 
 const useChatContext = () => {
   const [isPanelOpen, setIsPanelOpen] = useState(false)
@@ -15,7 +16,7 @@ const useChatContext = () => {
     navChatData: [],
     chatMessageData: null,
   })
-  const [audioData, setAudioData] = useState<string | null>(null)
+  const [unityInstance, setUnityInstance] = useState<UnityInstance | null>(null)
   const router = useRouter()
 
   const { loading, getHandler, postHandler } = useRequestHandlers()
@@ -92,6 +93,20 @@ const useChatContext = () => {
     })
 
     router.replace(`chat?chatId=${newConversation.id}`)
+    playAudio(newConversation.base64Audio)
+  }
+
+  // SendMessage('GameObjectName', 'MethodName', 'Message')
+  const playAudio = (audioData: string | null) => {
+    if (unityInstance && audioData) {
+      unityInstance.SendMessage('Model', 'PlayAudio', audioData)
+    }
+  }
+
+  const stopAudio = () => {
+    if (unityInstance) {
+      unityInstance.SendMessage('Model', 'StopAudio')
+    }
   }
 
   const addMessage = async (chatId: string, message: IMessage) => {
@@ -124,12 +139,8 @@ const useChatContext = () => {
         messages: [...prevState.chatMessageData!.messages, responseMessage],
       },
     }))
-    setAudioData(data.base64Audio) // Set the audio data
+    playAudio(data.base64Audio)
   }
-
-  useEffect(() => {
-    console.log(chatData.chatMessageData)
-  }, [chatData.chatMessageData])
 
   return {
     isPanelOpen,
@@ -139,8 +150,8 @@ const useChatContext = () => {
     getNavData,
     selectChat,
     addMessage,
-    audioData, // Add the audio data to the return object
     createConversation,
+    setUnityInstance,
   }
 }
 

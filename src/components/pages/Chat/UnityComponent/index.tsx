@@ -3,8 +3,11 @@
 import React, { useRef, useEffect } from 'react'
 import { Unity, useUnityContext } from 'react-unity-webgl'
 import { UnityInstance } from 'react-unity-webgl/declarations/unity-instance'
+interface IUnityComponentProps {
+  setUnityInstance: (unityInstance: UnityInstance) => void
+}
 
-const UnityComponent = () => {
+const UnityComponent = ({ setUnityInstance }: IUnityComponentProps) => {
   const unityContext = useUnityContext({
     loaderUrl: 'Build/toperamodel.loader.js',
     dataUrl: 'Build/toperamodel.data',
@@ -18,6 +21,7 @@ const UnityComponent = () => {
   useEffect(() => {
     if (isLoaded && UNSAFE__unityInstance) {
       unityRef.current = UNSAFE__unityInstance
+      setUnityInstance(unityRef.current)
     }
   }, [isLoaded, UNSAFE__unityInstance])
 
