@@ -26,10 +26,10 @@ import MenuItem from '@mui/material/MenuItem'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import NotificationsIcon from '@mui/icons-material/Notifications'
+import { uiAvatar } from '@/utils'
 
 const SettingComponent: React.FC = () => {
   const router = useRouter()
-
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -45,9 +45,6 @@ const SettingComponent: React.FC = () => {
       <Box sx={{ display: { xs: 'none', md: 'inline' } }}>
         <ThemeSwitchComponent />
       </Box>
-      <Button aria-label="Notification" color="inherit" sx={{ width: '40px', minWidth: 'unset' }}>
-        <NotificationsIcon />
-      </Button>
       <Link href={Routes.profile}>
         <Tooltip title="Open settings">
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -56,7 +53,7 @@ const SettingComponent: React.FC = () => {
               priority
               width={40}
               height={40}
-              src={MeAvatar}
+              src={uiAvatar('omar')}
               style={{ objectFit: 'cover', borderRadius: '50%' }}
             />
           </IconButton>

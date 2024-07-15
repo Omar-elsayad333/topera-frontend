@@ -4,16 +4,14 @@ import { PropsWithChildren } from 'react'
 import Layout from '@/components/layout'
 
 // MUI
-import Container from '@mui/material/Container'
+import LayoutWrapper from '@/components/layout/LayoutWrapper'
 
 interface IProps extends PropsWithChildren {}
 
 export default function RootLayout({ children }: IProps) {
   return (
     <Layout>
-      <main>
-        <Container maxWidth={false}>{children}</Container>
-      </main>
+      <LayoutWrapper>{children}</LayoutWrapper>
     </Layout>
   )
 }

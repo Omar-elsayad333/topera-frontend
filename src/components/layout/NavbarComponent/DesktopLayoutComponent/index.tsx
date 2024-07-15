@@ -30,8 +30,8 @@ const DesktopLayoutComponent: React.FC = () => {
     <Box
       sx={{
         flexGrow: 1,
-        display: { xs: 'none', md: 'flex' },
         justifyContent: 'space-evenly',
+        display: { xs: 'none', md: 'flex' },
       }}
     >
       {navigations.map((page: any, index: number) => (
