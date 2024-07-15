@@ -6,6 +6,7 @@ import EmotionCacheProvider from './EmotionCacheProvider'
 import { useAppStore } from '@/stores'
 import { createDarkTheme } from './dark'
 import { createLightTheme } from './light'
+import rtlPlugin from 'stylis-plugin-rtl'
 
 function getThemeByDarkMode(darkMode: boolean, locale: string) {
   return darkMode ? createTheme(createDarkTheme(locale)) : createTheme(createLightTheme(locale))
@@ -32,7 +33,7 @@ const ThemeProvider: FunctionComponent<PropsWithChildren> = ({ children }) => {
   if (loading) return null // Don't render anything until the component is mounted
 
   return (
-    <EmotionCacheProvider options={{ key: 'mui' }}>
+    <EmotionCacheProvider options={{ key: 'mui', ...(state.locale === 'ar' && { stylisPlugins: [rtlPlugin] }) }}>
       {/* <StyledEngineProvider injectFirst> use this instead of Emotion's <CacheProvider/> if you want to use alternate styling library */}
       <MuiThemeProvider theme={currentTheme}>
         <CssBaseline /* MUI Styles */ />

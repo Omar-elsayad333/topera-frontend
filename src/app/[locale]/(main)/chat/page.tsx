@@ -28,6 +28,7 @@ const Chat: NextPage<IProps> = ({ searchParams }) => {
     await getNavData()
     togglePanel()
   }
+  const drawerWidth = 240
 
   return (
     <Box sx={{ position: 'relative', width: '100%', height: 'calc(100dvh - 73px)', overflow: 'hidden' }}>
@@ -43,12 +44,13 @@ const Chat: NextPage<IProps> = ({ searchParams }) => {
           position: 'absolute',
         }}
       >
-        <Grid item xl={2} lg={3} md={4} sx={{ maxHeight: '100%' }}>
-          {!isPanelOpen ? (
+        <Grid item xl={!isPanelOpen ? 1 : 2} lg={3} md={4} sx={{ maxHeight: '100%' }}>
+          {!isPanelOpen && (
             <ToggleButton color="primary" value="check" onClick={handleToggleButton}>
               <KeyboardDoubleArrowRightIcon />
             </ToggleButton>
-          ) : (
+          )}
+          <Box sx={{ width: !isPanelOpen ? '0' : '100%', overflow: 'hidden', transition: '.3s all' }}>
             <ChatNavComponent
               conversationData={chatData.navChatData}
               selectChat={selectChat}
@@ -56,9 +58,9 @@ const Chat: NextPage<IProps> = ({ searchParams }) => {
               togglePanel={togglePanel}
               selectedChat={chatData.chatMessageData ? chatData.chatMessageData.id : null}
             />
-          )}
+          </Box>
         </Grid>
-        <Grid item xl={10} lg={9} md={8} sx={{ height: '100%', maxHeigth: '100%', p: '10px' }}>
+        <Grid item xl={!isPanelOpen ? 11 : 10} lg={9} md={8} sx={{ height: '100%', maxHeigth: '100%', p: '10px' }}>
           <ChatSectionComponent
             conversationMessages={chatData.chatMessageData}
             selectedChat={chatData.chatMessageData ? chatData.chatMessageData.id : null}
