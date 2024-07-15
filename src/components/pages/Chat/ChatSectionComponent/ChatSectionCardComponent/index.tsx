@@ -47,7 +47,6 @@ const ChatSectionCardComponent = ({ conversationMessages }: IChatSectionCardComp
             <Typography fontWeight={600}>
               {message.sender === ESender.User ? conversationMessages.userName : 'Topera'}{' '}
             </Typography>
-            {/* <Typography fontWeight={400}>{message.content}</Typography> */}
             <ReactMarkdown
               components={{
                 code({ node, className, children, ...props }) {
